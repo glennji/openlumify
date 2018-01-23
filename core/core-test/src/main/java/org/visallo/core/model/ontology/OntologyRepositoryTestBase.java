@@ -28,6 +28,7 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -101,6 +102,33 @@ public abstract class OntologyRepositoryTestBase extends VisalloInMemoryTestBase
         Concept concept = getOntologyRepository().getConceptByIRI(TEST_HIERARCHY_IRI + "#person", PUBLIC);
         Concept parentConcept = getOntologyRepository().getParentConcept(concept, PUBLIC);
         assertEquals(1, parentConcept.getProperties().size());
+    }
+
+    @Test
+    public void testOntologyListener() throws Exception {
+        loadHierarchyOwlFile();
+
+        AtomicInteger clearCacheCalls = new AtomicInteger();
+        AtomicInteger clearCacheWithKeyCalls = new AtomicInteger();
+        getOntologyRepository().register(new OntologyListener() {
+            @Override
+            public void clearCache() {
+                clearCacheCalls.incrementAndGet();
+            }
+
+            @Override
+            public void clearCache(String workspaceId) {
+                clearCacheWithKeyCalls.incrementAndGet();
+            }
+        });
+
+        getOntologyRepository().clearCache();
+        assertEquals(1, clearCacheCalls.get());
+        assertEquals(0, clearCacheWithKeyCalls.get());
+
+        getOntologyRepository().clearCache("my workspace id");
+        assertEquals(1, clearCacheCalls.get());
+        assertEquals(1, clearCacheWithKeyCalls.get());
     }
 
     @Test

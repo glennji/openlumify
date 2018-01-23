@@ -184,9 +184,6 @@ public class ApplicationBootstrap implements ServletContextListener {
         servlet.setInitParameter(ApplicationConfig.DROP_ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "true");
         servlet.setInitParameter(ApplicationConfig.WEBSOCKET_MAXTEXTSIZE, "1048576");
         servlet.setInitParameter(ApplicationConfig.WEBSOCKET_MAXBINARYSIZE, "1048576");
-        servlet.setInitParameter(Configuration.AUTH_TOKEN_PASSWORD, config.get(Configuration.AUTH_TOKEN_PASSWORD, null));
-        servlet.setInitParameter(Configuration.AUTH_TOKEN_SALT, config.get(Configuration.AUTH_TOKEN_SALT, null));
-        servlet.setInitParameter(Configuration.AUTH_TOKEN_EXPIRATION_TOLERANCE_IN_SECS, config.get(Configuration.AUTH_TOKEN_EXPIRATION_TOLERANCE_IN_SECS, null));
 
         addSecurityConstraint(servlet, config);
     }
@@ -199,10 +196,7 @@ public class ApplicationBootstrap implements ServletContextListener {
 
     private void addAuthTokenFilter(ServletContext context, Configuration config) {
         FilterRegistration.Dynamic filter = context.addFilter(AUTH_TOKEN_FILTER_NAME, AuthTokenFilter.class);
-        filter.setInitParameter(Configuration.AUTH_TOKEN_PASSWORD, config.get(Configuration.AUTH_TOKEN_PASSWORD, null));
-        filter.setInitParameter(Configuration.AUTH_TOKEN_SALT, config.get(Configuration.AUTH_TOKEN_SALT, null));
         filter.setInitParameter(Configuration.AUTH_TOKEN_EXPIRATION_IN_MINS, config.get(Configuration.AUTH_TOKEN_EXPIRATION_IN_MINS, null));
-        filter.setInitParameter(Configuration.AUTH_TOKEN_EXPIRATION_TOLERANCE_IN_SECS, config.get(Configuration.AUTH_TOKEN_EXPIRATION_TOLERANCE_IN_SECS, null));
         filter.setAsyncSupported(true);
         filter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), false, "/*");
     }

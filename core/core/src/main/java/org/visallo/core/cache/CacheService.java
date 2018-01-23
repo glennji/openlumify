@@ -8,4 +8,6 @@ public interface CacheService {
     void invalidate(String cacheName);
 
     void invalidate(String cacheName, String key);
+
+    void register(CacheListener cacheListener);
 }

@@ -33,6 +33,7 @@ import java.util.concurrent.TimeUnit;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.vertexium.util.IterableUtils.singleOrDefault;
 import static org.visallo.core.model.ontology.OntologyRepository.PUBLIC;
+import static org.visallo.core.user.User.DEFAULT_KEY;
 
 @Singleton
 public class VertexiumUserRepository extends UserRepository {
@@ -339,17 +340,35 @@ public class VertexiumUserRepository extends UserRepository {
 
     @Override
     public void setPropertyOnUser(User user, String propertyName, Object value) {
+        setPropertyOnUser(user, DEFAULT_KEY, propertyName, value);
+    }
+
+    @Override
+    public void setPropertyOnUser(User user, String key, String propertyName, Object value) {
         if (user instanceof SystemUser) {
             throw new VisalloException("Cannot set properties on system user");
         }
-        if (!value.equals(user.getCustomProperties().get(propertyName))) {
+        if (!value.equals(user.getProperty(key, propertyName))) {
             Vertex userVertex = findByIdUserVertex(user.getUserId());
-            userVertex.setProperty(propertyName, value, VISIBILITY.getVisibility(), authorizations);
+            userVertex.addPropertyValue(key, propertyName, value, VISIBILITY.getVisibility(), authorizations);
             if (user instanceof VertexiumUser) {
-                ((VertexiumUser) user).setProperty(propertyName, value);
+                ((VertexiumUser) user).setProperty(key, propertyName, value);
             }
             graph.flush();
         }
+    }
+
+    @Override
+    public void removePropertyFromUser(User user, String key, String propertyName) {
+        if (user instanceof SystemUser) {
+            throw new VisalloException("Cannot set properties on system user");
+        }
+        Vertex userVertex = findByIdUserVertex(user.getUserId());
+        userVertex.deleteProperty(key, propertyName, authorizations);
+        if (user instanceof VertexiumUser) {
+            ((VertexiumUser) user).removeProperty(key, propertyName);
+        }
+        graph.flush();
     }
 
     public Vertex getUserVertex(String userId) {

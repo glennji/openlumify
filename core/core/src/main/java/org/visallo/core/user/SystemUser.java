@@ -102,7 +102,17 @@ public class SystemUser implements User {
     }
 
     @Override
-    public Map<String, Object> getCustomProperties() {
+    public <PROP_TYPE> PROP_TYPE getProperty(String key, String propertyName) {
+        return null;
+    }
+
+    @Override
+    public <PROP_TYPE> Map<String, PROP_TYPE> getProperties(String propertyName) {
+        return null;
+    }
+
+    @Override
+    public Map<String, Map<String, Object>> getCustomProperties() {
         return new HashMap<>();
     }
 

@@ -19,6 +19,7 @@ public final class UserVisalloProperties {
     public static final ByteArraySingleValueVisalloProperty PASSWORD_HASH = new ByteArraySingleValueVisalloProperty("http://visallo.org/user#passwordHash");
     public static final StringSingleValueVisalloProperty PASSWORD_RESET_TOKEN = new StringSingleValueVisalloProperty("http://visallo.org/user#passwordResetToken");
     public static final DateSingleValueVisalloProperty PASSWORD_RESET_TOKEN_EXPIRATION_DATE = new DateSingleValueVisalloProperty("http://visallo.org/user#passwordResetTokenExpirationDate");
+    public static final StringVisalloProperty API_TOKEN = new StringVisalloProperty("http://visallo.org/user#apiToken");
 
     public static boolean isBuiltInProperty(String propertyName) {
         return VisalloProperties.isBuiltInProperty(propertyName)

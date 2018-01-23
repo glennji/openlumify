@@ -10,7 +10,6 @@ import org.visallo.web.clientapi.model.ClientApiElement;
 import org.visallo.web.clientapi.model.ClientApiProperty;
 
 import java.util.List;
-import java.util.Map;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -62,10 +61,6 @@ public abstract class SingleValueVisalloProperty<TRaw, TGraph> extends VisalloPr
         element.setProperty(getPropertyName(), wrap(value), metadata, visibility, authorizations);
     }
 
-    public void setProperty(Map<String, Object> properties, Object value) {
-        properties.put(getPropertyName(), value);
-    }
-
     public TRaw getPropertyValue(Element element) {
         Object value = element != null ? element.getPropertyValue(getPropertyName()) : null;
         return value != null ? getRawConverter().apply(value) : null;
@@ -84,11 +79,6 @@ public abstract class SingleValueVisalloProperty<TRaw, TGraph> extends VisalloPr
         Object value = element.getPropertyValue(getPropertyName());
         checkNotNull(value, "Property value of property " + getPropertyName() + " cannot be null");
         return getRawConverter().apply(value);
-    }
-
-    public final TRaw getPropertyValue(Map<String, Object> map) {
-        Object value = map != null ? map.get(getPropertyName()) : null;
-        return value != null ? getRawConverter().apply(value) : null;
     }
 
     public TRaw getPropertyValue(ClientApiElement clientApiElement) {

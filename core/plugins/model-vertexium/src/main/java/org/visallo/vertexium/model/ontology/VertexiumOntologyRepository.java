@@ -117,16 +117,16 @@ public class VertexiumOntologyRepository extends OntologyRepositoryBase {
     @Override
     public void clearCache() {
         LOGGER.info("clearing ontology cache");
-        super.clearCache();
         graph.flush();
+        super.clearCache();
     }
 
     @Override
     public void clearCache(String workspaceId) {
         checkNotNull(workspaceId, "Workspace should not be null");
         LOGGER.info("clearing ontology cache for workspace %s", workspaceId);
-        super.clearCache(workspaceId);
         graph.flush();
+        super.clearCache(workspaceId);
     }
 
     @Override

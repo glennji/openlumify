@@ -18,7 +18,7 @@ public class InMemoryUser implements User {
     private final Date createDate;
     private final String currentWorkspaceId;
     private JSONObject preferences;
-    private Map<String, Object> properties = new HashMap<>();
+    private Map<String, Map<String, Object>> properties = new HashMap<>();
 
     public InMemoryUser(String userId) {
         this(userId, null, null, null, null);
@@ -114,10 +114,6 @@ public class InMemoryUser implements User {
         return preferences;
     }
 
-    public void setPreferences(JSONObject preferences) {
-        this.preferences = preferences;
-    }
-
     @Override
     public String getPasswordResetToken() {
         return null;
@@ -129,17 +125,43 @@ public class InMemoryUser implements User {
     }
 
     @Override
-    public Object getProperty(String propertyName) {
-        return properties.get(propertyName);
+    public <PROP_TYPE> PROP_TYPE getProperty(String propertyName) {
+        return getProperty(DEFAULT_KEY, propertyName);
     }
 
     @Override
-    public Map<String, Object> getCustomProperties() {
+    @SuppressWarnings("unchecked")
+    public <PROP_TYPE> PROP_TYPE getProperty(String key, String propertyName) {
+        if (properties.containsKey(propertyName)) {
+            return (PROP_TYPE) properties.get(propertyName).get(key);
+        }
+        return null;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <PROP_TYPE> Map<String, PROP_TYPE> getProperties(String propertyName) {
+        return (Map<String, PROP_TYPE>) properties.get(propertyName);
+    }
+
+    @Override
+    public Map<String, Map<String, Object>> getCustomProperties() {
         return ImmutableMap.copyOf(properties);
     }
 
     public void setProperty(String propertyName, Object value) {
-        properties.put(propertyName, value);
+        setProperty(DEFAULT_KEY, propertyName, value);
+    }
+
+    public void setProperty(String key, String propertyName, Object value) {
+        Map<String, Object> propertyValues = properties.computeIfAbsent(propertyName, (missingKey) -> new HashMap<>());
+        propertyValues.put(key, value);
+    }
+
+    public void removeProperty(String key, String propertyName) {
+        if (this.properties.containsKey(propertyName)) {
+            this.properties.get(propertyName).remove(key);
+        }
     }
 
     @Override
@@ -153,11 +175,7 @@ public class InMemoryUser implements User {
 
         InMemoryUser that = (InMemoryUser) o;
 
-        if (!userId.equals(that.userId)) {
-            return false;
-        }
-
-        return true;
+        return userId.equals(that.userId);
     }
 
     @Override

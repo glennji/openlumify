@@ -5,7 +5,6 @@ import org.visallo.core.util.VisalloLogger;
 import org.visallo.core.util.VisalloLoggerFactory;
 import org.visallo.web.CurrentUser;
 
-import javax.crypto.SecretKey;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -19,18 +18,18 @@ public class AuthTokenHttpResponse extends HttpServletResponseWrapper {
     private static final VisalloLogger LOGGER = VisalloLoggerFactory.getLogger(AuthTokenHttpResponse.class);
     private static final String EXPIRATION_HEADER_NAME = "Visallo-Auth-Token-Expiration";
 
-    private final SecretKey macKey;
     private final HttpServletRequest request;
     private final long tokenValidityDurationInMinutes;
     private final AuthToken token;
+    private final AuthTokenRepository authTokenRepository;
     private boolean tokenCookieWritten = false;
     private boolean tokenHeaderWritten = false;
 
-    public AuthTokenHttpResponse(AuthToken token, HttpServletRequest request, HttpServletResponse response, SecretKey macKey, long tokenValidityDurationInMinutes) {
+    public AuthTokenHttpResponse(AuthToken token, HttpServletRequest request, HttpServletResponse response, AuthTokenRepository authTokenRepository, long tokenValidityDurationInMinutes) {
         super(response);
         this.token = token;
+        this.authTokenRepository = authTokenRepository;
         this.request = request;
-        this.macKey = macKey;
         this.tokenValidityDurationInMinutes = tokenValidityDurationInMinutes;
     }
 
@@ -84,10 +83,10 @@ public class AuthTokenHttpResponse extends HttpServletResponseWrapper {
 
         if (currentUser != null) {
             Date tokenExpiration = calculateTokenExpiration();
-            AuthToken token = new AuthToken(currentUser.getUserId(), macKey, tokenExpiration);
+            AuthToken token = new AuthToken(currentUser.getUserId(), tokenExpiration, true, AuthTokenUse.WEB);
 
             try {
-                writeAuthTokenCookie(token.serialize(), tokenValidityDurationInMinutes);
+                writeAuthTokenCookie(authTokenRepository.serialize(token), tokenValidityDurationInMinutes);
             } catch (AuthTokenException e) {
                 LOGGER.error("Auth token serialization failed.", e);
                 sendError(SC_INTERNAL_SERVER_ERROR);

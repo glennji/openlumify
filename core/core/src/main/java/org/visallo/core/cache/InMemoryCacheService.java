@@ -6,7 +6,9 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -14,6 +16,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class InMemoryCacheService implements CacheService {
     private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
     private final Map<String, Cache> caches = new HashMap<>();
+    private final Set<CacheListener> cacheListeners = new LinkedHashSet<>();
 
     @Override
     public <T> T put(String cacheName, String key, T t, CacheOptions cacheOptions) {
@@ -43,6 +46,7 @@ public class InMemoryCacheService implements CacheService {
                 return null;
             }
             cache.invalidateAll();
+            cacheListeners.forEach(cacheListener -> cacheListener.invalidate(cacheName));
             return null;
         });
     }
@@ -55,8 +59,14 @@ public class InMemoryCacheService implements CacheService {
                 return null;
             }
             cache.invalidate(key);
+            cacheListeners.forEach(cacheListener -> cacheListener.invalidate(cacheName, key));
             return null;
         });
+    }
+
+    @Override
+    public void register(CacheListener cacheListener) {
+        this.cacheListeners.add(cacheListener);
     }
 
     private <T> Cache<String, T> getCache(String cacheName) {

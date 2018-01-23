@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import org.json.JSONObject;
 import org.vertexium.Property;
 import org.vertexium.Vertex;
+import org.visallo.core.model.properties.types.SingleValueVisalloProperty;
 import org.visallo.core.model.user.UserVisalloProperties;
 import org.visallo.core.user.User;
 import org.visallo.web.clientapi.model.UserType;
@@ -16,12 +17,13 @@ import java.util.Map;
 public class VertexiumUser implements User, Serializable {
     private static final long serialVersionUID = 6688073934273514248L;
     private final String userId;
-    private final Map<String, Object> properties = new HashMap<>();
+    private final Map<String, Map<String, Object>> properties = new HashMap<>();
 
     public VertexiumUser(Vertex userVertex) {
         this.userId = userVertex.getId();
         for (Property property : userVertex.getProperties()) {
-            this.properties.put(property.getName(), property.getValue());
+            Map<String, Object> propertyValues = this.properties.computeIfAbsent(property.getName(), (missingProp) -> new HashMap<>());
+            propertyValues.put(property.getKey(), property.getValue());
         }
     }
 
@@ -32,47 +34,48 @@ public class VertexiumUser implements User, Serializable {
 
     @Override
     public String getUsername() {
-        return UserVisalloProperties.USERNAME.getPropertyValue(properties);
+        return getProperty(UserVisalloProperties.USERNAME);
     }
 
     @Override
     public String getDisplayName() {
-        return UserVisalloProperties.DISPLAY_NAME.getPropertyValue(properties);
+        return getProperty(UserVisalloProperties.DISPLAY_NAME);
     }
 
     @Override
     public String getEmailAddress() {
-        return UserVisalloProperties.EMAIL_ADDRESS.getPropertyValue(properties);
+        return getProperty(UserVisalloProperties.EMAIL_ADDRESS);
     }
 
     @Override
     public Date getCreateDate() {
-        return UserVisalloProperties.CREATE_DATE.getPropertyValue(properties);
+        return getProperty(UserVisalloProperties.CREATE_DATE);
     }
 
     @Override
     public Date getCurrentLoginDate() {
-        return UserVisalloProperties.CURRENT_LOGIN_DATE.getPropertyValue(properties);
+        return getProperty(UserVisalloProperties.CURRENT_LOGIN_DATE);
     }
 
     @Override
     public String getCurrentLoginRemoteAddr() {
-        return UserVisalloProperties.CURRENT_LOGIN_REMOTE_ADDR.getPropertyValue(properties);
+        return getProperty(UserVisalloProperties.CURRENT_LOGIN_REMOTE_ADDR);
     }
 
     @Override
     public Date getPreviousLoginDate() {
-        return UserVisalloProperties.PREVIOUS_LOGIN_DATE.getPropertyValue(properties);
+        return getProperty(UserVisalloProperties.PREVIOUS_LOGIN_DATE);
     }
 
     @Override
     public String getPreviousLoginRemoteAddr() {
-        return UserVisalloProperties.PREVIOUS_LOGIN_REMOTE_ADDR.getPropertyValue(properties);
+        return getProperty(UserVisalloProperties.PREVIOUS_LOGIN_REMOTE_ADDR);
     }
 
     @Override
     public int getLoginCount() {
-        return UserVisalloProperties.LOGIN_COUNT.getPropertyValue(properties, 0);
+        Integer loginCount = getProperty(UserVisalloProperties.LOGIN_COUNT);
+        return loginCount == null ? 0 : loginCount;
     }
 
     @Override
@@ -82,47 +85,79 @@ public class VertexiumUser implements User, Serializable {
 
     @Override
     public String getCurrentWorkspaceId() {
-        return UserVisalloProperties.CURRENT_WORKSPACE.getPropertyValue(properties);
+        return getProperty(UserVisalloProperties.CURRENT_WORKSPACE);
     }
 
     @Override
     public JSONObject getUiPreferences() {
-        JSONObject preferences = UserVisalloProperties.UI_PREFERENCES.getPropertyValue(properties);
+        JSONObject preferences = getProperty(UserVisalloProperties.UI_PREFERENCES);
         if (preferences == null) {
             preferences = new JSONObject();
-            UserVisalloProperties.UI_PREFERENCES.setProperty(properties, preferences);
+            Map<String, Object> propertyValues = this.properties.computeIfAbsent(UserVisalloProperties.UI_PREFERENCES.getPropertyName(), (missingProp) -> new HashMap<>());
+            propertyValues.put(DEFAULT_KEY, UserVisalloProperties.UI_PREFERENCES.wrap(preferences));
         }
         return preferences;
     }
 
     @Override
     public String getPasswordResetToken() {
-        return UserVisalloProperties.PASSWORD_RESET_TOKEN.getPropertyValue(properties);
+        return getProperty(UserVisalloProperties.PASSWORD_RESET_TOKEN);
     }
 
     @Override
     public Date getPasswordResetTokenExpirationDate() {
-        return UserVisalloProperties.PASSWORD_RESET_TOKEN_EXPIRATION_DATE.getPropertyValue(properties);
+        return getProperty(UserVisalloProperties.PASSWORD_RESET_TOKEN_EXPIRATION_DATE);
+    }
+
+    private <PROP_TYPE> PROP_TYPE getProperty(SingleValueVisalloProperty<PROP_TYPE, ?> property) {
+        Object rawValue = getProperty(DEFAULT_KEY, property.getPropertyName());
+        return rawValue == null ? null : property.unwrap(rawValue);
     }
 
     @Override
-    public Object getProperty(String propertyName) {
-        return this.properties.get(propertyName);
+    public <PROP_TYPE> PROP_TYPE getProperty(String propertyName) {
+        return getProperty(DEFAULT_KEY, propertyName);
     }
 
     @Override
-    public Map<String, Object> getCustomProperties() {
-        Map<String, Object> results = new HashMap<>();
-        for (Map.Entry<String, Object> property : properties.entrySet()) {
+    @SuppressWarnings("unchecked")
+    public <PROP_TYPE> PROP_TYPE getProperty(String key, String propertyName) {
+        if (this.properties.containsKey(propertyName)) {
+            return (PROP_TYPE) this.properties.get(propertyName).get(key);
+        }
+        return null;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <PROP_TYPE> Map<String, PROP_TYPE> getProperties(String propertyName) {
+        return (Map<String, PROP_TYPE>) this.properties.get(propertyName);
+    }
+
+    @Override
+    public Map<String, Map<String, Object>> getCustomProperties() {
+        Map<String, Map<String, Object>> results = new HashMap<>();
+        for (Map.Entry<String, Map<String, Object>> property : properties.entrySet()) {
             if (!UserVisalloProperties.isBuiltInProperty(property.getKey())) {
-                results.put(property.getKey(), property.getValue());
+                results.put(property.getKey(), ImmutableMap.copyOf(property.getValue()));
             }
         }
         return ImmutableMap.copyOf(results);
     }
 
     public void setProperty(String propertyName, Object value) {
-        this.properties.put(propertyName, value);
+        setProperty(DEFAULT_KEY, propertyName, value);
+    }
+
+    public void setProperty(String key, String propertyName, Object value) {
+        Map<String, Object> propertyValues = this.properties.computeIfAbsent(propertyName, (missingProp) -> new HashMap<>());
+        propertyValues.put(key, value);
+    }
+
+    public void removeProperty(String key, String propertyName) {
+        if (this.properties.containsKey(propertyName)) {
+            this.properties.get(propertyName).remove(key);
+        }
     }
 
     @Override

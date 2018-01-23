@@ -1,6 +1,7 @@
 package org.visallo.core.user;
 
 import org.json.JSONObject;
+import org.vertexium.mutation.ElementMutation;
 import org.visallo.web.clientapi.model.UserType;
 
 import java.io.Serializable;
@@ -9,6 +10,8 @@ import java.util.Map;
 
 public interface User extends Serializable {
     long serialVersionUID = 2L;
+
+    String DEFAULT_KEY = ElementMutation.DEFAULT_KEY;
 
     String getUserId();
 
@@ -40,7 +43,11 @@ public interface User extends Serializable {
 
     Date getPasswordResetTokenExpirationDate();
 
-    Object getProperty(String propertyName);
+    <PROP_TYPE> PROP_TYPE getProperty(String propertyName);
 
-    Map<String, Object> getCustomProperties();
+    <PROP_TYPE> PROP_TYPE getProperty(String key, String propertyName);
+
+    <PROP_TYPE> Map<String, PROP_TYPE> getProperties(String propertyName);
+
+    Map<String, Map<String, Object>> getCustomProperties();
 }

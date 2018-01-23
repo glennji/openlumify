@@ -15,6 +15,7 @@ import java.util.Map;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.visallo.core.user.User.DEFAULT_KEY;
 
 @RunWith(MockitoJUnitRunner.class)
 public class VertexiumUserTest {
@@ -27,20 +28,25 @@ public class VertexiumUserTest {
 
         Property builtInProp = mock(Property.class);
         when(builtInProp.getName()).thenReturn(UserVisalloProperties.PASSWORD_HASH.getPropertyName());
+        when(builtInProp.getKey()).thenReturn(DEFAULT_KEY);
         when(builtInProp.getValue()).thenReturn("secret");
         properties.add(builtInProp);
 
         Property notBuiltInProp = mock(Property.class);
         when(notBuiltInProp.getName()).thenReturn("otherProp");
+        when(notBuiltInProp.getKey()).thenReturn(DEFAULT_KEY);
         when(notBuiltInProp.getValue()).thenReturn("open");
         properties.add(notBuiltInProp);
 
         when(userVertex.getProperties()).thenReturn(properties);
 
         VertexiumUser user = new VertexiumUser(userVertex);
-        Map<String, Object> customProperties = user.getCustomProperties();
+        Map<String, Map<String, Object>> customProperties = user.getCustomProperties();
         assertFalse(customProperties.containsKey(UserVisalloProperties.PASSWORD_HASH.getPropertyName()));
         assertTrue(customProperties.containsKey("otherProp"));
-        assertEquals("open", customProperties.get("otherProp"));
+        assertEquals(1, customProperties.get("otherProp").size());
+        assertEquals("open", customProperties.get("otherProp").get(DEFAULT_KEY));
+
+        assertEquals("open", user.getProperties("otherProp").get(DEFAULT_KEY));
     }
 }

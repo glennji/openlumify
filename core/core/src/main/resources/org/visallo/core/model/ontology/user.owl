@@ -13,7 +13,7 @@
     
 
 
-    <!-- 
+    <!--
     ///////////////////////////////////////////////////////////////////////////////////////
     //
     // Data properties
@@ -213,7 +213,18 @@
         <visallo:textIndexHints>EXACT_MATCH</visallo:textIndexHints>
         <visallo:userVisible>false</visallo:userVisible>
     </owl:DatatypeProperty>
-    
+
+
+
+    <!-- http://visallo.org/user#apiToken -->
+
+    <owl:DatatypeProperty rdf:about="http://visallo.org/user#apiToken">
+        <rdfs:domain rdf:resource="http://visallo.org/user#user"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <visallo:textIndexHints>NONE</visallo:textIndexHints>
+        <visallo:userVisible>false</visallo:userVisible>
+    </owl:DatatypeProperty>
+
 
 
     <!-- 

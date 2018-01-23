@@ -1,6 +1,5 @@
 package org.visallo.vertexium.model.user;
 
-import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.json.JSONObject;
@@ -14,6 +13,8 @@ import org.visallo.core.user.User;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static org.visallo.core.user.User.DEFAULT_KEY;
 
 @Singleton
 public class InMemoryUserRepository extends UserRepository {
@@ -38,7 +39,7 @@ public class InMemoryUserRepository extends UserRepository {
 
     @Override
     public User findByUsername(final String username) {
-        return Iterables.find(this.users, user -> user.getUsername().equals(username), null);
+        return this.users.stream().filter(user -> user.getUsername().equals(username)).findFirst().orElse(null);
     }
 
     @Override
@@ -48,7 +49,7 @@ public class InMemoryUserRepository extends UserRepository {
 
     @Override
     public User findById(final String userId) {
-        return Iterables.find(this.users, user -> user.getUserId().equals(userId), null);
+        return this.users.stream().filter(user -> user.getUserId().equals(userId)).findFirst().orElse(null);
     }
 
     @Override
@@ -133,9 +134,22 @@ public class InMemoryUserRepository extends UserRepository {
 
     @Override
     public void setPropertyOnUser(User user, String propertyName, Object value) {
+        setPropertyOnUser(user, DEFAULT_KEY, propertyName, value);
+    }
+
+    @Override
+    public void setPropertyOnUser(User user, String key, String propertyName, Object value) {
         if (user instanceof SystemUser) {
             throw new VisalloException("Cannot set properties on system user");
         }
-        ((InMemoryUser) user).setProperty(propertyName, value);
+        ((InMemoryUser) user).setProperty(key, propertyName, value);
+    }
+
+    @Override
+    public void removePropertyFromUser(User user, String key, String propertyName) {
+        if (user instanceof SystemUser) {
+            throw new VisalloException("Cannot remove properties on system user");
+        }
+        ((InMemoryUser) user).removeProperty(key, propertyName);
     }
 }

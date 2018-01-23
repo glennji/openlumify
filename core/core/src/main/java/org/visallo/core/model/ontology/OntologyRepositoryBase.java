@@ -30,6 +30,7 @@ import org.vertexium.util.CloseableUtils;
 import org.vertexium.util.ConvertingIterable;
 import org.vertexium.util.IterableUtils;
 import org.visallo.core.bootstrap.InjectHelper;
+import org.visallo.core.cache.CacheListener;
 import org.visallo.core.cache.CacheOptions;
 import org.visallo.core.cache.CacheService;
 import org.visallo.core.config.Configuration;
@@ -88,6 +89,8 @@ public abstract class OntologyRepositoryBase implements OntologyRepository {
     private WorkspaceRepository workspaceRepository;
     private PrivilegeRepository privilegeRepository;
 
+    private final Set<OntologyListener> ontologyListeners = new LinkedHashSet<>();
+
     @Inject
     protected OntologyRepositoryBase(
             Configuration configuration,
@@ -100,6 +103,8 @@ public abstract class OntologyRepositoryBase implements OntologyRepository {
         this.ontologyCacheOptions = new CacheOptions()
                 .setMaximumSize(configuration.getLong(CONFIG_ONTOLOGY_CACHE_MAX_SIZE, CONFIG_ONTOLOGY_CACHE_MAX_SIZE_DEFAULT));
         this.ontologyPropertyCacheOptions = new CacheOptions();
+
+        cacheService.register(new OntologyCacheListener());
     }
 
     public void loadOntologies(Configuration config, Authorizations authorizations) throws Exception {
@@ -1927,6 +1932,26 @@ public abstract class OntologyRepositoryBase implements OntologyRepository {
         if (!relationshipIRI.equals(TOP_OBJECT_PROPERTY_IRI)
                 && (IterableUtils.isEmpty(domainConcepts) || IterableUtils.isEmpty(rangeConcepts))) {
             throw new VisalloException(relationshipIRI + " must have at least one domain and range ");
+        }
+    }
+
+    public void register(OntologyListener ontologyListener) {
+        ontologyListeners.add(ontologyListener);
+    }
+
+    private class OntologyCacheListener implements CacheListener {
+        @Override
+        public void invalidate(String cacheName) {
+            if (cacheName.equals(ONTOLOGY_CACHE_NAME)) {
+                ontologyListeners.forEach(OntologyListener::clearCache);
+            }
+        }
+
+        @Override
+        public void invalidate(String cacheName, String key) {
+            if (cacheName.equals(ONTOLOGY_CACHE_NAME)) {
+                ontologyListeners.forEach(ontologyListener -> ontologyListener.clearCache(key));
+            }
         }
     }
 }

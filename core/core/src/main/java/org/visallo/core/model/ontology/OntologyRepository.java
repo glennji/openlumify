@@ -204,6 +204,8 @@ public interface OntologyRepository {
 
     void publishProperty(OntologyProperty property, User user, String workspaceId);
 
+    void register(OntologyListener ontologyListener);
+
     class ElementTypeFilter implements ClientApiObject {
         public String iri;
         public boolean includeChildNodes;
