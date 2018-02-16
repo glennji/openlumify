@@ -46,7 +46,7 @@ public abstract class TermMentionGraphPropertyWorkerTestBase extends VisalloInMe
 
         Metadata textMetadata = new Metadata();
         VisalloProperties.MIME_TYPE_METADATA.setMetadata(textMetadata, "text/plain", getVisibilityTranslator().getDefaultVisibility());
-        StreamingPropertyValue textPropertyValue = new StreamingPropertyValue(asStream(text), String.class);
+        StreamingPropertyValue textPropertyValue = StreamingPropertyValue.create(asStream(text), String.class);
         VisalloProperties.TEXT.addPropertyValue(vertexBuilder, MULTI_VALUE_KEY, textPropertyValue, textMetadata, visibility);
 
         VisalloProperties.VISIBILITY_JSON.setProperty(vertexBuilder, visibilityJson, getVisibilityTranslator().getDefaultVisibility());

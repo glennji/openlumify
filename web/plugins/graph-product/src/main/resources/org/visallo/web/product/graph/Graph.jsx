@@ -658,6 +658,9 @@ define([
                 Promise.require('util/popovers/detail/detail'),
                 F.vertex.getVertexIdsFromDataEventOrCurrentSelection(data, { async: true })
             ]).spread((DetailPopover, ids) => {
+                const { productElementIds, rootId } = this.props;
+                ids = ids.filter(id => productElementIds.vertices[id].parent === rootId);
+
                 if (!this.detailPopoversMap) {
                     this.detailPopoversMap = {};
                 }

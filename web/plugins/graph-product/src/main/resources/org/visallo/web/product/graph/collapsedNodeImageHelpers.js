@@ -31,12 +31,28 @@ define([
         images.forEach((image, index) => {
             const layoutInfo = getCollapsedNodeInnerImageLayoutInfo(index, images.length, circleRadius * 2);
             if (layoutInfo) {
+                const { size, centerX, centerY } = layoutInfo;
+                const { naturalWidth = size, naturalHeight = size } = image;
+                const aspectRatio = naturalWidth / naturalHeight;
+
+                let dHeight, dWidth;
+
+                if (aspectRatio > 1) {
+                    const scale = Math.min(naturalWidth / size, 1);
+                    dWidth = size * scale;
+                    dHeight = (size / aspectRatio) * scale;
+                } else {
+                    const scale = Math.min(naturalHeight / size, 1);
+                    dWidth = size * aspectRatio * scale;
+                    dHeight = size * scale
+                }
+
                 canvasCtx.drawImage(
                     image,
-                    layoutInfo.centerX - (layoutInfo.size / 2) + circleLineWidth,
-                    layoutInfo.centerY - (layoutInfo.size / 2) + circleLineWidth + circlePaddingTop,
-                    layoutInfo.size,
-                    layoutInfo.size
+                    centerX - (dWidth / 2) + circleLineWidth,
+                    centerY - (dHeight / 2) + circleLineWidth + circlePaddingTop,
+                    dWidth,
+                    dHeight
                 );
             }
         });

@@ -203,7 +203,7 @@ public abstract class GraphPropertyWorker {
         VisalloProperties.MIME_TYPE_METADATA.setMetadata(metadata, "text/plain", getVisibilityTranslator().getDefaultVisibility());
         for (VideoTranscript.TimedText entry : videoTranscript.getEntries()) {
             String textPropertyKey = getVideoTranscriptTimedTextPropertyKey(propertyKey, entry);
-            StreamingPropertyValue value = new StreamingPropertyValue(new ByteArrayInputStream(entry.getText().getBytes()), String.class);
+            StreamingPropertyValue value = StreamingPropertyValue.create(new ByteArrayInputStream(entry.getText().getBytes()), String.class);
             VisalloProperties.TEXT.addPropertyValue(mutation, textPropertyKey, value, metadata, visibility);
         }
     }

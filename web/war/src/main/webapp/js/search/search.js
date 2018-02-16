@@ -357,9 +357,6 @@ define([
             if (data.name === 'search' && this.$node.closest('.visible').length === 0) {
                 this.$node.find('.advanced-search-type-results').hide();
             }
-            if (this.searchType && this.searchType === SEARCH_TYPES[0]) {
-                this.select('hitsSelector').empty();
-            }
         };
 
         this.onSearchTypeLoaded = function() {
@@ -859,11 +856,10 @@ define([
         }
 
         this.render = function() {
-            var self = this,
-                advancedSearch = registry.extensionsForPoint('org.visallo.search.advanced');
+            const extensions = registry.extensionsForPoint('org.visallo.search.advanced');
 
             this.$node.html(template({
-                advancedSearch: advancedSearch,
+                advancedSearch: extensions,
                 types: SEARCH_TYPES.map(function(type, i) {
                     return {
                         cls: type.toLowerCase(),

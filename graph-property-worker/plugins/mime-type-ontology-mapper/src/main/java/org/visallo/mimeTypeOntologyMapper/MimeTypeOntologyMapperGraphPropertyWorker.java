@@ -137,7 +137,7 @@ public class MimeTypeOntologyMapperGraphPropertyWorker extends GraphPropertyWork
             return false;
         }
 
-        return VisalloProperties.CONCEPT_TYPE.getPropertyValue(element) == null;
+        return !VisalloProperties.CONCEPT_TYPE.hasConceptType(element);
     }
 
     private static abstract class MimeTypeMatcher {

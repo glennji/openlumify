@@ -1,10 +1,10 @@
 package org.visallo.web.product.graph;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.vertexium.*;
-import org.vertexium.util.CloseableUtils;
 import org.visallo.core.exception.VisalloException;
 import org.visallo.core.model.graph.ElementUpdateContext;
 import org.visallo.core.model.graph.GraphRepository;
@@ -87,35 +87,29 @@ public class GraphWorkProductService extends WorkProductServiceHasElementsBase<G
         Map<String, GraphWorkProductVertex> vertices = new HashMap<>();
         Map<String, GraphWorkProductVertex> compoundNodes = new HashMap<>();
 
-        Iterable<Edge> productVertexEdges = productVertex.getEdges(
+        List<Edge> productVertexEdges = Lists.newArrayList(productVertex.getEdges(
                 Direction.OUT,
                 WorkspaceProperties.PRODUCT_TO_ENTITY_RELATIONSHIP_IRI,
                 authorizations
-        );
-        List<String> ids = StreamUtil.stream(productVertexEdges)
+        ));
+        List<String> ids = productVertexEdges.stream()
                 .map(edge -> edge.getOtherVertexId(productVertex.getId()))
                 .collect(Collectors.toList());
         Map<String, Boolean> othersById = graph.doVerticesExist(ids, authorizations);
 
-        Iterator<Edge> edgeIterator = productVertexEdges.iterator();
-        try {
-            while (edgeIterator.hasNext()) {
-                Edge propertyVertexEdge = edgeIterator.next();
-                String otherId = propertyVertexEdge.getOtherVertexId(productVertex.getId());
-                GraphWorkProductVertex vertexOrNode = new GraphWorkProductVertex();
-                vertexOrNode.setId(otherId);
-                if (!othersById.getOrDefault(otherId, false)) {
-                    vertexOrNode.setUnauthorized(true);
-                }
-                populateProductVertexWithWorkspaceEdge(propertyVertexEdge, vertexOrNode);
-                if ("vertex".equals(vertexOrNode.getType())) {
-                    vertices.put(otherId, vertexOrNode);
-                } else {
-                    compoundNodes.put(otherId, vertexOrNode);
-                }
+        for (Edge propertyVertexEdge : productVertexEdges) {
+            String otherId = propertyVertexEdge.getOtherVertexId(productVertex.getId());
+            GraphWorkProductVertex vertexOrNode = new GraphWorkProductVertex();
+            vertexOrNode.setId(otherId);
+            if (!othersById.getOrDefault(otherId, false)) {
+                vertexOrNode.setUnauthorized(true);
             }
-        } finally {
-            CloseableUtils.closeQuietly(edgeIterator);
+            populateProductVertexWithWorkspaceEdge(propertyVertexEdge, vertexOrNode);
+            if ("vertex".equals(vertexOrNode.getType())) {
+                vertices.put(otherId, vertexOrNode);
+            } else {
+                compoundNodes.put(otherId, vertexOrNode);
+            }
         }
 
         if (compoundNodes.size() > 0) {

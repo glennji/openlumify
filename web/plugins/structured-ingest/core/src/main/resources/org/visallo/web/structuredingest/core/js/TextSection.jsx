@@ -1,8 +1,10 @@
 define([
     'create-react-class',
     './util',
-    'util/formatters'
-], function(createReactClass, util, F) {
+    'util/formatters',
+    'data/web-worker/store/user/selectors',
+    'react-redux'
+], function(createReactClass, util, F, userSelectors, redux) {
     'use strict';
     const VISIBILITY_NAME = 'http://visallo.org#visibilityJson';
 
@@ -15,17 +17,20 @@ define([
         },
         render() {
             const { rows, error, total } = this.state;
+            const { canEdit } = this.props;
 
             return (
                 <div className="com-visallo-structuredFile-text-table">
-                  <div className="buttons">
-                    <button onClick={this.onClick} className="btn btn-default icon-with-description">
-                        <div style={{backgroundImage: 'url(img/glyphicons_custom/extract-rows.png)'}} className="icon"></div>
-                        {i18n('csv.file_import.mapping.button')}
-                        <div className="description">{i18n('csv.file_import.mapping.button.description')}</div>
-                    </button>
-                  </div>
-                  <div className="table">
+                    {canEdit ?
+                      <div className="buttons">
+                          <button onClick={this.onClick} className="btn btn-default icon-with-description">
+                              <div style={{backgroundImage: 'url(img/glyphicons_custom/extract-rows.png)'}} className="icon"></div>
+                              {i18n('csv.file_import.mapping.button')}
+                              <div className="description">{i18n('csv.file_import.mapping.button.description')}</div>
+                          </button>
+                      </div>
+                    : null}
+                    <div className="table">
                     { error ? i18n('csv.file_import.errors.analyzing.file') :
                       rows ? (
                           <table>
@@ -84,5 +89,14 @@ define([
         }
     });
 
-    return StructuredIngestTextSection;
+    return redux.connect(
+        (state, props) => {
+            const privileges = userSelectors.getPrivileges(state);
+            const canEdit = privileges.EDIT;
+
+            return {
+                canEdit
+            }
+        }
+    )(StructuredIngestTextSection);
 });

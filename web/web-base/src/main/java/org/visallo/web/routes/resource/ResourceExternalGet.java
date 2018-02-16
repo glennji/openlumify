@@ -78,7 +78,7 @@ public class ResourceExternalGet implements ParameterizedHandler {
         byte[] imageData = getAndSaveImageData(vertex, url, authorizations);
         imageData = ImageUtils.resize(imageData, maxWidth, maxHeight, jpegQuality);
 
-        StreamingPropertyValue value = new StreamingPropertyValue(new ByteArrayInputStream(imageData), byte[].class);
+        StreamingPropertyValue value = StreamingPropertyValue.create(new ByteArrayInputStream(imageData), byte[].class);
         value.store(true).searchIndex(false);
         ExistingElementMutation<Vertex> m = vertex.prepareMutation();
         VisalloProperties.CACHED_IMAGE.addPropertyValue(m, propertyKey, value, vertex.getVisibility());
@@ -93,7 +93,7 @@ public class ResourceExternalGet implements ParameterizedHandler {
             return IOUtils.toByteArray(originalImage.getInputStream());
         }
         byte[] imageData = httpRepository.get(url);
-        StreamingPropertyValue value = new StreamingPropertyValue(new ByteArrayInputStream(imageData), byte[].class);
+        StreamingPropertyValue value = StreamingPropertyValue.create(new ByteArrayInputStream(imageData), byte[].class);
         value.store(true).searchIndex(false);
         ExistingElementMutation<Vertex> m = vertex.prepareMutation();
         VisalloProperties.CACHED_IMAGE.addPropertyValue(m, propertyKey, value, vertex.getVisibility());

@@ -85,7 +85,7 @@ public class TikaTextExtractorGraphPropertyWorkerTest extends VisalloInMemoryGPW
 
     private void createVertex(String data, String mimeType) throws UnsupportedEncodingException {
         VertexBuilder v = getGraph().prepareVertex("v1", visibility);
-        StreamingPropertyValue textValue = new StreamingPropertyValue(new ByteArrayInputStream(data.getBytes("UTF-8")), byte[].class);
+        StreamingPropertyValue textValue = StreamingPropertyValue.create(new ByteArrayInputStream(data.getBytes("UTF-8")), byte[].class);
         textValue.searchIndex(false);
         Metadata metadata = new Metadata();
         metadata.add(VisalloProperties.MIME_TYPE.getPropertyName(), mimeType, getVisibilityTranslator().getDefaultVisibility());
@@ -163,7 +163,7 @@ public class TikaTextExtractorGraphPropertyWorkerTest extends VisalloInMemoryGPW
     public void testDifferentKey() throws UnsupportedEncodingException {
         VertexBuilder v = getGraph().prepareVertex("v1", visibility);
 
-        StreamingPropertyValue textValue = new StreamingPropertyValue(new ByteArrayInputStream("<html><body>Text1</body></html>".getBytes("UTF-8")), byte[].class);
+        StreamingPropertyValue textValue = StreamingPropertyValue.create(new ByteArrayInputStream("<html><body>Text1</body></html>".getBytes("UTF-8")), byte[].class);
         textValue.searchIndex(false);
         Metadata metadata = new Metadata();
         metadata.add(VisalloProperties.MIME_TYPE.getPropertyName(), "text/html", getVisibilityTranslator().getDefaultVisibility());
@@ -183,13 +183,13 @@ public class TikaTextExtractorGraphPropertyWorkerTest extends VisalloInMemoryGPW
     public void testMultipleRaws() throws UnsupportedEncodingException {
         VertexBuilder v = getGraph().prepareVertex("v1", visibility);
 
-        StreamingPropertyValue textValue = new StreamingPropertyValue(new ByteArrayInputStream("<html><body>Text1</body></html>".getBytes("UTF-8")), byte[].class);
+        StreamingPropertyValue textValue = StreamingPropertyValue.create(new ByteArrayInputStream("<html><body>Text1</body></html>".getBytes("UTF-8")), byte[].class);
         textValue.searchIndex(false);
         Metadata metadata = new Metadata();
         metadata.add(VisalloProperties.MIME_TYPE.getPropertyName(), "text/html", getVisibilityTranslator().getDefaultVisibility());
         v.setProperty("http://visallo.org/test#raw1", textValue, metadata, visibility);
 
-        textValue = new StreamingPropertyValue(new ByteArrayInputStream("<html><body>Text2</body></html>".getBytes("UTF-8")), byte[].class);
+        textValue = StreamingPropertyValue.create(new ByteArrayInputStream("<html><body>Text2</body></html>".getBytes("UTF-8")), byte[].class);
         textValue.searchIndex(false);
         metadata = new Metadata();
         metadata.add(VisalloProperties.MIME_TYPE.getPropertyName(), "text/html", getVisibilityTranslator().getDefaultVisibility());

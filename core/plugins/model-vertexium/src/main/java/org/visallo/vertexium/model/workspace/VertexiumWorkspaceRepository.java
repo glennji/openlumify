@@ -1033,7 +1033,7 @@ public class VertexiumWorkspaceRepository extends WorkspaceRepository {
                 if (preview == null) {
                     WorkspaceProperties.PRODUCT_PREVIEW_DATA_URL.removeProperty(elCtx.getMutation(), user.getUserId(), visibility);
                 } else {
-                    StreamingPropertyValue value = new StreamingPropertyValue(new ByteArrayInputStream(preview.getImageData()), byte[].class);
+                    StreamingPropertyValue value = StreamingPropertyValue.create(new ByteArrayInputStream(preview.getImageData()), byte[].class);
                     value.store(true).searchIndex(false);
                     Metadata metadata = new Metadata();
                     metadata.add("http://visallo.org/product#previewImageMD5", preview.getMD5(), visibility);

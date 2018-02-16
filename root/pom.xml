@@ -79,7 +79,7 @@
         <lesscss.version>1.3.3</lesscss.version>
         <log4j.version>2.9.0</log4j.version>
         <metrics.version>3.2.5</metrics.version>
-        <vertexium.version>3.0.4</vertexium.version>
+        <vertexium.version>3.1.1</vertexium.version>
         <simple-orm.version>1.3.1</simple-orm.version>
         <groovy.version>2.4.5</groovy.version>
         <zip4j.version>1.3.1</zip4j.version>

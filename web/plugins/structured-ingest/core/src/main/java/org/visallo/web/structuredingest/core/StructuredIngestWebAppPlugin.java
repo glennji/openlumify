@@ -1,6 +1,7 @@
 package org.visallo.web.structuredingest.core;
 
 import com.google.inject.Singleton;
+import org.visallo.web.privilegeFilters.EditPrivilegeFilter;
 import org.visallo.webster.Handler;
 import org.apache.commons.io.IOUtils;
 import org.semanticweb.owlapi.model.IRI;
@@ -104,7 +105,7 @@ public class StructuredIngestWebAppPlugin implements WebAppPlugin {
                 "/structured-ingest/ingest",
                 authenticator,
                 csrfProtector,
-                ReadPrivilegeFilter.class,
+                EditPrivilegeFilter.class,
                 Ingest.class
         );
     }

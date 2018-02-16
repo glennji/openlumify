@@ -58,11 +58,11 @@ public class AuthTokenFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         doFilter((HttpServletRequest) servletRequest, (HttpServletResponse) servletResponse, filterChain);
     }
 
-    public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException {
+    public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         try {
             AuthToken token = getAuthToken(request);
             AuthTokenHttpResponse authTokenResponse = new AuthTokenHttpResponse(token, request, response, tokenSigningKey, tokenValidityDurationInMinutes);
@@ -81,7 +81,7 @@ public class AuthTokenFilter implements Filter {
             }
 
             chain.doFilter(request, authTokenResponse);
-        } catch (Exception ex) {
+        } catch (AuthTokenException ex) {
             LOGGER.warn("Auth token signature verification failed", ex);
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         }

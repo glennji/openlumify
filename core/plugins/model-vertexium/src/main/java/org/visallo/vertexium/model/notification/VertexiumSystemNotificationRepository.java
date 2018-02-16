@@ -1,6 +1,5 @@
 package org.visallo.vertexium.model.notification;
 
-import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.json.JSONObject;
@@ -138,19 +137,18 @@ public class VertexiumSystemNotificationRepository extends SystemNotificationRep
     @Override
     public SystemNotification getNotification(String id, User user) {
         Authorizations authorizations = getAuthorizations(user);
-        ArrayList<ExtendedDataRow> notifications = Lists.newArrayList(getGraph().query(authorizations)
-                // TODO use hadId -- .has("id", id)
-                .hasExtendedData(NotificationOntology.SYSTEM_NOTIFICATIONS_TABLE)
-                .extendedDataRows());
-        for (ExtendedDataRow notification : notifications) {
-            if (notification.getId().getRowId().equals(id)) {
-                return toSystemNotification(notification);
-            }
-        }
-        return null;
+        return toSystemNotification(getGraph().getExtendedData(new ExtendedDataRowId(
+                ElementType.VERTEX,
+                SYSTEM_NOTIFICATION_VERTEX_ID,
+                NotificationOntology.SYSTEM_NOTIFICATIONS_TABLE,
+                id
+        ), authorizations));
     }
 
     private SystemNotification toSystemNotification(ExtendedDataRow row) {
+        if (row == null) {
+            return null;
+        }
         SystemNotification notification = new SystemNotification(
                 row.getId().getRowId(),
                 NotificationOntology.SYSTEM_NOTIFICATIONS_TABLE_TITLE.getValue(row),

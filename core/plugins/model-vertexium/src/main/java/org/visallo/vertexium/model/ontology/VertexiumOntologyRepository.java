@@ -131,7 +131,7 @@ public class VertexiumOntologyRepository extends OntologyRepositoryBase {
 
     @Override
     protected void addEntityGlyphIconToEntityConcept(Concept entityConcept, byte[] rawImg, Authorizations authorizations) {
-        StreamingPropertyValue raw = new StreamingPropertyValue(new ByteArrayInputStream(rawImg), byte[].class);
+        StreamingPropertyValue raw = StreamingPropertyValue.create(new ByteArrayInputStream(rawImg), byte[].class);
         raw.searchIndex(false);
         entityConcept.setProperty(OntologyProperties.GLYPH_ICON.getPropertyName(), raw, getSystemUser(), authorizations);
         graph.flush();
@@ -146,7 +146,7 @@ public class VertexiumOntologyRepository extends OntologyRepositoryBase {
             throw new VisalloException("Could not read ontology input stream", ex);
         }
         String md5 = DigestUtils.md5Hex(data);
-        StreamingPropertyValue value = new StreamingPropertyValue(new ByteArrayInputStream(data), byte[].class);
+        StreamingPropertyValue value = StreamingPropertyValue.create(new ByteArrayInputStream(data), byte[].class);
         value.searchIndex(false);
         Vertex rootConceptVertex = ((VertexiumConcept) getRootConcept(PUBLIC)).getVertex();
         Property existingProperty = OntologyProperties.ONTOLOGY_FILE.getProperty(rootConceptVertex, documentIRI.toString());

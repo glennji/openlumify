@@ -74,6 +74,9 @@ public class VertexiumUserNotificationRepository extends UserNotificationReposit
     }
 
     private UserNotification toUserNotification(ExtendedDataRow row) {
+        if (row == null) {
+            return null;
+        }
         UserNotification notification = new UserNotification(
                 row.getId().getRowId(),
                 row.getId().getElementId(),
@@ -124,16 +127,13 @@ public class VertexiumUserNotificationRepository extends UserNotificationReposit
     @Override
     public UserNotification getNotification(String notificationId, User user) {
         Authorizations authorizations = getAuthorizations(user);
-        ArrayList<ExtendedDataRow> notifications = Lists.newArrayList(getGraph().query(authorizations)
-                // TODO use hadId -- .has("id", id)
-                .hasExtendedData(NotificationOntology.USER_NOTIFICATIONS_TABLE)
-                .extendedDataRows());
-        for (ExtendedDataRow notification : notifications) {
-            if (notification.getId().getRowId().equals(notificationId)) {
-                return toUserNotification(notification);
-            }
-        }
-        return null;
+        Vertex userVertex = getUserVertex(user.getUserId());
+        return toUserNotification(getGraph().getExtendedData(new ExtendedDataRowId(
+                ElementType.VERTEX,
+                userVertex.getId(),
+                NotificationOntology.USER_NOTIFICATIONS_TABLE,
+                notificationId
+        ), authorizations));
     }
 
     @Override

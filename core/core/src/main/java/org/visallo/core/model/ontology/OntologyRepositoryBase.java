@@ -36,7 +36,6 @@ import org.visallo.core.config.Configuration;
 import org.visallo.core.exception.VisalloAccessDeniedException;
 import org.visallo.core.exception.VisalloException;
 import org.visallo.core.exception.VisalloResourceNotFoundException;
-import org.visallo.core.model.thumbnails.ThumbnailOntology;
 import org.visallo.core.model.lock.LockRepository;
 import org.visallo.core.model.longRunningProcess.LongRunningProcessProperties;
 import org.visallo.core.model.notification.NotificationOntology;
@@ -45,6 +44,7 @@ import org.visallo.core.model.properties.types.VisalloProperty;
 import org.visallo.core.model.properties.types.VisalloPropertyBase;
 import org.visallo.core.model.search.SearchProperties;
 import org.visallo.core.model.termMention.TermMentionRepository;
+import org.visallo.core.model.thumbnails.ThumbnailOntology;
 import org.visallo.core.model.user.PrivilegeRepository;
 import org.visallo.core.model.user.UserRepository;
 import org.visallo.core.model.workspace.WorkspaceRepository;
@@ -77,12 +77,14 @@ public abstract class OntologyRepositoryBase implements OntologyRepository {
     public static final int MAX_DISPLAY_NAME = 50;
     private static final VisalloLogger LOGGER = VisalloLoggerFactory.getLogger(OntologyRepositoryBase.class);
     private static final String ONTOLOGY_CACHE_NAME = OntologyRepository.class.getName() + ".ontology";
+    private static final String ONTOLOGY_PROPERTY_CACHE_NAME = OntologyRepository.class.getName() + ".ontologyProperty";
     private static final String CONFIG_ONTOLOGY_CACHE_MAX_SIZE = OntologyRepository.class.getName() + "ontologyCache.maxSize";
     private static final long CONFIG_ONTOLOGY_CACHE_MAX_SIZE_DEFAULT = 100L;
     private final Configuration configuration;
     private final LockRepository lockRepository;
     private final CacheService cacheService;
     private final CacheOptions ontologyCacheOptions;
+    private final CacheOptions ontologyPropertyCacheOptions;
     private WorkspaceRepository workspaceRepository;
     private PrivilegeRepository privilegeRepository;
 
@@ -97,6 +99,7 @@ public abstract class OntologyRepositoryBase implements OntologyRepository {
         this.cacheService = cacheService;
         this.ontologyCacheOptions = new CacheOptions()
                 .setMaximumSize(configuration.getLong(CONFIG_ONTOLOGY_CACHE_MAX_SIZE, CONFIG_ONTOLOGY_CACHE_MAX_SIZE_DEFAULT));
+        this.ontologyPropertyCacheOptions = new CacheOptions();
     }
 
     public void loadOntologies(Configuration config, Authorizations authorizations) throws Exception {
@@ -146,6 +149,7 @@ public abstract class OntologyRepositoryBase implements OntologyRepository {
                     writePackage(new File(file), IRI.create(iri), authorizations);
                 }
             }
+
             return true;
         });
     }
@@ -556,7 +560,7 @@ public abstract class OntologyRepositoryBase implements OntologyRepository {
                 throw new RuntimeException("Could not find icon file: " + iconFile.toString());
             }
             try (InputStream iconFileIn = new FileInputStream(iconFile)) {
-                StreamingPropertyValue value = new StreamingPropertyValue(iconFileIn, byte[].class);
+                StreamingPropertyValue value = StreamingPropertyValue.create(iconFileIn, byte[].class);
                 value.searchIndex(false);
                 value.store(true);
                 concept.setProperty(propertyKey, value, user, authorizations);
@@ -1098,6 +1102,10 @@ public abstract class OntologyRepositoryBase implements OntologyRepository {
         return Iterables.getFirst(getConceptsByIRI(Collections.singletonList(conceptIRI), workspaceId), null);
     }
 
+    private String getConceptCacheKey(String conceptIRI, String workspaceId) {
+        return workspaceId + conceptIRI;
+    }
+
     @Override
     public Iterable<Concept> getConceptsByIRI(List<String> conceptIRIs, String workspaceId) {
         return StreamSupport.stream(getConceptsWithProperties(workspaceId).spliterator(), false)
@@ -1107,7 +1115,19 @@ public abstract class OntologyRepositoryBase implements OntologyRepository {
 
     @Override
     public OntologyProperty getPropertyByIRI(String propertyIRI, String workspaceId) {
-        return Iterables.getFirst(getPropertiesByIRI(Collections.singletonList(propertyIRI), workspaceId), null);
+        String cacheKey = getPropertyCacheKey(propertyIRI, workspaceId);
+        OntologyProperty prop = cacheService.getIfPresent(ONTOLOGY_PROPERTY_CACHE_NAME, cacheKey);
+        if (prop == null) {
+            prop = Iterables.getFirst(getPropertiesByIRI(Collections.singletonList(propertyIRI), workspaceId), null);
+            if (prop != null) {
+                cacheService.put(ONTOLOGY_PROPERTY_CACHE_NAME, cacheKey, prop, ontologyPropertyCacheOptions);
+            }
+        }
+        return prop;
+    }
+
+    private String getPropertyCacheKey(String propertyIRI, String workspaceId) {
+        return workspaceId + propertyIRI;
     }
 
     @Override
@@ -1501,11 +1521,13 @@ public abstract class OntologyRepositoryBase implements OntologyRepository {
     @Override
     public void clearCache() {
         cacheService.invalidate(ONTOLOGY_CACHE_NAME);
+        cacheService.invalidate(ONTOLOGY_PROPERTY_CACHE_NAME);
     }
 
     @Override
     public void clearCache(String workspaceId) {
         cacheService.invalidate(ONTOLOGY_CACHE_NAME, workspaceId);
+        cacheService.invalidate(ONTOLOGY_PROPERTY_CACHE_NAME);
     }
 
     public final Configuration getConfiguration() {

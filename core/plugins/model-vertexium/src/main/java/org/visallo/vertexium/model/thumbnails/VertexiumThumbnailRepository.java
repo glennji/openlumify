@@ -73,7 +73,7 @@ public class VertexiumThumbnailRepository extends ThumbnailRepository {
     ) {
         Authorizations authorizations = getAuthorizations(user);
         Thumbnail thumbnail = generateThumbnail(vertex, propertyKey, thumbnailType, in, boundaryDims);
-        StreamingPropertyValue spv = new StreamingPropertyValue(new ByteArrayInputStream(thumbnail.getData()), byte[].class);
+        StreamingPropertyValue spv = StreamingPropertyValue.create(new ByteArrayInputStream(thumbnail.getData()), byte[].class);
         String key = createId(thumbnailType, thumbnail);
         Visibility visibility = new Visibility(VISIBILITY_STRING);
         Metadata metadata = new PropertyMetadata(user, new VisibilityJson(), visibility).createMetadata();

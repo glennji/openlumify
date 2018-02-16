@@ -20,7 +20,7 @@ public abstract class ThumbnailRepositoryTestBase extends VisalloInMemoryTestBas
     public void testCreateThumbnail() {
         Authorizations authorizations = getAuthorizationRepository().getGraphAuthorizations(getUserRepository().getSystemUser());
         Vertex artifactVertex = getGraph().addVertex("v1", new Visibility(""), authorizations);
-        StreamingPropertyValue value = new StreamingPropertyValue(getClass().getResourceAsStream("/org/visallo/core/model/thumbnails/sample-image.jpg"), byte[].class);
+        StreamingPropertyValue value = StreamingPropertyValue.create(getClass().getResourceAsStream("/org/visallo/core/model/thumbnails/sample-image.jpg"), byte[].class);
         VisalloProperties.RAW.setProperty(artifactVertex, value, new Visibility(""), authorizations);
 
         InputStream in = VisalloProperties.RAW.getPropertyValue(artifactVertex).getInputStream();
