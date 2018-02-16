@@ -19,8 +19,9 @@ define([
 
     const VisibilityEditor = createReactClass({
         propTypes: {
-            onVisibilityChange: PropTypes.func
-            // TODO
+            onVisibilityChange: PropTypes.func,
+            value: PropTypes.string,
+
         },
 
         getInitialState() {

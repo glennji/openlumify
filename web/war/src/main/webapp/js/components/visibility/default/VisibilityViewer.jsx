@@ -9,7 +9,7 @@ define(['prop-types'], function(PropTypes) {
      * @property {string} [element] The element that the visibility is a part
      * of. Could be undefined
      */
-    const VisibilityViewer = ({ value, property, element, style }) => (
+    const VisibilityViewer = ({ value, style }) => (
         <div className="visibility" style={style}>
             {_.isUndefined(value) || value === '' ?
                 (<i>{i18n('visibility.blank')}</i>) :
@@ -20,7 +20,7 @@ define(['prop-types'], function(PropTypes) {
 
     VisibilityViewer.propTypes = {
         value: PropTypes.string,
-        style: PropTypes.object
+        style: PropTypes.object,
     };
 
     return VisibilityViewer;

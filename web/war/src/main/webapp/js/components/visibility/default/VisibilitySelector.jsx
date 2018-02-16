@@ -12,8 +12,14 @@ define([
 
     const VisibilitySelector = createReactClass({
         propTypes: {
-            // disabled,
-            // authorizations
+            value: PropTypes.string.required,
+            placeholder: PropTypes.string,
+            readonly: PropTypes.bool,
+            creatable: PropTypes.bool,
+            disabled: PropTypes.bool,
+            clearable: PropTypes.bool,
+            authorizations: PropTypes.object,
+            visibilitychange: PropTypes.func.required
         },
 
         getDefaultProps() {
@@ -33,15 +39,6 @@ define([
                 valid: this.checkValid(value)
             }
         },
-
-        // componentDidMount() {
-        //   // prevent enter keyup from propagating to form container so options can be selected
-        //   $(this._Virtualized._selectRef.wrapper).on('keyup', (event) => {
-        //       if (event.keyCode === 13 /* enter */) {
-        //           event.stopPropagation();
-        //       }
-        //   })
-        // },
 
         componentWillReceiveProps(nextProps) {
             if (nextProps.value !== this.state.value) {
@@ -92,10 +89,6 @@ define([
             const authorizations = this.props.authorizations;
             return Boolean(value === '' || value === undefined || value in authorizations);
         },
-
-        // onNewOptionClick(value) {
-        //     this.setState({ creating: { label: value, value }});
-        // },
 
         mapAuthorizationsToOptions(authorizations) {
             return _.chain(authorizations)

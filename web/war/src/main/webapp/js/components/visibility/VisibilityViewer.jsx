@@ -14,7 +14,9 @@ define([
 
     const VisibilityViewer = createReactClass({
         propTypes: {
-            //
+            value: PropTypes.string,
+            property: PropTypes.object,
+            elements: PropTypes.object
         },
 
         render() {
