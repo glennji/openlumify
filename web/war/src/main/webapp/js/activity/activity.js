@@ -437,7 +437,8 @@ define([
                                                 })
                                             this.append('div')
                                                 .attr('class', 'progress-description')
-
+                                            this.append('div')
+                                                .attr('class', 'progress-remaining')
                                         });
 
                                     this.append('div')
@@ -555,6 +556,12 @@ define([
 
                                 return timePrefix;
                             });
+
+                            this.select('.progress-remaining')
+                                .text(process => process.progressRemaining ?
+                                    i18n('activity.tasks.remaining', process.progressRemaining) : null
+                                )
+                                .style('display', process => process.progressRemaining ? '' : 'none')
                         })
                 });
         }

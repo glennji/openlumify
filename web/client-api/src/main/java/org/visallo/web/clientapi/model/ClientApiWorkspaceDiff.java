@@ -1,15 +1,22 @@
 package org.visallo.web.clientapi.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.sun.deploy.security.SandboxSecurity;
 import org.visallo.web.clientapi.util.ClientApiConverter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ClientApiWorkspaceDiff implements ClientApiObject {
+    private long total;
+    private Map<String, VertexItem> edgeVerticesById = new HashMap<String, VertexItem>();
+    private Map<String, EdgeItem> vertexEdgesById = new HashMap<String, EdgeItem>();
     private List<Item> diffs = new ArrayList<Item>();
 
     public void addAll(List<Item> diffs) {
@@ -18,6 +25,30 @@ public class ClientApiWorkspaceDiff implements ClientApiObject {
 
     public List<Item> getDiffs() {
         return diffs;
+    }
+
+    public void setVertexEdge(EdgeItem edge) {
+        vertexEdgesById.put(edge.getEdge().getId(), edge);
+    }
+
+    public void setEdgeVertex(VertexItem vertex) {
+        edgeVerticesById.put(vertex.getVertex().getId(), vertex);
+    }
+
+    public Map<String, VertexItem> getEdgeVerticesById() {
+        return edgeVerticesById;
+    }
+
+    public Map<String, EdgeItem> getVertexEdgesById() {
+        return vertexEdgesById;
+    }
+
+    public long getTotal() {
+        return total;
+    }
+
+    public void setTotal(long total) {
+        this.total = total;
     }
 
     @Override
@@ -64,87 +95,48 @@ public class ClientApiWorkspaceDiff implements ClientApiObject {
     }
 
     public static class EdgeItem extends Item {
-        private String edgeId;
-        private String label;
-        private String outVertexId;
-        private String inVertexId;
-        private JsonNode visibilityJson;
+        private ClientApiEdge edge;
 
         public EdgeItem() {
             super("EdgeDiffItem", SandboxStatus.PRIVATE, false);
         }
 
-        public EdgeItem(
-                String edgeId, String label, String outVertexId, String inVertexId, JsonNode visibilityJson,
-                SandboxStatus sandboxStatus, boolean deleted) {
+        public EdgeItem(ClientApiEdge edge, SandboxStatus sandboxStatus, boolean deleted) {
             super("EdgeDiffItem", sandboxStatus, deleted);
-            this.edgeId = edgeId;
-            this.label = label;
-            this.outVertexId = outVertexId;
-            this.inVertexId = inVertexId;
-            this.visibilityJson = visibilityJson;
+            this.edge = edge;
         }
 
-        public String getEdgeId() {
-            return edgeId;
-        }
-
-        public String getLabel() {
-            return label;
-        }
-
-        public String getOutVertexId() {
-            return outVertexId;
-        }
-
-        public String getInVertexId() {
-            return inVertexId;
-        }
-
-        public JsonNode getVisibilityJson() {
-            return visibilityJson;
+        public ClientApiEdge getEdge() {
+            return edge;
         }
     }
 
     public static class VertexItem extends Item {
-        private String vertexId;
-        private JsonNode visibilityJson;
-        private String title;
-        private String conceptType;
+        private ClientApiVertex vertex;
+        private Integer edgeCount;
 
         public VertexItem() {
             super("VertexDiffItem", SandboxStatus.PRIVATE, false);
         }
 
         public VertexItem(
-                String vertexId,
-                String title,
-                String conceptType,
-                JsonNode visibilityJson,
+                ClientApiVertex vertex,
+                Integer edgeCount,
                 SandboxStatus sandboxStatus,
                 boolean deleted
         ) {
             super("VertexDiffItem", sandboxStatus, deleted);
-            this.vertexId = vertexId;
-            this.visibilityJson = visibilityJson;
-            this.title = title;
-            this.conceptType = conceptType;
+            this.vertex = vertex;
+            this.edgeCount = edgeCount;
         }
 
-        public String getVertexId() {
-            return vertexId;
+        public ClientApiVertex getVertex() {
+            return vertex;
         }
 
-        public JsonNode getVisibilityJson() {
-            return visibilityJson;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public String getConceptType() {
-            return conceptType;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        public Integer getEdgeCount() {
+            return edgeCount;
         }
     }
 

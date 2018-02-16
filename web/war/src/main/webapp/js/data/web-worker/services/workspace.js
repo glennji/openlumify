@@ -22,14 +22,42 @@ define([
     var api = {
 
         /**
+         * Get the current sandboxed unpublished change counts in workspace
+         *
+         * @param {string} [workspaceId]
+         */
+        diffCount: function(workspaceId, query) {
+            if (arguments.length === 1) {
+                query = workspaceId;
+                workspaceId = null;
+            }
+
+            return ajax('GET', '/workspace/diff-count', {
+                workspaceId: workspaceId || (getStore().getState().workspace).currentId,
+                query
+            });
+        },
+
+        /**
          * Get the current sandboxed unpublished changes in workspace
          *
          * @param {string} [workspaceId]
          */
-        diff: function(workspaceId) {
-            var workspaces = getStore().getState().workspace;
+        diff: function(workspaceId, startIndex, stopIndex, query) {
+            if (arguments.length === 3) {
+                query = stopIndex
+                stopIndex = startIndex
+                startIndex = workspaceId;
+                workspaceId = null;
+            }
+            if (isNaN(startIndex) || isNaN(stopIndex)) {
+                throw new Error(`start/stop must be numbers ${startIndex}/${stopIndex}`);
+            }
             return ajax('GET', '/workspace/diff', {
-                workspaceId: workspaceId || workspaces.currentId
+                workspaceId: workspaceId || (getStore().getState().workspace).currentId,
+                query,
+                startIndex,
+                stopIndex
             });
         },
 

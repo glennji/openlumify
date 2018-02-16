@@ -1,5 +1,6 @@
 package org.visallo.vertexium.model.workspace;
 
+import com.amazonaws.services.devicefarm.model.ArgumentException;
 import com.google.common.base.Function;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -10,11 +11,14 @@ import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.vertexium.*;
 import org.vertexium.mutation.ExistingEdgeMutation;
 import org.vertexium.property.StreamingPropertyValue;
 import org.vertexium.query.Compare;
+import org.vertexium.query.GraphQuery;
+import org.vertexium.query.Query;
 import org.vertexium.query.QueryResultsIterable;
 import org.vertexium.search.IndexHint;
 import org.vertexium.util.FilterIterable;
@@ -22,7 +26,6 @@ import org.visallo.core.config.Configuration;
 import org.visallo.core.exception.VisalloAccessDeniedException;
 import org.visallo.core.exception.VisalloException;
 import org.visallo.core.exception.VisalloResourceNotFoundException;
-import org.visallo.core.formula.FormulaEvaluator;
 import org.visallo.core.model.graph.ElementUpdateContext;
 import org.visallo.core.model.graph.GraphRepository;
 import org.visallo.core.model.graph.GraphUpdateContext;
@@ -48,13 +51,11 @@ import org.visallo.core.util.JSONUtil;
 import org.visallo.core.util.VisalloLogger;
 import org.visallo.core.util.VisalloLoggerFactory;
 import org.visallo.vertexium.model.user.VertexiumUserRepository;
-import org.visallo.web.clientapi.model.ClientApiWorkspace;
-import org.visallo.web.clientapi.model.ClientApiWorkspaceDiff;
-import org.visallo.web.clientapi.model.SandboxStatus;
-import org.visallo.web.clientapi.model.WorkspaceAccess;
+import org.visallo.web.clientapi.model.*;
 
 import javax.annotation.Nullable;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -438,106 +439,100 @@ public class VertexiumWorkspaceRepository extends WorkspaceRepository {
         }
     }
 
-    @Override
-    public List<WorkspaceEntity> findEntities(final Workspace workspace, final boolean fetchVertices, final User user) {
-        if (!hasReadPermissions(workspace.getWorkspaceId(), user)) {
+    private Query queryWorkspaceChanges(String search, String workspaceId, User user) {
+        if (!hasReadPermissions(workspaceId, user)) {
             throw new VisalloAccessDeniedException(
-                    "user " + user.getUserId() + " does not have read access to workspace " + workspace.getWorkspaceId(),
+                    "user " + user.getUserId() + " does not have read access to workspace " + workspaceId,
                     user,
-                    workspace.getWorkspaceId()
+                    workspaceId
             );
         }
 
-        return lockRepository.lock(
-                getLockName(workspace),
-                () -> findEntitiesNoLock(workspace, false, fetchVertices, user)
+        Authorizations authorizations = getAuthorizationRepository().getGraphAuthorizations(
+                user,
+                workspaceId
         );
+
+        Graph graph = getGraph();
+        GraphQuery query = StringUtils.isBlank(search) ? graph.query(authorizations) : graph.query(search, authorizations);
+        query.hasAuthorization(workspaceId);
+        return query;
     }
 
     @Traced
     private List<WorkspaceEntity> findEntitiesNoLock(
-            final Workspace workspace,
-            final boolean includeHidden,
-            final boolean fetchVertices,
+            String workspaceId,
+            boolean includeHidden,
+            boolean fetchVertices,
             User user
     ) {
-        LOGGER.debug(
-                "BEGIN findEntitiesNoLock(workspaceId: %s, includeHidden: %b, userId: %s)",
-                workspace.getWorkspaceId(),
-                includeHidden,
-                user.getUserId()
-        );
-        long startTime = System.currentTimeMillis();
+        Query query = queryWorkspaceChanges(null, workspaceId, user);
 
-        Authorizations authorizations = getAuthorizationRepository().getGraphAuthorizations(
-                user,
-                VISIBILITY_STRING,
-                workspace.getWorkspaceId()
-        );
-        Vertex workspaceVertex = getVertexFromWorkspace(workspace, includeHidden, authorizations);
-        List<Edge> entityEdges = stream(workspaceVertex.getEdges(
-                Direction.BOTH,
-                WORKSPACE_TO_ENTITY_RELATIONSHIP_IRI,
-                authorizations
-        ))
-                .collect(Collectors.toList());
+        System.out.println("Vertices: " + query.vertexIds().getTotalHits());
+        System.out.println("Edges: " + query.edgeIds().getTotalHits());
 
-        final Map<String, Vertex> workspaceVertices;
-        if (fetchVertices) {
-            workspaceVertices = getWorkspaceVertices(workspace, entityEdges, authorizations);
-        } else {
-            workspaceVertices = null;
-        }
+        return new ArrayList<>();
 
-        List<WorkspaceEntity> results = entityEdges.stream()
-                .map(edge -> {
-                    String entityVertexId = edge.getOtherVertexId(workspace.getWorkspaceId());
-
-                    if (!includeHidden) {
-                        return null;
-                    }
-
-                    Vertex workspaceVertex1 = null;
-                    if (fetchVertices) {
-                        workspaceVertex1 = workspaceVertices.get(entityVertexId);
-                    }
-                    return new WorkspaceEntity(
-                            entityVertexId,
-                            workspaceVertex1
-                    );
-                })
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-        LOGGER.debug(
-                "END findEntitiesNoLock (found: %d entities, time: %dms)",
-                results.size(),
-                System.currentTimeMillis() - startTime
-        );
-        return results;
+//
+//
+//        List<Edge> entityEdges = stream(workspaceVertex.getEdges(
+//                Direction.BOTH,
+//                WORKSPACE_TO_ENTITY_RELATIONSHIP_IRI,
+//                FetchHint.NONE,
+//                authorizations
+//        )).collect(Collectors.toList());
+//
+//        final Map<String, Vertex> workspaceVertices;
+//        if (fetchVertices) {
+//            workspaceVertices = getWorkspaceVertices(workspace, entityEdges, includeHidden, authorizations);
+//        } else {
+//            workspaceVertices = null;
+//        }
+//        String workspaceId = workspace.getWorkspaceId();
+//
+//        List<WorkspaceEntity> results = new ArrayList<>(entityEdges.size());
+//
+//        for (Edge edge : entityEdges) {
+//            String entityVertexId = edge.getOtherVertexId(workspaceId);
+//            Vertex vertex = fetchVertices ? workspaceVertices.get(entityVertexId) : null;
+//            results.add(new WorkspaceEntity(entityVertexId, vertex));
+//        }
+//
+//        return results;
     }
 
     protected Map<String, Vertex> getWorkspaceVertices(
             final Workspace workspace,
             List<Edge> entityEdges,
+            boolean includeHidden,
             Authorizations authorizations
     ) {
-        Map<String, Vertex> workspaceVertices;
-        Iterable<String> workspaceVertexIds = entityEdges.stream()
+        List<String> workspaceVertexIds = entityEdges.stream()
                 .map(edge -> edge.getOtherVertexId(workspace.getWorkspaceId()))
                 .collect(Collectors.toList());
+
+        EnumSet<FetchHint> defaults = EnumSet.of(
+            FetchHint.PROPERTIES,
+            // FetchHint.PROPERTY_METADATA,
+            FetchHint.IN_EDGE_REFS,
+            FetchHint.OUT_EDGE_REFS
+        );
+        if (includeHidden) {
+            defaults.add(FetchHint.INCLUDE_HIDDEN);
+        }
         Iterable<Vertex> vertices = getGraph().getVertices(
                 workspaceVertexIds,
-                FetchHint.ALL_INCLUDING_HIDDEN,
+                defaults,
                 authorizations
         );
-        workspaceVertices = Maps.uniqueIndex(vertices, new Function<Vertex, String>() {
+
+        return Maps.uniqueIndex(vertices, new Function<Vertex, String>() {
             @Nullable
             @Override
             public String apply(Vertex v) {
                 return v.getId();
             }
         });
-        return workspaceVertices;
     }
 
     @Override
@@ -1033,7 +1028,7 @@ public class VertexiumWorkspaceRepository extends WorkspaceRepository {
                 if (preview == null) {
                     WorkspaceProperties.PRODUCT_PREVIEW_DATA_URL.removeProperty(elCtx.getMutation(), user.getUserId(), visibility);
                 } else {
-                    StreamingPropertyValue value = new StreamingPropertyValue(new ByteArrayInputStream(preview.getImageData()), byte[].class);
+                    StreamingPropertyValue value = StreamingPropertyValue.create(new ByteArrayInputStream(preview.getImageData()), byte[].class);
                     value.store(true).searchIndex(false);
                     Metadata metadata = new Metadata();
                     metadata.add("http://visallo.org/product#previewImageMD5", preview.getMD5(), visibility);
@@ -1595,25 +1590,90 @@ public class VertexiumWorkspaceRepository extends WorkspaceRepository {
     }
 
     @Override
+    public ClientApiWorkspaceDiffCount getDiffCount(
+            String search,
+            String workspaceId,
+            User user
+    ) {
+        long maxIdsToSend = 250;
+
+        Query query = queryWorkspaceChanges(search, workspaceId, user);
+        query.limit(maxIdsToSend);
+
+        QueryResultsIterable<String> elementIds = query.elementIds();
+        long total = elementIds.getTotalHits();
+
+        List<String> ids = (total < maxIdsToSend) ?
+            stream(elementIds).collect(Collectors.toList()) : Lists.newArrayList();
+
+        ClientApiWorkspaceDiffCount diffCount = new ClientApiWorkspaceDiffCount(total, ids);
+
+        return diffCount;
+    }
+
+    @Override
     @Traced
     public ClientApiWorkspaceDiff getDiff(
-            Workspace workspace,
-            User user,
-            FormulaEvaluator.UserContext userContext
+            String workspaceId,
+            int startIndex,
+            int stopIndex,
+            String search,
+            User user
     ) {
-        if (!hasReadPermissions(workspace.getWorkspaceId(), user)) {
-            throw new VisalloAccessDeniedException(
-                    "user " + user.getUserId() + " does not have read access to workspace " + workspace.getWorkspaceId(),
-                    user,
-                    workspace.getWorkspaceId()
-            );
+        return lockRepository.lock(getLockName(workspaceId), () -> {
+
+            Query query = queryWorkspaceChanges(search, workspaceId, user);
+            // query.sort(VisalloProperties.MODIFIED_DATE.getPropertyName(), SortDirection.DESCENDING);
+            // query.sort(VisalloProperties.CONCEPT_TYPE.getPropertyName(), SortDirection.ASCENDING);
+            // query.sort("__edgeLabel", SortDirection.ASCENDING);
+
+            query.skip(0);
+            query.limit((Long) null);
+
+            QueryResultsIterable<String> vertexIdResults = query.vertexIds();
+            QueryResultsIterable<String> edgeIdResults = query.edgeIds();
+            long vertexHits = vertexIdResults.getTotalHits();
+            long edgeHits = edgeIdResults.getTotalHits();
+
+            List<String> vertexIds = collectIds(vertexIdResults, startIndex, stopIndex);
+            List<String> edgeIds = collectIds(edgeIdResults, startIndex - (int) vertexHits, stopIndex - (int) vertexHits);
+
+            Authorizations authorizations = getAuthorizationRepository().getGraphAuthorizations(user, workspaceId);
+            Iterable<Vertex> vertices = getGraph().getVertices(vertexIds, FetchHint.ALL_INCLUDING_HIDDEN, authorizations);
+            Iterable<Edge> edges = getGraph().getEdges(edgeIds, FetchHint.ALL_INCLUDING_HIDDEN, authorizations);
+
+            ClientApiWorkspaceDiff diff = workspaceDiff.diff(workspaceId, vertices, edges, authorizations);
+            diff.setTotal(vertexHits + edgeHits);
+            return diff;
+        });
+    }
+
+    private List<String> collectIds(QueryResultsIterable<String> elementIdResults, int startIndex, int stopIndex) throws IOException {
+        int total = (int) elementIdResults.getTotalHits();
+        int count = stopIndex - startIndex;
+        if (count <= 0) {
+            throw new ArgumentException("Start and stop should not be equal");
         }
 
-        return lockRepository.lock(getLockName(workspace), () -> {
-            List<WorkspaceEntity> workspaceEntities = findEntitiesNoLock(workspace, true, true, user);
-            Iterable<Edge> workspaceEdges = findModifiedEdges(workspace, workspaceEntities, true, user);
-            return workspaceDiff.diff(workspace, workspaceEntities, workspaceEdges, userContext, user);
-        });
+        int i = 0;
+        List<String> vertexIds;
+        if (startIndex < total) {
+            vertexIds = new ArrayList<>(count);
+            for (String vertexId : elementIdResults) {
+                if (i < stopIndex) {
+                    if (i >= startIndex) {
+                        vertexIds.add(vertexId);
+                    }
+                    i++;
+                } else {
+                    break;
+                }
+            }
+        } else {
+            vertexIds = new ArrayList<>();
+        }
+        elementIdResults.close();
+        return vertexIds;
     }
 
     private class ProductPreview {

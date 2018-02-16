@@ -19,16 +19,20 @@ public class BaseStructuredFileParserHandler {
 
     }
 
+    public boolean prepareRow(List<Object> values, long rowNum) {
+        return prepareRow(valuesToMap(values), rowNum);
+    }
+
+    public boolean prepareRow(Map<String, Object> row, long rowNum) {
+        return true;
+    }
+
+    public void prepareFinished() {
+
+    }
+
     public boolean addRow(List<Object> values, long rowNum) {
-        Map<String, Object> sortedMap = new TreeMap<String, Object>();
-
-        Long i = 0l;
-        for (Object value : values) {
-            sortedMap.put(i.toString(), value);
-            i++;
-        }
-
-        return addRow(sortedMap, rowNum);
+        return addRow(valuesToMap(values), rowNum);
     }
 
     public boolean addRow(Map<String, Object> row, long rowNum) {
@@ -41,5 +45,19 @@ public class BaseStructuredFileParserHandler {
 
     public long getTotalRows() {
         return totalRows;
+    }
+
+    private Map<String, Object> valuesToMap(List<Object> values) {
+        Map<String, Object> sortedMap = new TreeMap<String, Object>();
+
+        Long i = 0l;
+        for (Object value : values) {
+            sortedMap.put(i.toString(), value);
+            i++;
+        }
+        return sortedMap;
+    }
+
+    public void cleanup() {
     }
 }

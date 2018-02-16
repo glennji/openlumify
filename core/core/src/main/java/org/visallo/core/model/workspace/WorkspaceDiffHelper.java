@@ -1,106 +1,113 @@
 package org.visallo.core.model.workspace;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.vertexium.*;
-import org.visallo.core.formula.FormulaEvaluator;
-import org.visallo.core.model.properties.VisalloProperties;
-import org.visallo.core.model.user.AuthorizationRepository;
-import org.visallo.core.model.user.UserRepository;
-import org.visallo.core.trace.Traced;
-import org.visallo.core.user.User;
-import org.visallo.core.util.JSONUtil;
-import org.visallo.core.util.JsonSerializer;
+import org.vertexium.util.IterableUtils;
+import org.visallo.core.util.ClientApiConverter;
 import org.visallo.core.util.SandboxStatusUtil;
-import org.visallo.web.clientapi.model.ClientApiWorkspaceDiff;
-import org.visallo.web.clientapi.model.SandboxStatus;
+import org.visallo.web.clientapi.model.*;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-
-import static org.vertexium.util.IterableUtils.toList;
+import java.util.*;
 
 @Singleton
 public class WorkspaceDiffHelper {
+    private static final int MAX_EDGES_TO_INCLUDE = 10;
     private final Graph graph;
-    private final UserRepository userRepository;
-    private final AuthorizationRepository authorizationRepository;
-    private final FormulaEvaluator formulaEvaluator;
 
     @Inject
-    public WorkspaceDiffHelper(
-            Graph graph,
-            UserRepository userRepository,
-            AuthorizationRepository authorizationRepository,
-            FormulaEvaluator formulaEvaluator
-    ) {
+    public WorkspaceDiffHelper(Graph graph) {
         this.graph = graph;
-        this.userRepository = userRepository;
-        this.authorizationRepository = authorizationRepository;
-        this.formulaEvaluator = formulaEvaluator;
     }
 
-    @Traced
     public ClientApiWorkspaceDiff diff(
-            Workspace workspace,
-            Iterable<WorkspaceEntity> workspaceEntities,
-            Iterable<Edge> workspaceEdges,
-            FormulaEvaluator.UserContext userContext,
-            User user
+            String workspaceId,
+            Iterable<Vertex> vertices,
+            Iterable<Edge> edges,
+            Authorizations authorizations
     ) {
-        Authorizations authorizations = authorizationRepository.getGraphAuthorizations(
-                user,
-                WorkspaceRepository.VISIBILITY_STRING,
-                workspace.getWorkspaceId()
-        );
+        ClientApiWorkspaceDiff diff = new ClientApiWorkspaceDiff();
+        List<ClientApiWorkspaceDiff.Item> items = new ArrayList<>();
 
-        ClientApiWorkspaceDiff result = new ClientApiWorkspaceDiff();
-        for (WorkspaceEntity workspaceEntity : workspaceEntities) {
-            List<ClientApiWorkspaceDiff.Item> entityDiffs = diffWorkspaceEntity(
-                    workspace,
-                    workspaceEntity,
-                    userContext,
-                    authorizations
-            );
-            if (entityDiffs != null) {
-                result.addAll(entityDiffs);
+        Set<String> vertexEdgeIds = new HashSet<>();
+        for (Vertex vertex : vertices) {
+            SandboxStatus status = SandboxStatusUtil.getSandboxStatus(vertex, workspaceId);
+            boolean deleted = vertex.isHidden(authorizations);
+            int count = vertex.getEdgeCount(Direction.BOTH, authorizations);
+            ClientApiVertex vertexApi;
+            if (count <= MAX_EDGES_TO_INCLUDE) {
+                vertexApi = ClientApiConverter.toClientApiVertex(vertex, workspaceId, null, true, authorizations);
+                if (vertexApi.getEdgeInfos() != null) {
+                    for (ClientApiEdgeInfo info : vertexApi.getEdgeInfos()) {
+                        vertexEdgeIds.add(info.getEdgeId());
+                    }
+                }
+            } else {
+                vertexApi = ClientApiConverter.toClientApiVertex(vertex, workspaceId, authorizations);
+            }
+            items.add(new ClientApiWorkspaceDiff.VertexItem(vertexApi, count, status, deleted));
+        }
+
+        Set<String> edgeVertexIds = new HashSet<>();
+        for (Edge edge : edges) {
+            SandboxStatus status = SandboxStatusUtil.getSandboxStatus(edge, workspaceId);
+            boolean deleted = edge.isHidden(authorizations);
+            edgeVertexIds.add(edge.getVertexId(Direction.OUT));
+            edgeVertexIds.add(edge.getVertexId(Direction.IN));
+            ClientApiEdge edgeApi = ClientApiConverter.toClientApiEdge(edge, workspaceId);
+            items.add(new ClientApiWorkspaceDiff.EdgeItem(edgeApi, status, deleted));
+        }
+
+        if (vertexEdgeIds.size() > 0) {
+            for (Edge edge : graph.getEdges(vertexEdgeIds, FetchHint.ALL_INCLUDING_HIDDEN, authorizations)) {
+                ClientApiEdge edgeApi = ClientApiConverter.toClientApiEdge(edge, workspaceId);
+                SandboxStatus status = SandboxStatusUtil.getSandboxStatus(edge, workspaceId);
+                boolean deleted = edge.isHidden(authorizations);
+                diff.setVertexEdge(new ClientApiWorkspaceDiff.EdgeItem(edgeApi, status, deleted));
             }
         }
 
-        for (Edge workspaceEdge : workspaceEdges) {
-            List<ClientApiWorkspaceDiff.Item> entityDiffs = diffEdge(workspace, workspaceEdge, authorizations);
-            if (entityDiffs != null) {
-                result.addAll(entityDiffs);
+        if (edgeVertexIds.size() > 0) {
+            for (Vertex vertex : graph.getVertices(edgeVertexIds, FetchHint.ALL_INCLUDING_HIDDEN, authorizations)) {
+                ClientApiVertex vertexApi = ClientApiConverter.toClientApiVertex(vertex, workspaceId, authorizations);
+                SandboxStatus status = SandboxStatusUtil.getSandboxStatus(vertex, workspaceId);
+                boolean deleted = vertex.isHidden(authorizations);
+                diff.setEdgeVertex(new ClientApiWorkspaceDiff.VertexItem(vertexApi, null, status, deleted));
             }
         }
 
-        return result;
+        diff.addAll(items);
+
+        return diff;
     }
 
-    @Traced
-    protected List<ClientApiWorkspaceDiff.Item> diffEdge(
-            Workspace workspace,
-            Edge edge,
-            Authorizations hiddenAuthorizations
-    ) {
-        List<ClientApiWorkspaceDiff.Item> result = new ArrayList<>();
 
-        SandboxStatus sandboxStatus = SandboxStatusUtil.getSandboxStatus(edge, workspace.getWorkspaceId());
-        boolean isPrivateChange = sandboxStatus != SandboxStatus.PUBLIC;
-        boolean isPublicDelete = WorkspaceDiffHelper.isPublicDelete(edge, hiddenAuthorizations);
-        if (isPrivateChange || isPublicDelete) {
-            result.add(createWorkspaceDiffEdgeItem(edge, sandboxStatus, isPublicDelete));
-        }
-
-        // don't report properties individually when deleting the edge
-        if (!isPublicDelete) {
-            diffProperties(workspace, edge, result, hiddenAuthorizations);
-        }
-
-        return result;
-    }
+//    @Traced
+//    protected int diffEdge(
+//            ListeningExecutorService service,
+//            FutureCallback<ClientApiWorkspaceDiff.Item> callback,
+//            Workspace workspace,
+//            Edge edge,
+//            Authorizations hiddenAuthorizations
+//    ) {
+//        SandboxStatus sandboxStatus = SandboxStatusUtil.getSandboxStatus(edge, workspace.getWorkspaceId());
+//        boolean isPrivateChange = sandboxStatus != SandboxStatus.PUBLIC;
+//        boolean isPublicDelete = WorkspaceDiffHelper.isPublicDelete(edge, hiddenAuthorizations);
+//        int number = 0;
+//        if (isPrivateChange || isPublicDelete) {
+//            number++;
+////            callback.onSuccess(createWorkspaceDiffEdgeItem(edge, sandboxStatus, isPublicDelete));
+//            Futures.addCallback(service.submit(() ->
+//                createWorkspaceDiffEdgeItem(edge, sandboxStatus, isPublicDelete)),
+//                callback);
+//        }
+//
+//        // don't report properties individually when deleting the edge
+////        if (!isPublicDelete) {
+////            number += diffProperties(service, callback, workspace, edge, hiddenAuthorizations);
+////        }
+//        return number;
+//    }
 
     public static boolean isPublicDelete(Edge edge, Authorizations authorizations) {
         return edge.isHidden(authorizations);
@@ -114,181 +121,108 @@ public class WorkspaceDiffHelper {
         return property.isHidden(authorizations);
     }
 
-    private ClientApiWorkspaceDiff.EdgeItem createWorkspaceDiffEdgeItem(
-            Edge edge,
-            SandboxStatus sandboxStatus,
-            boolean deleted
-    ) {
-        Property visibilityJsonProperty = VisalloProperties.VISIBILITY_JSON.getProperty(edge);
-        JsonNode visibilityJson = visibilityJsonProperty == null ? null : JSONUtil.toJsonNode(JsonSerializer.toJsonProperty(
-                visibilityJsonProperty));
-        return new ClientApiWorkspaceDiff.EdgeItem(
-                edge.getId(),
-                edge.getLabel(),
-                edge.getVertexId(Direction.OUT),
-                edge.getVertexId(Direction.IN),
-                visibilityJson,
-                sandboxStatus,
-                deleted
-        );
-    }
 
-    @Traced
-    public List<ClientApiWorkspaceDiff.Item> diffWorkspaceEntity(
-            Workspace workspace,
-            WorkspaceEntity workspaceEntity,
-            FormulaEvaluator.UserContext userContext,
-            Authorizations authorizations
-    ) {
-        List<ClientApiWorkspaceDiff.Item> result = new ArrayList<>();
+//    @Traced
+//    protected int diffProperties(
+//            ListeningExecutorService service,
+//            FutureCallback<ClientApiWorkspaceDiff.Item> callback,
+//            Workspace workspace,
+//            Element element,
+//            Authorizations hiddenAuthorizations
+//    ) {
+//        List<Property> properties = toList(element.getProperties());
+//        SandboxStatus[] propertyStatuses = SandboxStatusUtil.getPropertySandboxStatuses(
+//                properties,
+//                workspace.getWorkspaceId()
+//        );
+//        int number = 0;
+//        for (int i = 0; i < properties.size(); i++) {
+//            Property property = properties.get(i);
+//            boolean isPrivateChange = propertyStatuses[i] != SandboxStatus.PUBLIC;
+//            boolean isPublicDelete = WorkspaceDiffHelper.isPublicDelete(property, hiddenAuthorizations);
+//            if (isPrivateChange || isPublicDelete) {
+//                Property existingProperty = null;
+//                if (isPublicDelete && isPublicPropertyEdited(properties, propertyStatuses, property)) {
+//                    continue;
+//                } else if (isPrivateChange) {
+//                    existingProperty = findExistingProperty(properties, propertyStatuses, property);
+//                }
+//                final Property e = existingProperty;
+//                final SandboxStatus status = propertyStatuses[i];
+//                number++;
+//                Futures.addCallback(service.submit(() -> createWorkspaceDiffPropertyItem(
+//                        element,
+//                        property,
+//                        e,
+//                        status,
+//                        isPublicDelete
+//                )), callback);
+//            }
+//        }
+//        return number;
+//    }
 
-        EnumSet<FetchHint> hints = EnumSet.of(FetchHint.PROPERTIES, FetchHint.PROPERTY_METADATA, FetchHint.INCLUDE_HIDDEN);
-        // Workspace vertex will be null if deleted, so retrieve with hidden
-        Vertex entityVertex = workspaceEntity.getVertex() == null ?
-            this.graph.getVertex(workspaceEntity.getEntityVertexId(), hints, authorizations) :
-            workspaceEntity.getVertex();
+//    private ClientApiWorkspaceDiff.PropertyItem createWorkspaceDiffPropertyItem(
+//            Element element,
+//            Property workspaceProperty,
+//            Property existingProperty,
+//            SandboxStatus sandboxStatus,
+//            boolean deleted
+//    ) {
+//        JsonNode oldData = null;
+//        if (existingProperty != null) {
+//            oldData = JSONUtil.toJsonNode(JsonSerializer.toJsonProperty(existingProperty));
+//        }
+//        JsonNode newData = JSONUtil.toJsonNode(JsonSerializer.toJsonProperty(workspaceProperty));
+//
+//        ElementType type = ElementType.getTypeFromElement(element);
+//        if (type.equals(ElementType.VERTEX)) {
+//            return new ClientApiWorkspaceDiff.PropertyItem(
+//                    type.name().toLowerCase(),
+//                    element.getId(),
+//                    VisalloProperties.CONCEPT_TYPE.getPropertyValue(element),
+//                    workspaceProperty.getName(),
+//                    workspaceProperty.getKey(),
+//                    oldData,
+//                    newData,
+//                    sandboxStatus,
+//                    deleted,
+//                    workspaceProperty.getVisibility().getVisibilityString()
+//            );
+//        } else {
+//            return new ClientApiWorkspaceDiff.PropertyItem(
+//                    type.name().toLowerCase(),
+//                    element.getId(),
+//                    ((Edge) element).getLabel(),
+//                    ((Edge) element).getVertexId(Direction.OUT),
+//                    ((Edge) element).getVertexId(Direction.IN),
+//                    workspaceProperty.getName(),
+//                    workspaceProperty.getKey(),
+//                    oldData,
+//                    newData,
+//                    sandboxStatus,
+//                    deleted,
+//                    workspaceProperty.getVisibility().getVisibilityString()
+//            );
+//        }
+//    }
 
-        // vertex can be null if the user doesn't have access to the entity
-        if (entityVertex == null) {
-            return null;
-        }
-
-        SandboxStatus sandboxStatus = SandboxStatusUtil.getSandboxStatus(entityVertex, workspace.getWorkspaceId());
-        boolean isPrivateChange = sandboxStatus != SandboxStatus.PUBLIC;
-        boolean isPublicDelete = WorkspaceDiffHelper.isPublicDelete(entityVertex, authorizations);
-        if (isPrivateChange || isPublicDelete) {
-            result.add(createWorkspaceDiffVertexItem(
-                    entityVertex,
-                    sandboxStatus,
-                    userContext,
-                    isPublicDelete
-            ));
-        }
-
-        // don't report properties individually when deleting the vertex
-        if (!isPublicDelete) {
-            diffProperties(workspace, entityVertex, result, authorizations);
-        }
-
-        return result;
-    }
-
-    private ClientApiWorkspaceDiff.VertexItem createWorkspaceDiffVertexItem(
-            Vertex vertex,
-            SandboxStatus sandboxStatus,
-            FormulaEvaluator.UserContext userContext,
-            boolean deleted
-    ) {
-        String vertexId = vertex.getId();
-        String title = deleted ? formulaEvaluator.evaluateTitleFormula(vertex, userContext, null) : null;
-        String conceptType = VisalloProperties.CONCEPT_TYPE.getPropertyValue(vertex);
-        Property visibilityJsonProperty = VisalloProperties.VISIBILITY_JSON.getProperty(vertex);
-        JsonNode visibilityJson = visibilityJsonProperty == null ? null : JSONUtil.toJsonNode(JsonSerializer.toJsonProperty(
-                visibilityJsonProperty));
-        return new ClientApiWorkspaceDiff.VertexItem(
-                vertexId,
-                title,
-                conceptType,
-                visibilityJson,
-                sandboxStatus,
-                deleted
-        );
-    }
-
-    @Traced
-    protected void diffProperties(
-            Workspace workspace,
-            Element element,
-            List<ClientApiWorkspaceDiff.Item> result,
-            Authorizations hiddenAuthorizations
-    ) {
-        List<Property> properties = toList(element.getProperties());
-        SandboxStatus[] propertyStatuses = SandboxStatusUtil.getPropertySandboxStatuses(
-                properties,
-                workspace.getWorkspaceId()
-        );
-        for (int i = 0; i < properties.size(); i++) {
-            Property property = properties.get(i);
-            boolean isPrivateChange = propertyStatuses[i] != SandboxStatus.PUBLIC;
-            boolean isPublicDelete = WorkspaceDiffHelper.isPublicDelete(property, hiddenAuthorizations);
-            if (isPrivateChange || isPublicDelete) {
-                Property existingProperty = null;
-                if (isPublicDelete && isPublicPropertyEdited(properties, propertyStatuses, property)) {
-                    continue;
-                } else if (isPrivateChange) {
-                    existingProperty = findExistingProperty(properties, propertyStatuses, property);
-                }
-                result.add(createWorkspaceDiffPropertyItem(
-                        element,
-                        property,
-                        existingProperty,
-                        propertyStatuses[i],
-                        isPublicDelete
-                ));
-            }
-        }
-    }
-
-    private ClientApiWorkspaceDiff.PropertyItem createWorkspaceDiffPropertyItem(
-            Element element,
-            Property workspaceProperty,
-            Property existingProperty,
-            SandboxStatus sandboxStatus,
-            boolean deleted
-    ) {
-        JsonNode oldData = null;
-        if (existingProperty != null) {
-            oldData = JSONUtil.toJsonNode(JsonSerializer.toJsonProperty(existingProperty));
-        }
-        JsonNode newData = JSONUtil.toJsonNode(JsonSerializer.toJsonProperty(workspaceProperty));
-
-        ElementType type = ElementType.getTypeFromElement(element);
-        if (type.equals(ElementType.VERTEX)) {
-            return new ClientApiWorkspaceDiff.PropertyItem(
-                    type.name().toLowerCase(),
-                    element.getId(),
-                    VisalloProperties.CONCEPT_TYPE.getPropertyValue(element),
-                    workspaceProperty.getName(),
-                    workspaceProperty.getKey(),
-                    oldData,
-                    newData,
-                    sandboxStatus,
-                    deleted,
-                    workspaceProperty.getVisibility().getVisibilityString()
-            );
-        } else {
-            return new ClientApiWorkspaceDiff.PropertyItem(
-                    type.name().toLowerCase(),
-                    element.getId(),
-                    ((Edge) element).getLabel(),
-                    ((Edge) element).getVertexId(Direction.OUT),
-                    ((Edge) element).getVertexId(Direction.IN),
-                    workspaceProperty.getName(),
-                    workspaceProperty.getKey(),
-                    oldData,
-                    newData,
-                    sandboxStatus,
-                    deleted,
-                    workspaceProperty.getVisibility().getVisibilityString()
-            );
-        }
-    }
-
-    private Property findExistingProperty(
-            List<Property> properties,
-            SandboxStatus[] propertyStatuses,
-            Property workspaceProperty
-    ) {
-        for (int i = 0; i < properties.size(); i++) {
-            Property property = properties.get(i);
-            if (property.getName().equals(workspaceProperty.getName())
-                    && property.getKey().equals(workspaceProperty.getKey())
-                    && propertyStatuses[i] == SandboxStatus.PUBLIC) {
-                return property;
-            }
-        }
-        return null;
-    }
+//    private Property findExistingProperty(
+//            List<Property> properties,
+//            SandboxStatus[] propertyStatuses,
+//            Property workspaceProperty
+//    ) {
+//        for (int i = 0; i < properties.size(); i++) {
+//            Property property = properties.get(i);
+//            if (property.getName().equals(workspaceProperty.getName())
+//                    && property.getKey().equals(workspaceProperty.getKey())
+//                    && propertyStatuses[i] == SandboxStatus.PUBLIC) {
+//                return property;
+//            }
+//        }
+//        return null;
+//    }
+//
 
     public static boolean isPublicPropertyEdited(
             List<Property> properties,
@@ -305,4 +239,15 @@ public class WorkspaceDiffHelper {
         }
         return false;
     }
+
+    class TitleOperation {
+        public String vertexId;
+        public String title;
+
+        public TitleOperation(String vertexId, String title) {
+            this.vertexId = vertexId;
+            this.title = title;
+        }
+    }
+
 }

@@ -287,7 +287,7 @@ public class FileImport {
                 }
             }
 
-            StreamingPropertyValue rawValue = new StreamingPropertyValue(fileInputStream, byte[].class);
+            StreamingPropertyValue rawValue = StreamingPropertyValue.create(fileInputStream, byte[].class);
             rawValue.searchIndex(false);
 
             Date modifiedDate = new Date();

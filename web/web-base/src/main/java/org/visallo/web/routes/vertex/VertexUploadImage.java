@@ -195,7 +195,7 @@ public class VertexUploadImage implements ParameterizedHandler {
         final String fileRowKey = RowKeyHelper.buildSHA256KeyString(rawContent);
         LOGGER.debug("Generated row key: %s", fileRowKey);
 
-        StreamingPropertyValue rawValue = new StreamingPropertyValue(new ByteArrayInputStream(rawContent), byte[].class);
+        StreamingPropertyValue rawValue = StreamingPropertyValue.create(new ByteArrayInputStream(rawContent), byte[].class);
         rawValue.searchIndex(false);
         rawValue.store(true);
 

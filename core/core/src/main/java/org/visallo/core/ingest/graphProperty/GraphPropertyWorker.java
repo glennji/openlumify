@@ -3,6 +3,7 @@ package org.visallo.core.ingest.graphProperty;
 import com.google.inject.Inject;
 import org.vertexium.*;
 import org.vertexium.mutation.ExistingElementMutation;
+import org.vertexium.property.DefaultStreamingPropertyValue;
 import org.vertexium.property.StreamingPropertyValue;
 import org.visallo.core.config.Configuration;
 import org.visallo.core.ingest.video.VideoTranscript;
@@ -48,7 +49,7 @@ public abstract class GraphPropertyWorker {
     protected void applyTermMentionFilters(Vertex outVertex, Iterable<Vertex> termMentions) {
         for (TermMentionFilter termMentionFilter : this.workerPrepareData.getTermMentionFilters()) {
             try {
-                termMentionFilter.apply(outVertex, termMentions, this.workerPrepareData.getAuthorizations());
+//                termMentionFilter.apply(outVertex, termMentions, this.workerPrepareData.getAuthorizations());
             } catch (Exception e) {
                 LOGGER.error("Could not apply term mention filter", e);
             }
@@ -203,7 +204,7 @@ public abstract class GraphPropertyWorker {
         VisalloProperties.MIME_TYPE_METADATA.setMetadata(metadata, "text/plain", getVisibilityTranslator().getDefaultVisibility());
         for (VideoTranscript.TimedText entry : videoTranscript.getEntries()) {
             String textPropertyKey = getVideoTranscriptTimedTextPropertyKey(propertyKey, entry);
-            StreamingPropertyValue value = new StreamingPropertyValue(new ByteArrayInputStream(entry.getText().getBytes()), String.class);
+            StreamingPropertyValue value = StreamingPropertyValue.create(new ByteArrayInputStream(entry.getText().getBytes()), String.class);
             VisalloProperties.TEXT.addPropertyValue(mutation, textPropertyKey, value, metadata, visibility);
         }
     }
@@ -219,14 +220,6 @@ public abstract class GraphPropertyWorker {
         String startTime = String.format("%08d", Math.max(0L, entry.getTime().getStart()));
         String endTime = String.format("%08d", Math.max(0L, entry.getTime().getEnd()));
         return propertyKey + RowKeyHelper.FIELD_SEPARATOR + MediaVisalloProperties.VIDEO_FRAME.getPropertyName() + RowKeyHelper.FIELD_SEPARATOR + startTime + RowKeyHelper.FIELD_SEPARATOR + endTime;
-    }
-
-    protected void addVertexToWorkspaceIfNeeded(GraphPropertyWorkData data, Vertex vertex) {
-        if (data.getWorkspaceId() == null) {
-            return;
-        }
-        graph.flush();
-        getWorkspaceRepository().updateEntityOnWorkspace(data.getWorkspaceId(), vertex.getId(), getUser());
     }
 
     protected void pushChangedPropertiesOnWorkQueue(GraphPropertyWorkData data, List<VisalloPropertyUpdate> changedProperties) {

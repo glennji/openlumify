@@ -41,7 +41,7 @@ define([
     function Diff() {
 
         this.attributes({
-            diffs: null,
+            total: null,
             schemaTypeSelector: '.schema-type'
         })
 
@@ -56,7 +56,6 @@ define([
             this.$node.removeClass('loading-small-animate');
 
             ReactDOM.render(React.createElement(DiffPanel, {
-                flatDiffs: this.flatDiffs,
                 formatLabel: this.formatLabel,
                 onPublishClick: this.onMarkPublish,
                 onUndoClick: this.onMarkUndo,
@@ -69,6 +68,7 @@ define([
                 onApplyUndoClick: this.onApplyUndoClick,
                 onVertexRowClick: this.onVertexRowClick,
                 onEdgeRowClick: this.onEdgeRowClick,
+                total: this.total,
                 ...this.renderCounts
             }), this.$node[0]);
         };
@@ -102,10 +102,11 @@ define([
 
         this.setDiffs = function(diffs) {
             this.diffs = diffs;
-            this.flatDiffs = this.diffs.reduce((flat, diff, i) => {
-                const { type } = diff.action;
-                return [...flat, diff, ...diff.properties];
-            }, []);
+            this.flatDiffs = diffs;
+            //this.flatDiffs = this.diffs.reduce((flat, diff, i) => {
+                //const { type } = diff.action;
+                //return [...flat, diff, ...diff.properties];
+            //}, []);
             this.updateCounts();
         }
 
@@ -133,22 +134,22 @@ define([
         }
 
         this.setup = function() {
-            var self = this;
-            this.setDiffs([]);
+            this.total = this.attr.total
+            this.render();
 
-            self.processDiffs(self.attr.diffs).done(function(processDiffs) {
-                self.setDiffs(processDiffs)
-                self.render();
-            });
-
-            self.on('diffsChanged', function(event, data) {
-                self.processDiffs(data.diffs).done(function(processDiffs) {
-                    self.setDiffs(processDiffs);
-                    self.render();
-                });
+            this.on('diffCountsChanged', (event, data) => {
+                console.log(event.type, data)
+                this.total = data.total;
+                this.render();
             })
-            self.on(document, 'objectsSelected', self.onObjectsSelected);
-            self.on('click', { schemaTypeSelector: self.onSchemaTypeChange });
+
+            /*this.on('diffsChanged', function(event, data) {
+                this.processDiffs(data.diffs).done(function(processDiffs) {
+                    this.setDiffs(processDiffs);
+                    this.render();
+                });
+            })*/
+            this.on('click', { schemaTypeSelector: this.onSchemaTypeChange });
         };
 
         this.processDiffs = function(diffs) {
@@ -392,28 +393,6 @@ define([
                     self.undoDiffDependencies[diff.id].push(id);
                 }
             }
-        };
-
-        this.onObjectsSelected = function(event, data) {
-            var vertices = data.vertices,
-                edges = data.edges;
-
-            this.diffs.forEach(function(diff) {
-                diff.active = _.findWhere(vertices, { id: diff.vertexId }) || _.findWhere(edges, { id: diff.edgeId });
-            });
-            this.render();
-        };
-
-        this.onVertexRowClick = function(vertexId) {
-            this.trigger('selectObjects', {
-                vertexIds: vertexId ? [vertexId] : []
-            });
-        };
-
-        this.onEdgeRowClick = function(edgeId) {
-            this.trigger('selectObjects', {
-                edgeIds: edgeId ? [edgeId] : []
-            });
         };
 
         this.onDeselectAll = function() {

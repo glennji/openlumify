@@ -31,10 +31,18 @@ public abstract class LongRunningProcessRepository {
     public abstract void cancel(String longRunningProcessId, User user);
 
     public void reportProgress(JSONObject longRunningProcessQueueItem, double progressPercent, String message) {
-        reportProgress(longRunningProcessQueueItem.getString("id"), progressPercent, message);
+        reportProgress(longRunningProcessQueueItem, progressPercent, message, null);
     }
 
-    public abstract void reportProgress(String longRunningProcessId, double progressPercent, String message);
+    public void reportProgress(JSONObject longRunningProcessQueueItem, double progressPercent, String message, String remaining) {
+        reportProgress(longRunningProcessQueueItem.getString("id"), progressPercent, message, remaining);
+    }
+
+    public void reportProgress(String longRunningProcessId, double progressPercent, String message) {
+        reportProgress(longRunningProcessId, progressPercent, message);
+    }
+
+    public abstract void reportProgress(String longRunningProcessId, double progressPercent, String message, String remaining);
 
     public abstract void delete(String longRunningProcessId, User authUser);
 }

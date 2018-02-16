@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class StructuredFileParserHandler extends BaseStructuredFileParserHandler {
+public class StructuredFileAnalyzerHandler extends BaseStructuredFileParserHandler {
     private ClientApiAnalysis result = new ClientApiAnalysis();
     private ClientApiAnalysis.Sheet currentSheet;
 
@@ -33,6 +33,11 @@ public class StructuredFileParserHandler extends BaseStructuredFileParserHandler
         column.name = name;
         column.type = type;
         currentSheet.columns.add(column);
+    }
+
+    @Override
+    public boolean prepareRow(List<Object> values, long rowNum) {
+        return false;
     }
 
     @Override

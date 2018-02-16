@@ -299,6 +299,18 @@ public class WorkspaceHelper {
             Authorizations authorizations,
             User user
     ) {
+        deleteVertex(vertex, workspaceId, isPublicVertex, priority, true, authorizations, user);
+    }
+
+    public void deleteVertex(
+            Vertex vertex,
+            String workspaceId,
+            boolean isPublicVertex,
+            Priority priority,
+            boolean flush,
+            Authorizations authorizations,
+            User user
+    ) {
         LOGGER.debug(
                 "BEGIN deleteVertex(vertexId: %s, workspaceId: %s, isPublicVertex: %b, user: %s)",
                 vertex.getId(),
@@ -388,7 +400,9 @@ public class WorkspaceHelper {
             this.workQueueRepository.pushVertexDeletion(vertex, beforeActionTimestamp, Priority.HIGH);
         }
 
-        graph.flush();
+        if (flush) {
+            graph.flush();
+        }
         LOGGER.debug("END deleteVertex");
     }
 

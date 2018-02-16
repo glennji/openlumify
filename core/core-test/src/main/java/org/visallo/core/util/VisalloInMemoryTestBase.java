@@ -176,10 +176,7 @@ public abstract class VisalloInMemoryTestBase {
             return workspaceDiffHelper;
         }
         workspaceDiffHelper = new WorkspaceDiffHelper(
-                getGraph(),
-                getUserRepository(),
-                getAuthorizationRepository(),
-                getFormulaEvaluator()
+                getGraph()
         );
         return workspaceDiffHelper;
     }

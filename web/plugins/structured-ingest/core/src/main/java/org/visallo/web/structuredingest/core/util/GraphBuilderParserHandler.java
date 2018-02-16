@@ -2,13 +2,19 @@ package org.visallo.web.structuredingest.core.util;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
+import com.google.common.util.concurrent.RateLimiter;
+import org.apache.commons.lang.time.StopWatch;
 import org.vertexium.*;
+import org.vertexium.util.IterableUtils;
 import org.visallo.core.exception.VisalloException;
 import org.visallo.core.model.graph.GraphRepository;
+import org.visallo.core.model.graph.GraphUpdateContext;
 import org.visallo.core.model.properties.VisalloProperties;
 import org.visallo.core.model.properties.types.PropertyMetadata;
 import org.visallo.core.model.properties.types.SingleValueVisalloProperty;
@@ -23,6 +29,7 @@ import org.visallo.core.user.User;
 import org.visallo.core.util.SandboxStatusUtil;
 import org.visallo.core.util.VisalloLogger;
 import org.visallo.core.util.VisalloLoggerFactory;
+import org.visallo.vertexium.model.longRunningProcess.LongRunningProcessCancelled;
 import org.visallo.web.clientapi.model.Privilege;
 import org.visallo.web.clientapi.model.SandboxStatus;
 import org.visallo.web.clientapi.model.VisibilityJson;
@@ -34,19 +41,19 @@ import org.visallo.web.structuredingest.core.util.mapping.ParseMapping;
 import org.visallo.web.structuredingest.core.util.mapping.PropertyMapping;
 import org.visallo.web.structuredingest.core.util.mapping.VertexMapping;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.nio.charset.Charset;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.visallo.core.model.properties.VisalloProperties.VISIBILITY_JSON_METADATA;
 
 public class GraphBuilderParserHandler extends BaseStructuredFileParserHandler {
     private static final VisalloLogger LOGGER = VisalloLoggerFactory.getLogger(GraphBuilderParserHandler.class);
-    public static final Long MAX_DRY_RUN_ROWS = 50000L;
+    public static final Long MAX_DRY_RUN_ROWS = 200000L;
     private static final String MULTI_KEY = "SFIMPORT";
     private static final String SKIPPED_VERTEX_ID = "SKIPPED_VERTEX";
+    private static final int FLUSH_EVERY_N_ROWS = 500;
 
     private final Graph graph;
     private final User user;
@@ -70,8 +77,17 @@ public class GraphBuilderParserHandler extends BaseStructuredFileParserHandler {
     public boolean dryRun = true;
     public ClientApiParseErrors parseErrors = new ClientApiParseErrors();
     public ClientApiIngestPreview clientApiIngestPreview;
-    public List<String> createdVertexIds;
-    public List<String> createdEdgeIds;
+    public Set<String> createdVertexIds;
+    public Set<String> createdEdgeIds;
+    public Set<String> prepareVertexIds;
+    public Set<String> prepareEdgeIds;
+    Map<String, Boolean> verticesExistForUser;
+    Map<String, Boolean> verticesExistForSystem;
+    Map<String, Boolean> edgesExistForUser;
+    Map<String, Boolean> edgesExistForSystem;
+    Set<String> workspaceUpdates;
+
+    StopWatch stopWatch = new StopWatch();
 
     public GraphBuilderParserHandler(
             Graph graph,
@@ -107,8 +123,15 @@ public class GraphBuilderParserHandler extends BaseStructuredFileParserHandler {
         }
 
         clientApiIngestPreview = new ClientApiIngestPreview();
-        createdVertexIds = Lists.newArrayList();
-        createdEdgeIds = Lists.newArrayList();
+        createdVertexIds = Sets.newHashSet();
+        prepareVertexIds = Sets.newHashSet();
+        createdEdgeIds = Sets.newHashSet();
+        prepareEdgeIds = Sets.newHashSet();
+        verticesExistForUser = Maps.newHashMap();
+        verticesExistForSystem = Maps.newHashMap();
+        edgesExistForUser = Maps.newHashMap();
+        edgesExistForSystem = Maps.newHashMap();
+        workspaceUpdates = Sets.newHashSet();
         visibilityJson = new VisibilityJson(visibilityTranslator.getDefaultVisibility().getVisibilityString());
 
         if (this.publish) {
@@ -137,6 +160,13 @@ public class GraphBuilderParserHandler extends BaseStructuredFileParserHandler {
         clientApiIngestPreview = new ClientApiIngestPreview();
         createdVertexIds.clear();
         createdEdgeIds.clear();
+        prepareVertexIds.clear();
+        prepareEdgeIds.clear();
+        verticesExistForSystem.clear();
+        verticesExistForUser.clear();
+        edgesExistForSystem.clear();
+        edgesExistForUser.clear();
+        workspaceUpdates.clear();
     }
 
     public boolean hasErrors() {
@@ -149,6 +179,80 @@ public class GraphBuilderParserHandler extends BaseStructuredFileParserHandler {
         // what the interface shows. In the future, if they can select a different sheet
         // this code will need to be updated.
         sheetNumber++;
+        stopWatch.reset();
+        stopWatch.start();
+    }
+
+    @Override
+    public boolean prepareRow(Map<String, Object> row, long rowNum) {
+
+
+        int vertexNum = 0;
+        List<String> vertexIds = new ArrayList<>();
+
+        for (VertexMapping vertexMapping : parseMapping.vertexMappings) {
+            String vertexId = generateVertexId(vertexMapping, row, rowNum, vertexNum);
+            prepareVertexIds.add(vertexId);
+            vertexNum++;
+            vertexIds.add(vertexId);
+        }
+        int edgeNum = 0;
+        for (EdgeMapping edgeMapping : parseMapping.edgeMappings) {
+            String edgeId = generateEdgeId(edgeMapping, vertexIds, rowNum, edgeNum);
+            prepareVertexIds.add(edgeId);
+            edgeNum++;
+        }
+
+        if (progressReporter != null) {
+            progressReporter.report("Preparing", rowNum, getTotalRows());
+        }
+        return super.prepareRow(row, rowNum);
+    }
+
+
+    @Override
+    public void prepareFinished() {
+        stopWatch.stop();
+        System.out.println("PrepareRows: Dryrun?" + dryRun + ", " + stopWatch.getTime());
+        super.prepareFinished();
+
+        stopWatch.reset();
+        stopWatch.start();
+        checkElementsExists(prepareVertexIds, verticesExistForUser, verticesExistForSystem);
+        stopWatch.stop();
+        System.out.println("Exists V: Dryrun?" + dryRun + ", " + stopWatch.getTime());
+
+        stopWatch.reset();
+        stopWatch.start();
+        checkElementsExists(prepareEdgeIds, edgesExistForUser, edgesExistForSystem);
+        stopWatch.stop();
+        System.out.println("Exists E: Dryrun?" + dryRun + ", " + stopWatch.getTime());
+    }
+
+    private void checkElementsExists(Set<String> ids, Map<String, Boolean> user, Map<String, Boolean> system) {
+        Iterator<String> vertexIdsToCheck = ids.iterator();
+        Iterator<Vertex> found = graph.getVertices(ids, FetchHint.NONE, authorizations).iterator();
+        int notFound = ids.size();
+        while(found.hasNext()) {
+            user.put(found.next().getId(), true);
+            notFound--;
+        }
+
+        Set<String> vertexIdsToCheckWithSystem = Sets.newHashSet();
+        while(vertexIdsToCheck.hasNext() && notFound > 0) {
+            String id = vertexIdsToCheck.next();
+            if (!user.containsKey(id)) {
+                vertexIdsToCheckWithSystem.add(id);
+                notFound--;
+            }
+        }
+
+        if (vertexIdsToCheckWithSystem.size() > 0) {
+            Iterator<Vertex> foundInSystem = graph.getVertices(ids, FetchHint.NONE, visalloUserAuths).iterator();
+            while(foundInSystem.hasNext()) {
+                system.put(foundInSystem.next().getId(), true);
+            }
+        }
     }
 
     @Override
@@ -168,9 +272,10 @@ public class GraphBuilderParserHandler extends BaseStructuredFileParserHandler {
         }
 
         try {
+
             List<String> newVertexIds = new ArrayList<>();
             List<VertexBuilder> vertexBuilders = new ArrayList<>();
-            List<String> workspaceUpdates = new ArrayList<>();
+
             long vertexNum = 0;
             for (VertexMapping vertexMapping : parseMapping.vertexMappings) {
                 VertexBuilder vertexBuilder = createVertex(vertexMapping, row, rowNum, vertexNum);
@@ -181,7 +286,7 @@ public class GraphBuilderParserHandler extends BaseStructuredFileParserHandler {
                     createdVertexIds.add(vertexBuilder.getVertexId());
                     workspaceUpdates.add(vertexBuilder.getVertexId());
                     if (!alreadyCreated) {
-                        incrementConcept(vertexMapping, !graph.doesVertexExist(vertexBuilder.getVertexId(), authorizations));
+                        incrementConcept(vertexMapping, !verticesExistForUser.getOrDefault(vertexBuilder.getVertexId(), false));
                     }
                 } else {
                     newVertexIds.add(SKIPPED_VERTEX_ID);
@@ -190,28 +295,25 @@ public class GraphBuilderParserHandler extends BaseStructuredFileParserHandler {
             }
 
             List<EdgeBuilderByVertexId> edgeBuilders = new ArrayList<>();
+            int edgeNum = 0;
             for (EdgeMapping edgeMapping : parseMapping.edgeMappings) {
-                EdgeBuilderByVertexId edgeBuilder = createEdge(edgeMapping, newVertexIds);
+                EdgeBuilderByVertexId edgeBuilder = createEdge(edgeMapping, newVertexIds, rowNum, edgeNum);
                 if (edgeBuilder != null) {
                     boolean alreadyCreated = createdEdgeIds.contains(edgeBuilder.getEdgeId());
                     createdEdgeIds.add(edgeBuilder.getEdgeId());
                     edgeBuilders.add(edgeBuilder);
                     if (!alreadyCreated) {
-                        incrementEdges(edgeMapping, !graph.doesEdgeExist(edgeBuilder.getEdgeId(), authorizations));
+                        incrementEdges(edgeMapping, !edgesExistForUser.getOrDefault(edgeBuilder.getEdgeId(), false));
                     }
                 }
+                edgeNum++;
             }
 
             if (!dryRun) {
-                HashFunction hash = Hashing.sha1();
                 for (VertexBuilder vertexBuilder : vertexBuilders) {
                     Vertex newVertex = vertexBuilder.save(authorizations);
                     EdgeBuilder hasSourceEdgeBuilder = graph.prepareEdge(
-                            hash.newHasher()
-                                    .putString(newVertex.getId())
-                                    .putString(structuredFileVertex.getId())
-                                    .hash()
-                                    .toString(),
+                            Hashing.sha1().hashString(newVertex.getId() + "|" + structuredFileVertex.getId()).toString(),
                             newVertex,
                             structuredFileVertex,
                             StructuredIngestOntology.ELEMENT_HAS_SOURCE_IRI,
@@ -227,21 +329,37 @@ public class GraphBuilderParserHandler extends BaseStructuredFileParserHandler {
                     edgeBuilder.save(authorizations);
                 }
 
-                graph.flush();
-
-                if (!this.publish && workspaceUpdates.size() > 0) {
-                    workspaceRepository.updateEntitiesOnWorkspace(workspace, workspaceUpdates, user);
+                if (rowNum % FLUSH_EVERY_N_ROWS == 0) {
+                    graph.flush();
                 }
             }
         } catch (SkipRowException sre) {
             // Skip the row and keep going
         }
 
+        long total = getTotalRows();
         if (progressReporter != null) {
-            progressReporter.finishedRow(rowNum, getTotalRows());
+            progressReporter.report("Row", rowNum, total);
         }
 
         return !dryRun || maxParseErrors <= 0 || parseErrors.errors.size() < maxParseErrors;
+    }
+
+    @Override
+    public void cleanup() {
+        if (!dryRun) {
+            StopWatch w = new StopWatch();
+            w.start();
+            graph.flush();
+            w.stop();
+            System.out.println("Flush: " + w.getTime());
+            w.reset();
+            w.start();
+            workspaceRepository.updateEntitiesOnWorkspace(workspace, workspaceUpdates, user);
+            w.stop();
+            System.out.println("Update workspace: " + w.getTime());
+            super.cleanup();
+        }
     }
 
     private void incrementConcept(VertexMapping vertexMapping, boolean isNew) {
@@ -257,13 +375,23 @@ public class GraphBuilderParserHandler extends BaseStructuredFileParserHandler {
     }
 
     public boolean cleanUpExistingImport() {
+
+        int count = IterableUtils.count(structuredFileVertex.getEdgeIds(
+                Direction.IN,
+                StructuredIngestOntology.ELEMENT_HAS_SOURCE_IRI,
+                authorizations)
+        );
         Iterable<Vertex> vertices = structuredFileVertex.getVertices(
                 Direction.IN,
                 StructuredIngestOntology.ELEMENT_HAS_SOURCE_IRI,
+                FetchHint.NONE,
                 authorizations
         );
 
+        int i = 0;
+        boolean deleteReported = false;
         for (Vertex vertex : vertices) {
+            i++;
             SandboxStatus sandboxStatus = SandboxStatusUtil.getSandboxStatus(vertex, workspace.getWorkspaceId());
             if (sandboxStatus != SandboxStatus.PUBLIC) {
                 workspaceHelper.deleteVertex(
@@ -271,22 +399,32 @@ public class GraphBuilderParserHandler extends BaseStructuredFileParserHandler {
                         workspace.getWorkspaceId(),
                         false,
                         Priority.HIGH,
+                        false,
                         authorizations,
                         user
                 );
+                if (progressReporter != null) {
+                    deleteReported = true;
+                    progressReporter.report("Deleting", i, count);
+                }
             }
+        }
+        if (count > 0) {
+            graph.flush();
+        }
+
+        if (!deleteReported && progressReporter != null) {
+            progressReporter.report("Deleting", count, count);
         }
 
         return true;
     }
 
-    private EdgeBuilderByVertexId createEdge(EdgeMapping edgeMapping, List<String> newVertexIds) {
-        Visibility defaultVisibility = visibilityTranslator.getDefaultVisibility();
+    private EdgeBuilderByVertexId createEdge(EdgeMapping edgeMapping, List<String> newVertexIds, long rowNum, int edgeNum) {
         String inVertexId = newVertexIds.get(edgeMapping.inVertexIndex);
         String outVertexId = newVertexIds.get(edgeMapping.outVertexIndex);
 
         if (inVertexId.equals(SKIPPED_VERTEX_ID) || outVertexId.equals(SKIPPED_VERTEX_ID)) {
-            // TODO: handle edge errors properly?
             return null;
         }
 
@@ -297,7 +435,9 @@ public class GraphBuilderParserHandler extends BaseStructuredFileParserHandler {
             edgeVisibility = edgeMapping.visibility;
         }
 
-        EdgeBuilderByVertexId m = graph.prepareEdge(outVertexId, inVertexId, edgeMapping.label, edgeVisibility);
+        String edgeId = generateEdgeId(edgeMapping, newVertexIds, rowNum, edgeNum);
+
+        EdgeBuilderByVertexId m = graph.prepareEdge(edgeId, outVertexId, inVertexId, edgeMapping.label, edgeVisibility);
         VisalloProperties.VISIBILITY_JSON.setProperty(m, edgeVisibilityJson, edgeVisibility);
         VisalloProperties.MODIFIED_DATE.setProperty(m, propertyMetadata.getModifiedDate(), edgeVisibility);
         VisalloProperties.MODIFIED_BY.setProperty(m, propertyMetadata.getModifiedBy().getUserId(), edgeVisibility);
@@ -313,18 +453,18 @@ public class GraphBuilderParserHandler extends BaseStructuredFileParserHandler {
         }
 
         String vertexId = generateVertexId(vertexMapping, row, rowNum, vertexNum);
+        Metadata metadata = propertyMetadata.createMetadata();
 
         VertexBuilder m = vertexId == null ? graph.prepareVertex(vertexVisibility) : graph.prepareVertex(vertexId, vertexVisibility);
-        setPropertyValue(VisalloProperties.VISIBILITY_JSON, m, vertexVisibilityJson, vertexVisibility);
+        setPropertyValue(VisalloProperties.VISIBILITY_JSON, m, vertexVisibilityJson, vertexVisibility, metadata);
 
         for (PropertyMapping propertyMapping : vertexMapping.propertyMappings) {
 
             if (VisalloProperties.CONCEPT_TYPE.getPropertyName().equals(propertyMapping.name)) {
-                setPropertyValue(VisalloProperties.CONCEPT_TYPE, m, propertyMapping.value, vertexVisibility);
-                setPropertyValue(VisalloProperties.MODIFIED_DATE, m, propertyMetadata.getModifiedDate(), vertexVisibility);
-                setPropertyValue(VisalloProperties.MODIFIED_BY, m, propertyMetadata.getModifiedBy().getUserId(), vertexVisibility);
+                setPropertyValue(VisalloProperties.CONCEPT_TYPE, m, propertyMapping.value, vertexVisibility, metadata);
+                setPropertyValue(VisalloProperties.MODIFIED_DATE, m, propertyMetadata.getModifiedDate(), vertexVisibility, metadata);
+                setPropertyValue(VisalloProperties.MODIFIED_BY, m, propertyMetadata.getModifiedBy().getUserId(), vertexVisibility, metadata);
             } else {
-                Metadata metadata = propertyMetadata.createMetadata();
                 try {
                     VisalloProperties.SOURCE_FILE_OFFSET_METADATA.setMetadata(metadata, Long.valueOf(rowNum), vertexVisibility);
                     setPropertyValue(m, row, propertyMapping, vertexVisibility, metadata);
@@ -393,6 +533,27 @@ public class GraphBuilderParserHandler extends BaseStructuredFileParserHandler {
         return m;
     }
 
+    private String generateEdgeId(EdgeMapping edgeMapping, List<String> vertexIds, long rowNum, int edgeNum) {
+        Hasher hasher = Hashing.sha1().newHasher();
+
+        String inVertexId = vertexIds.get(edgeMapping.inVertexIndex);
+        String outVertexId = vertexIds.get(edgeMapping.outVertexIndex);
+
+        hasher
+            .putString(structuredFileVertex.getId())
+            .putLong(rowNum)
+            .putLong(edgeNum)
+            .putString(outVertexId + ">" + inVertexId);
+
+        String edgeId = hasher.hash().toString();
+
+        if (shouldAddWorkspaceToVertexId(edgeId)) {
+            return Hashing.sha1().hashString(edgeId + "|" + workspace.getWorkspaceId()).toString();
+        }
+
+        return edgeId;
+    }
+
     private String generateVertexId(VertexMapping vertexMapping, Map<String, Object> row, long rowNum, long vertexNum) {
         List<String> identifierParts = new ArrayList<>();
 
@@ -409,42 +570,34 @@ public class GraphBuilderParserHandler extends BaseStructuredFileParserHandler {
             }
         }
 
-        HashFunction sha1 = Hashing.sha1();
-        Hasher hasher = sha1.newHasher();
+        Hasher hasher = Hashing.sha1().newHasher();
 
         if (identifierParts.isEmpty()) {
             // By default just allow the same file to ingest without creating new entities
             hasher
-                .putString(structuredFileVertex.getId()).putString("|")
-                .putLong(rowNum).putString("|")
+                .putString(structuredFileVertex.getId())
+                .putLong(rowNum)
                 .putLong(vertexNum);
         } else {
-            // Hash all the identifier values and the concept. Use delimiter to minimize collisions
-            identifierParts
+            List<String> parts = identifierParts
                     .stream()
                     .sorted(String::compareToIgnoreCase)
-                    .forEach(s -> {
-                        hasher.putString(row.get(s).toString(), Charsets.UTF_8).putString("|");
-                    });
+                    .map(s -> row.get(s).toString().toLowerCase().trim())
+                    .collect(Collectors.toList());
 
             for (PropertyMapping mapping : vertexMapping.propertyMappings) {
                 if (VisalloProperties.CONCEPT_TYPE.getPropertyName().equals(mapping.name)) {
-                    hasher.putString(mapping.value);
+                    parts.add(mapping.value);
                 }
             }
+            hasher.putString(String.join("|", parts), Charsets.UTF_8);
         }
 
-
-        HashCode hash = hasher.hash();
-        String vertexId = hash.toString();
+        String vertexId = hasher.hash().toString();
 
         // We might need to also hash the workspace if this vertex exists in the system but not visible to user.
-        if (shouldAddWorkspaceToId(vertexId)) {
-            vertexId = sha1.newHasher()
-                    .putString(vertexId)
-                    .putString(workspace.getWorkspaceId())
-                    .hash()
-                    .toString();
+        if (shouldAddWorkspaceToVertexId(vertexId)) {
+            return Hashing.sha1().hashString(vertexId + "|" + workspace.getWorkspaceId()).toString();
         }
 
         return vertexId;
@@ -454,19 +607,25 @@ public class GraphBuilderParserHandler extends BaseStructuredFileParserHandler {
      * If the user is creating an entity that is unpublished in different sandbox, this user won't be able to access
      * it since prepareVertex with same id won't change the visibility.
      */
-    private boolean shouldAddWorkspaceToId(String vertexId) {
-        boolean vertexExistsForUser = graph.doesVertexExist(vertexId, authorizations);
-        if (!vertexExistsForUser) {
-            boolean vertexExistsInSystem = graph.doesVertexExist(vertexId, visalloUserAuths);
-            if (vertexExistsInSystem) {
+    private boolean shouldAddWorkspaceToVertexId(String vertexId) {
+        if (!verticesExistForUser.getOrDefault(vertexId, false)) {
+            if (verticesExistForSystem.getOrDefault(vertexId, false)) {
                 return true;
             }
         }
         return false;
     }
 
-    private void setPropertyValue(SingleValueVisalloProperty property, VertexBuilder m, Object value, Visibility vertexVisibility) {
-        Metadata metadata = propertyMetadata.createMetadata();
+    private boolean shouldAddWorkspaceToEdgeId(String edgeId) {
+        if (!edgesExistForUser.getOrDefault(edgeId, false)) {
+            if (edgesExistForSystem.getOrDefault(edgeId, false)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void setPropertyValue(SingleValueVisalloProperty property, VertexBuilder m, Object value, Visibility vertexVisibility, Metadata metadata) {
         property.setProperty(m, value, metadata, vertexVisibility);
     }
 

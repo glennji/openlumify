@@ -9,7 +9,7 @@ public interface StructuredIngestParser {
 
     Set<String> getSupportedMimeTypes();
 
-    void ingest(InputStream inputStream, ParseOptions parseOptions, BaseStructuredFileParserHandler parserHandler) throws Exception;
+    void ingest(StructuredIngestInputStreamSource inputStreamSource, ParseOptions parseOptions, BaseStructuredFileParserHandler parserHandler) throws Exception;
 
-    ClientApiAnalysis analyze(InputStream inputStream) throws Exception;
+    ClientApiAnalysis analyze(StructuredIngestInputStreamSource inputStreamSource) throws Exception;
 }

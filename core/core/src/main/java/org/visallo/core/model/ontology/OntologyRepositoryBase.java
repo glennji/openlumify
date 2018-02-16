@@ -568,7 +568,7 @@ public abstract class OntologyRepositoryBase implements OntologyRepository {
                 throw new RuntimeException("Could not find icon file: " + iconFile.toString());
             }
             try (InputStream iconFileIn = new FileInputStream(iconFile)) {
-                StreamingPropertyValue value = new StreamingPropertyValue(iconFileIn, byte[].class);
+                StreamingPropertyValue value = StreamingPropertyValue.create(iconFileIn, byte[].class);
                 value.searchIndex(false);
                 value.store(true);
                 concept.setProperty(propertyKey, value, user, authorizations);

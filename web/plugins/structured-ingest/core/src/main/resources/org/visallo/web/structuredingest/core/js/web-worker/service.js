@@ -3,6 +3,7 @@ require(['configuration/plugins/registry'], function(registry) {
     registry.registerExtension('org.visallo.websocket.message', {
         name: 'structuredImportDryrun',
         handler: function(data) {
+            console.log(JSON.stringify(data))
             dispatchMain('rebroadcastEvent', {
                 eventName: 'structuredImportDryrunProgress',
                 data: data

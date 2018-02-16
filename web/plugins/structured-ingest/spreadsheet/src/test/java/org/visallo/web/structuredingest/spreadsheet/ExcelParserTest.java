@@ -2,23 +2,24 @@ package org.visallo.web.structuredingest.spreadsheet;
 
 import org.junit.Test;
 import org.visallo.web.structuredingest.core.model.ClientApiAnalysis;
-import org.visallo.web.structuredingest.core.util.StructuredFileParserHandler;
+import org.visallo.web.structuredingest.core.model.StructuredIngestInputStreamSource;
+import org.visallo.web.structuredingest.core.util.StructuredFileAnalyzerHandler;
 import org.visallo.web.structuredingest.core.model.ParseOptions;
-
-import java.io.InputStream;
 
 import static org.junit.Assert.assertEquals;
 
 public class ExcelParserTest {
 
+    private StructuredIngestInputStreamSource toStream(String file) throws Exception {
+        return () -> this.getClass().getResourceAsStream(file);
+    }
+
     @Test
     public void testParseExcel2007Format() throws Exception {
-        StructuredFileParserHandler parserHandler = new StructuredFileParserHandler();
+        StructuredFileAnalyzerHandler parserHandler = new StructuredFileAnalyzerHandler();
         ParseOptions parseOptions = new ParseOptions();
 
-        InputStream input = this.getClass().getResourceAsStream("sample.xls");
-
-        new ExcelParser().ingest(input, parseOptions, parserHandler);
+        new ExcelParser().ingest(toStream("sample.xls"), parseOptions, parserHandler);
         ClientApiAnalysis info = parserHandler.getResult();
 
         assertEquals(1, info.sheets.size());
@@ -39,13 +40,11 @@ public class ExcelParserTest {
 
     @Test
     public void testParseExcelFormat() throws Exception {
-        StructuredFileParserHandler parserHandler = new StructuredFileParserHandler();
+        StructuredFileAnalyzerHandler parserHandler = new StructuredFileAnalyzerHandler();
         ParseOptions parseOptions = new ParseOptions();
         parseOptions.hasHeaderRow = false;
 
-        InputStream input = this.getClass().getResourceAsStream("sample.xlsx");
-
-        new ExcelParser().ingest(input, parseOptions, parserHandler);
+        new ExcelParser().ingest(toStream("sample.xlsx"), parseOptions, parserHandler);
         ClientApiAnalysis info = parserHandler.getResult();
 
         assertEquals(2, info.sheets.size());

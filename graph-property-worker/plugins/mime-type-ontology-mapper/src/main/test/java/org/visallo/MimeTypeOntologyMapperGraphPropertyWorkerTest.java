@@ -115,7 +115,7 @@ public class MimeTypeOntologyMapperGraphPropertyWorkerTest extends GraphProperty
         VisalloProperties.MIME_TYPE_METADATA.setMetadata(textMetadata, mimeType, getVisibilityTranslator().getDefaultVisibility());
         VisalloProperties.VISIBILITY_JSON.setProperty(vertexBuilder, visibilityJson, getVisibilityTranslator().getDefaultVisibility());
         VisalloProperties.MIME_TYPE.addPropertyValue(vertexBuilder, MULTIVALUE_KEY, mimeType, getVisibilityTranslator().getDefaultVisibility());
-        StreamingPropertyValue textPropertyValue = new StreamingPropertyValue(new ByteArrayInputStream("hello".getBytes()), String.class);
+        StreamingPropertyValue textPropertyValue = StreamingPropertyValue.create(new ByteArrayInputStream("hello".getBytes()), String.class);
         VisalloProperties.RAW.setProperty(vertexBuilder, textPropertyValue, textMetadata, visibility);
 
         Vertex vertex = vertexBuilder.save(authorizations);

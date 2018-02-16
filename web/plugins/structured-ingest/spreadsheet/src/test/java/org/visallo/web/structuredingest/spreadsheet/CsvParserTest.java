@@ -1,19 +1,27 @@
 package org.visallo.web.structuredingest.spreadsheet;
 
 import org.junit.Test;
+import org.visallo.core.exception.VisalloException;
 import org.visallo.web.structuredingest.core.model.ClientApiAnalysis;
-import org.visallo.web.structuredingest.core.util.StructuredFileParserHandler;
+import org.visallo.web.structuredingest.core.model.StructuredIngestInputStreamSource;
+import org.visallo.web.structuredingest.core.util.StructuredFileAnalyzerHandler;
 import org.visallo.web.structuredingest.core.model.ParseOptions;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 
 import static org.junit.Assert.assertEquals;
 
 public class CsvParserTest {
 
-    private InputStream toStream(String data) throws Exception {
-        return new ByteArrayInputStream(data.getBytes("UTF-8"));
+    private StructuredIngestInputStreamSource toStream(String data) throws Exception {
+        return () -> {
+            try {
+                return new ByteArrayInputStream(data.getBytes("UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                throw new VisalloException("Unable to convert", e);
+            }
+        };
     }
 
     @Test
@@ -21,7 +29,7 @@ public class CsvParserTest {
         String data = "last,first\n"
                 + "Appleseed,Johnny\n"
                 + "B.,Jill";
-        StructuredFileParserHandler parserHandler = new StructuredFileParserHandler();
+        StructuredFileAnalyzerHandler parserHandler = new StructuredFileAnalyzerHandler();
         ParseOptions parseOptions = new ParseOptions();
         new CsvParser().ingest(toStream(data), parseOptions, parserHandler);
         ClientApiAnalysis info = parserHandler.getResult();
@@ -47,7 +55,7 @@ public class CsvParserTest {
                 + "                \n"
                 + "       ,         \n"
                 + "Appleseed,Johnny";
-        StructuredFileParserHandler parserHandler = new StructuredFileParserHandler();
+        StructuredFileAnalyzerHandler parserHandler = new StructuredFileAnalyzerHandler();
         ParseOptions parseOptions = new ParseOptions();
         new CsvParser().ingest(toStream(data), parseOptions, parserHandler);
         ClientApiAnalysis info = parserHandler.getResult();

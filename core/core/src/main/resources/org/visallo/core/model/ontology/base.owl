@@ -448,6 +448,7 @@
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
         <textIndexHints>EXACT_MATCH</textIndexHints>
         <userVisible>false</userVisible>
+        <sortable>true</sortable>
         <rdfs:label xml:lang="en">Entity Type</rdfs:label>
     </owl:DatatypeProperty>
     
@@ -635,6 +636,7 @@
         <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
         <userVisible>false</userVisible>
+        <sortable>true</sortable>
         <rdfs:label xml:lang="en">Modified Date</rdfs:label>
     </owl:DatatypeProperty>
     

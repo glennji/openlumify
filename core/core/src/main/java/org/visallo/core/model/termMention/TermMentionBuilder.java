@@ -5,6 +5,7 @@ import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
 import org.vertexium.*;
 import org.vertexium.mutation.EdgeMutation;
+import org.visallo.core.exception.VisalloException;
 import org.visallo.core.model.properties.VisalloProperties;
 import org.visallo.core.security.VisalloVisibility;
 import org.visallo.core.security.VisibilityTranslator;
@@ -197,76 +198,77 @@ public class TermMentionBuilder {
      * Vertex             Mention                    Vertex
      */
     public Vertex save(Graph graph, VisibilityTranslator visibilityTranslator, User user, Authorizations authorizations) {
-        checkNotNull(outVertex, "outVertex cannot be null");
-        checkNotNull(propertyKey, "propertyKey cannot be null");
-        checkNotNull(title, "title cannot be null");
-        checkArgument(title.length() > 0, "title cannot be an empty string");
-        checkNotNull(conceptIri, "conceptIri cannot be null");
-        checkArgument(conceptIri.length() > 0, "conceptIri cannot be an empty string");
-        checkNotNull(visibilityJson, "visibilityJson cannot be null");
-        checkNotNull(process, "process cannot be null");
-        checkArgument(process.length() > 0, "process cannot be an empty string");
-        checkArgument(start >= 0, "start must be greater than or equal to 0");
-        checkArgument(end >= 0, "start must be greater than or equal to 0");
-
-        if (propertyName == null) {
-            LOGGER.warn("Not setting a propertyName when building a term mention is deprecated");
-        }
-
-        Date now = new Date();
-        String vertexId = createVertexId();
-        Visibility defaultVisibility = visibilityTranslator.getDefaultVisibility();
-        Visibility visibility = VisalloVisibility.and(visibilityTranslator.toVisibility(this.visibilityJson).getVisibility(), TermMentionRepository.VISIBILITY_STRING);
-        VertexBuilder vertexBuilder = graph.prepareVertex(vertexId, visibility);
-        VisalloProperties.TERM_MENTION_VISIBILITY_JSON.setProperty(vertexBuilder, this.visibilityJson, visibility);
-        VisalloProperties.TERM_MENTION_CONCEPT_TYPE.setProperty(vertexBuilder, this.conceptIri, visibility);
-        VisalloProperties.TERM_MENTION_TITLE.setProperty(vertexBuilder, this.title, visibility);
-        VisalloProperties.TERM_MENTION_START_OFFSET.setProperty(vertexBuilder, this.start, visibility);
-        VisalloProperties.TERM_MENTION_END_OFFSET.setProperty(vertexBuilder, this.end, visibility);
-        VisalloProperties.TERM_MENTION_PROCESS.setProperty(vertexBuilder, this.process, visibility);
-        VisalloProperties.TERM_MENTION_PROPERTY_KEY.setProperty(vertexBuilder, this.propertyKey, visibility);
-        if (this.propertyName != null) {
-            VisalloProperties.TERM_MENTION_PROPERTY_NAME.setProperty(vertexBuilder, this.propertyName, visibility);
-        }
-        if (this.resolvedEdgeId != null) {
-            VisalloProperties.TERM_MENTION_RESOLVED_EDGE_ID.setProperty(vertexBuilder, this.resolvedEdgeId, visibility);
-        }
-        if (this.snippet != null) {
-            VisalloProperties.TERM_MENTION_SNIPPET.setProperty(vertexBuilder, this.snippet, visibility);
-        }
-        if (this.resolvedToVertexId != null) {
-            VisalloProperties.TERM_MENTION_FOR_ELEMENT_ID.setProperty(vertexBuilder, resolvedToVertexId, visibility);
-            VisalloProperties.TERM_MENTION_FOR_TYPE.setProperty(vertexBuilder, TermMentionFor.VERTEX, visibility);
-        }
-
-        Authorizations termMentionAuthorizations = graph.createAuthorizations(authorizations, TermMentionRepository.VISIBILITY_STRING);
-        Vertex termMentionVertex = vertexBuilder.save(termMentionAuthorizations);
-
-        String hasTermMentionId = vertexId + "_hasTermMention";
-        EdgeBuilder termMentionEdgeBuilder = graph.prepareEdge(hasTermMentionId, this.outVertex, termMentionVertex, VisalloProperties.TERM_MENTION_LABEL_HAS_TERM_MENTION, visibility);
-        VisalloProperties.TERM_MENTION_VISIBILITY_JSON.setProperty(termMentionEdgeBuilder, this.visibilityJson, visibility);
-        VisalloProperties.MODIFIED_BY.setProperty(termMentionEdgeBuilder, user.getUserId(), defaultVisibility);
-        VisalloProperties.MODIFIED_DATE.setProperty(termMentionEdgeBuilder, now, defaultVisibility);
-        termMentionEdgeBuilder.save(authorizations);
-        if (this.resolvedToVertexId != null) {
-            String resolvedToId = vertexId + "_resolvedTo";
-            EdgeMutation resolvedToEdgeBuilder = graph.prepareEdge(resolvedToId, termMentionVertex.getId(), resolvedToVertexId, VisalloProperties.TERM_MENTION_LABEL_RESOLVED_TO, visibility);
-            VisalloProperties.TERM_MENTION_VISIBILITY_JSON.setProperty(resolvedToEdgeBuilder, this.visibilityJson, visibility);
-            VisalloProperties.MODIFIED_BY.setProperty(resolvedToEdgeBuilder, user.getUserId(), defaultVisibility);
-            VisalloProperties.MODIFIED_DATE.setProperty(resolvedToEdgeBuilder, now, defaultVisibility);
-            resolvedToEdgeBuilder.save(authorizations);
-
-            if (this.resolvedFromTermMention != null) {
-                String resolvedFromId = vertexId + "_resolvedFrom";
-                EdgeMutation resolvedFromEdgeBuilder = graph.prepareEdge(resolvedFromId, termMentionVertex.getId(), resolvedFromTermMention, VisalloProperties.TERM_MENTION_RESOLVED_FROM, visibility);
-                VisalloProperties.TERM_MENTION_VISIBILITY_JSON.setProperty(resolvedFromEdgeBuilder, this.visibilityJson, visibility);
-                VisalloProperties.MODIFIED_BY.setProperty(resolvedFromEdgeBuilder, user.getUserId(), defaultVisibility);
-                VisalloProperties.MODIFIED_DATE.setProperty(resolvedFromEdgeBuilder, now, defaultVisibility);
-                resolvedFromEdgeBuilder.save(authorizations);
-            }
-        }
-
-        return termMentionVertex;
+//        checkNotNull(outVertex, "outVertex cannot be null");
+//        checkNotNull(propertyKey, "propertyKey cannot be null");
+//        checkNotNull(title, "title cannot be null");
+//        checkArgument(title.length() > 0, "title cannot be an empty string");
+//        checkNotNull(conceptIri, "conceptIri cannot be null");
+//        checkArgument(conceptIri.length() > 0, "conceptIri cannot be an empty string");
+//        checkNotNull(visibilityJson, "visibilityJson cannot be null");
+//        checkNotNull(process, "process cannot be null");
+//        checkArgument(process.length() > 0, "process cannot be an empty string");
+//        checkArgument(start >= 0, "start must be greater than or equal to 0");
+//        checkArgument(end >= 0, "start must be greater than or equal to 0");
+//
+//        if (propertyName == null) {
+//            LOGGER.warn("Not setting a propertyName when building a term mention is deprecated");
+//        }
+//
+//        Date now = new Date();
+//        String vertexId = createVertexId();
+//        Visibility defaultVisibility = visibilityTranslator.getDefaultVisibility();
+//        Visibility visibility = VisalloVisibility.and(visibilityTranslator.toVisibility(this.visibilityJson).getVisibility(), TermMentionRepository.VISIBILITY_STRING);
+//        VertexBuilder vertexBuilder = graph.prepareVertex(vertexId, visibility);
+//        VisalloProperties.TERM_MENTION_VISIBILITY_JSON.setProperty(vertexBuilder, this.visibilityJson, visibility);
+//        VisalloProperties.TERM_MENTION_CONCEPT_TYPE.setProperty(vertexBuilder, this.conceptIri, visibility);
+//        VisalloProperties.TERM_MENTION_TITLE.setProperty(vertexBuilder, this.title, visibility);
+//        VisalloProperties.TERM_MENTION_START_OFFSET.setProperty(vertexBuilder, this.start, visibility);
+//        VisalloProperties.TERM_MENTION_END_OFFSET.setProperty(vertexBuilder, this.end, visibility);
+//        VisalloProperties.TERM_MENTION_PROCESS.setProperty(vertexBuilder, this.process, visibility);
+//        VisalloProperties.TERM_MENTION_PROPERTY_KEY.setProperty(vertexBuilder, this.propertyKey, visibility);
+//        if (this.propertyName != null) {
+//            VisalloProperties.TERM_MENTION_PROPERTY_NAME.setProperty(vertexBuilder, this.propertyName, visibility);
+//        }
+//        if (this.resolvedEdgeId != null) {
+//            VisalloProperties.TERM_MENTION_RESOLVED_EDGE_ID.setProperty(vertexBuilder, this.resolvedEdgeId, visibility);
+//        }
+//        if (this.snippet != null) {
+//            VisalloProperties.TERM_MENTION_SNIPPET.setProperty(vertexBuilder, this.snippet, visibility);
+//        }
+//        if (this.resolvedToVertexId != null) {
+//            VisalloProperties.TERM_MENTION_FOR_ELEMENT_ID.setProperty(vertexBuilder, resolvedToVertexId, visibility);
+//            VisalloProperties.TERM_MENTION_FOR_TYPE.setProperty(vertexBuilder, TermMentionFor.VERTEX, visibility);
+//        }
+//
+//        Authorizations termMentionAuthorizations = graph.createAuthorizations(authorizations, TermMentionRepository.VISIBILITY_STRING);
+//        Vertex termMentionVertex = vertexBuilder.save(termMentionAuthorizations);
+//
+//        String hasTermMentionId = vertexId + "_hasTermMention";
+//        EdgeBuilder termMentionEdgeBuilder = graph.prepareEdge(hasTermMentionId, this.outVertex, termMentionVertex, VisalloProperties.TERM_MENTION_LABEL_HAS_TERM_MENTION, visibility);
+//        VisalloProperties.TERM_MENTION_VISIBILITY_JSON.setProperty(termMentionEdgeBuilder, this.visibilityJson, visibility);
+//        VisalloProperties.MODIFIED_BY.setProperty(termMentionEdgeBuilder, user.getUserId(), defaultVisibility);
+//        VisalloProperties.MODIFIED_DATE.setProperty(termMentionEdgeBuilder, now, defaultVisibility);
+//        termMentionEdgeBuilder.save(authorizations);
+//        if (this.resolvedToVertexId != null) {
+//            String resolvedToId = vertexId + "_resolvedTo";
+//            EdgeMutation resolvedToEdgeBuilder = graph.prepareEdge(resolvedToId, termMentionVertex.getId(), resolvedToVertexId, VisalloProperties.TERM_MENTION_LABEL_RESOLVED_TO, visibility);
+//            VisalloProperties.TERM_MENTION_VISIBILITY_JSON.setProperty(resolvedToEdgeBuilder, this.visibilityJson, visibility);
+//            VisalloProperties.MODIFIED_BY.setProperty(resolvedToEdgeBuilder, user.getUserId(), defaultVisibility);
+//            VisalloProperties.MODIFIED_DATE.setProperty(resolvedToEdgeBuilder, now, defaultVisibility);
+//            resolvedToEdgeBuilder.save(authorizations);
+//
+//            if (this.resolvedFromTermMention != null) {
+//                String resolvedFromId = vertexId + "_resolvedFrom";
+//                EdgeMutation resolvedFromEdgeBuilder = graph.prepareEdge(resolvedFromId, termMentionVertex.getId(), resolvedFromTermMention, VisalloProperties.TERM_MENTION_RESOLVED_FROM, visibility);
+//                VisalloProperties.TERM_MENTION_VISIBILITY_JSON.setProperty(resolvedFromEdgeBuilder, this.visibilityJson, visibility);
+//                VisalloProperties.MODIFIED_BY.setProperty(resolvedFromEdgeBuilder, user.getUserId(), defaultVisibility);
+//                VisalloProperties.MODIFIED_DATE.setProperty(resolvedFromEdgeBuilder, now, defaultVisibility);
+//                resolvedFromEdgeBuilder.save(authorizations);
+//            }
+//        }
+//
+//        return termMentionVertex;
+        throw new VisalloException("Disabled");
     }
 
     private String createVertexId() {

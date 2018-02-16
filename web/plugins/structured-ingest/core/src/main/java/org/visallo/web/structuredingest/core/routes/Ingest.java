@@ -1,6 +1,8 @@
 package org.visallo.web.structuredingest.core.routes;
 
+import com.google.common.util.concurrent.RateLimiter;
 import com.google.inject.Singleton;
+import org.visallo.web.structuredingest.core.model.*;
 import org.visallo.webster.ParameterizedHandler;
 import org.visallo.webster.annotations.Handle;
 import org.visallo.webster.annotations.Optional;
@@ -27,13 +29,9 @@ import org.visallo.core.util.VisalloLoggerFactory;
 import org.visallo.web.VisalloResponse;
 import org.visallo.web.clientapi.model.ClientApiObject;
 import org.visallo.web.parameterProviders.ActiveWorkspaceId;
-import org.visallo.web.structuredingest.core.model.ClientApiMappingErrors;
-import org.visallo.web.structuredingest.core.model.StructuredIngestParser;
 import org.visallo.web.structuredingest.core.util.StructuredIngestParserFactory;
-import org.visallo.web.structuredingest.core.model.StructuredIngestQueueItem;
 import org.visallo.web.structuredingest.core.util.BaseStructuredFileParserHandler;
 import org.visallo.web.structuredingest.core.util.GraphBuilderParserHandler;
-import org.visallo.web.structuredingest.core.model.ParseOptions;
 import org.visallo.web.structuredingest.core.util.ProgressReporter;
 import org.visallo.web.structuredingest.core.util.mapping.ParseMapping;
 import org.visallo.web.structuredingest.core.worker.StructuredIngestProcessWorker;
@@ -95,11 +93,6 @@ public class Ingest implements ParameterizedHandler {
             throw new VisalloResourceNotFoundException("Could not find vertex:" + graphVertexId);
         }
 
-        StreamingPropertyValue rawPropertyValue = VisalloProperties.RAW.getPropertyValue(vertex);
-        if (rawPropertyValue == null) {
-            throw new VisalloResourceNotFoundException("Could not find raw property on vertex:" + graphVertexId);
-        }
-
         ParseMapping parseMapping = new ParseMapping(ontologyRepository, visibilityTranslator, workspaceId, mapping);
         ClientApiMappingErrors mappingErrors = parseMapping.validate(authorizations);
         if (mappingErrors.mappingErrors.size() > 0) {
@@ -108,7 +101,7 @@ public class Ingest implements ParameterizedHandler {
 
 
         if (preview) {
-            return previewIngest(user, workspaceId, authorizations, optionsJson, publish, vertex, rawPropertyValue, parseMapping);
+            return previewIngest(user, workspaceId, authorizations, optionsJson, publish, vertex, parseMapping);
         } else {
             return enqueueIngest(user, workspaceId, authorizations, graphVertexId, mapping, optionsJson, publish);
         }
@@ -120,27 +113,22 @@ public class Ingest implements ParameterizedHandler {
         return VisalloResponse.SUCCESS;
     }
 
-    private ClientApiObject previewIngest(User user, String workspaceId, Authorizations authorizations, String optionsJson, boolean publish, Vertex vertex, StreamingPropertyValue rawPropertyValue, ParseMapping parseMapping) throws Exception {
+    private ClientApiObject previewIngest(User user, String workspaceId, Authorizations authorizations, String optionsJson, boolean publish, Vertex vertex, ParseMapping parseMapping) throws Exception {
         JSONObject data = new JSONObject();
         JSONObject permissions = new JSONObject();
         JSONArray users = new JSONArray();
         users.put(user.getUserId());
         permissions.put("users", users);
 
-        ProgressReporter reporter = new ProgressReporter() {
-            public void finishedRow(long row, long totalRows) {
-                if (totalRows != -1) {
-                    long total = Math.min(GraphBuilderParserHandler.MAX_DRY_RUN_ROWS, totalRows);
-                    data.put("row", row);
-                    data.put("total", total);
-
-                    // Broadcast when we get this change in percent
-                    int percent = (int) ((double)total * 0.01);
-
-                    if (percent > 0 && row % percent == 0) {
-                        workQueueRepository.broadcast("structuredImportDryrun", data, permissions);
-                    }
-                }
+        ProgressReporter reporter = new ProgressReporter(new double[] { 0.1, 0.9 }) {
+            public void reportThrottled(String msg, long current, long totalRows, double totalPercent, String remaining) {
+                long total = Math.min(GraphBuilderParserHandler.MAX_DRY_RUN_ROWS, totalRows);
+                data.put("current", current);
+                data.put("total", total);
+                data.put("totalPercent", totalPercent);
+                data.put("message", msg);
+                data.putOpt("remaining", remaining);
+                workQueueRepository.broadcast("structuredImportDryrun", data, permissions);
             }
         };
 
@@ -161,7 +149,7 @@ public class Ingest implements ParameterizedHandler {
         parserHandler.dryRun = true;
         ParseOptions parseOptions = new ParseOptions(optionsJson);
 
-        parse(vertex, rawPropertyValue, parseOptions, parserHandler);
+        parse(vertex, parseOptions, parserHandler);
 
         if (parserHandler.hasErrors()) {
             return parserHandler.parseErrors;
@@ -169,7 +157,7 @@ public class Ingest implements ParameterizedHandler {
         return parserHandler.clientApiIngestPreview;
     }
 
-    private void parse(Vertex vertex, StreamingPropertyValue rawPropertyValue, ParseOptions parseOptions, BaseStructuredFileParserHandler parserHandler) throws Exception {
+    private void parse(Vertex vertex, ParseOptions parseOptions, BaseStructuredFileParserHandler parserHandler) throws Exception {
         String mimeType = (String) vertex.getPropertyValue(VisalloProperties.MIME_TYPE.getPropertyName());
         if (mimeType == null) {
             throw new VisalloException("No mimeType property found for vertex");
@@ -180,8 +168,6 @@ public class Ingest implements ParameterizedHandler {
             throw new VisalloException("No parser registered for mimeType: " + mimeType);
         }
 
-        try (InputStream in = rawPropertyValue.getInputStream()) {
-            structuredIngestParser.ingest(in, parseOptions, parserHandler);
-        }
+        structuredIngestParser.ingest(new VertexRawStructuredImportSource(vertex), parseOptions, parserHandler);
     }
 }

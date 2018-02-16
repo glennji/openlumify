@@ -18,7 +18,7 @@ public class VideoTranscriptProperty extends VisalloProperty<VideoTranscript, St
     @Override
     public StreamingPropertyValue wrap(VideoTranscript value) {
         InputStream in = new ByteArrayInputStream(value.toJson().toString().getBytes());
-        StreamingPropertyValue result = new StreamingPropertyValue(in, byte[].class);
+        StreamingPropertyValue result = StreamingPropertyValue.create(in, byte[].class);
         result.searchIndex(false);
         return result;
     }

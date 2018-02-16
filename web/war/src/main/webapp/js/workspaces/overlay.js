@@ -37,9 +37,10 @@ define([
 
 
     const LAST_SAVED_UPDATE_FREQUENCY_SECONDS = 30;
-    const UPDATE_WORKSPACE_DIFF_SECONDS = 5;
+    const UPDATE_WORKSPACE_DIFF_SECONDS = 3;
     const SHOW_UNPUBLUSHED_CHANGES_SECONDS = 3;
     const COMMENT_ENTRY_IRI = 'http://visallo.org/comment#entry';
+    const MAX_HOVER_IDS = 1000;
 
     return defineComponent(WorkspaceOverlay, withDataRequest);
 
@@ -66,7 +67,7 @@ define([
                 self.menuBarWidth = $('.menubar-pane').width();
             })
 
-            this.updateDiffBadge = _.throttle(this.updateDiffBadge.bind(this), UPDATE_WORKSPACE_DIFF_SECONDS * 1000)
+            this.updateDiffBadge = _.throttle(this.updateDiffBadge.bind(this), UPDATE_WORKSPACE_DIFF_SECONDS * 1000, { leading: false })
 
             this.$node.hide().html(template({}));
 
@@ -240,62 +241,34 @@ define([
                     .on('mouseenter mouseleave', this.onDiffBadgeMouse.bind(this))
             }
 
-            Promise.all([
-                this.dataRequest('workspace', 'diff'),
-                this.dataRequest('ontology', 'ontology')
-            ]).spread(function({ diffs }, { properties: ontologyProperties, concepts: ontologyConcepts }) {
-                const sameDiff = self.previousDiff && _.isEqual(diffs, self.previousDiff);
-
-                if (sameDiff) {
+            this.dataRequest('workspace', 'diffCount').then(diffCount => {
+                const { total, ids } = diffCount;
+                const same = this.previousDiff && _.isEqual(diffCount, this.previousCounts);
+                if (same) {
                     return;
                 }
-                self.previousDiff = diffs;
+                this.previousCounts = diffCount;
+                this.formattedCount = F.number.pretty(total);
 
-                var vertexDiffsById = _.indexBy(diffs, function(diff) {
-                        return diff.vertexId;
-                    }),
-                    count = 0,
-                    alreadyCountedCompoundProperties = [],
-                    filteredDiffs = _.filter(diffs, function(diff) {
-                        if (diff.type === 'PropertyDiffItem') {
-                            var ontologyProperty = ontologyProperties.byTitle[diff.name];
-                            if (!ontologyProperty ||
-                                !(ontologyProperty.userVisible || ontologyProperty.title === COMMENT_ENTRY_IRI)) {
-                                return false;
-                            }
+                this.currentDiffIds = ids;
+                if (this.currentDiffIds.length > MAX_HOVER_IDS) {
+                    this.currentDiffIds = null;
+                }
 
-                            var vertexDiff = vertexDiffsById[diff.elementId];
-                            if (vertexDiff && diff.name === 'title') return true;
+                var popover = badge.data('popover'),
+                    tip = popover && popover.tip();
 
-                            var compoundProperty = ontologyProperties.byDependentToCompound[diff.name],
-                                ontologyConcept = ontologyConcepts.byId[diff.elementConcept];
-                            if (compoundProperty && ontologyConcept && ontologyConcept.properties.indexOf(compoundProperty) >= 0) {
-                                var alreadyCountedKey = diff.elementId + diff.key + compoundProperty;
-                                if (_.contains(alreadyCountedCompoundProperties, alreadyCountedKey)) {
-                                    return true;
-                                }
-                                alreadyCountedCompoundProperties.push(alreadyCountedKey);
-                            }
-                        }
-                        count++;
-                        return true;
-                    });
-                self.formattedCount = F.number.pretty(count);
+                if (tip && tip.is(':visible')) {
+                    if (this.attacher) {
+                        this.attacher.params({ total }).attach()
+                    }
+                    popover.show();
+                } else {
 
-                self.currentDiffIds = _.uniq(filteredDiffs.map(function(diff) {
-                    return diff.vertexId || diff.elementId || diff.edgeId;
-                }));
-
-                require(['workspaces/diff/diff'], function(Diff) {
-                    var popover = badge.data('popover'),
-                        tip = popover && popover.tip();
-
-                    if (tip && tip.is(':visible')) {
-                        self.trigger(popover.tip().find('.popover-content'),
-                             'diffsChanged',
-                             { diffs: filteredDiffs });
-                        popover.show();
-                    } else {
+                    //require([
+                        //'util/component/attacher',
+                        //'workspaces/diff/DiffContainer'
+                    //], (Attacher, DiffContainer) => {
                         badge
                             .popover('destroy')
                             .popover({
@@ -307,61 +280,80 @@ define([
                         popover = badge.data('popover');
                         tip = popover.tip();
 
-                        var left = 10;
-                        tip.css({
-                                width: '400px',
-                                height: '250px'
-                            })
-                            .data('sizePreference', 'diff')
-                            .find('.arrow').css({
-                                left: parseInt(badge.position().left - (left / 2) + 1, 10) + 'px',
-                                marginLeft: 0
-                            })
+                        tip.css({ width: '400px', height: '250px' }).data('sizePreference', 'diff')
 
                         // We fill in our own content
                         popover.setContent = function() {}
-                        badge.on('shown', function() {
+                        const teardown = () => {
+                            if (this.attacher) {
+                                this.attacher.teardown();
+                                this.attacher = null;
+                            }
+                        };
+                        badge.on('shown', () => {
+                            var left = 10;
+                            tip.find('.arrow').css({
+                                left: parseInt(badge.position().left - (left / 2) + badge.width() / 2, 10) + 'px',
+                                marginLeft: 0
+                            })
+
                             var css = {
                                 top: (parseInt(tip.css('top')) - 10) + 'px'
                             };
                             tip.resizable({
                                 handles: 'n, e, ne',
-                                maxWidth: self.popoverCss.maxWidth,
-                                maxHeight: self.popoverCss.maxHeight
+                                maxWidth: this.popoverCss.maxWidth,
+                                maxHeight: this.popoverCss.maxHeight
                             }).css({top: top});
 
-                            self.updatePopoverSize(tip);
+                            this.updatePopoverSize(tip);
 
                             const $popoverContent = tip.find('.popover-content');
 
                             $popoverContent
                                 .toggleClass(
                                     'loading-small-animate',
-                                    Boolean(!$popoverContent.lookupComponent(Diff))
+                                    !this.attacher
                                 );
 
-                            Diff.attachTo($popoverContent, {
-                                diffs: filteredDiffs
-                            });
-                        }).on('hide', () => {
-                            tip.find('.popover-content').teardownComponent(Diff);
-                        })
+                            require([
+                                'util/component/attacher',
+                                'workspaces/diff/DiffContainer'
+                            ], (Attacher, DiffContainer) => {
+                                if (this.attacher) {
+                                    this.attacher.params({ total }).attach();
+                                } else {
+                                    this.attacher = Attacher()
+                                        .node($popoverContent)
+                                        .params({ total })
+                                        .component(DiffContainer)
 
-                        Diff.teardownAll();
-                    }
-                });
+                                    this.attacher.attach().then(() => {
+                                        $popoverContent.removeClass('loading-small-animate');
+                                    })
+                                }
+                            });
+                        }).on('hide', teardown)
+
+                        teardown();
+                    //});
+                }
 
                 badge.removePrefixedClasses('badge-').addClass('badge-info')
                     .attr('title', i18n('workspaces.diff.unpublished_change.' + (
-                        self.formattedCount === 1 ?
-                        'one' : 'some'), self.formattedCount))
-                    .text(count > 0 ? self.formattedCount : '');
+                        total === 1 ?
+                        'one' : 'some'), this.formattedCount))
+                    .text(total > 0 ? this.formattedCount : '');
 
-                if (count > 0) {
-                    self.animateBadge(badge);
-                } else if (count === 0) {
+                if (total > 0) {
+                    this.animateBadge(badge);
+                } else if (total === 0) {
                     badge.popover('destroy');
                 }
+            }).catch(error => {
+                console.error(error)
+                badge.removePrefixedClasses('badge-').addClass('badge-error').text('Error')
+                this.animateBadge(badge);
             })
         };
 

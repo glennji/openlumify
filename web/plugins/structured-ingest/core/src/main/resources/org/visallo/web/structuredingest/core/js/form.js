@@ -1079,12 +1079,25 @@ define([
                     })
                 };
 
-            this.on(document, 'structuredImportDryrunProgress', function(event, data) {
-                $message
-                    .addClass('info')
-                    .attr('title', '')
-                    .text(i18n('csv.file_import.checking.percent', F.number.percent(data.row / data.total)));
-            });
+            const setProgress = message => {
+                $message.addClass('info').attr('title', '').text(message);
+            };
+            const progress = function(event, data) {
+                const { current, total, totalPercent, message, remaining } = data;
+                console.log(remaining, `${current}/${total} ${totalPercent}% ${message}`)
+                setProgress(
+                    i18n('csv.file_import.checking.percent',
+                        F.number.percent(totalPercent),
+                        message
+                    ) +
+                    (remaining ? ` (${remaining})` : '')
+                );
+            };
+
+            setProgress('Processing…');
+            // FIXME i18n('csv.file_import.checking.percent', F.number.percent(data.row / data.total))
+
+            this.on(document, 'structuredImportDryrunProgress', progress);
 
             this.dataRequest('org-visallo-structuredingest', 'ingest', mapping, self.attr.vertex.id, this.parseOptions, this.currentImportActionIsPreview, this.shouldPublish)
                 .then(function(result) {
@@ -1152,7 +1165,7 @@ define([
                     $message.empty().removeClass('info').append($errorElement);
                 })
                 .finally(function() {
-                    self.off(document, 'structuredImportDryrunProgress');
+                    self.off(document, 'structuredImportDryrunProgress', progress);
                     $button.removeClass('loading').prop('disabled', false);
                 })
         };

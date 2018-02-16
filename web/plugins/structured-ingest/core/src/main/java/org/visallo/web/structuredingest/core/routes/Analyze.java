@@ -3,6 +3,7 @@ package org.visallo.web.structuredingest.core.routes;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.visallo.web.structuredingest.core.model.VertexRawStructuredImportSource;
 import org.visallo.webster.ParameterizedHandler;
 import org.visallo.webster.annotations.Handle;
 import org.visallo.webster.annotations.Required;
@@ -40,18 +41,11 @@ public class Analyze implements ParameterizedHandler {
             throw new VisalloResourceNotFoundException("Could not find vertex:" + graphVertexId);
         }
 
-        StreamingPropertyValue rawPropertyValue = VisalloProperties.RAW.getPropertyValue(vertex);
-        if (rawPropertyValue == null) {
-            throw new VisalloResourceNotFoundException("Could not find raw property on vertex:" + graphVertexId);
-        }
-
         List <String> mimeTypes = Lists.newArrayList(VisalloProperties.MIME_TYPE.getPropertyValues(vertex));
         for (String mimeType : mimeTypes) {
             StructuredIngestParser parser = structuredIngestParserFactory.getParser(mimeType);
             if (parser != null) {
-                try (InputStream inputStream = rawPropertyValue.getInputStream()) {
-                    return parser.analyze(inputStream);
-                }
+                return parser.analyze(new VertexRawStructuredImportSource(vertex));
             }
         }
 

@@ -166,6 +166,10 @@ public class JsonSerializer {
     }
 
     public static JSONObject toJsonProperty(Property property) {
+        return toJsonProperty(property, true);
+    }
+
+    public static JSONObject toJsonProperty(Property property, boolean includeMetadata) {
         checkNotNull(property, "property cannot be null");
         JSONObject result = new JSONObject();
         result.put("key", property.getKey());
@@ -178,8 +182,10 @@ public class JsonSerializer {
             result.put("value", toJsonValue(propertyValue));
         }
 
-        for (Metadata.Entry metadataEntry : property.getMetadata().entrySet()) {
-            result.put(metadataEntry.getKey(), toJsonValue(metadataEntry.getValue()));
+        if (includeMetadata) {
+            for (Metadata.Entry metadataEntry : property.getMetadata().entrySet()) {
+                result.put(metadataEntry.getKey(), toJsonValue(metadataEntry.getValue()));
+            }
         }
 
         return result;

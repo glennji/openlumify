@@ -21,7 +21,9 @@ import org.visallo.core.model.workspace.WorkspaceRepository;
 import org.visallo.core.security.VisibilityTranslator;
 import org.visallo.core.user.User;
 import org.visallo.core.util.ClientApiConverter;
+import org.visallo.web.structuredingest.core.model.StructuredIngestInputStreamSource;
 import org.visallo.web.structuredingest.core.model.StructuredIngestParser;
+import org.visallo.web.structuredingest.core.model.VertexRawStructuredImportSource;
 import org.visallo.web.structuredingest.core.util.StructuredIngestParserFactory;
 import org.visallo.web.structuredingest.core.model.StructuredIngestQueueItem;
 import org.visallo.web.structuredingest.core.util.GraphBuilderParserHandler;
@@ -58,19 +60,19 @@ public class StructuredIngestProcessWorker extends LongRunningProcessWorker {
         Authorizations authorizations = graph.createAuthorizations(structuredIngestQueueItem.getAuthorizations());
         Vertex vertex = graph.getVertex(structuredIngestQueueItem.getVertexId(), authorizations);
         User user = userRepository.findById(structuredIngestQueueItem.getUserId());
-        StreamingPropertyValue rawPropertyValue = VisalloProperties.RAW.getPropertyValue(vertex);
         NumberFormat numberFormat = NumberFormat.getIntegerInstance();
 
-        ProgressReporter reporter = new ProgressReporter() {
-            public void finishedRow(long row, long totalRows) {
-                if (totalRows != -1) {
-                    longRunningProcessRepository.reportProgress(
-                            longRunningProcessQueueItem,
-                            ((float)row) / ((float) totalRows),
-                            "Row " + numberFormat.format(row) + " of " + numberFormat.format(totalRows));
-                }
+        ProgressReporter reporter = new ProgressReporter(new double[] { 0.1, 0.2, 0.8 }) {
+            public void reportThrottled(String message, long current, long totalRows, double totalPercent, String remaining) {
+                longRunningProcessRepository.reportProgress(
+                        longRunningProcessQueueItem,
+                        totalPercent,
+                        message + " " + numberFormat.format(current) + " of " + numberFormat.format(totalRows),
+                        remaining
+                );
             }
         };
+
         GraphBuilderParserHandler parserHandler = new GraphBuilderParserHandler(
                 graph,
                 user,
@@ -92,13 +94,15 @@ public class StructuredIngestProcessWorker extends LongRunningProcessWorker {
         parserHandler.dryRun = false;
         parserHandler.reset();
         try {
-            parse(vertex, rawPropertyValue, parserHandler, structuredIngestQueueItem);
+            parse(vertex, parserHandler, structuredIngestQueueItem);
+
+            graph.flush();
         } catch (Exception e) {
             throw new VisalloException("Unable to ingest vertex: " + vertex, e);
         }
     }
 
-    private void parse(Vertex vertex, StreamingPropertyValue rawPropertyValue, GraphBuilderParserHandler parserHandler, StructuredIngestQueueItem item) throws Exception {
+    private void parse(Vertex vertex, GraphBuilderParserHandler parserHandler, StructuredIngestQueueItem item) throws Exception {
         String mimeType = (String) vertex.getPropertyValue(VisalloProperties.MIME_TYPE.getPropertyName());
         if (mimeType == null) {
             throw new VisalloException("No mimeType property found for vertex");
@@ -109,9 +113,8 @@ public class StructuredIngestProcessWorker extends LongRunningProcessWorker {
             throw new VisalloException("No parser registered for mimeType: " + mimeType);
         }
 
-        try (InputStream in = rawPropertyValue.getInputStream()) {
-            structuredIngestParser.ingest(in, item.getParseOptions(), parserHandler);
-        }
+        StructuredIngestInputStreamSource source = new VertexRawStructuredImportSource(vertex);
+        structuredIngestParser.ingest(source, item.getParseOptions(), parserHandler);
     }
 
     @Inject

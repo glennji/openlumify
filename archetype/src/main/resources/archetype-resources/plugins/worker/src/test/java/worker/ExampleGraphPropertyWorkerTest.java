@@ -55,7 +55,7 @@ public class ExampleGraphPropertyWorkerTest extends GraphPropertyWorkerTestBase 
         VisalloProperties.VISIBILITY_JSON.setProperty(archiveVertex, visibilityJson, visibility, authorizations);
 
         InputStream archiveIn = getClass().getResource("/contacts.csv").openStream();
-        StreamingPropertyValue value = new StreamingPropertyValue(archiveIn, byte[].class);
+        StreamingPropertyValue value = StreamingPropertyValue.create(archiveIn, byte[].class);
         VisalloProperties.RAW.setProperty(archiveVertex, value, visibility, authorizations);
         archiveIn.close();
 

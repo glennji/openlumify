@@ -27,6 +27,7 @@ import org.visallo.web.clientapi.model.VisibilityJson;
 import org.visallo.web.structuredingest.core.StructuredIngestOntology;
 import org.visallo.web.structuredingest.core.model.ClientApiAnalysis;
 import org.visallo.web.structuredingest.core.model.ParseOptions;
+import org.visallo.web.structuredingest.core.model.StructuredIngestInputStreamSource;
 import org.visallo.web.structuredingest.core.util.GraphBuilderParserHandler;
 import org.visallo.web.structuredingest.core.util.ProgressReporter;
 import org.visallo.web.structuredingest.core.util.mapping.ColumnMappingType;
@@ -139,11 +140,9 @@ public class ParquetStructuredIngestParserTest {
 
     @Test
     public void ingestSetsConceptType() throws Exception {
-        InputStream inputStream = getTestFileInputStream();
-
         List<List<JSONObject>> vertexMappings = Collections.singletonList(Arrays.asList(conceptTypeObj("testConceptType")));
         GraphBuilderParserHandler graphBuilderParserHandler = setupGraphBuilder(parseMapping(vertexMappings, null));
-        new ParquetStructuredIngestParser().ingest(inputStream, new ParseOptions(), graphBuilderParserHandler);
+        new ParquetStructuredIngestParser().ingest(getTestFileInputStream(), new ParseOptions(), graphBuilderParserHandler);
 
         graph.flush();
         Vertex vertex = graph.getVertex(PARQUET_FILE_VERTEX_ID, WORKSPACE_AUTHORIZATIONS_A);
@@ -155,15 +154,12 @@ public class ParquetStructuredIngestParserTest {
 
     @Test
     public void ingestSetsPropertyOnVertices() throws Exception {
-
-        InputStream inputStream = getTestFileInputStream();
-
         List<List<JSONObject>> vertexMappings = Arrays.asList(Lists.newArrayList(
                 conceptTypeObj("testConceptType"),
                 nameKeyObj(SSN_PROP_IRI, "social_security_number"))
         );
         GraphBuilderParserHandler graphBuilderParserHandler = setupGraphBuilder(parseMapping(vertexMappings, null));
-        new ParquetStructuredIngestParser().ingest(inputStream, new ParseOptions(), graphBuilderParserHandler);
+        new ParquetStructuredIngestParser().ingest(getTestFileInputStream(), new ParseOptions(), graphBuilderParserHandler);
 
         graph.flush();
         Vertex vertex = graph.getVertex(PARQUET_FILE_VERTEX_ID, WORKSPACE_AUTHORIZATIONS_A);
@@ -179,16 +175,13 @@ public class ParquetStructuredIngestParserTest {
     public void ingestCreatesMultipleVertices() throws Exception {
         assertThat(Lists.newArrayList(graph.getVertices(WORKSPACE_AUTHORIZATIONS_A)).size(), is(3));
 
-
-        InputStream inputStream = getTestFileInputStream();
-
         List<List<JSONObject>> vertexMappings = Arrays.asList(Lists.newArrayList(
                 conceptTypeObj("testConceptType"),
                 nameKeyObj(SSN_PROP_IRI, "social_security_number")),
                 Lists.newArrayList(conceptTypeObj("otherConceptType"))
         );
         GraphBuilderParserHandler graphBuilderParserHandler = setupGraphBuilder(parseMapping(vertexMappings, null));
-        new ParquetStructuredIngestParser().ingest(inputStream, new ParseOptions(), graphBuilderParserHandler);
+        new ParquetStructuredIngestParser().ingest(getTestFileInputStream(), new ParseOptions(), graphBuilderParserHandler);
 
         graph.flush();
         Vertex vertex = graph.getVertex(PARQUET_FILE_VERTEX_ID, WORKSPACE_AUTHORIZATIONS_A);
@@ -205,8 +198,6 @@ public class ParquetStructuredIngestParserTest {
 
     @Test
     public void ingestCreatesMultipleVerticesWithIdentifiers() throws Exception {
-        InputStream inputStream = getTestFileInputStream();
-
         List<List<JSONObject>> vertexMappings = Arrays.asList(
                 Lists.newArrayList(
                     conceptTypeObj("testConceptType"),
@@ -215,7 +206,7 @@ public class ParquetStructuredIngestParserTest {
                 Lists.newArrayList(conceptTypeObj("otherConceptType"))
         );
         GraphBuilderParserHandler graphBuilderParserHandler = setupGraphBuilder(parseMapping(vertexMappings, null));
-        new ParquetStructuredIngestParser().ingest(inputStream, new ParseOptions(), graphBuilderParserHandler);
+        new ParquetStructuredIngestParser().ingest(getTestFileInputStream(), new ParseOptions(), graphBuilderParserHandler);
 
         graph.flush();
         Vertex vertex = graph.getVertex(PARQUET_FILE_VERTEX_ID, WORKSPACE_AUTHORIZATIONS_A);
@@ -271,8 +262,6 @@ public class ParquetStructuredIngestParserTest {
 
     @Test
     public void ingestCreatesRelationshipsOnVertices() throws Exception {
-        InputStream inputStream = getTestFileInputStream();
-
         List<List<JSONObject>> vertexMappings = Arrays.asList(Lists.newArrayList(
                 conceptTypeObj("testConceptType"),
                 nameKeyObj(SSN_PROP_IRI, "social_security_number")),
@@ -281,7 +270,7 @@ public class ParquetStructuredIngestParserTest {
 
         List<JSONObject> edgeMappings = Arrays.asList(createEdge(0, 1, "testEdgeLabel"));
         GraphBuilderParserHandler graphBuilderParserHandler = setupGraphBuilder(parseMapping(vertexMappings, edgeMappings));
-        new ParquetStructuredIngestParser().ingest(inputStream, new ParseOptions(), graphBuilderParserHandler);
+        new ParquetStructuredIngestParser().ingest(getTestFileInputStream(), new ParseOptions(), graphBuilderParserHandler);
 
         graph.flush();
         Vertex vertex = graph.getVertex(PARQUET_FILE_VERTEX_ID, WORKSPACE_AUTHORIZATIONS_A);
@@ -369,8 +358,9 @@ public class ParquetStructuredIngestParserTest {
         return graphBuilderParserHandler;
     }
 
-    private static InputStream getTestFileInputStream() {
-        return ParquetStructuredIngestParserTest.class.getResourceAsStream("test-parquet-file.snappy.parquet");
+    private static StructuredIngestInputStreamSource getTestFileInputStream() {
+        return () ->
+            ParquetStructuredIngestParserTest.class.getResourceAsStream("test-parquet-file.snappy.parquet");
     }
 
     private static JSONObject arrayWithProperties(String property, JSONObject... objs) {

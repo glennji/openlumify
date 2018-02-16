@@ -2,6 +2,9 @@ package org.visallo.core.model.workspace;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
+import com.google.common.util.concurrent.RateLimiter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -162,12 +165,6 @@ public abstract class WorkspaceRepository {
 
     public abstract List<WorkspaceUser> findUsersWithAccess(String workspaceId, User user);
 
-    public List<WorkspaceEntity> findEntities(Workspace workspace, User user) {
-        return findEntities(workspace, false, user);
-    }
-
-    public abstract List<WorkspaceEntity> findEntities(Workspace workspace, boolean fetchVertices, User user);
-
     public Workspace copy(Workspace workspace, User user) {
         return copyTo(workspace, user, user);
     }
@@ -206,7 +203,17 @@ public abstract class WorkspaceRepository {
         ADD, UPDATE
     }
 
-    public abstract ClientApiWorkspaceDiff getDiff(Workspace workspace, User user, FormulaEvaluator.UserContext userContext);
+    public ClientApiWorkspaceDiffCount getDiffCount(String workspaceId, User user) {
+        return getDiffCount(null, workspaceId, user);
+    }
+
+    public abstract ClientApiWorkspaceDiffCount getDiffCount(String query, String workspaceId, User user);
+
+    public ClientApiWorkspaceDiff getDiff(String workspaceId, int startIndex, int stopIndex, User user) {
+        return getDiff(workspaceId, startIndex, stopIndex, null, user);
+    }
+
+    public abstract ClientApiWorkspaceDiff getDiff(String workspaceId, int startIndex, int stopIndex, String query, User user);
 
     public String getCreatorUserId(String workspaceId, User user) {
         for (WorkspaceUser workspaceUser : findUsersWithAccess(workspaceId, user)) {
@@ -1053,17 +1060,6 @@ public abstract class WorkspaceRepository {
         LOGGER.warn("new has image edge without a glyph icon property being set on vertex %s", entityVertex.getId());
     }
 
-    @Deprecated
-    public List<String> findEntityVertexIds(Workspace workspace, User user) {
-        List<WorkspaceEntity> workspaceEntities = findEntities(workspace, user);
-        return toList(new ConvertingIterable<WorkspaceEntity, String>(workspaceEntities) {
-            @Override
-            protected String convert(WorkspaceEntity workspaceEntity) {
-                return workspaceEntity.getEntityVertexId();
-            }
-        });
-    }
-
     @Traced
     protected Iterable<Edge> findModifiedEdges(
             final Workspace workspace,
@@ -1077,22 +1073,57 @@ public abstract class WorkspaceRepository {
                 VisalloVisibility.SUPER_USER_VISIBILITY_STRING,
                 workspace.getWorkspaceId()
         );
-        Iterable<Vertex> vertices = stream(WorkspaceEntity.toVertices(workspaceEntities, getGraph(), systemAuthorizations))
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-
         Authorizations authorizations = getAuthorizationRepository().getGraphAuthorizations(
                 user,
                 VISIBILITY_STRING,
                 workspace.getWorkspaceId()
         );
-        Iterable<String> edgeIds = getGraph().findRelatedEdgeIdsForVertices(vertices, authorizations);
 
-        return getGraph().getEdges(
-                edgeIds,
-                includeHidden ? FetchHint.ALL_INCLUDING_HIDDEN : FetchHint.ALL,
-                authorizations
-        );
+
+        Map<String, String[]> edges = Maps.newHashMap();
+
+        stream(WorkspaceEntity.toVertices(workspaceEntities, getGraph(), systemAuthorizations))
+                .forEach(vertex -> {
+                    if (vertex != null) {
+                        String id = vertex.getId();
+                        Iterable<EdgeInfo> outInfos = vertex.getEdgeInfos(Direction.OUT, authorizations);
+                        Iterable<EdgeInfo> inInfos = vertex.getEdgeInfos(Direction.IN, authorizations);
+
+                        for (EdgeInfo edgeInfo : outInfos) {
+                            String edgeId = edgeInfo.getEdgeId();
+                            String[] inOut = edges.get(edgeId);
+                            if (inOut == null) {
+                                inOut = new String[2];
+                                edges.put(edgeId, inOut);
+                            }
+                            inOut[0] = id;
+                        }
+                        for (EdgeInfo edgeInfo : inInfos) {
+                            String edgeId = edgeInfo.getEdgeId();
+                            String[] inOut = edges.get(edgeId);
+                            if (inOut == null) {
+                                inOut = new String[2];
+                                edges.put(edgeId, inOut);
+                            }
+                            inOut[1] = id;
+                        }
+                    }
+                });
+
+        Set<String> edgeIds = Sets.newHashSet();
+        for (Map.Entry<String, String[]> edge : edges.entrySet()) {
+            String[] inOut = edge.getValue();
+            if (inOut[0] != null && inOut[1] != null) {
+                edgeIds.add(edge.getKey());
+            }
+        }
+
+        EnumSet<FetchHint> hints = EnumSet.of(FetchHint.PROPERTIES);
+        if (includeHidden) {
+            hints.add(FetchHint.INCLUDE_HIDDEN);
+        }
+
+        return getGraph().getEdges(edgeIds, hints, authorizations);
     }
 
     public abstract Dashboard findDashboardById(String workspaceId, String dashboardId, User user);

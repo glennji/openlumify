@@ -190,7 +190,7 @@ public class TikaTextExtractorGraphPropertyWorker extends GraphPropertyWorker {
 
                 text = new JSONObject(customImageMetadataJson.get("description").toString()).get("_content") +
                         "\n" + customImageMetadataJson.get("tags").toString();
-                StreamingPropertyValue textValue = new StreamingPropertyValue(new ByteArrayInputStream(text.getBytes(charset)), String.class);
+                StreamingPropertyValue textValue = StreamingPropertyValue.create(new ByteArrayInputStream(text.getBytes(charset)), String.class);
                 addTextProperty(textExtractMapping, m, propertyKey, textValue, textMetadata, data.getProperty().getVisibility());
 
                 Date lastUpdate = GenericDateExtractor
@@ -208,7 +208,7 @@ public class TikaTextExtractorGraphPropertyWorker extends GraphPropertyWorker {
                 LOGGER.warn("Image returned invalid custom metadata");
             }
         } else {
-            StreamingPropertyValue textValue = new StreamingPropertyValue(new ByteArrayInputStream(text.getBytes(charset)), String.class);
+            StreamingPropertyValue textValue = StreamingPropertyValue.create(new ByteArrayInputStream(text.getBytes(charset)), String.class);
             addTextProperty(textExtractMapping, m, propertyKey, textValue, textMetadata, data.getProperty().getVisibility());
 
             VisalloProperties.MODIFIED_DATE.setProperty(m, extractDate(metadata), defaultVisibility);

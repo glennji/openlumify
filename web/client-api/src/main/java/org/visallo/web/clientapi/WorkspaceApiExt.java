@@ -29,7 +29,7 @@ public class WorkspaceApiExt extends WorkspaceApi {
             ClientApiWorkspaceDiff.VertexItem vertexDiffItem = (ClientApiWorkspaceDiff.VertexItem) workspaceDiffItem;
             ClientApiVertexPublishItem publishItem = new ClientApiVertexPublishItem();
             publishItem.setAction(ClientApiPublishItem.Action.ADD_OR_UPDATE);
-            publishItem.setVertexId(vertexDiffItem.getVertexId());
+            publishItem.setVertexId(vertexDiffItem.getVertex().getId());
             return publishItem;
         } else if (workspaceDiffItem instanceof ClientApiWorkspaceDiff.PropertyItem) {
             ClientApiWorkspaceDiff.PropertyItem propertyDiffItem = (ClientApiWorkspaceDiff.PropertyItem) workspaceDiffItem;
@@ -42,7 +42,7 @@ public class WorkspaceApiExt extends WorkspaceApi {
         } else if (workspaceDiffItem instanceof ClientApiWorkspaceDiff.EdgeItem) {
             ClientApiWorkspaceDiff.EdgeItem edgeDiffItem = (ClientApiWorkspaceDiff.EdgeItem) workspaceDiffItem;
             ClientApiRelationshipPublishItem publishItem = new ClientApiRelationshipPublishItem();
-            publishItem.setEdgeId(edgeDiffItem.getEdgeId());
+            publishItem.setEdgeId(edgeDiffItem.getEdge().getId());
             return publishItem;
         } else {
             throw new VisalloClientApiException("Unhandled WorkspaceDiffItem type: " + workspaceDiffItem.getType());
@@ -65,7 +65,7 @@ public class WorkspaceApiExt extends WorkspaceApi {
         if (workspaceDiffItem instanceof ClientApiWorkspaceDiff.VertexItem) {
             ClientApiWorkspaceDiff.VertexItem vertexDiffItem = (ClientApiWorkspaceDiff.VertexItem) workspaceDiffItem;
             ClientApiVertexUndoItem undoItem = new ClientApiVertexUndoItem();
-            undoItem.setVertexId(vertexDiffItem.getVertexId());
+            undoItem.setVertexId(vertexDiffItem.getVertex().getId());
             return undoItem;
         } else if (workspaceDiffItem instanceof ClientApiWorkspaceDiff.PropertyItem) {
             ClientApiWorkspaceDiff.PropertyItem propertyDiffItem = (ClientApiWorkspaceDiff.PropertyItem) workspaceDiffItem;
@@ -78,7 +78,7 @@ public class WorkspaceApiExt extends WorkspaceApi {
         } else if (workspaceDiffItem instanceof ClientApiWorkspaceDiff.EdgeItem) {
             ClientApiWorkspaceDiff.EdgeItem edgeDiffItem = (ClientApiWorkspaceDiff.EdgeItem) workspaceDiffItem;
             ClientApiRelationshipUndoItem undoItem = new ClientApiRelationshipUndoItem();
-            undoItem.setEdgeId(edgeDiffItem.getEdgeId());
+            undoItem.setEdgeId(edgeDiffItem.getEdge().getId());
             return undoItem;
         } else {
             throw new VisalloClientApiException("Unhandled WorkspaceDiffItem type: " + workspaceDiffItem.getType());

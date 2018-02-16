@@ -1,6 +1,7 @@
 package org.visallo.core.model.workspace;
 
 import org.vertexium.Authorizations;
+import org.vertexium.FetchHint;
 import org.vertexium.Graph;
 import org.vertexium.Vertex;
 import org.visallo.core.util.VisalloLogger;
@@ -40,7 +41,7 @@ public class WorkspaceEntity implements Serializable {
                 .filter(we -> we.getVertex() == null)
                 .map(we -> we.getEntityVertexId())
                 .collect(Collectors.toList());
-        Map<String, Vertex> fetchedVerticesMap = stream(graph.getVertices(vertexIdsToFetch, authorizations))
+        Map<String, Vertex> fetchedVerticesMap = stream(graph.getVertices(vertexIdsToFetch, FetchHint.EDGE_REFS, authorizations))
                 .distinct()
                 .collect(Collectors.toMap(v -> v.getId(), v -> v));
         return stream(workspaceEntities)

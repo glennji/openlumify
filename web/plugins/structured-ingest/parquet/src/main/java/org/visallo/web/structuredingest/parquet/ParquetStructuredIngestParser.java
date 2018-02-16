@@ -26,9 +26,10 @@ import org.visallo.core.util.VisalloLogger;
 import org.visallo.core.util.VisalloLoggerFactory;
 import org.visallo.web.structuredingest.core.model.ClientApiAnalysis;
 import org.visallo.web.structuredingest.core.model.ParseOptions;
+import org.visallo.web.structuredingest.core.model.StructuredIngestInputStreamSource;
 import org.visallo.web.structuredingest.core.model.StructuredIngestParser;
 import org.visallo.web.structuredingest.core.util.BaseStructuredFileParserHandler;
-import org.visallo.web.structuredingest.core.util.StructuredFileParserHandler;
+import org.visallo.web.structuredingest.core.util.StructuredFileAnalyzerHandler;
 import org.visallo.web.structuredingest.core.util.mapping.ColumnMappingType;
 
 import java.io.File;
@@ -53,20 +54,43 @@ public class ParquetStructuredIngestParser implements StructuredIngestParser {
     }
 
     @Override
-    public void ingest(InputStream in, ParseOptions parseOptions, BaseStructuredFileParserHandler parserHandler) throws Exception {
+    public void ingest(StructuredIngestInputStreamSource source, ParseOptions parseOptions, BaseStructuredFileParserHandler parserHandler) throws Exception {
         File tempFile = null;
         try {
             tempFile = File.createTempFile("parquet", "tmp");
-            IOUtils.copy(in, new FileOutputStream(tempFile));
+            try (InputStream in = source.getInputStream()) {
+                IOUtils.copy(in, new FileOutputStream(tempFile));
+            }
 
             Configuration conf = new Configuration();
             Path path = new Path(tempFile.getAbsolutePath());
             ParquetMetadata metaData = ParquetFileReader.readFooter(conf, path, ParquetMetadataConverter.NO_FILTER);
             MessageType schema = metaData.getFileMetaData().getSchema();
             parserHandler.setTotalRows(getRowCount(metaData));
+            parserHandler.newSheet("");
 
             try (ParquetReader<SimpleRecord> reader = ParquetReader.builder(new SimpleReadSupport(), new Path(tempFile.getAbsolutePath())).build()) {
-                parserHandler.newSheet("");
+                int rowNum = 0;
+
+                for (SimpleRecord value = reader.read(); value != null; value = reader.read()) {
+                    Map<String, Object> row = Maps.newHashMap();
+
+                    for (SimpleRecord.NameValue nameValue : value.getValues()) {
+                        String name = nameValue.getName();
+                        Object val = nameValue.getValue();
+                        if (!(val instanceof SimpleRecord)) {
+                            Type type = schema.getType(schema.getFieldIndex(name));
+                            row.put(name, getRecordValue(val, type));
+                        }
+                    }
+
+                    if (!parserHandler.prepareRow(row, rowNum++)) break;
+                }
+            }
+
+            parserHandler.prepareFinished();
+
+            try (ParquetReader<SimpleRecord> reader = ParquetReader.builder(new SimpleReadSupport(), new Path(tempFile.getAbsolutePath())).build()) {
                 int rowNum = 0;
 
                 for (SimpleRecord value = reader.read(); value != null; value = reader.read()) {
@@ -100,17 +124,20 @@ public class ParquetStructuredIngestParser implements StructuredIngestParser {
     }
 
     @Override
-    public ClientApiAnalysis analyze(InputStream inputStream) throws Exception {
+    public ClientApiAnalysis analyze(StructuredIngestInputStreamSource source) throws Exception {
         File tempFile = null;
         try {
+
             tempFile = File.createTempFile("parquet", "tmp");
-            IOUtils.copy(inputStream, new FileOutputStream(tempFile));
+            try (InputStream in = source.getInputStream()) {
+                IOUtils.copy(in, new FileOutputStream(tempFile));
+            }
 
             Configuration conf = new Configuration();
             Path path = new Path(tempFile.getAbsolutePath());
             ParquetMetadata metaData = ParquetFileReader.readFooter(conf, path, ParquetMetadataConverter.NO_FILTER);
             MessageType schema = metaData.getFileMetaData().getSchema();
-            StructuredFileParserHandler parserHandler = new StructuredFileParserHandler();
+            StructuredFileAnalyzerHandler parserHandler = new StructuredFileAnalyzerHandler();
             parserHandler.newSheet("");
             parserHandler.getHints().allowHeaderSelection = false;
             parserHandler.getHints().sendColumnIndices = false;

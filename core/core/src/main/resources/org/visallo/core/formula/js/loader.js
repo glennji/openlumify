@@ -7,6 +7,14 @@ $.extend = _.extend;
 window = this;
 document = {};
 navigator = { userAgent: ''};
+
+localStorage = (function () {
+    var map = {};
+    return {
+        getItem(k) { return map[k]; },
+        setItem(k, v) { map[k] = v; }
+    };
+})();
 visalloData = publicData = { currentWorkspaceId: 'WORKSPACE_ID' };
 console = {
     log: print,

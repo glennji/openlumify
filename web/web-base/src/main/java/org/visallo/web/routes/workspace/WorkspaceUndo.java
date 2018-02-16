@@ -38,7 +38,7 @@ public class WorkspaceUndo implements ParameterizedHandler {
     ) throws Exception {
         LOGGER.debug("undoing:\n%s", Joiner.on("\n").join(undoData));
         ClientApiWorkspaceUndoResponse workspaceUndoResponse = new ClientApiWorkspaceUndoResponse();
-        workspaceUndoHelper.undo(Arrays.asList(undoData), workspaceUndoResponse, workspaceId, user, authorizations);
+        //workspaceUndoHelper.undo(Arrays.asList(undoData), workspaceUndoResponse, workspaceId, user, authorizations);
         LOGGER.debug("undoing results: %s", workspaceUndoResponse);
         return workspaceUndoResponse;
     }

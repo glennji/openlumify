@@ -27,7 +27,7 @@ public class MetadataFileImportSupportingFileHandler extends FileImportSupportin
         File mappingJsonFile = getMetadataFile(f);
         if (mappingJsonFile.exists()) {
             final FileInputStream mappingJsonInputStream = new FileInputStream(mappingJsonFile);
-            StreamingPropertyValue mappingJsonValue = new StreamingPropertyValue(mappingJsonInputStream, byte[].class);
+            StreamingPropertyValue mappingJsonValue = StreamingPropertyValue.create(mappingJsonInputStream, byte[].class);
             mappingJsonValue.searchIndex(false);
             VisalloProperties.METADATA_JSON.setProperty(vertexBuilder, mappingJsonValue, visibility);
             return new AddSupportingFilesResult() {
