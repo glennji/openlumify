@@ -68,10 +68,11 @@ define([
                     disabled={disabled}
                     placeholder={placeholder}
                     promptTextCreator={label => i18n('visibility.selector.prompt', label) }
-                    value={value || ''}
+                    value={value}
                     resetValue={''}
                     options={options}
                     optionHeight={28}
+                    autoBlur={true}
                     onChange={this.onChange}
                     onInputKeyDown={this.onInputKeyDown}
                     {...passthru}
@@ -87,15 +88,9 @@ define([
             this.props.visibilitychange({ value, valid })
         },
 
-        onInputKeyDown(event) {
-            if (event.keyCode === 13 /* enter */) {
-                event.stopPropagation();
-            }
-        },
-
         checkValid(value) {
             const authorizations = this.props.authorizations;
-            return Boolean(value === '' || value in authorizations);
+            return Boolean(value === '' || value === undefined || value in authorizations);
         },
 
         // onNewOptionClick(value) {

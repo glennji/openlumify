@@ -79,7 +79,7 @@ define([
                             { !resolvedVertexId ?
                                 (<VisibilityEditor
                                     value={visibility && visibility.value}
-                                    onVisibilityChanged={this.onVisibilityChanged} />) : null
+                                    onVisibilityChange={this.onVisibilityChanged} />) : null
                             }
                         </div>
                     ) : null }

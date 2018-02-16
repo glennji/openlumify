@@ -61,9 +61,7 @@ define([
                 sourceConcept: this.attr.otherCyNode.data('conceptType'),
                 targetConcept: this.attr.cyNode.data('conceptType')
             });
-            Visibility.attachTo(this.popover.find('.visibility'), {
-                value: ''
-            });
+            Visibility.attachTo(this.popover.find('.visibility'));
             Justification.attachTo(this.popover.find('.justification'));
 
             this.updateRelationshipLabels();

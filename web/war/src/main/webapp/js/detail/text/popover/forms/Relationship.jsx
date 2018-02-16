@@ -80,7 +80,7 @@ define([
 
                     <VisibilityEditor
                         value={visibility && visibility.value}
-                        onVisibilityChanged={this.onVisibilityChanged} />
+                        onVisibilityChange={this.onVisibilityChanged} />
 
                     <div className="buttons">
                         <button onClick={onCancel} className="btn btn-link btn-small">{i18n('detail.text.terms.form.cancel')}</button>
