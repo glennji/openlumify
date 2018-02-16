@@ -141,6 +141,7 @@ define([
                 sheetIndex
             };
             this.hasMapping = false;
+            this.errors = null;
         };
 
         this.loadMapping = function(sheetIndex = 0) {
@@ -1133,7 +1134,9 @@ define([
         this.onReset = function(event) {
             this.clearMapping(this.parseOptions.sheetIndex);
 
+            this.$node.find('.importMessage').empty()
             this.$node.find('.segmented-control > .preview').prop('disabled', true)
+
             this.switchPanel('entities');
 
             this.select('importSelector').prop('disabled', true);
