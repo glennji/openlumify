@@ -24,7 +24,7 @@ define([
     );
 
     const defaultVisibility = {
-        editorComponentPath: 'components/visibility/default/VisibilityEditor',
+        editorComponentPath: 'components/visibility/default/VisibilitySelector',
         viewerComponentPath: 'components/visibility/default/VisibilityViewer'
     };
     const point = 'org.visallo.visibility';
