@@ -1597,6 +1597,7 @@ public class VertexiumWorkspaceRepository extends WorkspaceRepository {
     ) {
         long maxIdsToSend = 250;
 
+        // FIXME How to get Hidden too??
         Query query = queryWorkspaceChanges(search, workspaceId, user);
         query.limit(maxIdsToSend);
 
