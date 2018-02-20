@@ -32,7 +32,7 @@ public class GraphPropertyThreadedWrapper implements Runnable {
     private Counter processingCounter;
     private Counter totalErrorCounter;
     private Timer processingTimeTimer;
-    private boolean stopped;
+    private volatile boolean stopped;
     private final Queue<Work> workItems = new LinkedList<>();
     private final Queue<WorkResult> workResults = new LinkedList<>();
     private MetricsManager metricsManager;
