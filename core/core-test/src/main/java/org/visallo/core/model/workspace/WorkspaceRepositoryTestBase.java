@@ -232,7 +232,6 @@ public abstract class WorkspaceRepositoryTestBase extends VisalloInMemoryTestBas
         User systemUser = getUserRepository().getSystemUser();
         Authorizations systemAuthorizations = getAuthorizationRepository().getGraphAuthorizations(systemUser);
         Vertex vertex = getGraphRepository().addVertex("v1", JUNIT_CONCEPT_TYPE, "", null, null, null, systemUser, systemAuthorizations);
-        getWorkspaceRepository().updateEntitiesOnWorkspace(workspace, Collections.singleton(vertex.getId()), user);
 
         getWorkspaceHelper().deleteVertex(vertex, workspace.getWorkspaceId(), true, Priority.HIGH, workspaceAuthorizations, user);
 
@@ -264,7 +263,6 @@ public abstract class WorkspaceRepositoryTestBase extends VisalloInMemoryTestBas
         Authorizations authorizations = getAuthorizationRepository().getGraphAuthorizations(user, workspace.getWorkspaceId());
 
         Vertex vertex = getGraphRepository().addVertex("junit-vertex", conceptIri, "", workspace.getWorkspaceId(), null, null, user, authorizations);
-        getWorkspaceRepository().updateEntityOnWorkspace(workspace, vertex.getId(), user);
 
         ClientApiVertexPublishItem publishItem = new ClientApiVertexPublishItem();
         publishItem.setVertexId(vertex.getId());
@@ -325,7 +323,6 @@ public abstract class WorkspaceRepositoryTestBase extends VisalloInMemoryTestBas
         Vertex v1 = getGraphRepository().addVertex("v1", JUNIT_CONCEPT_TYPE, "", null, null, null, systemUser, systemAuthorizations);
         Vertex v2 = getGraphRepository().addVertex("v2", JUNIT_CONCEPT_TYPE, "", null, null, null, systemUser, systemAuthorizations);
         Edge edge = getGraphRepository().addEdge("e1", v1, v2, JUNIT_EDGE_LABEL, null, null, null, null, systemUser, systemAuthorizations);
-        getWorkspaceRepository().updateEntitiesOnWorkspace(workspace, Arrays.asList(v1.getId(), v2.getId()), user);
 
         getWorkspaceHelper().deleteEdge(workspace.getWorkspaceId(), edge, v1, v2, true, Priority.HIGH, workspaceAuthorizations, user);
 
@@ -357,7 +354,6 @@ public abstract class WorkspaceRepositoryTestBase extends VisalloInMemoryTestBas
         Authorizations systemAuthorizations = getAuthorizationRepository().getGraphAuthorizations(systemUser);
         Vertex v1 = getGraphRepository().addVertex("v1", JUNIT_CONCEPT_TYPE, "", null, null, null, systemUser, systemAuthorizations);
         Vertex v2 = getGraphRepository().addVertex("v2", JUNIT_CONCEPT_TYPE, "", null, null, null, systemUser, systemAuthorizations);
-        getWorkspaceRepository().updateEntitiesOnWorkspace(workspace, Arrays.asList(v1.getId(), v2.getId()), user);
 
         Edge edge = getGraphRepository().addEdge("e1", v1, v2, edgeLabel, null, null, "", workspace.getWorkspaceId(), user, workspaceAuthorizations);
 
@@ -423,7 +419,6 @@ public abstract class WorkspaceRepositoryTestBase extends VisalloInMemoryTestBas
         User systemUser = getUserRepository().getSystemUser();
         Authorizations systemAuthorizations = getAuthorizationRepository().getGraphAuthorizations(systemUser);
         Vertex vertex = getGraphRepository().addVertex("v1", JUNIT_CONCEPT_TYPE, "", null, null, null, systemUser, systemAuthorizations);
-        getWorkspaceRepository().updateEntityOnWorkspace(workspace, vertex.getId(), user);
 
         String propertyKey = "junit";
         VisibilityAndElementMutation<Vertex> setPropertyMutation = getGraphRepository().setProperty(vertex, propertyName, propertyKey, "new value", new Metadata(), "", "", workspace.getWorkspaceId(), null, null, user, workspaceAuthorizations);

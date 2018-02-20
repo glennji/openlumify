@@ -136,11 +136,6 @@ public class VertexSetProperty extends SetPropertyBase implements ParameterizedH
         );
         graph.flush();
 
-        if (!autoPublish) {
-            // add the vertex to the workspace so that the changes show up in the diff panel
-            workspaceRepository.updateEntityOnWorkspace(workspaceId, vertex.getId(), user);
-        }
-
         for (SavePropertyResults savePropertyResult : savePropertyResults) {
             workQueueRepository.pushGraphPropertyQueue(
                     vertex,

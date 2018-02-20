@@ -126,12 +126,6 @@ public class EdgeSetProperty extends SetPropertyBase implements ParameterizedHan
         );
         Edge save = setPropertyResult.elementMutation.save(authorizations);
 
-        if (!autoPublish) {
-            // add the vertex to the workspace so that the changes show up in the diff panel
-            workspaceRepository.updateEntityOnWorkspace(workspaceId, edge.getVertexId(Direction.IN), user);
-            workspaceRepository.updateEntityOnWorkspace(workspaceId, edge.getVertexId(Direction.OUT), user);
-        }
-
         workQueueRepository.pushGraphPropertyQueue(edge, propertyKey, propertyName, workspaceId, visibilitySource, Priority.NORMAL);
 
         return (ClientApiEdge) ClientApiConverter.toClientApi(save, workspaceId, authorizations);

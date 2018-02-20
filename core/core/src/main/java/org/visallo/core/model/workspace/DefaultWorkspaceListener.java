@@ -24,11 +24,6 @@ public class DefaultWorkspaceListener implements WorkspaceListener {
     }
 
     @Override
-    public void workspaceUpdateEntities(Workspace workspace, Collection<String> vertexIds, User user) {
-
-    }
-
-    @Override
     public void workspaceProductUpdated(Product product, JSONObject params, User user) {
 
     }

@@ -1,6 +1,7 @@
 package org.visallo.vertexium.model.workspace;
 
 import com.amazonaws.services.devicefarm.model.ArgumentException;
+import com.google.common.base.Charsets;
 import com.google.common.base.Function;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -8,6 +9,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.google.common.hash.Hashing;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -16,10 +18,7 @@ import org.json.JSONObject;
 import org.vertexium.*;
 import org.vertexium.mutation.ExistingEdgeMutation;
 import org.vertexium.property.StreamingPropertyValue;
-import org.vertexium.query.Compare;
-import org.vertexium.query.GraphQuery;
-import org.vertexium.query.Query;
-import org.vertexium.query.QueryResultsIterable;
+import org.vertexium.query.*;
 import org.vertexium.search.IndexHint;
 import org.vertexium.util.FilterIterable;
 import org.visallo.core.config.Configuration;
@@ -161,7 +160,7 @@ public class VertexiumWorkspaceRepository extends WorkspaceRepository {
                     authorizations
             ).forEach(productId -> deleteProduct(workspaceVertex.getId(), productId, user));
 
-            // Delete all sandboxed entities
+            // Delete all legacy sandboxed entities
             Iterable<EdgeInfo> edgeInfos = workspaceVertex.getEdgeInfos(Direction.OUT, WorkspaceProperties.WORKSPACE_TO_ENTITY_RELATIONSHIP_IRI, authorizations);
             edgeInfos.forEach(edgeInfo -> {
                 getGraph().softDeleteEdge(edgeInfo.getEdgeId(), authorizations);
@@ -455,6 +454,7 @@ public class VertexiumWorkspaceRepository extends WorkspaceRepository {
 
         Graph graph = getGraph();
         GraphQuery query = StringUtils.isBlank(search) ? graph.query(authorizations) : graph.query(search, authorizations);
+        query.includeHidden(workspaceId);
         query.hasAuthorization(workspaceId);
         return query;
     }
@@ -582,65 +582,6 @@ public class VertexiumWorkspaceRepository extends WorkspaceRepository {
             }
         }
         getGraph().flush();
-    }
-
-    @Override
-    public void updateEntitiesOnWorkspace(
-            final Workspace workspace,
-            final Collection<String> vertexIds,
-            final User user
-    ) {
-        if (vertexIds.size() == 0) {
-            return;
-        }
-        if (!hasCommentPermissions(workspace.getWorkspaceId(), user)) {
-            throw new VisalloAccessDeniedException(
-                    "user " + user.getUserId() + " does not have comment access to workspace " + workspace.getWorkspaceId(),
-                    user,
-                    workspace.getWorkspaceId()
-            );
-        }
-
-        lockRepository.lock(getLockName(workspace.getWorkspaceId()), () -> {
-            Authorizations authorizations = getAuthorizationRepository().getGraphAuthorizations(
-                    user,
-                    VISIBILITY_STRING,
-                    VISIBILITY_PRODUCT_STRING,
-                    workspace.getWorkspaceId()
-            );
-
-            Vertex workspaceVertex = getVertexFromWorkspace(workspace, true, authorizations);
-            if (workspaceVertex == null) {
-                throw new VisalloResourceNotFoundException(
-                        "Could not find workspace vertex: " + workspace.getWorkspaceId(),
-                        workspace.getWorkspaceId()
-                );
-            }
-
-            Iterable<Vertex> vertices = getGraph().getVertices(vertexIds, authorizations);
-            ImmutableMap<String, Vertex> verticesMap = Maps.uniqueIndex(vertices, Element::getId);
-
-            for (String vertexId : vertexIds) {
-                Vertex otherVertex = verticesMap.get(vertexId);
-                if (otherVertex == null) {
-                    LOGGER.error(
-                            "updateEntitiesOnWorkspace: could not find vertex with id \"%s\" for workspace \"%s\"",
-                            vertexId,
-                            workspace.getWorkspaceId()
-                    );
-                    continue;
-                }
-
-                createEdge(
-                        workspaceVertex,
-                        otherVertex,
-                        authorizations
-                );
-            }
-            getGraph().flush();
-        });
-
-        fireWorkspaceUpdateEntities(workspace, vertexIds, user);
     }
 
     @Override
@@ -1597,7 +1538,6 @@ public class VertexiumWorkspaceRepository extends WorkspaceRepository {
     ) {
         long maxIdsToSend = 250;
 
-        // FIXME How to get Hidden too??
         Query query = queryWorkspaceChanges(search, workspaceId, user);
         query.limit(maxIdsToSend);
 

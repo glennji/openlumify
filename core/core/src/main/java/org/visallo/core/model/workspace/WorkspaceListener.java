@@ -14,8 +14,6 @@ public interface WorkspaceListener {
 
     void workspaceUpdateUser(Workspace workspace, String userId, WorkspaceAccess workspaceAccess, User user);
 
-    void workspaceUpdateEntities(Workspace workspace, Collection<String> vertexIds, User user);
-
     void workspaceProductUpdated(Product product, JSONObject params, User user);
 
     void workspaceAddProduct(Product product, User user);

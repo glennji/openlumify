@@ -161,10 +161,6 @@ public class WorkspaceHelper {
         deleteProperties(edge, workspaceId, priority, authorizations);
         unresolveDetectedObjects(workspaceId, edge, outVertex, inVertex, priority, authorizations);
 
-        // add the vertex to the workspace so that the changes show up in the diff panel
-        workspaceRepository.updateEntityOnWorkspace(workspaceId, edge.getVertexId(Direction.IN), user);
-        workspaceRepository.updateEntityOnWorkspace(workspaceId, edge.getVertexId(Direction.OUT), user);
-
         if (isPublicEdge) {
             Visibility workspaceVisibility = new Visibility(workspaceId);
 
@@ -249,28 +245,6 @@ public class WorkspaceHelper {
             ));
         }
 
-        if (workspaceId != null) {
-            if (e instanceof Edge) {
-                Edge edge = (Edge) e;
-                // add the vertex to the workspace so that the changes show up in the diff panel
-                workspaceRepository.updateEntityOnWorkspace(
-                        workspaceId,
-                        edge.getVertexId(Direction.IN),
-                        user
-                );
-                workspaceRepository.updateEntityOnWorkspace(
-                        workspaceId,
-                        edge.getVertexId(Direction.OUT),
-                        user
-                );
-            } else if (e instanceof Vertex) {
-                // add the vertex to the workspace so that the changes show up in the diff panel
-                workspaceRepository.updateEntityOnWorkspace(workspaceId, e.getId(), user);
-            } else {
-                throw new VisalloException("element is not an edge or vertex: " + e);
-            }
-        }
-
         SandboxStatus[] sandboxStatuses = SandboxStatusUtil.getPropertySandboxStatuses(properties, workspaceId);
 
         for (int i = 0; i < sandboxStatuses.length; i++) {
@@ -323,8 +297,6 @@ public class WorkspaceHelper {
 
         deleteProperties(vertex, workspaceId, priority, authorizations);
 
-        // make sure the entity is on the workspace so that it shows up in the diff panel
-        workspaceRepository.updateEntityOnWorkspace(workspaceId, vertex.getId(), user);
 
         VisibilityJson visibilityJson = VisalloProperties.VISIBILITY_JSON.getPropertyValue(vertex);
         visibilityJson = VisibilityJson.removeFromAllWorkspace(visibilityJson);
@@ -470,17 +442,6 @@ public class WorkspaceHelper {
                 visibilityJson.getSource(),
                 priority
         );
-    }
-
-    public void updateEntitiesOnWorkspace(
-            String workspaceId,
-            Collection<String> vertexIds,
-            User user
-    ) {
-        Workspace workspace = workspaceRepository.findById(workspaceId, user);
-        workspaceRepository.updateEntitiesOnWorkspace(workspace, vertexIds, user);
-        workQueueRepository.pushUserCurrentWorkspaceChange(user, workspaceId);
-        graph.flush();
     }
 
 }

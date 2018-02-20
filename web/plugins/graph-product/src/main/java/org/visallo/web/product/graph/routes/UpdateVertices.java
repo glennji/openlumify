@@ -85,16 +85,6 @@ public class UpdateVertices implements ParameterizedHandler {
                 workspaceId
         );
 
-        Set<String> vertices = updateVertices.keySet();
-        vertices = vertices.stream()
-                .filter(id -> !updateVertices.get(id).hasChildren())
-                .collect(Collectors.toSet());
-        workspaceHelper.updateEntitiesOnWorkspace(
-                workspaceId,
-                vertices,
-                user
-        );
-
         try (GraphUpdateContext ctx = graphRepository.beginGraphUpdate(Priority.HIGH, user, authorizations)) {
             Vertex productVertex = workspaceRepository.getProductVertex(workspaceId, productId, user);
             graphWorkProductService.updateVertices(ctx, productVertex, updateVertices, user, WorkspaceRepository.VISIBILITY.getVisibility(), authorizations);

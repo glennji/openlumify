@@ -348,16 +348,7 @@ public class GraphBuilderParserHandler extends BaseStructuredFileParserHandler {
     @Override
     public void cleanup() {
         if (!dryRun) {
-            StopWatch w = new StopWatch();
-            w.start();
             graph.flush();
-            w.stop();
-            System.out.println("Flush: " + w.getTime());
-            w.reset();
-            w.start();
-            workspaceRepository.updateEntitiesOnWorkspace(workspace, workspaceUpdates, user);
-            w.stop();
-            System.out.println("Update workspace: " + w.getTime());
             super.cleanup();
         }
     }

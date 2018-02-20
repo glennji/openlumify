@@ -247,11 +247,6 @@ public class FileImport {
                             workQueueNames.getGraphPropertyQueueName()
                     );
                     if (workspace != null) {
-                        workspaceRepository.updateEntityOnWorkspace(
-                                workspace,
-                                vertex.getId(),
-                                user
-                        );
                         workQueueRepository.broadcastElement(vertex, workspace.getWorkspaceId());
                         workQueueRepository.pushGraphPropertyQueue(
                                 vertex,
@@ -369,7 +364,6 @@ public class FileImport {
 
             String workspaceId = null;
             if (workspace != null) {
-                workspaceRepository.updateEntityOnWorkspace(workspace, vertex.getId(), user);
                 workspaceId = workspace.getWorkspaceId();
             }
 

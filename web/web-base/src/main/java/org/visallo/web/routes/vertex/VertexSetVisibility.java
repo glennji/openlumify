@@ -81,9 +81,6 @@ public class VertexSetVisibility implements ParameterizedHandler {
             throw new VisalloResourceNotFoundException("Could not find vertex: " + graphVertexId);
         }
 
-        // add the vertex to the workspace so that the changes show up in the diff panel
-        workspaceRepository.updateEntityOnWorkspace(workspaceId, graphVertexId, user);
-
         LOGGER.info("changing vertex (%s) visibility source to %s", graphVertex.getId(), visibilitySource);
 
         Set<String> privileges = privilegeRepository.getPrivileges(user);

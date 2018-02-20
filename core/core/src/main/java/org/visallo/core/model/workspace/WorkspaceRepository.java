@@ -61,6 +61,7 @@ public abstract class WorkspaceRepository {
     public static final VisalloVisibility VISIBILITY = new VisalloVisibility(VISIBILITY_STRING);
     public static final VisalloVisibility VISIBILITY_PRODUCT = new VisalloVisibility(VISIBILITY_PRODUCT_STRING);
     public static final String WORKSPACE_CONCEPT_IRI = WorkspaceProperties.WORKSPACE_CONCEPT_IRI;
+    @Deprecated
     public static final String WORKSPACE_TO_ENTITY_RELATIONSHIP_IRI = WorkspaceProperties.WORKSPACE_TO_ENTITY_RELATIONSHIP_IRI;
     public static final String WORKSPACE_TO_USER_RELATIONSHIP_IRI = WorkspaceProperties.WORKSPACE_TO_USER_RELATIONSHIP_IRI;
     public static final String WORKSPACE_ID_PREFIX = "WORKSPACE_";
@@ -309,27 +310,6 @@ public abstract class WorkspaceRepository {
 
     protected Graph getGraph() {
         return graph;
-    }
-
-    public abstract void updateEntitiesOnWorkspace(Workspace workspace, Collection<String> vertexIds, User user);
-
-    public void updateEntityOnWorkspace(
-            Workspace workspace,
-            String vertexId,
-            User user
-    ) {
-        Collection<String> vertexIds = new ArrayList<>();
-        vertexIds.add(vertexId);
-        updateEntitiesOnWorkspace(workspace, vertexIds, user);
-    }
-
-    public void updateEntityOnWorkspace(
-            String workspaceId,
-            String vertexId,
-            User user
-    ) {
-        Workspace workspace = findById(workspaceId, user);
-        updateEntityOnWorkspace(workspace, vertexId, user);
     }
 
     public ClientApiWorkspacePublishResponse publish(
@@ -1201,12 +1181,6 @@ public abstract class WorkspaceRepository {
     protected void fireWorkspaceAddProduct(Product product, User user) {
         for (WorkspaceListener workspaceListener : getWorkspaceListeners()) {
             workspaceListener.workspaceAddProduct(product, user);
-        }
-    }
-
-    protected void fireWorkspaceUpdateEntities(Workspace workspace, Collection<String> vertexIds, User user) {
-        for (WorkspaceListener workspaceListener : getWorkspaceListeners()) {
-            workspaceListener.workspaceUpdateEntities(workspace, vertexIds, user);
         }
     }
 

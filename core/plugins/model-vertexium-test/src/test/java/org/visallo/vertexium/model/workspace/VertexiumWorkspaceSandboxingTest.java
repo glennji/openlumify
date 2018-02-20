@@ -181,8 +181,6 @@ public class VertexiumWorkspaceSandboxingTest extends VisalloInMemoryTestBase {
                 getVisibilityTranslator().getDefaultVisibility()
         );
 
-        getWorkspaceRepository().updateEntityOnWorkspace(workspace, entity1Vertex.getId(), user1);
-
         userContext = new FormulaEvaluator.UserContext(LOCALE, null, TIME_ZONE, WORKSPACE_ID);
 
         workspaceHelper = new WorkspaceHelper(
@@ -626,9 +624,6 @@ public class VertexiumWorkspaceSandboxingTest extends VisalloInMemoryTestBase {
         Vertex v1 = vertexBuilder.save(workspaceAuthorizations);
         getGraph().flush();
 
-        getWorkspaceRepository().updateEntityOnWorkspace(workspace, v1.getId(), user1);
-        getGraph().flush();
-
         String vertexId = v1.getId();
         assertNotNull(getGraph().getVertex(vertexId, workspaceAuthorizations));
         List<ClientApiWorkspaceDiff.Item> diffs = getDiffsFromWorkspace();
@@ -642,9 +637,6 @@ public class VertexiumWorkspaceSandboxingTest extends VisalloInMemoryTestBase {
         VisalloProperties.VISIBILITY_JSON.setProperty(
                 vertexBuilder, initialVisibilityJson, propertyMetadata, new Visibility(""));
         vertexBuilder.save(workspaceAuthorizations);
-        getGraph().flush();
-
-        getWorkspaceRepository().updateEntityOnWorkspace(workspace, v1.getId(), user1);
         getGraph().flush();
 
         assertNotNull(getGraph().getVertex(vertexId, workspaceAuthorizations));
@@ -885,8 +877,6 @@ public class VertexiumWorkspaceSandboxingTest extends VisalloInMemoryTestBase {
         Edge edge = edgeBuilder.save(workspaceAuthorizations);
         getGraph().flush();
 
-        getWorkspaceRepository().updateEntityOnWorkspace(workspace, v1.getId(), user1);
-        getWorkspaceRepository().updateEntityOnWorkspace(workspace, v2.getId(), user1);
         return edge;
     }
 
@@ -922,8 +912,6 @@ public class VertexiumWorkspaceSandboxingTest extends VisalloInMemoryTestBase {
         Vertex vertex = vertexBuilder.save(workspaceAuthorizations);
         getGraph().flush();
 
-        getWorkspaceRepository().updateEntityOnWorkspace(workspace, vertex.getId(), user1);
-        getGraph().flush();
         return vertex;
     }
 

@@ -77,12 +77,6 @@ public class UpdateVertices implements ParameterizedHandler {
                 workspaceId
         );
 
-        workspaceHelper.updateEntitiesOnWorkspace(
-                workspaceId,
-                updateVertices.keySet(),
-                user
-        );
-
         try (GraphUpdateContext ctx = graphRepository.beginGraphUpdate(Priority.HIGH, user, authorizations)) {
             Vertex productVertex = graph.getVertex(productId, authorizations);
 

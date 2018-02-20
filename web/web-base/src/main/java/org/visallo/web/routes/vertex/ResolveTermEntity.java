@@ -131,10 +131,6 @@ public class ResolveTermEntity implements ParameterizedHandler {
             }).get();
         }
 
-        if (resolvedVertexId == null) {
-            workspaceRepository.updateEntityOnWorkspace(workspace, vertex.getId(), user);
-        }
-
         ClientApiSourceInfo sourceInfo = ClientApiSourceInfo.fromString(sourceInfoString);
         VisibilityJson termMentionVisibilityJson = VisibilityJson.updateVisibilitySourceAndAddWorkspaceId(null, null, workspaceId);
         new TermMentionBuilder()

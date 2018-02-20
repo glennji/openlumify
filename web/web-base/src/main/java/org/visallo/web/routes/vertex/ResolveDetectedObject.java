@@ -140,7 +140,6 @@ public class ResolveDetectedObject implements ParameterizedHandler {
             if (isNewVertex.get()) {
                 ClientApiSourceInfo sourceInfo = ClientApiSourceInfo.fromString(sourceInfoString);
                 termMentionRepository.addJustification(resolvedVertex, justificationText, sourceInfo, visalloVisibility, authorizations);
-                workspaceRepository.updateEntityOnWorkspace(workspace, resolvedVertex.getId(), user);
             }
             VisalloProperties.DETECTED_OBJECT.addPropertyValue(artifactVertex, propertyKey, artifactDetectedObject, visalloVisibility.getVisibility(), authorizations);
         }

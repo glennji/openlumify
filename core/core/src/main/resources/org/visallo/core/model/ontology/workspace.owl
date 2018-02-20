@@ -22,8 +22,6 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    
-
 
     <!-- http://visallo.org/workspace#toDashboard -->
 
@@ -34,7 +32,6 @@
     </owl:ObjectProperty>
     
 
-
     <!-- http://visallo.org/workspace#toDashboardItem -->
 
     <owl:ObjectProperty rdf:about="http://visallo.org/workspace#toDashboardItem">
@@ -42,7 +39,6 @@
         <rdfs:range rdf:resource="http://visallo.org/workspace#dashboardItem"/>
         <rdfs:label xml:lang="en">To Dashboard Item</rdfs:label>
     </owl:ObjectProperty>
-    
 
 
     <!-- http://visallo.org/workspace#toEntity -->

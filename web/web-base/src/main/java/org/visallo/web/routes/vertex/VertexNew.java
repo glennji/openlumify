@@ -139,13 +139,6 @@ public class VertexNew implements ParameterizedHandler {
                 Priority.HIGH
         );
 
-        if (workspaceId != null) {
-            workspaceHelper.updateEntitiesOnWorkspace(
-                    workspaceId,
-                    Arrays.asList(vertex.getId()),
-                    user
-            );
-        }
 
         if (properties != null) {
             for (ClientApiAddElementProperties.Property property : properties.properties) {
