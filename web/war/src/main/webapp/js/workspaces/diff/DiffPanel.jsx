@@ -296,9 +296,12 @@ define([
         render() {
             const { AutoSizer, InfiniteLoader, List } = ReactVirtualized;
             const { total, selection, privileges, workspace: { editable } } = this.props;
-            const { search, vertexIds, edgeIds, all } = this.state;
+            const { search, vertexIds, edgeIds, all, elementPropertyDiffsLoading } = this.state;
             const { query, searching, count, invalid } = search;
-            const reRenderProps = { query, selection, privileges, editable, vertexIds, edgeIds, all };
+            const reRenderProps = {
+                query, selection, privileges, editable, vertexIds, edgeIds, all,
+                elementPropertyDiffsLoading
+            };
 
             let remoteRowCount = total;
             if (query && count !== null) {
@@ -426,9 +429,13 @@ define([
                 const element = (diff.vertex || diff.edge);
                 const id = element && element.id;
                 const { elementPropertyDiffs } = this.state;
+                const { properties } = this.props;
                 const toggleState = elementPropertyDiffs[id];
                 if (toggleState && toggleState.opened && toggleState.properties) {
-                    return toggleState.properties;
+                    return toggleState.properties.filter(diff => {
+                        const ontology = properties[diff.property.name];
+                        return ontology && ontology.userVisible !== false;
+                    })
                 }
             }
         },
@@ -469,7 +476,7 @@ define([
                 const elementAction = elementState && elementState.action;
                 const loading = Boolean(elementPropertyDiffsLoading[id]);
                 const toggleState = elementPropertyDiffs[id];
-                const propertyDiffs = toggleState && toggleState.properties;
+                const propertyDiffs = this.getVisiblePropertiesForRow(index);
                 const opened = Boolean(toggleState && toggleState.opened);
                 const renderPropertyDiffs = () => (opened && propertyDiffs) ? (
                         <ul>
