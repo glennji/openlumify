@@ -61,6 +61,15 @@ define([
             });
         },
 
+        diffProperties: function({ vertexId, edgeId }, workspaceId) {
+            const params = {
+                workspaceId: workspaceId || (getStore().getState().workspace).currentId,
+            }
+            if (vertexId) params.vertexId = vertexId;
+            if (edgeId) params.edgeId = edgeId;
+            return ajax('GET', '/workspace/diff/element', params);
+        },
+
         getOrCreate: function() {
             var workspaces = getStore().getState().workspace;
             return (workspaces.currentId ? api.get() : Promise.reject())

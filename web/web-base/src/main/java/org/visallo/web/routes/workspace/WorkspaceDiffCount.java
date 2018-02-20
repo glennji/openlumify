@@ -29,6 +29,6 @@ public class WorkspaceDiffCount implements ParameterizedHandler {
             @ActiveWorkspaceId String workspaceId,
             User user
     ) {
-        return this.workspaceRepository.getDiffCount(query, workspaceId, user);
+        return this.workspaceRepository.getElementDiffCount(query, workspaceId, user);
     }
 }

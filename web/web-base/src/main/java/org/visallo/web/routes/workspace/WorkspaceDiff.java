@@ -25,12 +25,12 @@ public class WorkspaceDiff implements ParameterizedHandler {
 
     @Handle
     public ClientApiWorkspaceDiff handle(
-            @ActiveWorkspaceId String workspaceId,
+            @Optional(name="query") String query,
             @Required(name="startIndex") int startIndex,
             @Required(name="stopIndex") int stopIndex,
-            @Optional(name="query") String query,
+            @ActiveWorkspaceId String workspaceId,
             User user
     ) {
-        return this.workspaceRepository.getDiff(workspaceId, startIndex, stopIndex, query, user);
+        return this.workspaceRepository.getElementDiffs(query, startIndex, stopIndex, workspaceId, user);
     }
 }

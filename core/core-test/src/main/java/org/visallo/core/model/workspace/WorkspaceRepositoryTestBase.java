@@ -239,7 +239,7 @@ public abstract class WorkspaceRepositoryTestBase extends VisalloInMemoryTestBas
         publishItem.setVertexId(vertex.getId());
         publishItem.setAction(ClientApiPublishItem.Action.DELETE);
 
-        ClientApiWorkspaceDiffCount diffs = getWorkspaceRepository().getDiffCount(workspace.getWorkspaceId(), user);
+        ClientApiWorkspaceDiffCount diffs = getWorkspaceRepository().getElementDiffCount(null, workspace.getWorkspaceId(), user);
         assertEquals(1, diffs.getTotal());
 
         assertNull(getGraph().getVertex(vertex.getId(), workspaceAuthorizations));
@@ -253,7 +253,7 @@ public abstract class WorkspaceRepositoryTestBase extends VisalloInMemoryTestBas
         assertNull(getGraph().getVertex(vertex.getId(), workspaceAuthorizations));
         assertNull(getGraph().getVertex(vertex.getId(), systemAuthorizations));
 
-        diffs = getWorkspaceRepository().getDiffCount(workspace.getWorkspaceId(), user);
+        diffs = getWorkspaceRepository().getElementDiffCount(null, workspace.getWorkspaceId(), user);
         assertEquals(0, diffs.getTotal());
     }
 
@@ -330,7 +330,7 @@ public abstract class WorkspaceRepositoryTestBase extends VisalloInMemoryTestBas
         publishItem.setEdgeId(edge.getId());
         publishItem.setAction(ClientApiPublishItem.Action.DELETE);
 
-        ClientApiWorkspaceDiffCount diffs = getWorkspaceRepository().getDiffCount(workspace.getWorkspaceId(), user);
+        ClientApiWorkspaceDiffCount diffs = getWorkspaceRepository().getElementDiffCount(null, workspace.getWorkspaceId(), user);
         assertEquals(1, diffs.getTotal());
 
         assertNull(getGraph().getEdge(edge.getId(), workspaceAuthorizations));
@@ -344,7 +344,7 @@ public abstract class WorkspaceRepositoryTestBase extends VisalloInMemoryTestBas
         assertNull(getGraph().getEdge(edge.getId(), workspaceAuthorizations));
         assertNull(getGraph().getEdge(edge.getId(), systemAuthorizations));
 
-        diffs = getWorkspaceRepository().getDiffCount(workspace.getWorkspaceId(), user);
+        diffs = getWorkspaceRepository().getElementDiffCount(null, workspace.getWorkspaceId(), user);
         assertEquals(0, diffs.getTotal());
     }
 
@@ -461,7 +461,7 @@ public abstract class WorkspaceRepositoryTestBase extends VisalloInMemoryTestBas
             assertEquals(SandboxStatus.PUBLIC, propertySandboxStatuses[0]);
         }
 
-        ClientApiWorkspaceDiffCount diffs = getWorkspaceRepository().getDiffCount(workspace.getWorkspaceId(), user);
+        ClientApiWorkspaceDiffCount diffs = getWorkspaceRepository().getElementDiffCount(null, workspace.getWorkspaceId(), user);
         assertEquals(0, diffs.getTotal());
     }
 
@@ -485,10 +485,10 @@ public abstract class WorkspaceRepositoryTestBase extends VisalloInMemoryTestBas
             assertEquals(SandboxStatus.PRIVATE, propertySandboxStatuses[0]);
         }
 
-        ClientApiWorkspaceDiffCount counts = getWorkspaceRepository().getDiffCount(workspace.getWorkspaceId(), user);
+        ClientApiWorkspaceDiffCount counts = getWorkspaceRepository().getElementDiffCount(null, workspace.getWorkspaceId(), user);
         assertEquals(1, counts.getTotal());
 
-        ClientApiWorkspaceDiff diff = getWorkspaceRepository().getDiff(workspace.getWorkspaceId(), 0, 1, user);
+        ClientApiWorkspaceDiff diff = getWorkspaceRepository().getElementDiffs(null, 0, 1, workspace.getWorkspaceId(), user);
         List<ClientApiWorkspaceDiff.Item> diffs = diff.getDiffs();
         assertEquals(1, diff.getTotal());
 

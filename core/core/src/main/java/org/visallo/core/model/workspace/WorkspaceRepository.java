@@ -204,17 +204,11 @@ public abstract class WorkspaceRepository {
         ADD, UPDATE
     }
 
-    public ClientApiWorkspaceDiffCount getDiffCount(String workspaceId, User user) {
-        return getDiffCount(null, workspaceId, user);
-    }
+    public abstract ClientApiWorkspaceDiffCount getElementDiffCount(String query, String workspaceId, User user);
 
-    public abstract ClientApiWorkspaceDiffCount getDiffCount(String query, String workspaceId, User user);
+    public abstract ClientApiWorkspaceDiff getElementDiffs(String query, int startIndex, int stopIndex, String workspaceId, User user);
 
-    public ClientApiWorkspaceDiff getDiff(String workspaceId, int startIndex, int stopIndex, User user) {
-        return getDiff(workspaceId, startIndex, stopIndex, null, user);
-    }
-
-    public abstract ClientApiWorkspaceDiff getDiff(String workspaceId, int startIndex, int stopIndex, String query, User user);
+    public abstract List<ClientApiWorkspaceDiff.PropertyItem> getElementPropertyDiffs(Element element, String workspaceId, User user);
 
     public String getCreatorUserId(String workspaceId, User user) {
         for (WorkspaceUser workspaceUser : findUsersWithAccess(workspaceId, user)) {

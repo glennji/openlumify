@@ -3,12 +3,18 @@ package org.visallo.core.model.workspace;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.vertexium.*;
-import org.vertexium.util.IterableUtils;
 import org.visallo.core.util.ClientApiConverter;
 import org.visallo.core.util.SandboxStatusUtil;
 import org.visallo.web.clientapi.model.*;
+import org.visallo.web.clientapi.model.ClientApiWorkspaceDiff.PropertyItem;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static org.visallo.core.util.StreamUtil.stream;
 
 @Singleton
 public class WorkspaceDiffHelper {
@@ -18,6 +24,42 @@ public class WorkspaceDiffHelper {
     @Inject
     public WorkspaceDiffHelper(Graph graph) {
         this.graph = graph;
+    }
+
+    public List<PropertyItem> diffElementProperties(Element element, String workspaceId, Authorizations authorizations) {
+        List<PropertyItem> items = new ArrayList<>();
+        List<Property> properties = stream(element.getProperties()).collect(Collectors.toList());
+        SandboxStatus[] propertyStatuses = SandboxStatusUtil.getPropertySandboxStatuses(
+                properties,
+                workspaceId
+        );
+        String elementId = element.getId();
+        String elementType = (element instanceof Vertex ? ElementType.VERTEX : ElementType.EDGE).name();
+
+        for (int i = 0; i < properties.size(); i++) {
+            Property property = properties.get(i);
+            boolean isPrivateChange = propertyStatuses[i] != SandboxStatus.PUBLIC;
+            boolean isPublicDelete = WorkspaceDiffHelper.isPublicDelete(property, authorizations);
+            if (isPrivateChange || isPublicDelete) {
+                Property previousProperty = null;
+                if (isPublicDelete && isPublicPropertyEdited(properties, propertyStatuses, property)) {
+                    continue;
+                } else if (isPrivateChange) {
+                    previousProperty = findExistingProperty(properties, propertyStatuses, property);
+                }
+
+                ClientApiProperty propertyApi = ClientApiConverter.toClientApiProperty(property);
+                ClientApiProperty previousPropertyApi = null;
+
+                if (previousProperty != null) {
+                    previousPropertyApi = ClientApiConverter.toClientApiProperty(previousProperty);
+                }
+
+                items.add(new PropertyItem(elementId, elementType, propertyApi, previousPropertyApi, propertyStatuses[i], isPublicDelete));
+            }
+        }
+
+        return items;
     }
 
     public ClientApiWorkspaceDiff diff(
@@ -81,34 +123,6 @@ public class WorkspaceDiffHelper {
         return diff;
     }
 
-
-//    @Traced
-//    protected int diffEdge(
-//            ListeningExecutorService service,
-//            FutureCallback<ClientApiWorkspaceDiff.Item> callback,
-//            Workspace workspace,
-//            Edge edge,
-//            Authorizations hiddenAuthorizations
-//    ) {
-//        SandboxStatus sandboxStatus = SandboxStatusUtil.getSandboxStatus(edge, workspace.getWorkspaceId());
-//        boolean isPrivateChange = sandboxStatus != SandboxStatus.PUBLIC;
-//        boolean isPublicDelete = WorkspaceDiffHelper.isPublicDelete(edge, hiddenAuthorizations);
-//        int number = 0;
-//        if (isPrivateChange || isPublicDelete) {
-//            number++;
-////            callback.onSuccess(createWorkspaceDiffEdgeItem(edge, sandboxStatus, isPublicDelete));
-//            Futures.addCallback(service.submit(() ->
-//                createWorkspaceDiffEdgeItem(edge, sandboxStatus, isPublicDelete)),
-//                callback);
-//        }
-//
-//        // don't report properties individually when deleting the edge
-////        if (!isPublicDelete) {
-////            number += diffProperties(service, callback, workspace, edge, hiddenAuthorizations);
-////        }
-//        return number;
-//    }
-
     public static boolean isPublicDelete(Edge edge, Authorizations authorizations) {
         return edge.isHidden(authorizations);
     }
@@ -120,109 +134,6 @@ public class WorkspaceDiffHelper {
     public static boolean isPublicDelete(Property property, Authorizations authorizations) {
         return property.isHidden(authorizations);
     }
-
-
-//    @Traced
-//    protected int diffProperties(
-//            ListeningExecutorService service,
-//            FutureCallback<ClientApiWorkspaceDiff.Item> callback,
-//            Workspace workspace,
-//            Element element,
-//            Authorizations hiddenAuthorizations
-//    ) {
-//        List<Property> properties = toList(element.getProperties());
-//        SandboxStatus[] propertyStatuses = SandboxStatusUtil.getPropertySandboxStatuses(
-//                properties,
-//                workspace.getWorkspaceId()
-//        );
-//        int number = 0;
-//        for (int i = 0; i < properties.size(); i++) {
-//            Property property = properties.get(i);
-//            boolean isPrivateChange = propertyStatuses[i] != SandboxStatus.PUBLIC;
-//            boolean isPublicDelete = WorkspaceDiffHelper.isPublicDelete(property, hiddenAuthorizations);
-//            if (isPrivateChange || isPublicDelete) {
-//                Property existingProperty = null;
-//                if (isPublicDelete && isPublicPropertyEdited(properties, propertyStatuses, property)) {
-//                    continue;
-//                } else if (isPrivateChange) {
-//                    existingProperty = findExistingProperty(properties, propertyStatuses, property);
-//                }
-//                final Property e = existingProperty;
-//                final SandboxStatus status = propertyStatuses[i];
-//                number++;
-//                Futures.addCallback(service.submit(() -> createWorkspaceDiffPropertyItem(
-//                        element,
-//                        property,
-//                        e,
-//                        status,
-//                        isPublicDelete
-//                )), callback);
-//            }
-//        }
-//        return number;
-//    }
-
-//    private ClientApiWorkspaceDiff.PropertyItem createWorkspaceDiffPropertyItem(
-//            Element element,
-//            Property workspaceProperty,
-//            Property existingProperty,
-//            SandboxStatus sandboxStatus,
-//            boolean deleted
-//    ) {
-//        JsonNode oldData = null;
-//        if (existingProperty != null) {
-//            oldData = JSONUtil.toJsonNode(JsonSerializer.toJsonProperty(existingProperty));
-//        }
-//        JsonNode newData = JSONUtil.toJsonNode(JsonSerializer.toJsonProperty(workspaceProperty));
-//
-//        ElementType type = ElementType.getTypeFromElement(element);
-//        if (type.equals(ElementType.VERTEX)) {
-//            return new ClientApiWorkspaceDiff.PropertyItem(
-//                    type.name().toLowerCase(),
-//                    element.getId(),
-//                    VisalloProperties.CONCEPT_TYPE.getPropertyValue(element),
-//                    workspaceProperty.getName(),
-//                    workspaceProperty.getKey(),
-//                    oldData,
-//                    newData,
-//                    sandboxStatus,
-//                    deleted,
-//                    workspaceProperty.getVisibility().getVisibilityString()
-//            );
-//        } else {
-//            return new ClientApiWorkspaceDiff.PropertyItem(
-//                    type.name().toLowerCase(),
-//                    element.getId(),
-//                    ((Edge) element).getLabel(),
-//                    ((Edge) element).getVertexId(Direction.OUT),
-//                    ((Edge) element).getVertexId(Direction.IN),
-//                    workspaceProperty.getName(),
-//                    workspaceProperty.getKey(),
-//                    oldData,
-//                    newData,
-//                    sandboxStatus,
-//                    deleted,
-//                    workspaceProperty.getVisibility().getVisibilityString()
-//            );
-//        }
-//    }
-
-//    private Property findExistingProperty(
-//            List<Property> properties,
-//            SandboxStatus[] propertyStatuses,
-//            Property workspaceProperty
-//    ) {
-//        for (int i = 0; i < properties.size(); i++) {
-//            Property property = properties.get(i);
-//            if (property.getName().equals(workspaceProperty.getName())
-//                    && property.getKey().equals(workspaceProperty.getKey())
-//                    && propertyStatuses[i] == SandboxStatus.PUBLIC) {
-//                return property;
-//            }
-//        }
-//        return null;
-//    }
-//
 
     public static boolean isPublicPropertyEdited(
             List<Property> properties,
@@ -240,14 +151,19 @@ public class WorkspaceDiffHelper {
         return false;
     }
 
-    class TitleOperation {
-        public String vertexId;
-        public String title;
-
-        public TitleOperation(String vertexId, String title) {
-            this.vertexId = vertexId;
-            this.title = title;
+    private Property findExistingProperty(
+            List<Property> properties,
+            SandboxStatus[] propertyStatuses,
+            Property workspaceProperty
+    ) {
+        for (int i = 0; i < properties.size(); i++) {
+            Property property = properties.get(i);
+            if (property.getName().equals(workspaceProperty.getName())
+                    && property.getKey().equals(workspaceProperty.getKey())
+                    && propertyStatuses[i] == SandboxStatus.PUBLIC) {
+                return property;
+            }
         }
+        return null;
     }
-
 }

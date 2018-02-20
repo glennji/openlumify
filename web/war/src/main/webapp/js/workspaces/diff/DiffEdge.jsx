@@ -63,8 +63,7 @@ define([
                 requiresOntologyPublish,
                 className,
                 action,
-                style,
-                children } = this.props;
+                loading, opened } = this.props;
             const { deleted, edge, sandboxStatus } = diff;
             const { id, label } = edge;
             const sourceTitle = F.vertex.title(outDiff && outDiff.vertex);
@@ -75,12 +74,10 @@ define([
             // TODO: is deleted?
 
             return (
-                <div style={style}
-                    className={classNames('d-row', 'vertex-row', className, {
+                <div className={classNames('d-row', 'vertex-row', className, {
                         'mark-publish': publish,
                         'mark-undo': undo,
-                        active: active,
-                        deleted: deleted
+                        active, deleted, loading, opened
                     })}
                     onClick={this.onRowClick}
                     onDragStart={this.onDragStart}

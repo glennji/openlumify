@@ -9,6 +9,7 @@ define([
     'components/visibility/VisibilityViewer',
     './DiffVertex',
     './DiffEdge',
+    './DiffProperty',
     './DiffHeader'
 ], function(
     createReactClass,
@@ -21,6 +22,7 @@ define([
     VisibilityViewer,
     DiffVertex,
     DiffEdge,
+    DiffProperty,
     DiffHeader
 ) {
     'use strict';
@@ -30,28 +32,12 @@ define([
     const PROPERTY_UPDATE_SIZE = 75;
     const PROPERTY_NEW_SIZE = 40;
     const AVERAGE_ROW_SIZE = Math.round((ELEMENT_SIZE + PROPERTY_UPDATE_SIZE + PROPERTY_NEW_SIZE) / 3);
-    //const diffs = [];
-    //const loadedRows = {};
-    //const edgeVerticesById = {};
-    //const vertexEdgesById = {};
     const ACTIONS = {
         Publish: 1,
         Undo: 2,
     }
 
     var loadMoreTimeout, initial = true;
-
-    function formatVisibility(propertyOrProperties) {
-        const property = Array.isArray(propertyOrProperties) ? propertyOrProperties[0] : propertyOrProperties;
-        return property['http://visallo.org#visibilityJson'];
-    }
-
-    function formatValue(name, change, property) {
-        return F.vertex.prop({
-            id: property.id,
-            properties: change ? Array.isArray(change) ? change : [change] : []
-        }, name, property.key)
-    }
 
     const DiffPanel = createReactClass({
 
@@ -64,7 +50,9 @@ define([
                 search: {},
                 all: false,
                 vertexIds: {},
-                edgeIds: {}
+                edgeIds: {},
+                elementPropertyDiffs: {},
+                elementPropertyDiffsLoading: {}
                 //publish: { all: false, vertexIds: {}, edgeIds: {} },
                 //undo: { all: false, vertexIds: {}, edgeIds: {} }
             };
@@ -127,15 +115,62 @@ define([
             return promise;
         },
 
+        toggleElementProperties({ vertexId, edgeId }) {
+            const id = vertexId || edgeId;
+            const { elementPropertyDiffs, elementPropertyDiffsLoading } = this.state;
+            const toggleState = elementPropertyDiffs[id];
+            const isOpening = Boolean(!toggleState || !toggleState.opened);
+            const isLoading = Boolean(elementPropertyDiffsLoading[id]);
+            const needsLoading = isOpening && !toggleState;
+            const updateState = (newState, loading) => {
+                const updates = {
+                    elementPropertyDiffsLoading: {
+                        ...elementPropertyDiffsLoading,
+                        [id]: loading
+                    }
+                };
+
+                if (newState !== null) {
+                    updates.elementPropertyDiffs = {
+                        ...elementPropertyDiffs,
+                        [id]: newState
+                    }
+                }
+                this.setState(updates)
+            }
+
+            if (isLoading) {
+                if (elementPropertyDiffsLoading[id].cancel) {
+                    elementPropertyDiffsLoading[id].cancel();
+                } else {
+                    console.warn('Unable to cancel property load')
+                }
+                updateState({ opened: false }, false)
+            } else if (needsLoading) {
+                const cancellable = Promise.require('util/withDataRequest')
+                    .then(dr => dr.dataRequest('workspace', 'diffProperties', { vertexId, edgeId }))
+                cancellable.then(properties => {
+                    updateState({ opened: true, properties }, false)
+                })
+                updateState(null, cancellable);
+                return cancellable;
+            } else if (toggleState) {
+                updateState({ ...toggleState, opened: isOpening })
+            } else {
+                updateState({ opened: isOpening })
+            }
+        },
+
         onRowClick({ vertexId, edgeId }) {
             const { selection } = this.props;
-            if (vertexId in selection || edgeId in selection) {
+            this.toggleElementProperties({ vertexId, edgeId });
+            /*if (vertexId in selection || edgeId in selection) {
                 this.props.onClearSelection()
             } else if (vertexId) {
                 this.props.onSetSelection({ vertices: [vertexId] })
             } else if (edgeId) {
                 this.props.onSetSelection({ edges: [edgeId] })
-            }
+            }*/
         },
 
         onDragStart(event, { vertexId, edgeId }) {
@@ -222,47 +257,6 @@ define([
             this._onMark(ACTIONS.Undo, marks);
         },
 
-        renderPropertyDiff: function(key, style, property) {
-            const { className, deleted, id, name, new: nextProp, old: previousProp, publish, undo } = property;
-            const { formatLabel } = this.props;
-            const nextVisibility = nextProp ? formatVisibility(nextProp) : null;
-            const visibility = previousProp ? formatVisibility(previousProp) : null;
-            const nextValue = nextProp ? formatValue(name, nextProp, property) : null;
-            const value = previousProp ? formatValue(name, previousProp, property) : null;
-            const valueStyle = value !== nextValue ? { textDecoration: 'line-through'} : {};
-            const visibilityStyle = visibility !== nextVisibility ? { textDecoration: 'line-through'} : {};
-            const propertyNameDisplay = formatLabel(name);
-
-            return (
-                <div key={key} style={style}
-                    className={classNames('d-row', className, {
-                        'mark-publish': publish,
-                        'mark-undo': undo
-                    })}
-                    data-diff-id={id}>
-                <div title={propertyNameDisplay} className="property-label">{ propertyNameDisplay }</div>
-                <div title={nextValue} className={classNames('property-value', { deleted: deleted })}>
-                    {previousProp && nextProp ? (
-                        [
-                            nextValue,
-                            <VisibilityViewer key={key + 'p-vis'} value={nextVisibility && nextVisibility.source} />,
-                            <div title={value} key={key + 'pval'} style={valueStyle}>{value}</div>,
-                            <VisibilityViewer key={key + 'p-val-vis'} style={visibilityStyle} value={visibility && visibility.source} />
-                        ]
-                    ) : null}
-                    {!previousProp && nextProp ? (
-                        [
-                            nextValue,
-                            <VisibilityViewer key={key + 'v'} value={nextVisibility && nextVisibility.source} />
-                        ]
-                    ) : null}
-                </div>
-                    {this.renderRequiresOntologyPublish(property)}
-                    {this.renderDiffActions(id, property)}
-              </div>
-            );
-        },
-
         componentWillMount() {
             this.loadedRows = {};
             this.diffs = []
@@ -275,18 +269,18 @@ define([
         },
 
         componentDidUpdate(prevProps, prevState) {
-            const { total } = this.props;
-            const { total: previousTotal } = prevProps;
             const List = this._List;
             const InfiniteLoader = this._InfiniteLoader;
 
             if (List) {
-                if (total !== previousTotal) {
-                    //List.recomputeRowHeights();
+                const { elementPropertyDiffs } = this.state;
+                const { elementPropertyDiffs: previousPropertyDiffs } = prevState;
+                if (elementPropertyDiffs !== previousPropertyDiffs) {
+                    List.recomputeRowHeights();
                 }
                 if (this.scrollTop > 0) {
                     // HACK: Need to pass decimal to force update. Have to look at virtualized-grid
-                    List.scrollToPosition(this.scrollTop + 0.1);
+                    //List.scrollToPosition(this.scrollTop + 0.1);
                 }
             }
             if (InfiniteLoader) {
@@ -294,7 +288,6 @@ define([
                 const { search: { query: oldQuery } } = prevState;
 
                 if (query !== oldQuery) {
-                    console.log('reseting')
                     InfiniteLoader.resetLoadMoreRowsCache(true);
                 }
             }
@@ -306,7 +299,6 @@ define([
             const { search, vertexIds, edgeIds, all } = this.state;
             const { query, searching, count, invalid } = search;
             const reRenderProps = { query, selection, privileges, editable, vertexIds, edgeIds, all };
-            const rowHeight = ELEMENT_SIZE;
 
             let remoteRowCount = total;
             if (query && count !== null) {
@@ -371,7 +363,7 @@ define([
                                                 height={height}
                                                 overscanRowCount={5}
                                                 rowCount={remoteRowCount}
-                                                rowHeight={rowHeight}
+                                                rowHeight={this.rowHeight}
                                                 rowRenderer={this.rowRenderer}
                                                 noRowsRenderer={this.noRowsRenderer}
                                                 onRowsRendered={onRowsRendered}
@@ -428,6 +420,31 @@ define([
             }
         },
 
+        getVisiblePropertiesForRow(index) {
+            const diff = this.diffs[index];
+            if (diff && diff.type) {
+                const element = (diff.vertex || diff.edge);
+                const id = element && element.id;
+                const { elementPropertyDiffs } = this.state;
+                const toggleState = elementPropertyDiffs[id];
+                if (toggleState && toggleState.opened && toggleState.properties) {
+                    return toggleState.properties;
+                }
+            }
+        },
+
+        rowHeight({ index }) {
+            const properties = this.getVisiblePropertiesForRow(index);
+            if (properties) {
+                return ELEMENT_SIZE + properties.reduce((size, p) => {
+                    return size + (
+                        p.previousProperty ? PROPERTY_UPDATE_SIZE : PROPERTY_NEW_SIZE
+                    );
+                }, 0);
+            }
+            return ELEMENT_SIZE;
+        },
+
         noRowsRenderer() {
             return (<div style={{
                 position: 'absolute',
@@ -443,16 +460,36 @@ define([
             const diff = this.diffs[index];
             if (diff && diff.type) {
                 const { selection, workspace: { editable }, concepts, properties, relationships, privileges } = this.props;
-                const { vertexIds, edgeIds, all } = this.state;
+                const { vertexIds, edgeIds, all,
+                    elementPropertyDiffs,
+                    elementPropertyDiffsLoading } = this.state;
                 const element = diff.vertex || diff.edge;
                 const id = element && element.id;
                 const elementState = (diff.vertex ? vertexIds : edgeIds)[id] || false;
                 const elementAction = elementState && elementState.action;
+                const loading = Boolean(elementPropertyDiffsLoading[id]);
+                const toggleState = elementPropertyDiffs[id];
+                const propertyDiffs = toggleState && toggleState.properties;
+                const opened = Boolean(toggleState && toggleState.opened);
+                const renderPropertyDiffs = () => (opened && propertyDiffs) ? (
+                        <ul>
+                            {propertyDiffs.map(diff => (
+                                <DiffProperty
+                                    ontologyProperty={properties[diff.property.name]}
+                                    height={diff.previousProperty ? PROPERTY_UPDATE_SIZE : PROPERTY_NEW_SIZE}
+                                    key={diff.property.name + diff.property.key}
+                                    diff={diff} />
+                            ))}
+                        </ul>
+                    ) : null;
                 const props = {
                     diff,
                     privileges,
                     editable,
+                    loading,
                     properties,
+                    opened,
+                    active: id in selection,
                     publish: elementAction === ACTIONS.Publish,
                     undo: elementAction === ACTIONS.Undo,
                     ontology: (
@@ -477,9 +514,8 @@ define([
                     }, { unpublishedEdgesPrefix: 'UE' })
                     return (
                         <div key={key} style={style}>
-                            <DiffVertex {...props}
-                                {...unpublishedEdges}
-                                active={diff.vertex.id in selection} />
+                            <DiffVertex {...props} {...unpublishedEdges} />
+                            {renderPropertyDiffs()}
                         </div>
                     );
                 }
@@ -488,9 +524,9 @@ define([
                     return (
                         <div key={key} style={style}>
                             <DiffEdge {...props}
-                                active={diff.edge.id in selection}
                                 outDiff={this.edgeVerticesById[diff.edge.outVertexId]}
                                 inDiff={this.edgeVerticesById[diff.edge.inVertexId]} />
+                            {renderPropertyDiffs()}
                         </div>
                     );
                 }

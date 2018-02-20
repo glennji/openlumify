@@ -454,85 +454,8 @@ public class VertexiumWorkspaceRepository extends WorkspaceRepository {
 
         Graph graph = getGraph();
         GraphQuery query = StringUtils.isBlank(search) ? graph.query(authorizations) : graph.query(search, authorizations);
-        query.includeHidden(workspaceId);
         query.hasAuthorization(workspaceId);
         return query;
-    }
-
-    @Traced
-    private List<WorkspaceEntity> findEntitiesNoLock(
-            String workspaceId,
-            boolean includeHidden,
-            boolean fetchVertices,
-            User user
-    ) {
-        Query query = queryWorkspaceChanges(null, workspaceId, user);
-
-        System.out.println("Vertices: " + query.vertexIds().getTotalHits());
-        System.out.println("Edges: " + query.edgeIds().getTotalHits());
-
-        return new ArrayList<>();
-
-//
-//
-//        List<Edge> entityEdges = stream(workspaceVertex.getEdges(
-//                Direction.BOTH,
-//                WORKSPACE_TO_ENTITY_RELATIONSHIP_IRI,
-//                FetchHint.NONE,
-//                authorizations
-//        )).collect(Collectors.toList());
-//
-//        final Map<String, Vertex> workspaceVertices;
-//        if (fetchVertices) {
-//            workspaceVertices = getWorkspaceVertices(workspace, entityEdges, includeHidden, authorizations);
-//        } else {
-//            workspaceVertices = null;
-//        }
-//        String workspaceId = workspace.getWorkspaceId();
-//
-//        List<WorkspaceEntity> results = new ArrayList<>(entityEdges.size());
-//
-//        for (Edge edge : entityEdges) {
-//            String entityVertexId = edge.getOtherVertexId(workspaceId);
-//            Vertex vertex = fetchVertices ? workspaceVertices.get(entityVertexId) : null;
-//            results.add(new WorkspaceEntity(entityVertexId, vertex));
-//        }
-//
-//        return results;
-    }
-
-    protected Map<String, Vertex> getWorkspaceVertices(
-            final Workspace workspace,
-            List<Edge> entityEdges,
-            boolean includeHidden,
-            Authorizations authorizations
-    ) {
-        List<String> workspaceVertexIds = entityEdges.stream()
-                .map(edge -> edge.getOtherVertexId(workspace.getWorkspaceId()))
-                .collect(Collectors.toList());
-
-        EnumSet<FetchHint> defaults = EnumSet.of(
-            FetchHint.PROPERTIES,
-            // FetchHint.PROPERTY_METADATA,
-            FetchHint.IN_EDGE_REFS,
-            FetchHint.OUT_EDGE_REFS
-        );
-        if (includeHidden) {
-            defaults.add(FetchHint.INCLUDE_HIDDEN);
-        }
-        Iterable<Vertex> vertices = getGraph().getVertices(
-                workspaceVertexIds,
-                defaults,
-                authorizations
-        );
-
-        return Maps.uniqueIndex(vertices, new Function<Vertex, String>() {
-            @Nullable
-            @Override
-            public String apply(Vertex v) {
-                return v.getId();
-            }
-        });
     }
 
     @Override
@@ -1531,7 +1454,7 @@ public class VertexiumWorkspaceRepository extends WorkspaceRepository {
     }
 
     @Override
-    public ClientApiWorkspaceDiffCount getDiffCount(
+    public ClientApiWorkspaceDiffCount getElementDiffCount(
             String search,
             String workspaceId,
             User user
@@ -1541,7 +1464,7 @@ public class VertexiumWorkspaceRepository extends WorkspaceRepository {
         Query query = queryWorkspaceChanges(search, workspaceId, user);
         query.limit(maxIdsToSend);
 
-        QueryResultsIterable<String> elementIds = query.elementIds();
+        QueryResultsIterable<String> elementIds = query.elementIds(true);
         long total = elementIds.getTotalHits();
 
         List<String> ids = (total < maxIdsToSend) ?
@@ -1554,25 +1477,35 @@ public class VertexiumWorkspaceRepository extends WorkspaceRepository {
 
     @Override
     @Traced
-    public ClientApiWorkspaceDiff getDiff(
+    public List<ClientApiWorkspaceDiff.PropertyItem> getElementPropertyDiffs(
+            Element element,
             String workspaceId,
+            User user
+    ) {
+        return lockRepository.lock(getLockName(workspaceId), () -> {
+            Authorizations authorizations = getAuthorizationRepository().getGraphAuthorizations(user, workspaceId);
+            return workspaceDiff.diffElementProperties(element, workspaceId, authorizations);
+        });
+    }
+
+    @Override
+    @Traced
+    public ClientApiWorkspaceDiff getElementDiffs(
+            String search,
             int startIndex,
             int stopIndex,
-            String search,
+            String workspaceId,
             User user
     ) {
         return lockRepository.lock(getLockName(workspaceId), () -> {
 
             Query query = queryWorkspaceChanges(search, workspaceId, user);
-            // query.sort(VisalloProperties.MODIFIED_DATE.getPropertyName(), SortDirection.DESCENDING);
-            // query.sort(VisalloProperties.CONCEPT_TYPE.getPropertyName(), SortDirection.ASCENDING);
-            // query.sort("__edgeLabel", SortDirection.ASCENDING);
-
+            // TODO Would be nice to sort by modified date, concept, edge label, etc
             query.skip(0);
             query.limit((Long) null);
 
-            QueryResultsIterable<String> vertexIdResults = query.vertexIds();
-            QueryResultsIterable<String> edgeIdResults = query.edgeIds();
+            QueryResultsIterable<String> vertexIdResults = query.vertexIds(true);
+            QueryResultsIterable<String> edgeIdResults = query.edgeIds(true);
             long vertexHits = vertexIdResults.getTotalHits();
             long edgeHits = edgeIdResults.getTotalHits();
 

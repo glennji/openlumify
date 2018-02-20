@@ -233,6 +233,9 @@ public class ClientApiConverter extends org.visallo.web.clientapi.util.ClientApi
         clientApiProperty.setKey(property.getKey());
         clientApiProperty.setName(property.getName());
 
+        VisibilityJson json = VisalloProperties.VISIBILITY_JSON_METADATA.getMetadataValue(property.getMetadata());
+        clientApiProperty.setVisibilitySource(json == null ? "" : json.getSource());
+
         Object propertyValue = property.getValue();
         if (propertyValue instanceof StreamingPropertyValue) {
             clientApiProperty.setStreamingPropertyValue(true);

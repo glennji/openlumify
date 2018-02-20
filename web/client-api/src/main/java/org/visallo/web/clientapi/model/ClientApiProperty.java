@@ -15,6 +15,7 @@ public class ClientApiProperty implements ClientApiObject {
     private boolean addable;
     private boolean updateable;
     private boolean deleteable;
+    private String visibilitySource;
 
     public SandboxStatus getSandboxStatus() {
         return sandboxStatus;
@@ -82,6 +83,14 @@ public class ClientApiProperty implements ClientApiObject {
 
     public void setDeleteable(boolean deleteable) {
         this.deleteable = deleteable;
+    }
+
+    public String getVisibilitySource() {
+        return visibilitySource;
+    }
+
+    public void setVisibilitySource(String visibilitySource) {
+        this.visibilitySource = visibilitySource;
     }
 
     @Override

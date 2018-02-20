@@ -35,9 +35,9 @@ public class WorkspaceApiExt extends WorkspaceApi {
             ClientApiWorkspaceDiff.PropertyItem propertyDiffItem = (ClientApiWorkspaceDiff.PropertyItem) workspaceDiffItem;
             ClientApiPropertyPublishItem publishItem = new ClientApiPropertyPublishItem();
             publishItem.setElementId(propertyDiffItem.getElementId());
-            publishItem.setKey(propertyDiffItem.getKey());
-            publishItem.setName(propertyDiffItem.getName());
-            publishItem.setVisibilityString(propertyDiffItem.getVisibilityString());
+            publishItem.setKey(propertyDiffItem.getProperty().getKey());
+            publishItem.setName(propertyDiffItem.getProperty().getName());
+            publishItem.setVisibilityString(propertyDiffItem.getProperty().getVisibilitySource());
             return publishItem;
         } else if (workspaceDiffItem instanceof ClientApiWorkspaceDiff.EdgeItem) {
             ClientApiWorkspaceDiff.EdgeItem edgeDiffItem = (ClientApiWorkspaceDiff.EdgeItem) workspaceDiffItem;
@@ -71,9 +71,9 @@ public class WorkspaceApiExt extends WorkspaceApi {
             ClientApiWorkspaceDiff.PropertyItem propertyDiffItem = (ClientApiWorkspaceDiff.PropertyItem) workspaceDiffItem;
             ClientApiPropertyUndoItem undoItem = new ClientApiPropertyUndoItem();
             undoItem.setElementId(propertyDiffItem.getElementId());
-            undoItem.setKey(propertyDiffItem.getKey());
-            undoItem.setName(propertyDiffItem.getName());
-            undoItem.setVisibilityString(propertyDiffItem.getVisibilityString());
+            undoItem.setKey(propertyDiffItem.getProperty().getKey());
+            undoItem.setName(propertyDiffItem.getProperty().getName());
+            undoItem.setVisibilityString(propertyDiffItem.getProperty().getVisibilitySource());
             return undoItem;
         } else if (workspaceDiffItem instanceof ClientApiWorkspaceDiff.EdgeItem) {
             ClientApiWorkspaceDiff.EdgeItem edgeDiffItem = (ClientApiWorkspaceDiff.EdgeItem) workspaceDiffItem;

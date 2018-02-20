@@ -1,11 +1,8 @@
 package org.visallo.web.clientapi.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.sun.deploy.security.SandboxSecurity;
 import org.visallo.web.clientapi.util.ClientApiConverter;
 
 import java.util.ArrayList;
@@ -141,52 +138,27 @@ public class ClientApiWorkspaceDiff implements ClientApiObject {
     }
 
     public static class PropertyItem extends Item {
-        private String elementType;
         private String elementId;
-        private String elementConcept = null;
-        private String inVertexId = null;
-        private String outVertexId = null;
-        private String name;
-        private String key;
-        private String visibilityString;
-        @JsonProperty("old")
-        private JsonNode oldData;
-
-        @JsonProperty("new")
-        private JsonNode newData;
+        private String elementType;
+        private ClientApiProperty property;
+        private ClientApiProperty previousProperty;
 
         public PropertyItem() {
             super("PropertyDiffItem", SandboxStatus.PRIVATE, false);
         }
 
         public PropertyItem(
-                String elementType, String elementId, String elementConcept, String name, String key, JsonNode oldData,
-                JsonNode newData, SandboxStatus sandboxStatus, boolean deleted, String visibilityString) {
+                String elementId,
+                String elementType,
+                ClientApiProperty property,
+                ClientApiProperty previousProperty,
+                SandboxStatus sandboxStatus,
+                boolean deleted) {
             super("PropertyDiffItem", sandboxStatus, deleted);
-            this.elementType = elementType;
             this.elementId = elementId;
-            this.elementConcept = elementConcept;
-            this.name = name;
-            this.key = key;
-            this.oldData = oldData;
-            this.newData = newData;
-            this.visibilityString = visibilityString;
-        }
-
-        public PropertyItem(
-                String elementType, String elementId, String label, String outVertexId, String inVertexId, String name, String key, JsonNode oldData,
-                JsonNode newData, SandboxStatus sandboxStatus, boolean deleted, String visibilityString) {
-            super("PropertyDiffItem", sandboxStatus, deleted);
             this.elementType = elementType;
-            this.elementId = elementId;
-            this.elementConcept = label;
-            this.inVertexId = inVertexId;
-            this.outVertexId = outVertexId;
-            this.name = name;
-            this.key = key;
-            this.oldData = oldData;
-            this.newData = newData;
-            this.visibilityString = visibilityString;
+            this.property = property;
+            this.previousProperty = previousProperty;
         }
 
         public String getElementType() {
@@ -197,36 +169,12 @@ public class ClientApiWorkspaceDiff implements ClientApiObject {
             return elementId;
         }
 
-        public String getElementConcept() {
-            return elementConcept;
+        public ClientApiProperty getProperty() {
+            return property;
         }
 
-        public String getInVertexId() {
-            return inVertexId;
-        }
-
-        public String getOutVertexId() {
-            return outVertexId;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getKey() {
-            return key;
-        }
-
-        public JsonNode getOldData() {
-            return oldData;
-        }
-
-        public JsonNode getNewData() {
-            return newData;
-        }
-
-        public String getVisibilityString() {
-            return visibilityString;
+        public ClientApiProperty getPreviousProperty() {
+            return previousProperty;
         }
     }
 }

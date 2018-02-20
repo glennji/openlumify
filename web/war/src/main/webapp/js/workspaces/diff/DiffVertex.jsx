@@ -59,10 +59,10 @@ define([
                 editable,
                 className,
                 action,
-                style,
+                opened,
+                loading,
                 ontology,
-                requiresOntologyPublish,
-                children } = this.props;
+                requiresOntologyPublish } = this.props;
             const { deleted, vertex, sandboxStatus } = diff;
             const { id } = vertex;
             const title = F.vertex.title(vertex);
@@ -74,12 +74,10 @@ define([
             };
 
             return (
-                <div style={style}
-                    className={classNames('d-row', 'vertex-row', className, {
+                <div className={classNames('d-row', 'vertex-row', className, {
                         'mark-publish': publish,
                         'mark-undo': undo,
-                        active: active,
-                        deleted: deleted
+                        active, deleted, loading, opened
                     })}
                     onClick={this.onRowClick}
                     onDragStart={this.onDragStart}

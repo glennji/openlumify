@@ -261,82 +261,75 @@ define([
                 if (tip && tip.is(':visible')) {
                     if (this.attacher) {
                         this.attacher.params({ total }).attach()
+                    } else {
+                        console.log('No attacher, changed and visible')
                     }
                     popover.show();
                 } else {
 
-                    //require([
-                        //'util/component/attacher',
-                        //'workspaces/diff/DiffContainer'
-                    //], (Attacher, DiffContainer) => {
-                        badge
-                            .popover('destroy')
-                            .popover({
-                                placement: 'top',
-                                content: i18n('workspaces.diff.loading'),
-                                title: i18n('workspaces.diff.header.unpublished_changes')
-                            });
+                    badge
+                        .popover('destroy')
+                        .popover({
+                            placement: 'top',
+                            content: i18n('workspaces.diff.loading'),
+                            title: i18n('workspaces.diff.header.unpublished_changes')
+                        });
 
-                        popover = badge.data('popover');
-                        tip = popover.tip();
+                    popover = badge.data('popover');
+                    tip = popover.tip();
 
-                        tip.css({ width: '400px', height: '250px' }).data('sizePreference', 'diff')
+                    tip.css({ width: '400px', height: '250px' }).data('sizePreference', 'diff')
 
-                        // We fill in our own content
-                        popover.setContent = function() {}
-                        const teardown = () => {
-                            if (this.attacher) {
-                                this.attacher.teardown();
-                                this.attacher = null;
-                            }
+                    // We fill in our own content
+                    popover.setContent = function() {}
+                    const teardown = () => {
+                        if (this.attacher) {
+                            this.attacher.teardown();
+                            this.attacher = null;
+                        }
+                    };
+                    badge.on('shown', () => {
+                        var left = 10;
+                        tip.find('.arrow').css({
+                            left: parseInt(badge.position().left - (left / 2) + badge.width() / 2, 10) + 'px',
+                            marginLeft: 0
+                        })
+
+                        var css = {
+                            top: (parseInt(tip.css('top')) - 10) + 'px'
                         };
-                        badge.on('shown', () => {
-                            var left = 10;
-                            tip.find('.arrow').css({
-                                left: parseInt(badge.position().left - (left / 2) + badge.width() / 2, 10) + 'px',
-                                marginLeft: 0
-                            })
+                        tip.resizable({
+                            handles: 'n, e, ne',
+                            maxWidth: this.popoverCss.maxWidth,
+                            maxHeight: this.popoverCss.maxHeight
+                        }).css({top: top});
 
-                            var css = {
-                                top: (parseInt(tip.css('top')) - 10) + 'px'
-                            };
-                            tip.resizable({
-                                handles: 'n, e, ne',
-                                maxWidth: this.popoverCss.maxWidth,
-                                maxHeight: this.popoverCss.maxHeight
-                            }).css({top: top});
+                        this.updatePopoverSize(tip);
 
-                            this.updatePopoverSize(tip);
+                        const $popoverContent = tip.find('.popover-content');
 
-                            const $popoverContent = tip.find('.popover-content');
+                        $popoverContent.toggleClass('loading-small-animate', !this.attacher);
 
-                            $popoverContent
-                                .toggleClass(
-                                    'loading-small-animate',
-                                    !this.attacher
-                                );
+                        require([
+                            'util/component/attacher',
+                            'workspaces/diff/DiffContainer'
+                        ], (Attacher, DiffContainer) => {
+                            if (this.attacher) {
+                                this.attacher.params({ total }).attach();
+                            } else {
+                                this.attacher = Attacher()
+                                    .node($popoverContent)
+                                    .params({ total })
+                                    .component(DiffContainer)
 
-                            require([
-                                'util/component/attacher',
-                                'workspaces/diff/DiffContainer'
-                            ], (Attacher, DiffContainer) => {
-                                if (this.attacher) {
-                                    this.attacher.params({ total }).attach();
-                                } else {
-                                    this.attacher = Attacher()
-                                        .node($popoverContent)
-                                        .params({ total })
-                                        .component(DiffContainer)
+                                this.attacher.attach().then(() => {
+                                    $popoverContent.removeClass('loading-small-animate');
+                                })
+                            }
+                        });
+                    }).on('hide', teardown)
 
-                                    this.attacher.attach().then(() => {
-                                        $popoverContent.removeClass('loading-small-animate');
-                                    })
-                                }
-                            });
-                        }).on('hide', teardown)
-
-                        teardown();
-                    //});
+                    teardown();
                 }
 
                 badge.removePrefixedClasses('badge-').addClass('badge-info')

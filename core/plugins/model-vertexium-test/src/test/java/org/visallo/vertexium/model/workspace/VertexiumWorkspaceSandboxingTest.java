@@ -962,9 +962,9 @@ public class VertexiumWorkspaceSandboxingTest extends VisalloInMemoryTestBase {
         for (PropertyItem diff : propertyDiffs) {
             ClientApiPropertyPublishItem publishItem = new ClientApiPropertyPublishItem();
             publishItem.setElementId(diff.getElementId());
-            publishItem.setKey(diff.getKey());
-            publishItem.setName(diff.getName());
-            publishItem.setVisibilityString(diff.getVisibilityString());
+            publishItem.setKey(diff.getProperty().getKey());
+            publishItem.setName(diff.getProperty().getName());
+            publishItem.setVisibilityString(diff.getProperty().getVisibilitySource());
             publishItem.setAction(diff.isDeleted() ? Action.DELETE : Action.ADD_OR_UPDATE);
             propertyItems.add(publishItem);
         }
@@ -995,7 +995,7 @@ public class VertexiumWorkspaceSandboxingTest extends VisalloInMemoryTestBase {
     }
 
     private List<ClientApiWorkspaceDiff.Item> getDiffsFromWorkspace(User user) {
-        return getWorkspaceRepository().getDiff(workspace.getWorkspaceId(), 0, 100, user).getDiffs();
+        return getWorkspaceRepository().getElementDiffs(null, 0, 100, workspace.getWorkspaceId(), user).getDiffs();
     }
 
     private <T extends ClientApiWorkspaceDiff.Item> List<T> getDiffsFromWorkspace(Class<T> itemType) {
@@ -1031,9 +1031,9 @@ public class VertexiumWorkspaceSandboxingTest extends VisalloInMemoryTestBase {
             item.setEdgeId(elementId);
         }
         item.setElementId(elementId);
-        item.setName(diff.getName());
-        item.setKey(diff.getKey());
-        item.setVisibilityString(diff.getVisibilityString());
+        item.setName(diff.getProperty().getName());
+        item.setKey(diff.getProperty().getKey());
+        item.setVisibilityString(diff.getProperty().getVisibilitySource());
         return item;
     }
 
@@ -1070,11 +1070,11 @@ public class VertexiumWorkspaceSandboxingTest extends VisalloInMemoryTestBase {
     }
 
     private void assertChangedPropertyValueDiff(PropertyItem diff) {
-        assertEquals("key1", diff.getKey());
-        assertEquals(PROPERTY_NAME_ONE, diff.getName());
-        assertEquals("value1", diff.getOldData().get("value").asText());
-        assertEquals("value1a", diff.getNewData().get("value").asText());
-        assertVisibilityEquals(getVisibilityTranslator().toVisibility(initialVisibilityJson).toString(), diff.getVisibilityString());
+        assertEquals("key1", diff.getProperty().getKey());
+        assertEquals(PROPERTY_NAME_ONE, diff.getProperty().getName());
+        assertEquals("value1", diff.getPreviousProperty().getValue());
+        assertEquals("value1a", diff.getProperty().getValue());
+        assertVisibilityEquals(getVisibilityTranslator().toVisibility(initialVisibilityJson).toString(), diff.getProperty().getVisibilitySource());
         assertEquals(SandboxStatus.PUBLIC_CHANGED, diff.getSandboxStatus());
         assertFalse(diff.isDeleted());
     }
@@ -1100,11 +1100,11 @@ public class VertexiumWorkspaceSandboxingTest extends VisalloInMemoryTestBase {
     }
 
     private void assertChangedPropertyVisibilityDiff(PropertyItem diff) {
-        assertEquals("key1", diff.getKey());
-        assertEquals(PROPERTY_NAME_ONE, diff.getName());
-        assertEquals("value1", diff.getOldData().get("value").asText());
-        assertEquals("value1", diff.getNewData().get("value").asText());
-        assertVisibilityEquals(secretWorkspaceViz.getVisibilityString(), diff.getVisibilityString());
+        assertEquals("key1", diff.getProperty().getKey());
+        assertEquals(PROPERTY_NAME_ONE, diff.getProperty().getName());
+        assertEquals("value1", diff.getProperty().getValue());
+        assertEquals("value1", diff.getPreviousProperty().getValue());
+        assertVisibilityEquals(secretWorkspaceViz.getVisibilityString(), diff.getProperty().getVisibilitySource());
         assertEquals(SandboxStatus.PUBLIC_CHANGED, diff.getSandboxStatus());
         assertFalse(diff.isDeleted());
     }
@@ -1124,11 +1124,11 @@ public class VertexiumWorkspaceSandboxingTest extends VisalloInMemoryTestBase {
     }
 
     private void assertChangedPropertyValueAndVisibilityDiff(PropertyItem diff) {
-        assertEquals("key1", diff.getKey());
-        assertEquals(PROPERTY_NAME_ONE, diff.getName());
-        assertEquals("value1", diff.getOldData().get("value").asText());
-        assertEquals("value1a", diff.getNewData().get("value").asText());
-        assertVisibilityEquals(secretWorkspaceViz.getVisibilityString(), diff.getVisibilityString());
+        assertEquals("key1", diff.getProperty().getKey());
+        assertEquals(PROPERTY_NAME_ONE, diff.getProperty().getName());
+        assertEquals("value1", diff.getProperty().getValue());
+        assertEquals("value1a", diff.getPreviousProperty().getValue());
+        assertVisibilityEquals(secretWorkspaceViz.getVisibilityString(), diff.getProperty().getVisibilitySource());
         assertEquals(SandboxStatus.PUBLIC_CHANGED, diff.getSandboxStatus());
         assertFalse(diff.isDeleted());
     }
@@ -1148,11 +1148,11 @@ public class VertexiumWorkspaceSandboxingTest extends VisalloInMemoryTestBase {
     }
 
     private void assertNewPropertyDiff(PropertyItem diff) {
-        assertEquals("key2", diff.getKey());
-        assertEquals(PROPERTY_NAME_TWO, diff.getName());
-        assertNull(diff.getOldData());
-        assertEquals("value2a", diff.getNewData().get("value").asText());
-        assertVisibilityEquals(initialWorkspaceViz.getVisibilityString(), diff.getVisibilityString());
+        assertEquals("key2", diff.getProperty().getKey());
+        assertEquals(PROPERTY_NAME_TWO, diff.getProperty().getName());
+        assertNull(diff.getPreviousProperty());
+        assertEquals("value2a", diff.getProperty().getValue());
+        assertVisibilityEquals(initialWorkspaceViz.getVisibilityString(), diff.getProperty().getVisibilitySource());
         assertEquals(SandboxStatus.PRIVATE, diff.getSandboxStatus());
         assertFalse(diff.isDeleted());
     }
@@ -1164,17 +1164,17 @@ public class VertexiumWorkspaceSandboxingTest extends VisalloInMemoryTestBase {
     }
 
     private void assertDeletedPropertyDiff(PropertyItem diff) {
-        assertEquals("key9", diff.getKey());
-        assertEquals(PROPERTY_NAME_NINE, diff.getName());
-        assertNull(diff.getOldData());
-        assertEquals("value9", diff.getNewData().get("value").asText());
-        assertVisibilityEquals(initialVisibility.getVisibilityString(), diff.getVisibilityString());
+        assertEquals("key9", diff.getProperty().getKey());
+        assertEquals(PROPERTY_NAME_NINE, diff.getProperty().getName());
+        assertNull(diff.getPreviousProperty());
+        assertEquals("value9", diff.getProperty().getValue());
+        assertVisibilityEquals(initialVisibility.getVisibilityString(), diff.getProperty().getVisibilitySource());
         assertEquals(SandboxStatus.PUBLIC, diff.getSandboxStatus());
         assertTrue(diff.isDeleted());
     }
 
     private void assertNoDiffs() {
-        assertEquals(0, getWorkspaceRepository().getDiffCount(workspace.getWorkspaceId(), user1).getTotal());
+        assertEquals(0, getWorkspaceRepository().getElementDiffCount(null, workspace.getWorkspaceId(), user1).getTotal());
     }
 
     private static void assertVisibilityOnProperty(Visibility expectedVisibility, Property property) {
