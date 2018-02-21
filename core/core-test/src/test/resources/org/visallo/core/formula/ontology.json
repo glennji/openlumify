@@ -277,6 +277,13 @@
          ]
       },
       {
+         "id":"http://visallo.org/dev#entityWithFormatterCall",
+         "title":"http://visallo.org/dev#entityWithFormatterCall",
+         "displayName":"Entity With Formatter Call",
+         "titleFormula":"'Duration: ' + F.number.duration(propRaw('http://visallo.org/dev#duration'))",
+         "parentConcept":"http://www.w3.org/2002/07/owl#Thing"
+      },
+      {
          "id":"http://visallo.org/dev#titleFormulaEntityNoSearch",
          "title":"http://visallo.org/dev#titleFormulaEntityNoSearch",
          "displayName":"No Search Title Formula Entity",

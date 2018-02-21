@@ -984,7 +984,7 @@ define([
                         optionalKey = (firstMatchingProperty && firstMatchingProperty.key);
                     }
                     if (ontologyProperty.displayFormula) {
-                        return formula(ontologyProperty.displayFormula, vertex, V, optionalKey);
+                        return formula(ontologyProperty.displayFormula, vertex, F, V, optionalKey);
                     } else {
                         var dependentIris = ontologyProperty && ontologyProperty.dependentPropertyIris || [];
                         if (dependentIris.length) {
@@ -999,7 +999,7 @@ define([
                 }
 
                 if (!ignoreDisplayFormula && ontologyProperty.displayFormula) {
-                    return formula(ontologyProperty.displayFormula, vertex, V, optionalKey, optionalOpts);
+                    return formula(ontologyProperty.displayFormula, vertex, F, V, optionalKey, optionalOpts);
                 }
 
                 return V.propDisplay(name, value, optionalOpts);
@@ -1052,7 +1052,7 @@ define([
                     formulaString = ontologyProperty.validationFormula,
                     result = true;
                 if (formulaString) {
-                    result = formula(formulaString, vertex, V, propertyKey);
+                    result = formula(formulaString, vertex, F, V, propertyKey);
                 }
                 return Boolean(result);
             },
@@ -1112,7 +1112,7 @@ define([
                 }
 
                 result = isEveryPropertyValid(vertex) &&
-                    (formulaString ? Boolean(formula(formulaString, vertex, V, propertyKey)) : true);
+                    (formulaString ? Boolean(formula(formulaString, vertex, F, V, propertyKey)) : true);
                 return Boolean(result);
             },
 
@@ -1383,7 +1383,7 @@ define([
                     }
                     return result;
                 };
-            result = formula(formulaString, vertexiumObject, {
+            result = formula(formulaString, vertexiumObject, F, {
                 prop: _.wrap(V.prop, capture),
                 propRaw: _.wrap(V.propRaw, capture),
                 longestProp: _.wrap(V.longestProp, capture),

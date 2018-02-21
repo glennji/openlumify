@@ -13,6 +13,7 @@ import org.visallo.core.config.Configuration;
 import org.visallo.core.config.ConfigurationLoader;
 import org.visallo.core.config.HashMapConfigurationLoader;
 import org.visallo.core.model.ontology.OntologyRepository;
+import org.visallo.core.model.properties.VisalloProperties;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -95,6 +96,17 @@ public class FormulaEvaluatorTest {
     @Test
     public void testEvaluateTimeFormula() {
         assertEquals("2014-11-20", evaluator.evaluateTimeFormula(null, userContext, authorizations));
+    }
+
+    @Test
+    public void testEvaluateFormatterCall() {
+        ElementBuilder<Vertex> m = graph.prepareVertex("v1", new Visibility(""))
+                .setProperty("http://visallo.org/dev#duration", 5000, new Visibility(""));
+        VisalloProperties.CONCEPT_TYPE.setProperty(m, "http://visallo.org/dev#entityWithFormatterCall", new Visibility(""));
+        Element element = m.save(authorizations);
+        graph.flush();
+
+        assertEquals("Duration: 1h 23m 20s", evaluator.evaluateTitleFormula(element, userContext, authorizations));
     }
 
     @Test

@@ -3,7 +3,7 @@ define([], function() {
 
     return formulaFunction;
 
-    function formulaFunction(formula, vertex, V, optionalKey, optionalOpts) {
+    function formulaFunction(formula, vertex, F, V, optionalKey, optionalOpts) {
         if (!optionalOpts) {
             optionalOpts = {};
         }
@@ -22,6 +22,7 @@ define([], function() {
             }
 
             var scope = _.extend({}, optionalOpts.additionalScope || {}, {
+                F: F,
                 prop: prop,
                 dependentProp: prop,
                 propRaw: propRaw,
