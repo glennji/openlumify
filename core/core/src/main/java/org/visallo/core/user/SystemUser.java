@@ -4,6 +4,7 @@ import org.json.JSONObject;
 import org.visallo.core.model.user.UserRepository;
 import org.visallo.web.clientapi.model.UserType;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -102,13 +103,13 @@ public class SystemUser implements User {
     }
 
     @Override
-    public <PROP_TYPE> PROP_TYPE getProperty(String key, String propertyName) {
+    public <TPROP_TYPE> TPROP_TYPE getProperty(String key, String propertyName) {
         return null;
     }
 
     @Override
-    public <PROP_TYPE> Map<String, PROP_TYPE> getProperties(String propertyName) {
-        return null;
+    public <TPROP_TYPE> Map<String, TPROP_TYPE> getProperties(String propertyName) {
+        return new HashMap<>();
     }
 
     @Override
