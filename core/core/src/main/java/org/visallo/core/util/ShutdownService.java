@@ -13,8 +13,15 @@ import java.util.List;
 public class ShutdownService {
     private static final VisalloLogger LOGGER = VisalloLoggerFactory.getLogger(ShutdownService.class);
     private LinkedHashSet<ShutdownListener> shutdownListeners = new LinkedHashSet<>();
+    private boolean shutdownCalled;
 
-    public void shutdown() {
+    public synchronized void shutdown() {
+        if (shutdownCalled) {
+            LOGGER.debug("shutdown already called");
+            return;
+        }
+        shutdownCalled = true;
+
         // shutdown in reverse order to better handle dependencies
         List<ShutdownListener> shutdownListenersList = Lists.reverse(new ArrayList<>(shutdownListeners));
         for (ShutdownListener shutdownListener : shutdownListenersList) {

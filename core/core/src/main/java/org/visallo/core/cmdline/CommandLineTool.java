@@ -59,17 +59,19 @@ public abstract class CommandLineTool {
         try {
             LOGGER = VisalloLoggerFactory.getLogger(CommandLineTool.class, "cli");
             final Thread mainThread = Thread.currentThread();
-            Runtime.getRuntime().addShutdownHook(new Thread() {
-                @Override
-                public void run() {
-                    willExit = true;
-                    try {
-                        mainThread.join(1000);
-                    } catch (InterruptedException e) {
-                        // nothing useful to do here
-                    }
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                willExit = true;
+
+                if (frameworkInitialized) {
+                    shutdown();
                 }
-            });
+
+                try {
+                    mainThread.join(1000);
+                } catch (InterruptedException e) {
+                    // nothing useful to do here
+                }
+            }));
 
             try {
                 jCommander = parseArguments(args);
