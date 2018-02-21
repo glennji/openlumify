@@ -23,25 +23,21 @@ define([
         'http://docs.visallo.org/extension-points/front-end/visibility'
     );
 
-    const defaultVisibility = {
-        editorComponentPath: 'components/visibility/default/VisibilitySelector',
-        viewerComponentPath: 'components/visibility/default/VisibilityViewer'
+    let warnMultipleExtensions = true;
+    const checkForMultipleExtensions = () => {
+        let visibilityExtensions = registry.extensionsForPoint('org.visallo.visibility');
+        if (visibilityExtensions.length > 1) {
+            console.warn('Multiple visibility extensions loaded', visibilityExtensions);
+        }
+        warnMultipleExtensions = false;
     };
-    const point = 'org.visallo.visibility';
-    let visibilityExtensions = registry.extensionsForPoint(point);
-
-
-    if (visibilityExtensions.length === 0) {
-        registry.registerExtension(point, defaultVisibility);
-        visibilityExtensions = [defaultVisibility];
-    }
-
-    if (visibilityExtensions.length > 1) {
-        console.warn('Multiple visibility extensions loaded', visibilityExtensions);
-    }
 
     return {
         attachComponent: function(type, node, params) {
+            if (warnMultipleExtensions) {
+                checkForMultipleExtensions();
+            }
+
             const Component = type === 'viewer' ? VisibilityViewer : VisibilityEditor;
             const attacher = Attacher().node(node).component(Component).params(params);
 

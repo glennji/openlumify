@@ -12,6 +12,14 @@ define([
 
     const DEFAULT_VIEWER = 'components/visibility/default/VisibilityViewer';
 
+    /**
+     * @typedef org.visallo.visibility~Viewer
+     * @property {string} [value] The visibility source to view
+     * @property {string} [property] The property that this visibility is
+     * attached. Could be undefined
+     * @property {string} [element] The element that the visibility is a part
+     * of. Could be undefined
+     */
     const VisibilityViewer = createReactClass({
         propTypes: {
             value: PropTypes.string,

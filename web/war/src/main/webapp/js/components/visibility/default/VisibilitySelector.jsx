@@ -12,14 +12,14 @@ define([
 
     const VisibilitySelector = createReactClass({
         propTypes: {
-            value: PropTypes.string.required,
+            value: PropTypes.string,
             placeholder: PropTypes.string,
             readonly: PropTypes.bool,
             creatable: PropTypes.bool,
             disabled: PropTypes.bool,
             clearable: PropTypes.bool,
             authorizations: PropTypes.object,
-            visibilitychange: PropTypes.func.required
+            visibilitychange: PropTypes.func
         },
 
         getDefaultProps() {
@@ -51,7 +51,7 @@ define([
         },
 
         render() {
-            const { placeholder, disabled, clearable, onVisibilityChange, authorizations, value: initialValue, ...passthru } = this.props;
+            const { placeholder, disabled, clearable, visibilitychange, authorizations, value: initialValue, ...passthru } = this.props;
             const { options, value, valid } = this.state;
 
             return (

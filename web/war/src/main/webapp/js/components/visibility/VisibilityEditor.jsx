@@ -14,14 +14,24 @@ define([
     RegistryInjectorHOC) {
     'use strict';
 
-    const DEFAULT_EDITOR = 'components/visibility/default/VisibilityEditor';
+    const DEFAULT_EDITOR = 'components/visibility/default/VisibilitySelector';
 
-
+    /**
+     * @typedef org.visallo.visibility~Editor
+     * @property {string} [value] The visibility source to prepopulate the editor
+     * @property {string} [placeholder] The placeholder text to display when no value
+     * @property {string} [readonly] Show the form in read-only mode
+     * @property {object} [authorizations] The available visibilities, defaults to the current user's visibility authorizations
+     * @property {function} visibilitychange The callback to invoke when the visibility is changed
+     */
     const VisibilityEditor = createReactClass({
         propTypes: {
-            onVisibilityChange: PropTypes.func,
             value: PropTypes.string,
-
+            placeholder: PropTypes.string,
+            readonly: PropTypes.bool,
+            authorizations: PropTypes.object,
+            onVisibilityChange: PropTypes.func,
+            legacyOnVisibilityChange: PropTypes.func
         },
 
         getInitialState() {
