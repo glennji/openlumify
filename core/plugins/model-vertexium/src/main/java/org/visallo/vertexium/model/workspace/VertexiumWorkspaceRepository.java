@@ -1464,7 +1464,7 @@ public class VertexiumWorkspaceRepository extends WorkspaceRepository {
         Query query = queryWorkspaceChanges(search, workspaceId, user);
         query.limit(maxIdsToSend);
 
-        QueryResultsIterable<String> elementIds = query.elementIds(true);
+        QueryResultsIterable<String> elementIds = query.elementIds(IdFetchHint.ALL_INCLUDING_HIDDEN);
         long total = elementIds.getTotalHits();
 
         List<String> ids = (total < maxIdsToSend) ?
@@ -1504,8 +1504,8 @@ public class VertexiumWorkspaceRepository extends WorkspaceRepository {
             query.skip(0);
             query.limit((Long) null);
 
-            QueryResultsIterable<String> vertexIdResults = query.vertexIds(true);
-            QueryResultsIterable<String> edgeIdResults = query.edgeIds(true);
+            QueryResultsIterable<String> vertexIdResults = query.vertexIds(IdFetchHint.ALL_INCLUDING_HIDDEN);
+            QueryResultsIterable<String> edgeIdResults = query.edgeIds(IdFetchHint.ALL_INCLUDING_HIDDEN);
             long vertexHits = vertexIdResults.getTotalHits();
             long edgeHits = edgeIdResults.getTotalHits();
 
