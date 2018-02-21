@@ -125,23 +125,23 @@ public class InMemoryUser implements User {
     }
 
     @Override
-    public <PROP_TYPE> PROP_TYPE getProperty(String propertyName) {
+    public <T> T getProperty(String propertyName) {
         return getProperty(DEFAULT_KEY, propertyName);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public <PROP_TYPE> PROP_TYPE getProperty(String key, String propertyName) {
+    public <T> T getProperty(String key, String propertyName) {
         if (properties.containsKey(propertyName)) {
-            return (PROP_TYPE) properties.get(propertyName).get(key);
+            return (T) properties.get(propertyName).get(key);
         }
         return null;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public <PROP_TYPE> Map<String, PROP_TYPE> getProperties(String propertyName) {
-        return (Map<String, PROP_TYPE>) properties.get(propertyName);
+    public <T> Map<String, T> getProperties(String propertyName) {
+        return (Map<String, T>) properties.get(propertyName);
     }
 
     @Override

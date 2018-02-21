@@ -109,29 +109,29 @@ public class VertexiumUser implements User, Serializable {
         return getProperty(UserVisalloProperties.PASSWORD_RESET_TOKEN_EXPIRATION_DATE);
     }
 
-    private <PROP_TYPE> PROP_TYPE getProperty(SingleValueVisalloProperty<PROP_TYPE, ?> property) {
+    private <T> T getProperty(SingleValueVisalloProperty<T, ?> property) {
         Object rawValue = getProperty(DEFAULT_KEY, property.getPropertyName());
         return rawValue == null ? null : property.unwrap(rawValue);
     }
 
     @Override
-    public <PROP_TYPE> PROP_TYPE getProperty(String propertyName) {
+    public <T> T getProperty(String propertyName) {
         return getProperty(DEFAULT_KEY, propertyName);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public <PROP_TYPE> PROP_TYPE getProperty(String key, String propertyName) {
+    public <T> T getProperty(String key, String propertyName) {
         if (this.properties.containsKey(propertyName)) {
-            return (PROP_TYPE) this.properties.get(propertyName).get(key);
+            return (T) this.properties.get(propertyName).get(key);
         }
         return null;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public <PROP_TYPE> Map<String, PROP_TYPE> getProperties(String propertyName) {
-        return (Map<String, PROP_TYPE>) this.properties.get(propertyName);
+    public <T> Map<String, T> getProperties(String propertyName) {
+        return (Map<String, T>) this.properties.get(propertyName);
     }
 
     @Override

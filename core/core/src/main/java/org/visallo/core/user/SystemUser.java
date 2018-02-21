@@ -103,12 +103,12 @@ public class SystemUser implements User {
     }
 
     @Override
-    public <TPROP_TYPE> TPROP_TYPE getProperty(String key, String propertyName) {
+    public <T> T getProperty(String key, String propertyName) {
         return null;
     }
 
     @Override
-    public <TPROP_TYPE> Map<String, TPROP_TYPE> getProperties(String propertyName) {
+    public <T> Map<String, T> getProperties(String propertyName) {
         return new HashMap<>();
     }
 

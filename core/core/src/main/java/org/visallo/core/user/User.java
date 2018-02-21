@@ -43,11 +43,11 @@ public interface User extends Serializable {
 
     Date getPasswordResetTokenExpirationDate();
 
-    <PROP_TYPE> PROP_TYPE getProperty(String propertyName);
+    <T> T getProperty(String propertyName);
 
-    <PROP_TYPE> PROP_TYPE getProperty(String key, String propertyName);
+    <T> T getProperty(String key, String propertyName);
 
-    <PROP_TYPE> Map<String, PROP_TYPE> getProperties(String propertyName);
+    <T> Map<String, T> getProperties(String propertyName);
 
     Map<String, Map<String, Object>> getCustomProperties();
 }
