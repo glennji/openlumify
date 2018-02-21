@@ -16,7 +16,7 @@ define([
         propTypes: {
             value: PropTypes.string,
             property: PropTypes.object,
-            elements: PropTypes.object
+            element: PropTypes.object
         },
 
         render() {
