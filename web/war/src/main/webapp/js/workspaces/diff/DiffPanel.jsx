@@ -121,8 +121,9 @@ define([
             const toggleState = elementPropertyDiffs[id];
             const isOpening = Boolean(!toggleState || !toggleState.opened);
             const isLoading = Boolean(elementPropertyDiffsLoading[id]);
-            const needsLoading = isOpening && !toggleState;
+            const needsLoading = isOpening && (!toggleState || !toggleState.properties);
             const updateState = (newState, loading) => {
+                const { elementPropertyDiffs, elementPropertyDiffsLoading } = this.state;
                 const updates = {
                     elementPropertyDiffsLoading: {
                         ...elementPropertyDiffsLoading,
@@ -147,30 +148,33 @@ define([
                 }
                 updateState({ opened: false }, false)
             } else if (needsLoading) {
+                console.log('loading', id)
                 const cancellable = Promise.require('util/withDataRequest')
                     .then(dr => dr.dataRequest('workspace', 'diffProperties', { vertexId, edgeId }))
                 cancellable.then(properties => {
+                    console.log('done', id)
                     updateState({ opened: true, properties }, false)
                 })
                 updateState(null, cancellable);
                 return cancellable;
             } else if (toggleState) {
+                console.log('already loaded', id)
                 updateState({ ...toggleState, opened: isOpening })
             } else {
+                console.log('already loaded, no existing state', id)
                 updateState({ opened: isOpening })
             }
         },
 
         onRowClick({ vertexId, edgeId }) {
             const { selection } = this.props;
-            this.toggleElementProperties({ vertexId, edgeId });
-            /*if (vertexId in selection || edgeId in selection) {
+            if (vertexId in selection || edgeId in selection) {
                 this.props.onClearSelection()
             } else if (vertexId) {
                 this.props.onSetSelection({ vertices: [vertexId] })
             } else if (edgeId) {
                 this.props.onSetSelection({ edges: [edgeId] })
-            }*/
+            }
         },
 
         onDragStart(event, { vertexId, edgeId }) {
@@ -465,6 +469,8 @@ define([
 
         rowRenderer({ index, isScrolling, isVisible, key, parent, style }) {
             const diff = this.diffs[index];
+            const rowHeight = `${ELEMENT_SIZE}px`;
+
             if (diff && diff.type) {
                 const { selection, workspace: { editable }, concepts, properties, relationships, privileges } = this.props;
                 const { vertexIds, edgeIds, all,
@@ -478,24 +484,14 @@ define([
                 const toggleState = elementPropertyDiffs[id];
                 const propertyDiffs = this.getVisiblePropertiesForRow(index);
                 const opened = Boolean(toggleState && toggleState.opened);
-                const renderPropertyDiffs = () => (opened && propertyDiffs) ? (
-                        <ul>
-                            {propertyDiffs.map(diff => (
-                                <DiffProperty
-                                    ontologyProperty={properties[diff.property.name]}
-                                    height={diff.previousProperty ? PROPERTY_UPDATE_SIZE : PROPERTY_NEW_SIZE}
-                                    key={diff.property.name + diff.property.key}
-                                    diff={diff} />
-                            ))}
-                        </ul>
-                    ) : null;
                 const props = {
                     diff,
                     privileges,
                     editable,
-                    loading,
                     properties,
                     opened,
+                    loading,
+                    height: rowHeight,
                     active: id in selection,
                     publish: elementAction === ACTIONS.Publish,
                     undo: elementAction === ACTIONS.Undo,
@@ -507,7 +503,21 @@ define([
                     onDragStart: this.onDragStart,
                     onPublish: this.onMarkPublish,
                     onUndo: this.onMarkUndo,
+                    onToggle: this.toggleElementProperties
                 };
+                const renderPropertyDiffs = () => (opened && propertyDiffs) ? (
+                        <ul>
+                            {propertyDiffs.map(diff => (
+                                <DiffProperty
+                                    editable={editable}
+                                    privileges={privileges}
+                                    ontology={properties[diff.property.name]}
+                                    height={diff.previousProperty ? PROPERTY_UPDATE_SIZE : PROPERTY_NEW_SIZE}
+                                    key={diff.property.name + diff.property.key}
+                                    diff={diff} />
+                            ))}
+                        </ul>
+                    ) : null;
 
                 props.requiresOntologyPublish = this.checkIfRequiresOntologyPublish(diff, props.ontology)
 
@@ -540,11 +550,8 @@ define([
                 throw new Error('Unknown type: ' + diff.type)
             }
             return (
-                <div key={key} style={style} className="d-row vertex-row">
-                    <div className="vertex-label">
-                        <div className="img"></div>
-                        <h1>{i18n('workspaces.diff.title.loading')}</h1>
-                    </div>
+                <div key={key} style={{...style, height: rowHeight }} className="d-row vertex-row loading">
+                    <h1>{i18n('workspaces.diff.title.loading')}</h1>
                 </div>
             );
         },

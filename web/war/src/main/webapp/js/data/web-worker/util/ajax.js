@@ -93,11 +93,7 @@ define(['util/promise', './cancel'], function(Promise, cancelPreviousByHash) {
                         var text = r.responseText;
                         if (isJson) {
                             try {
-                                if (url === '/workspace/diff') console.time('parsing');
-
                                 var json = JSON.parse(text);
-                                if (url === '/workspace/diff') console.timeEnd('parsing');
-
                                 if (typeof ajaxPostfilter !== 'undefined') {
                                     ajaxPostfilter(r, json, {
                                         method: method,

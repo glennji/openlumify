@@ -2,6 +2,7 @@ define(['classnames'], function(classNames) {
 
     const DiffActions = function(props) {
         const {
+            editable,
             publish = false,
             undo = false,
             requiresOntologyPublish = false,
@@ -12,7 +13,7 @@ define(['classnames'], function(classNames) {
             onUndoClick
         } = props;
 
-        if (!privileges['EDIT']) {
+        if (!privileges['EDIT'] || !editable) {
             return null;
         }
 

@@ -5,7 +5,8 @@ define([
     'util/vertex/formatters',
     'react-pure-render-mixin',
     './DiffActions',
-    './DiffSubtitle'
+    './DiffSubtitle',
+    './DiffToggle'
 ], function(
     createReactClass,
     classNames,
@@ -13,7 +14,8 @@ define([
     F,
     ReactPureRenderMixin,
     DiffActions,
-    DiffSubtitle
+    DiffSubtitle,
+    DiffToggle
 ) {
     const DiffVertex = createReactClass({
         mixins: [ReactPureRenderMixin],
@@ -56,13 +58,13 @@ define([
                 active = false,
                 publish = false,
                 undo = false,
-                editable,
+                height,
                 className,
                 action,
                 opened,
                 loading,
-                ontology,
-                requiresOntologyPublish } = this.props;
+                requiresOntologyPublish,
+                ...rest } = this.props;
             const { deleted, vertex, sandboxStatus } = diff;
             const { id } = vertex;
             const title = F.vertex.title(vertex);
@@ -74,15 +76,16 @@ define([
             };
 
             return (
-                <div className={classNames('d-row', 'vertex-row', className, {
+                <div style={{height}} className={classNames('d-row', 'vertex-row', className, {
                         'mark-publish': publish,
                         'mark-undo': undo,
-                        active, deleted, loading, opened
+                        active, deleted, opened
                     })}
                     onClick={this.onRowClick}
                     onDragStart={this.onDragStart}
                     draggable={true}
                 >
+                    <DiffToggle height={height} onToggle={this.onToggle} opening={loading} opened={opened} />
                     <div className="vertex-label">
                         <div className="img" style={conceptImageStyle}></div>
                         <div className="selected-img" style={selectedConceptImageStyle}></div>
@@ -92,21 +95,23 @@ define([
                             requiresOntologyPublish={requiresOntologyPublish}
                             sandboxStatus={sandboxStatus} />
                     </div>
-                    { editable ? (
-                        <DiffActions
-                            editable={editable}
-                            requiresOntologyPublish={requiresOntologyPublish}
-                            diff={diff}
-                            ontology={ontology}
-                            privileges={privileges}
-                            publish={publish}
-                            undo={undo}
-                            onPublishClick={this.onPublishClick}
-                            onUndoClick={this.onUndoClick}
-                        />
-                    ) : null }
+                    <DiffActions
+                        {...rest}
+                        requiresOntologyPublish={requiresOntologyPublish}
+                        diff={diff}
+                        privileges={privileges}
+                        publish={publish}
+                        undo={undo}
+                        onPublishClick={this.onPublishClick}
+                        onUndoClick={this.onUndoClick}
+                    />
                 </div>
             );
+        },
+
+        onToggle(event) {
+            event.stopPropagation();
+            this.props.onToggle({ vertexId: this.props.diff.vertex.id })
         },
 
         onPublishClick(event) {

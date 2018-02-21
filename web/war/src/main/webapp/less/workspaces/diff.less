@@ -243,6 +243,37 @@
         border-top: 1px solid rgba(255,255,255,0.5);
         margin-top: -1px;
 
+        &.loading {
+          h1 {
+            padding: 0.5em;
+            color: #ababab;
+            font-style: italic;
+            text-align: center;
+          }
+        }
+
+        .toggle {
+          width: 25px;
+          border: 0;
+          background: inherit;
+          font-size: 85%;
+          color: #ccc;
+          outline: none;
+          &:hover {
+            color: #777;
+          }
+          &.opened {
+            margin-left: -1px;
+          }
+          &.opening {
+            background-image: url(../img/loading.gif);
+            background-size: 12px;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: transparent;
+          }
+        }
+
         .actions button {
           .opacity(30);
           z-index: 2;
@@ -283,7 +314,7 @@
         .actions {
             flex: 0 0 auto;
             margin-left: 0.5em;   
-            margin-right: 1em;   
+            margin-right: 0.5em;   
         }
       }
       .d-row:hover .actions button {
@@ -296,7 +327,7 @@
         background-size: contain;
         box-sizing: border-box;
         height: 17px;
-        left: 5px;
+        left: 0;
         margin: -9px 0 0 0;
         padding: 0;
         position: absolute;
@@ -310,7 +341,7 @@
       }
       .vertex-label {
         font-size: 120%;
-        padding: 0.2em 0.5em 0.4em 0.5em;
+        padding: 0.2em 0.5em 0.4em 0;
         position: relative;
         min-width: 0;
         .loading {
@@ -335,7 +366,6 @@
           font-size: 70%;
           padding: 0em 0.5em;
           margin: 0 0 0 30px;
-          height: 1.7em;
         }
         .action-subtype {
           flex: 1 1 auto;

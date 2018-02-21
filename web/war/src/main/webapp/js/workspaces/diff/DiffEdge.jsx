@@ -4,14 +4,16 @@ define([
     'prop-types',
     'util/vertex/formatters',
     'react-pure-render-mixin',
-    './DiffActions'
+    './DiffActions',
+    './DiffToggle'
 ], function(
     createReactClass,
     classNames,
     PropTypes,
     F,
     ReactPureRenderMixin,
-    DiffActions
+    DiffActions,
+    DiffToggle
 ) {
     const DiffEdge = createReactClass({
         mixins: [ReactPureRenderMixin],
@@ -55,15 +57,18 @@ define([
                 publish = false,
                 undo = false,
                 privileges,
-                editable,
                 diff,
                 inDiff,
                 outDiff,
                 ontology,
                 requiresOntologyPublish,
+                height,
                 className,
                 action,
-                loading, opened } = this.props;
+                opened,
+                loading,
+                ...rest
+            } = this.props;
             const { deleted, edge, sandboxStatus } = diff;
             const { id, label } = edge;
             const sourceTitle = F.vertex.title(outDiff && outDiff.vertex);
@@ -74,15 +79,16 @@ define([
             // TODO: is deleted?
 
             return (
-                <div className={classNames('d-row', 'vertex-row', className, {
+                <div style={{height}} className={classNames('d-row', 'vertex-row', className, {
                         'mark-publish': publish,
                         'mark-undo': undo,
-                        active, deleted, loading, opened
+                        active, deleted, opened
                     })}
                     onClick={this.onRowClick}
                     onDragStart={this.onDragStart}
                     draggable={true}
                 >
+                    <DiffToggle height={height} onToggle={this.onToggle} opening={loading} opened={opened} />
                     <div className="vertex-label">
                         <h1 title={title} className="edge-cont">
                             <span className="edge-v">{sourceTitle}</span>
@@ -96,20 +102,24 @@ define([
                             ) : null}
                         </div>
                     </div>
-                    { editable ? (
-                        <DiffActions
-                            requiresOntologyPublish={requiresOntologyPublish}
-                            diff={diff}
-                            ontology={ontology}
-                            privileges={privileges}
-                            publish={publish}
-                            undo={undo}
-                            onPublishClick={this.onPublishClick}
-                            onUndoClick={this.onUndoClick}
-                        />
-                    ) : null }
+                    <DiffActions
+                        {...rest}
+                        requiresOntologyPublish={requiresOntologyPublish}
+                        diff={diff}
+                        ontology={ontology}
+                        privileges={privileges}
+                        publish={publish}
+                        undo={undo}
+                        onPublishClick={this.onPublishClick}
+                        onUndoClick={this.onUndoClick}
+                    />
                 </div>
             );
+        },
+
+        onToggle(event) {
+            event.stopPropagation();
+            this.props.onToggle({ edgeId: this.props.diff.edge.id })
         },
 
         onPublishClick(event) {
