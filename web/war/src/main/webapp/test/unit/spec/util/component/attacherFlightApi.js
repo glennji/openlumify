@@ -7,10 +7,10 @@ define([
 
     function FlightApi() {
         this.attributes({
-            visalloApi: null
+            openlumifyApi: null
         })
         this.after('initialize', function() {
-            this.$node.text(this.attr.visalloApi.v1.formatters.string.plural(10, 'cat'));
+            this.$node.text(this.attr.openlumifyApi.v1.formatters.string.plural(10, 'cat'));
         });
     }
 });

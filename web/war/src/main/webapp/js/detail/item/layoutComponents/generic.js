@@ -3,7 +3,7 @@ define(['util/vertex/formatters'], function(F) {
 
     return [
         {
-            identifier: 'org.visallo.layout.text',
+            identifier: 'org.openlumify.layout.text',
             render: function(el, model, config) {
                 if (config && config.style && _.isString(config.style)) {
                     var cls = config.style;
@@ -32,56 +32,56 @@ define(['util/vertex/formatters'], function(F) {
             }
         },
         {
-            identifier: 'org.visallo.layout.body',
+            identifier: 'org.openlumify.layout.body',
             applyTo: function(model, options) {
                 var enoughWidth = !_.contains(options.constraints, 'width');
                 if (enoughWidth) {
-                    var comment = _.findWhere(model.properties, { name: 'http://visallo.org/comment#entry' }),
+                    var comment = _.findWhere(model.properties, { name: 'http://openlumify.org/comment#entry' }),
                         hasRelations = !_.isEmpty(model.edgeLabels);
                     return comment || hasRelations;
                 }
                 return false;
             },
             children: [
-                { ref: 'org.visallo.layout.body.split' },
-                { componentPath: 'detail/text/text', className: 'org-visallo-texts' }
+                { ref: 'org.openlumify.layout.body.split' },
+                { componentPath: 'detail/text/text', className: 'org-openlumify-texts' }
             ]
         },
         {
-            identifier: 'org.visallo.layout.body.split',
+            identifier: 'org.openlumify.layout.body.split',
             layout: { type: 'flex', options: { direction: 'row' }},
             children: [
-                { ref: 'org.visallo.layout.body.left', style: { flex: 1 }},
-                { ref: 'org.visallo.layout.body.right', style: { flex: 1 }}
+                { ref: 'org.openlumify.layout.body.left', style: { flex: 1 }},
+                { ref: 'org.openlumify.layout.body.right', style: { flex: 1 }}
             ]
         },
         {
-            identifier: 'org.visallo.layout.body.left',
+            identifier: 'org.openlumify.layout.body.left',
             children: [
-                { componentPath: 'detail/properties/properties', className: 'org-visallo-properties', modelAttribute: 'data' }
+                { componentPath: 'detail/properties/properties', className: 'org-openlumify-properties', modelAttribute: 'data' }
             ]
         },
         {
-            identifier: 'org.visallo.layout.body.right',
+            identifier: 'org.openlumify.layout.body.right',
             children: [
-                { componentPath: 'comments/comments', className: 'org.visallo-comments', modelAttribute: 'data' },
-                { componentPath: 'detail/relationships/relationships', className: 'org-visallo-relationships', modelAttribute: 'data' }
+                { componentPath: 'comments/comments', className: 'org.openlumify-comments', modelAttribute: 'data' },
+                { componentPath: 'detail/relationships/relationships', className: 'org-openlumify-relationships', modelAttribute: 'data' }
             ]
         },
         {
-            identifier: 'org.visallo.layout.body',
+            identifier: 'org.openlumify.layout.body',
             children: [
-                { componentPath: 'detail/properties/properties', className: 'org-visallo-properties', modelAttribute: 'data' },
-                { componentPath: 'comments/comments', className: 'org.visallo-comments', modelAttribute: 'data' },
-                { componentPath: 'detail/relationships/relationships', className: 'org-visallo-relationships', modelAttribute: 'data' },
-                { componentPath: 'detail/text/text', className: 'org-visallo-texts' }
+                { componentPath: 'detail/properties/properties', className: 'org-openlumify-properties', modelAttribute: 'data' },
+                { componentPath: 'comments/comments', className: 'org.openlumify-comments', modelAttribute: 'data' },
+                { componentPath: 'detail/relationships/relationships', className: 'org-openlumify-relationships', modelAttribute: 'data' },
+                { componentPath: 'detail/text/text', className: 'org-openlumify-texts' }
             ]
         },
         {
-            identifier: 'org.visallo.layout.header',
+            identifier: 'org.openlumify.layout.header',
             children: [
-                { ref: 'org.visallo.layout.header.text' },
-                { componentPath: 'detail/toolbar/toolbar', className: 'org-visallo-toolbar' }
+                { ref: 'org.openlumify.layout.header.text' },
+                { componentPath: 'detail/toolbar/toolbar', className: 'org-openlumify-toolbar' }
             ]
         }
     ];

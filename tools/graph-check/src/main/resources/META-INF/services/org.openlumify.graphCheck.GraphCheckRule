@@ -1,0 +1,4 @@
+org.openlumify.graphCheck.rules.HasConceptTypeGraphCheckRule
+org.openlumify.graphCheck.rules.HasRequiredMetadataGraphCheckRule
+org.openlumify.graphCheck.rules.HighlyConnectedGraphCheckRule
+org.openlumify.graphCheck.rules.SystemVisibilityGraphCheckRule

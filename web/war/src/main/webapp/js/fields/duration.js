@@ -54,7 +54,7 @@ define([
         this.getMetadata = function() {
             var currentVal = this.getValue();
             if (currentVal && !isNaN(currentVal)) {
-                return { 'http://visallo.org#inputPrecision': 0 };
+                return { 'http://openlumify.org#inputPrecision': 0 };
             }
             return null;
         };

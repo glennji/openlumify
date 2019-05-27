@@ -119,7 +119,7 @@ define([
 
         componentWillMount() {
             const { element, domElement, item } = this.props;
-            const currentSelection = visalloData.selectedObjects.vertexIds;
+            const currentSelection = openlumifyData.selectedObjects.vertexIds;
             const disabled = _.isFunction(item.shouldDisable)
                 ? this.props.item.shouldDisable(currentSelection, element.id, domElement, element)
                 : false;
@@ -252,10 +252,10 @@ define([
                         ? elements[0]
                         : elements;
                     const currentSelection = isVertex
-                        ? visalloData.selectedObjects.vertexIds
-                        : visalloData.selectedObjects.edgeIds;
+                        ? openlumifyData.selectedObjects.vertexIds
+                        : openlumifyData.selectedObjects.edgeIds;
 
-                    registry.extensionsForPoint(`org.visallo.${isCollapsedItem ? 'collapsedItem' : isVertex ? 'vertex' : 'edge'}.menu`)
+                    registry.extensionsForPoint(`org.openlumify.${isCollapsedItem ? 'collapsedItem' : isVertex ? 'vertex' : 'edge'}.menu`)
                         .filter(item => {
                             if (item.selection) {
                                 const amount = firstElement.id in currentSelection
@@ -383,7 +383,7 @@ define([
                 {
                     label: i18n('vertex.contextmenu.collapsed-node.rename'),
                     event: 'editCollapsedNode',
-                    canHandle: () => visalloData.currentWorkspaceEditable
+                    canHandle: () => openlumifyData.currentWorkspaceEditable
                 },
                 {
                     label: i18n('vertex.contextmenu.collapsed-node.select.contents'),
@@ -414,7 +414,7 @@ define([
                 {
                     label: i18n('vertex.contextmenu.collapsed-node.uncollapse'),
                     event: 'uncollapse',
-                    canHandle: () => visalloData.currentWorkspaceEditable
+                    canHandle: () => openlumifyData.currentWorkspaceEditable
                 }
             ];
 
@@ -484,7 +484,7 @@ define([
                     subtitle: i18n('vertex.contextmenu.remove.subtitle'),
                     event: 'deleteSelected',
                     shouldDisable: function(selection, vertexId, target) {
-                        return !visalloData.currentWorkspaceEditable || false;
+                        return !openlumifyData.currentWorkspaceEditable || false;
                         // TODO:  !inWorkspace(vertexId);
                     }
                 }

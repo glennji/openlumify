@@ -10,7 +10,7 @@ define([
     const VisibilityViewer = createReactClass({
         render() {
             const { registry, style, value, ...rest } = this.props;
-            const custom = _.first(registry['org.visallo.visibility']);
+            const custom = _.first(registry['org.openlumify.visibility']);
 
             // Use new react visibility renderer as default if no custom exists
             if (custom && custom.viewerComponentPath !== DEFAULT_FLIGHT_VIEWER) {
@@ -36,6 +36,6 @@ define([
     });
 
     return RegistryInjectorHOC(VisibilityViewer, [
-        'org.visallo.visibility'
+        'org.openlumify.visibility'
     ]);
 });

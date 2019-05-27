@@ -54,8 +54,8 @@ define([
                 Visibility.attachTo(self.$node.find('.visibility'), {
                     value: self.attr.comment &&
                         self.attr.comment.metadata &&
-                        self.attr.comment.metadata['http://visallo.org#visibilityJson'] &&
-                        self.attr.comment.metadata['http://visallo.org#visibilityJson'].source
+                        self.attr.comment.metadata['http://openlumify.org#visibilityJson'] &&
+                        self.attr.comment.metadata['http://openlumify.org#visibilityJson'].source
                 });
                 self.manualOpen();
             });
@@ -76,13 +76,13 @@ define([
             var self = this,
                 comment = this.attr.comment,
                 metadata = comment && comment.metadata,
-                visibilityJson = metadata && metadata['http://visallo.org#visibilityJson'],
+                visibilityJson = metadata && metadata['http://openlumify.org#visibilityJson'],
                 params = {
-                    name: 'http://visallo.org/comment#entry',
+                    name: 'http://openlumify.org/comment#entry',
                     key: comment && comment.key,
                     value: this.getValue(),
                     metadata: this.attr.path && {
-                        'http://visallo.org/comment#path': this.attr.path
+                        'http://openlumify.org/comment#path': this.attr.path
                     },
                     visibilitySource: this.visibilitySource && this.visibilitySource.value || '',
                     sourceInfo: this.attr.sourceInfo

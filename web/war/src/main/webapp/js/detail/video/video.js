@@ -72,7 +72,7 @@ define([
         this.renderTranscript = function(key, time) {
             var self = this,
                 currentTime = time || 0,
-                transcriptProperties = _.where(this.model.properties, { name: 'http://visallo.org#videoTranscript' });
+                transcriptProperties = _.where(this.model.properties, { name: 'http://openlumify.org#videoTranscript' });
 
             if (!transcriptProperties.length) return;
 
@@ -97,7 +97,7 @@ define([
         this.isVideoReady = function() {
             const formats = ['mp4', 'webm'].map(format => [
                 format,
-                F.vertex.props(this.model, `http://visallo.org#video-${format}`).length > 0
+                F.vertex.props(this.model, `http://openlumify.org#video-${format}`).length > 0
             ]);
             return _.object(formats);
         };

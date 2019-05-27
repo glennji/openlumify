@@ -12,10 +12,10 @@ define([
         this.attributes({
             model: null,
             ignoreUpdateModelNotImplemented: true,
-            headerSelector: '.org-visallo-layout-elements-header',
-            bodySelector: '.org-visallo-layout-elements-body',
-            listSelector: '.org-visallo-layout-elements-list',
-            singleSelector: '.org-visallo-layout-root'
+            headerSelector: '.org-openlumify-layout-elements-header',
+            bodySelector: '.org-openlumify-layout-elements-body',
+            listSelector: '.org-openlumify-layout-elements-list',
+            singleSelector: '.org-openlumify-layout-root'
         })
 
         this.after('initialize', function() {
@@ -26,7 +26,7 @@ define([
             var self = this,
                 $list = this.select('listSelector'),
                 key = 'elements[].list',
-                heightPreference = visalloData.currentUser.uiPreferences['pane-' + key],
+                heightPreference = openlumifyData.currentUser.uiPreferences['pane-' + key],
                 originalHeight = heightPreference ?
                     parseInt(heightPreference, 10) :
                     Math.round($(window).height() * 0.3);

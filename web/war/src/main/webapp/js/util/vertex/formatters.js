@@ -34,7 +34,7 @@ define([
         }
         return noTint;
     };
-    visalloData.storePromise.then(function(store) {
+    openlumifyData.storePromise.then(function(store) {
         return store.observe(function(newState) {
             _state = newState;
         });
@@ -122,13 +122,13 @@ define([
                     vertexIds = data.vertexIds;
                 }
 
-                if (typeof window.visalloData !== 'undefined') {
+                if (typeof window.openlumifyData !== 'undefined') {
                     if (async) {
-                        return visalloData.selectedObjectsPromise()
+                        return openlumifyData.selectedObjectsPromise()
                             .then(vertexIdsUsingSelectedObjects);
                     } else {
                         console.warn('Use { async: true } when calling getVertexIdsFromDataEventOrCurrentSelection')
-                        return vertexIdsUsingSelectedObjects(visalloData.selectedObjects)
+                        return vertexIdsUsingSelectedObjects(openlumifyData.selectedObjects)
                     }
                 }
 
@@ -158,8 +158,8 @@ define([
                     edgeIds = data.edgeIds;
                 }
 
-                if (typeof window.visalloData !== 'undefined') {
-                    return visalloData.selectedObjectsPromise()
+                if (typeof window.openlumifyData !== 'undefined') {
+                    return openlumifyData.selectedObjectsPromise()
                         .then(edgeIdsUsingSelectedObjects);
                 }
 
@@ -184,7 +184,7 @@ define([
 
              * displayTransformers here, based on values set in
              * configuration: `properties.metadata.propertyNamesType`
-             * {@link http://docs.visallo.org/front-end/#property-info-metadata}
+             * {@link http://docs.openlumify.org/front-end/#property-info-metadata}
              *
              * All functions receive: function(el, value, property, vertexId)
              * set the value synchronously
@@ -264,7 +264,7 @@ define([
              * })
              *
              * // In ontology.owl
-             * <visallo:displayType>customDisplayType</visallo:displayType>
+             * <openlumify:displayType>customDisplayType</openlumify:displayType>
              * @example <caption>Add multiple displayTypes</caption>
              * require(['util/vertex/formatters'], function(F) {
              *     Object.assign(F.vertex.properties, {
@@ -277,7 +277,7 @@ define([
 
                 /**
                  * Visibility can be customized with the
-                 * {@link http://docs.visallo.org/extension-points/front-end/visibility/|visibility extension point}
+                 * {@link http://docs.openlumify.org/extension-points/front-end/visibility/|visibility extension point}
                  */
                 visibility: function(el, property, element) {
                     visibilityUtil.attachComponent('viewer', el, {
@@ -301,7 +301,7 @@ define([
                  * Display geolocation, with description if available
                  *
                  * @example
-                 * <visallo:displayType>geoLocation</visallo:displayType>
+                 * <openlumify:displayType>geoLocation</openlumify:displayType>
                  */
                 geoLocation: function(el, property) {
                     var wrap = $('<span>'),
@@ -326,7 +326,7 @@ define([
                  * readable
                  *
                  * @example
-                 * <visallo:displayType>bytes</visallo:displayType>
+                 * <openlumify:displayType>bytes</openlumify:displayType>
                  */
                 bytes: function(el, property) {
                     el.textContent = F.bytes.pretty(property.value);
@@ -335,19 +335,19 @@ define([
 
                 /**
                  * For property values that contain URLs, render as a link.
-                 * If the metadata property `http://visallo.org#linkTitle`
+                 * If the metadata property `http://openlumify.org#linkTitle`
                  * exists for property, display that as link text.
                  *
                  * Opens in a new window
                  *
                  * @example
-                 * <visallo:displayType>link</visallo:displayType>
+                 * <openlumify:displayType>link</openlumify:displayType>
                  */
                 link: function(el, property, vertex) {
                     var anchor = document.createElement('a'),
                         value = V.prop(vertex, property.name, property.key),
                         href = $.trim(value),
-                        linkTitle = property.metadata['http://visallo.org#linkTitle'];
+                        linkTitle = property.metadata['http://openlumify.org#linkTitle'];
 
                     if (!(/^http/).test(href)) {
                         href = 'http://' + href;
@@ -366,7 +366,7 @@ define([
                  * Render the property value with whitespace preserving
                  *
                  * @example
-                 * <visallo:displayType>textarea</visallo:displayType>
+                 * <openlumify:displayType>textarea</openlumify:displayType>
                  */
                 textarea: function(el, property) {
                     $(el).html(_.escape(property.value || '').replace(/\r?\n+/g, '<br>'));
@@ -378,7 +378,7 @@ define([
                  * render an arrow and show human readable heading.
                  *
                  * @example
-                 * <visallo:displayType>heading</visallo:displayType>
+                 * <openlumify:displayType>heading</openlumify:displayType>
                  */
                 heading: function(el, property) {
                     var div = document.createElement('div'),
@@ -578,7 +578,7 @@ define([
                 var params = {
                         vId: vertex.id,
                         url: url,
-                        workspaceId: optionalWorkspaceId || visalloData.currentWorkspaceId,
+                        workspaceId: optionalWorkspaceId || openlumifyData.currentWorkspaceId,
                         maxWidth: maxWidth || 400,
                         maxHeight: maxHeight || 400
                     },
@@ -611,7 +611,7 @@ define([
 
                 if (entityImageVertexId || isImage) {
                     var params = {
-                        workspaceId: optionalWorkspaceId || visalloData.currentWorkspaceId,
+                        workspaceId: optionalWorkspaceId || openlumifyData.currentWorkspaceId,
                         graphVertexId: entityImageVertexId || vertex.id,
                         width: width || 150
                     };
@@ -634,11 +634,11 @@ define([
 
                 if (isVideo) {
                     var posterFrame = _.any(vertex.properties, function(p) {
-                        return p.name === 'http://visallo.org#rawPosterFrame';
+                        return p.name === 'http://openlumify.org#rawPosterFrame';
                     });
                     if (posterFrame) {
                         return 'vertex/poster-frame?' + $.param({
-                            workspaceId: optionalWorkspaceId || visalloData.currentWorkspaceId,
+                            workspaceId: optionalWorkspaceId || openlumifyData.currentWorkspaceId,
                             graphVertexId: vertex.id
                         });
                     }
@@ -693,18 +693,18 @@ define([
 
             raw: function(vertex, optionalWorkspaceId) {
                 return 'vertex/raw?' + $.param({
-                    workspaceId: optionalWorkspaceId || visalloData.currentWorkspaceId,
+                    workspaceId: optionalWorkspaceId || openlumifyData.currentWorkspaceId,
                     graphVertexId: vertex.id
                 });
             },
 
             imageFrames: function(vertex, optionalWorkspaceId) {
                 var videoPreview = _.any(vertex.properties, function(p) {
-                    return p.name === 'http://visallo.org#videoPreviewImage';
+                    return p.name === 'http://openlumify.org#videoPreviewImage';
                 });
                 if (videoPreview) {
                     return 'vertex/video-preview?' + $.param({
-                        workspaceId: optionalWorkspaceId || visalloData.currentWorkspaceId,
+                        workspaceId: optionalWorkspaceId || openlumifyData.currentWorkspaceId,
                         graphVertexId: vertex.id
                     });
                 }
@@ -761,8 +761,8 @@ define([
             },
 
             propName: function(name) {
-                var autoExpandedName = (/^http:\/\/visallo.org/).test(name) ?
-                        name : ('http://visallo.org#' + name),
+                var autoExpandedName = (/^http:\/\/openlumify.org/).test(name) ?
+                        name : ('http://openlumify.org#' + name),
                     ontologyProperty = getProperty(name) || getProperty(autoExpandedName),
 
                     resolvedName = ontologyProperty && (
@@ -962,7 +962,7 @@ define([
                 }
 
                 // This is now on the vertex, for performance just get it there
-                if ((name === 'http://visallo.org#conceptType' || name === 'conceptType') && !optionalKey && vertex.conceptType) {
+                if ((name === 'http://openlumify.org#conceptType' || name === 'conceptType') && !optionalKey && vertex.conceptType) {
                     return vertex.conceptType;
                 }
 
@@ -1022,12 +1022,12 @@ define([
                     dependentIris = ontologyProperty && ontologyProperty.dependentPropertyIris,
                     foundProperties = transformMatchingVertexProperties(vertex, dependentIris || [name], optionalKey);
 
-                if (name === 'http://visallo.org#visibilityJson' && foundProperties.length === 0) {
+                if (name === 'http://openlumify.org#visibilityJson' && foundProperties.length === 0) {
                     // Protect against no visibility, just set to empty
                     return [{
                         key: '',
                         sandboxStatus: 'PUBLIC',
-                        name: 'http://visallo.org#visibilityJson',
+                        name: 'http://openlumify.org#visibilityJson',
                         metadata: {},
                         value: {
                             source: ''
@@ -1254,7 +1254,7 @@ define([
                     var hasValue = firstFoundProp && !_.isUndefined(firstFoundProp.value);
 
                     if (!hasValue &&
-                        name !== 'http://visallo.org#title' &&
+                        name !== 'http://openlumify.org#title' &&
                         _.isUndefined(options.defaultValue)) {
                         return undefined;
                     }
@@ -1298,9 +1298,9 @@ define([
                 }
 
                 var propNames = _.pluck(vertex.properties, 'name');
-                if (_.some(propNames, function(propName) { return propName.indexOf('http://visallo.org#video-') === 0; })) {
+                if (_.some(propNames, function(propName) { return propName.indexOf('http://openlumify.org#video-') === 0; })) {
                     return 'video';
-                } else if (_.some(propNames, function(propName) { return propName.indexOf('http://visallo.org#audio-') === 0; })) {
+                } else if (_.some(propNames, function(propName) { return propName.indexOf('http://openlumify.org#audio-') === 0; })) {
                     return 'audio';
                 } else {
                     var rawProp = V.props(vertex, V.propName('raw')),
@@ -1396,7 +1396,7 @@ define([
     }
 
     function transformMatchingVertexProperties(vertex, propertyNames, optionalKey) {
-        var CONFIDENCE = 'http://visallo.org#confidence',
+        var CONFIDENCE = 'http://openlumify.org#confidence',
             properties = [],
             hasKey = !_.isUndefined(optionalKey),
             pTransformSortValueMap = new WeakMap();

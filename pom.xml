@@ -2,21 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
-        <groupId>org.visallo</groupId>
-        <artifactId>visallo-root</artifactId>
+        <groupId>co.hackstreet</groupId>
+        <artifactId>openlumify-root</artifactId>
         <version>4.1-SNAPSHOT</version>
         <relativePath>./root</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>visallo</artifactId>
+    <artifactId>openlumify</artifactId>
     <packaging>pom</packaging>
-    <name>Visallo</name>
+    <name>openlumify</name>
     <version>4.1-SNAPSHOT</version>
 
     <scm>
-        <url>https://github.com/visallo/visallo</url>
-        <connection>scm:git:git://github.com:visallo/visallo.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:visallo/visallo.git</developerConnection>
+        <url>https://github.com/glennji/openlumify</url>
+        <connection>scm:git:git://github.com:glennji/openlumify.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:glennji/openlumify.git</developerConnection>
     </scm>
 
     <modules>

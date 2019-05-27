@@ -63,7 +63,7 @@ define([
                         ), F.number.pretty(count))
                     );
 
-            this.updateButton($button, visalloData.currentWorkspaceId);
+            this.updateButton($button, openlumifyData.currentWorkspaceId);
 
             this.$node.empty().append($button);
         };

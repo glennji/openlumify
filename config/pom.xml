@@ -6,13 +6,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>visallo</artifactId>
-        <groupId>org.visallo</groupId>
+        <artifactId>openlumify</artifactId>
+        <groupId>co.hackstreet</groupId>
         <version>4.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>visallo-config-example</artifactId>
-    <name>Visallo: Config File Examples</name>
+    <artifactId>openlumify-config-example</artifactId>
+    <name>OpenLumify: Config File Examples</name>
 
     <packaging>pom</packaging>
 

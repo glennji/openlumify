@@ -78,7 +78,7 @@ define([
                                 })) :
                                 Promise.resolve();
 
-                        if (VISALLO_MIMETYPES._DataTransferHasVisallo(dt)) {
+                        if (VISALLO_MIMETYPES._DataTransferHasOpenLumify(dt)) {
                             dt.dropEffect = 'none';
                             return
                         }

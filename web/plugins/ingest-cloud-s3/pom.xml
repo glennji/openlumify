@@ -3,15 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>visallo-web-plugin-base</artifactId>
-        <groupId>org.visallo</groupId>
+        <artifactId>openlumify-web-plugin-base</artifactId>
+        <groupId>co.hackstreet</groupId>
         <version>4.1-SNAPSHOT</version>
         <relativePath>../../web-plugin-base</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>visallo-ingest-cloud-s3</artifactId>
-    <name>Visallo: Core: Plugin: Ingest: Cloud: S3</name>
+    <artifactId>openlumify-ingest-cloud-s3</artifactId>
+    <name>OpenLumify: Core: Plugin: Ingest: Cloud: S3</name>
 
     <dependencies>
         <dependency>
@@ -33,7 +33,7 @@
                 <artifactId>frontend-maven-plugin</artifactId>
                 <version>${plugin.frontend}</version>
                 <configuration>
-                    <workingDirectory>src/main/resources/org/visallo/web/ingest/cloud/s3</workingDirectory>
+                    <workingDirectory>src/main/resources/org/openlumify/web/ingest/cloud/s3</workingDirectory>
                     <installDirectory>${frontend.installDirectory}</installDirectory>
                 </configuration>
                 <executions>
@@ -60,7 +60,7 @@
                 <configuration>
                     <filesets>
                         <fileset>
-                            <directory>src/main/resources/org/visallo/web/ingest/cloud/s3</directory>
+                            <directory>src/main/resources/org/openlumify/web/ingest/cloud/s3</directory>
                             <includes>
                                 <include>dist/</include>
                                 <include>node_modules/</include>

@@ -1,10 +1,10 @@
-# Visallo Features
+# OpenLumify Features
 
-Many featues within Visallo are developed and run as plugins to the system. There are two basic types of plugins, web plugins and graph property worker plugins. Please see the [extension point documentation](extension-points/index.md) if you'd like to learn how to build your own Visallo plugins.
+Many featues within OpenLumify are developed and run as plugins to the system. There are two basic types of plugins, web plugins and graph property worker plugins. Please see the [extension point documentation](extension-points/index.md) if you'd like to learn how to build your own OpenLumify plugins.
 
 ## Web Plugins
 
-The following web plugins come with Visallo, but not all are [installed](#viewing-active-plugins) by default.
+The following web plugins come with OpenLumify, but not all are [installed](#viewing-active-plugins) by default.
 
 | Feature | Description |
 | ------- | -------------------|
@@ -16,7 +16,7 @@ The following web plugins come with Visallo, but not all are [installed](#viewin
 
 ## Graph Property Worker Plugins
 
-The following features are executed as graph property workers that run within the Visallo web application.
+The following features are executed as graph property workers that run within the OpenLumify web application.
 
 | Feature | Description |
 | ------- | ----------- |

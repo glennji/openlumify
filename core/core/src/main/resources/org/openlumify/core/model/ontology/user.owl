@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://openlumify.org/user#"
+     xml:base="http://openlumify.org/user"
+     xmlns:openlumify="http://openlumify.org#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://openlumify.org/user">
+        <owl:imports rdf:resource="http://openlumify.org"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://openlumify.org/user#authorizations -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/user#authorizations">
+        <rdfs:domain rdf:resource="http://openlumify.org/user#user"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/user#createDate -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/user#createDate">
+        <rdfs:domain rdf:resource="http://openlumify.org/user#user"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/user#currentLoginDate -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/user#currentLoginDate">
+        <rdfs:domain rdf:resource="http://openlumify.org/user#user"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/user#currentLoginRemoteAddr -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/user#currentLoginRemoteAddr">
+        <rdfs:domain rdf:resource="http://openlumify.org/user#user"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/user#currentWorkspace -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/user#currentWorkspace">
+        <rdfs:domain rdf:resource="http://openlumify.org/user#user"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>EXACT_MATCH</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://openlumify.org/user#displayName -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/user#displayName">
+        <rdfs:domain rdf:resource="http://openlumify.org/user#user"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>EXACT_MATCH</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/user#emailAddress -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/user#emailAddress">
+        <rdfs:domain rdf:resource="http://openlumify.org/user#user"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>EXACT_MATCH</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/user#loginCount -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/user#loginCount">
+        <rdfs:domain rdf:resource="http://openlumify.org/user#user"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/user#passwordHash -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/user#passwordHash">
+        <rdfs:domain rdf:resource="http://openlumify.org/user#user"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#hexBinary"/>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/user#passwordResetToken -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/user#passwordResetToken">
+        <rdfs:domain rdf:resource="http://openlumify.org/user#user"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>EXACT_MATCH</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/user#passwordResetTokenExpirationDate -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/user#passwordResetTokenExpirationDate">
+        <rdfs:domain rdf:resource="http://openlumify.org/user#user"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/user#passwordSalt -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/user#passwordSalt">
+        <rdfs:domain rdf:resource="http://openlumify.org/user#user"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#hexBinary"/>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/user#previousLoginDate -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/user#previousLoginDate">
+        <rdfs:domain rdf:resource="http://openlumify.org/user#user"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/user#previousLoginRemoteAddr -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/user#previousLoginRemoteAddr">
+        <rdfs:domain rdf:resource="http://openlumify.org/user#user"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/user#privileges -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/user#privileges">
+        <rdfs:domain rdf:resource="http://openlumify.org/user#user"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/user#status -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/user#status">
+        <rdfs:domain rdf:resource="http://openlumify.org/user#user"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>EXACT_MATCH</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/user#uiPreferences -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/user#uiPreferences">
+        <rdfs:domain rdf:resource="http://openlumify.org/user#user"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/user#username -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/user#username">
+        <rdfs:domain rdf:resource="http://openlumify.org/user#user"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>EXACT_MATCH</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://openlumify.org/user#user -->
+
+    <owl:Class rdf:about="http://openlumify.org/user#user">
+        <openlumify:color xml:lang="en">rgb(255,0,0)</openlumify:color>
+        <openlumify:titleFormula>&apos;User: &apos; + prop(&apos;http://openlumify.org/user#username&apos;)</openlumify:titleFormula>
+        <openlumify:userVisible>false</openlumify:userVisible>
+        <rdfs:label xml:lang="en">User</rdfs:label>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+

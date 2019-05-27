@@ -161,7 +161,7 @@ define([
                                 .compact()
                                 .map(function(v) {
                                     var isEdge = ('label' in v && 'inVertexId' in v && 'outVertexId' in v),
-                                        conceptProperty = !isEdge && _.findWhere(v.properties, { name: 'http://visallo.org#conceptType'}),
+                                        conceptProperty = !isEdge && _.findWhere(v.properties, { name: 'http://openlumify.org#conceptType'}),
                                         conceptPropertyIri = isEdge ? v.label : (
                                             conceptProperty && conceptProperty.value || 'http://www.w3.org/2002/07/owl#Thing'
                                         ),

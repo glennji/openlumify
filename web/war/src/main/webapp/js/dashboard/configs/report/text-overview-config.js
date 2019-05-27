@@ -75,7 +75,7 @@ define([
 
         this.getConfiguration = function() {
             var config = this.attr.item.configuration,
-                key = 'org-visallo-text-overview';
+                key = 'org-openlumify-text-overview';
 
             if (!config[key]) {
                 config[key] = {};

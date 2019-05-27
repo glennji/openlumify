@@ -22,7 +22,7 @@ define([
     'use strict';
 
     var AUTO_UPDATE_INTERVAL_SECONDS = 60, // For updating relative times
-        ACTIVITY_EXTENSTION_POINT = 'org.visallo.activity',
+        ACTIVITY_EXTENSTION_POINT = 'org.openlumify.activity',
         handlersByKind = {},
         handlersByType = {};
 
@@ -76,22 +76,22 @@ define([
              *
              * Define `activity.tasks.type.[MY_ACTIVITY_TYPE]` message bundle string for localized display.
              * @param {string} kind Either `eventWatcher` or `longRunningProcess`
-             * @param {org.visallo.activity~titleRenderer} titleRenderer Render the title for row
+             * @param {org.openlumify.activity~titleRenderer} titleRenderer Render the title for row
              * @param {Array.<string>} [eventNames] Required if `eventWatcher`. Start event name, end event name.
-             * @param {string} [finishedComponentPath] Path to {@link org.visallo.activity~FinishedComponent} to render when task is complete.
-             * @param {org.visallo.activity~onRemove} [onRemove] Invoked when row is removed
+             * @param {string} [finishedComponentPath] Path to {@link org.openlumify.activity~FinishedComponent} to render when task is complete.
+             * @param {org.openlumify.activity~onRemove} [onRemove] Invoked when row is removed
              * @param {boolean} [indeterminateProgress=false] If determinate progress is not available, will render indeterminate progress bar.
              * @param {boolean} [autoDismiss=false] Remove this activity row when complete
              * @param {boolean} [allowCancel=false] Whether the activity supports cancelling (will render cancel button if true).
              */
             registry.documentExtensionPoint(
-                'org.visallo.activity',
+                'org.openlumify.activity',
                 'Custom activity rows based on events or long running processes',
                 function(e) {
                     return ('type' in e) && ('kind' in e) && _.isFunction(e.titleRenderer) &&
                         (e.kind !== 'eventWatcher' || (_.isArray(e.eventNames) && e.eventNames.length === 2));
                 },
-                'http://docs.visallo.org/extension-points/front-end/activity'
+                'http://docs.openlumify.org/extension-points/front-end/activity'
             );
 
             builtinHandlers.forEach(function(h) {
@@ -103,7 +103,7 @@ define([
             this.removedTasks = {};
             this.$node.html(template({}));
 
-            this.tasks = visalloData.currentUser && visalloData.currentUser.longRunningProcesses || [];
+            this.tasks = openlumifyData.currentUser && openlumifyData.currentUser.longRunningProcesses || [];
             this.tasksById = _.indexBy(this.tasks, 'id');
 
             this.throttledUpdate = _.debounce(this.update.bind(this), 100);
@@ -212,7 +212,7 @@ define([
                     /**
                      * Invoked when the row is removed by user or `autoDismiss`
                      *
-                     * @callback org.visallo.activity~onRemove
+                     * @callback org.openlumify.activity~onRemove
                      * @example
                      * onRemove() {
                      *     // "this" is the flight activity component
@@ -477,7 +477,7 @@ define([
                                         /**
                                          * FlightJS or React Component to render when activity is completed
                                          *
-                                         * @typedef org.visallo.activity~FinishedComponent
+                                         * @typedef org.openlumify.activity~FinishedComponent
                                          * @property {object} activityItem The activity item
                                          */
                                         Attacher()
@@ -501,7 +501,7 @@ define([
                                     /**
                                      * Function that is responsible for populating the text of the activity row.
                                      *
-                                     * @callback org.visallo.activity~titleRenderer
+                                     * @callback org.openlumify.activity~titleRenderer
                                      * @param {Element} el Html element to render title in
                                      * @param {object} activity The activity object. Either long running process json, or object with eventData.
                                      */

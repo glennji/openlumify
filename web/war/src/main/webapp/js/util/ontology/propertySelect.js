@@ -31,7 +31,7 @@ define([
 ], function(defineComponent, attacher) {
 
 
-    var HIDE_PROPERTIES = ['http://visallo.org/comment#entry'];
+    var HIDE_PROPERTIES = ['http://openlumify.org/comment#entry'];
 
     return defineComponent(PropertySelect);
 
@@ -76,7 +76,7 @@ define([
              * @example
              * PropertySelect.attachTo($node)
              * //...
-             * $node.trigger('selectProperty', { property: 'http://visallo.org#title' })
+             * $node.trigger('selectProperty', { property: 'http://openlumify.org#title' })
              * $node.trigger('selectProperty') // Clear
              */
             this.on('selectProperty', function(event, data) {

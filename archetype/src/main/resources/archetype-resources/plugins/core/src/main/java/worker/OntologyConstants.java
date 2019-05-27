@@ -3,7 +3,7 @@
 #set( $symbol_escape = '\' )
 package ${package}.worker;
 
-import org.visallo.core.model.properties.types.StringSingleValueVisalloProperty;
+import org.openlumify.core.model.properties.types.StringSingleValueOpenLumifyProperty;
 
 public interface OntologyConstants {
     String ONTOLOGY_BASE_IRI = "${ontologyBaseIri}${symbol_pound}";
@@ -15,12 +15,12 @@ public interface OntologyConstants {
     String HAS_ENTITY_EDGE_LABEL = ONTOLOGY_BASE_IRI + "hasEntity";
     String KNOWS_EDGE_LABEL = ONTOLOGY_BASE_IRI + "knows";
 
-    StringSingleValueVisalloProperty PERSON_FULL_NAME_PROPERTY =
-            new StringSingleValueVisalloProperty(ONTOLOGY_BASE_IRI + "fullName");
+    StringSingleValueOpenLumifyProperty PERSON_FULL_NAME_PROPERTY =
+            new StringSingleValueOpenLumifyProperty(ONTOLOGY_BASE_IRI + "fullName");
 
-    StringSingleValueVisalloProperty PERSON_PHONE_NUMBER_PROPERTY =
-            new StringSingleValueVisalloProperty(ONTOLOGY_BASE_IRI + "phoneNumber");
+    StringSingleValueOpenLumifyProperty PERSON_PHONE_NUMBER_PROPERTY =
+            new StringSingleValueOpenLumifyProperty(ONTOLOGY_BASE_IRI + "phoneNumber");
 
-    StringSingleValueVisalloProperty PERSON_EMAIL_ADDRESS_PROPERTY =
-            new StringSingleValueVisalloProperty(ONTOLOGY_BASE_IRI + "emailAddress");
+    StringSingleValueOpenLumifyProperty PERSON_EMAIL_ADDRESS_PROPERTY =
+            new StringSingleValueOpenLumifyProperty(ONTOLOGY_BASE_IRI + "emailAddress");
 }

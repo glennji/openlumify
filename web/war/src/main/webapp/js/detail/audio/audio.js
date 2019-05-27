@@ -30,9 +30,9 @@ define([
 
         this.isAudioReady = function() {
             return (
-                (F.vertex.props(this.model, 'http://visallo.org#audio-ogg') || [])
+                (F.vertex.props(this.model, 'http://openlumify.org#audio-ogg') || [])
                 .concat(
-                    (F.vertex.props(this.model, 'http://visallo.org#audio-mp4') || [])
+                    (F.vertex.props(this.model, 'http://openlumify.org#audio-mp4') || [])
                 )
             ).length >= 2;
         };

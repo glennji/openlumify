@@ -19,7 +19,7 @@ define([
     /**
      * @undocumented
      */
-    registry.documentExtensionPoint('org.visallo.ontology',
+    registry.documentExtensionPoint('org.openlumify.ontology',
         'Ignore some ontology warnings',
         function(e) {
             return _.isArray(e.ignoreColorWarnings);
@@ -27,7 +27,7 @@ define([
     );
 
     var PARENT_CONCEPT = 'http://www.w3.org/2002/07/owl#Thing';
-    var ROOT_CONCEPT = 'http://visallo.org#root';
+    var ROOT_CONCEPT = 'http://openlumify.org#root';
     var ontologyReady = function(s) {
         return s &&
         s.ontology &&
@@ -60,7 +60,7 @@ define([
             return JSON.parse(JSON.stringify(s.ontology[publicData.currentWorkspaceId]));
         }, ontologyReady)
     }
-    var extensions = registry.extensionsForPoint('org.visallo.ontology');
+    var extensions = registry.extensionsForPoint('org.openlumify.ontology');
 
     /**
      * @alias module:services/ontology
@@ -314,7 +314,7 @@ define([
                                     if (node.color) {
                                         child.color = node.color;
                                     } else {
-                                        if (visalloEnvironment.dev && !_.contains(ignoreColorWarnings, child.id) && child.userVisible !== false) {
+                                        if (openlumifyEnvironment.dev && !_.contains(ignoreColorWarnings, child.id) && child.userVisible !== false) {
                                             warnOnce( 'No color specified in concept hierarchy for conceptType:', child.id);
                                         }
                                         child.color = 'rgb(0, 0, 0)';

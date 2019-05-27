@@ -5,11 +5,11 @@ define([
     'public/v1/api',
     './login.hbs'
 ], function(
-    visallo,
+    openlumify,
     template) {
     'use strict';
 
-    return visallo.defineComponent(ExampleAuthentication);
+    return openlumify.defineComponent(ExampleAuthentication);
 
     function ExampleAuthentication() {
 

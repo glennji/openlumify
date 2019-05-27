@@ -3,62 +3,62 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>visallo-tools-group</artifactId>
-        <groupId>org.visallo</groupId>
+        <artifactId>openlumify-tools-group</artifactId>
+        <groupId>co.hackstreet</groupId>
         <version>4.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>visallo-cli</artifactId>
+    <artifactId>openlumify-cli</artifactId>
     <packaging>jar</packaging>
 
-    <name>Visallo: Tools: CLI</name>
+    <name>OpenLumify: Tools: CLI</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-tools-import</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-tools-import</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-tools-owl</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-tools-owl</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-tools-run-gpw</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-tools-run-gpw</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-tools-graph-check</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-tools-graph-check</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-tools-reindex</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-tools-reindex</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <!-- migrations -->
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-tools-migration-graph-version-bump</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-tools-migration-graph-version-bump</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-tools-migration-predefined-to-dynamic-ontology</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-tools-migration-predefined-to-dynamic-ontology</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-tools-migration-workspace-to-workproduct</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-tools-migration-workspace-to-workproduct</artifactId>
             <version>${project.version}</version>
         </dependency>
 
-        <!-- Groovy is required when Visallo is configured to use in-process elasticsearch -->
+        <!-- Groovy is required when OpenLumify is configured to use in-process elasticsearch -->
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy</artifactId>
@@ -101,7 +101,7 @@
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
                         <configuration>
-                            <mainClass>org.visallo.tools.Cli</mainClass>
+                            <mainClass>org.openlumify.tools.Cli</mainClass>
                             <cleanupDaemonThreads>false</cleanupDaemonThreads>
                         </configuration>
                         <executions>

@@ -6,7 +6,7 @@ define([
 
     const ReactParams = createReactClass({
         propTypes: {
-            visalloApi: PropTypes.object.isRequired,
+            openlumifyApi: PropTypes.object.isRequired,
             customBehavior: PropTypes.func.isRequired
         },
         componentDidMount() {

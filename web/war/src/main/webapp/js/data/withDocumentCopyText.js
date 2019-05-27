@@ -10,7 +10,7 @@ define([], function() {
 
         this.after('initialize', function() {
             this.on('copydocumenttext', this.onDocumentTextCopy);
-            Object.defineProperty(visalloData, 'copiedDocumentText', {
+            Object.defineProperty(openlumifyData, 'copiedDocumentText', {
                 get: () => this.getCopiedDocumentText()
             });
         });

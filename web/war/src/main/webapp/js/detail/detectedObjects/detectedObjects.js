@@ -34,14 +34,14 @@ define([
         this.after('initialize', function() {
             this.model = this.attr.model;
 
-            this.node.classList.add('org-visallo-detectedObjects');
+            this.node.classList.add('org-openlumify-detectedObjects');
             this.on('updateModel', this.onUpdateModel);
             this.on('closeDropdown', this.onCloseDropdown);
             this.on('click', {
                 detectedObjectSelector: this.onDetectedObjectClicked
             });
 
-            var root = this.$node.closest('.org-visallo-layout-root');
+            var root = this.$node.closest('.org-openlumify-layout-root');
             this.on(root, 'detectedObjectEdit', this.onDetectedObjectEdit);
             this.on(root, 'detectedObjectDoneEditing', this.onDetectedObjectDoneEditing);
             this.updateDetectedObjects();
@@ -81,7 +81,7 @@ define([
             var self = this,
                 $target = $(event.target),
                 propertyKey = $target.closest('.label-info').attr('data-property-key'),
-                property = _.first(F.vertex.props(this.model, 'http://visallo.org#detectedObject', propertyKey));
+                property = _.first(F.vertex.props(this.model, 'http://openlumify.org#detectedObject', propertyKey));
 
             if (!property) {
                 throw new Error('Unable to find detected object matching key:' + propertyKey);
@@ -291,7 +291,7 @@ define([
                 propertyKey = badge.attr('data-property-key');
 
             this.trigger(event.type === 'mouseenter' ? 'detectedObjectEnter' : 'detectedObjectLeave',
-                F.vertex.props(this.model, 'http://visallo.org#detectedObject', propertyKey)
+                F.vertex.props(this.model, 'http://openlumify.org#detectedObject', propertyKey)
             );
         };
 

@@ -70,7 +70,7 @@ define([
         };
 
         this.switchToWorkspace = function(workspaceId) {
-            if (workspaceId !== visalloData.currentWorkspaceId) {
+            if (workspaceId !== openlumifyData.currentWorkspaceId) {
                 this.trigger('switchWorkspace', { workspaceId: workspaceId });
             }
         };
@@ -220,7 +220,7 @@ define([
                     return updatedWorkspace.workspaceId === w.workspaceId;
                 })
                 .tap(function(workspaces) {
-                    if (_.findWhere(updatedWorkspace.users, { userId: visalloData.currentUser.id })) {
+                    if (_.findWhere(updatedWorkspace.users, { userId: openlumifyData.currentUser.id })) {
                         workspaces.push(updatedWorkspace);
                     }
                 })
@@ -291,14 +291,14 @@ define([
                                     .data('workspaceId', w.workspaceId);
                             })
                         this.classed('active', function(w) {
-                            return w.workspaceId === visalloData.currentWorkspaceId;
+                            return w.workspaceId === openlumifyData.currentWorkspaceId;
                         })
                         this.select('a .nav-list-title')
                             .text(_.property('title'))
                             .attr('title', _.property('title'));
                         this.select('a .nav-list-subtitle').text(function(w) {
                             var people = _.reject(w.users, function(user) {
-                                    return user.userId === visalloData.currentUser.id;
+                                    return user.userId === openlumifyData.currentUser.id;
                                 }).length,
                                 subtitle = '',
                                 sharedToUser = w.sharedToUser && userIdToDisplay[w.createdBy];
@@ -379,7 +379,7 @@ define([
                     _.defer(function() {
                         self.loadWorkspaceList()
                             .then(function(workspaces) {
-                                var active = visalloData.currentWorkspaceId;
+                                var active = openlumifyData.currentWorkspaceId;
                                 if (_.findWhere(workspaces, { workspaceId: active })) {
                                     self.switchActive(active);
                                 } else if (workspaces && workspaces.length) {

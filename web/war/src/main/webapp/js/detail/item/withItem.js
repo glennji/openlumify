@@ -27,9 +27,9 @@ define([
         }
 
         this.attributes({
-            propertiesSelector: '.org-visallo-properties',
-            relationshipsSelector: '.org-visallo-relationships',
-            commentsSelector: '.org-visallo-comments',
+            propertiesSelector: '.org-openlumify-properties',
+            relationshipsSelector: '.org-openlumify-relationships',
+            commentsSelector: '.org-openlumify-comments',
             deleteFormSelector: '.delete-form'
         });
 
@@ -105,7 +105,7 @@ define([
 
         this.makeVertexTitlesDraggable = function() {
             const model = this.attr.model;
-            this.$node.find('.org-visallo-layout-header .vertex-draggable')
+            this.$node.find('.org-openlumify-layout-header .vertex-draggable')
                 .filter(function() {
                     if (!_.isEmpty($(this).attr('data-vertex-id'))) {
                         this.setAttribute('draggable', true)
@@ -119,7 +119,7 @@ define([
                     const dt = e.originalEvent.dataTransfer;
 
                     if (model.id === id) {
-                        const url = F.vertexUrl.url([model], visalloData.currentWorkspaceId);
+                        const url = F.vertexUrl.url([model], openlumifyData.currentWorkspaceId);
                         dnd.setDataTransferWithElements(dt, { elements: [model] })
                     } else {
                         dnd.setDataTransferWithElements(dt, elements);
@@ -164,7 +164,7 @@ define([
                     viewing,
                 url = F.vertexUrl.url(
                     _.isArray(vertices) ? vertices : [vertices],
-                    visalloData.currentWorkspaceId
+                    openlumifyData.currentWorkspaceId
                 );
             window.open(url);
         };

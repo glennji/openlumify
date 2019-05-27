@@ -33,18 +33,18 @@ define([
      *
      * _Exactly one of the following is required: `render`, `collectionItem` or `children` (i.e., you cannot supply both render and collectionItem)._
      *
-     * @param {org.visallo.layout.component~applyTo|org.visallo.layout.component~applyToFn} [applyTo] When does this component get used
+     * @param {org.openlumify.layout.component~applyTo|org.openlumify.layout.component~applyToFn} [applyTo] When does this component get used
      * @param {string} identifier Identifier of this component for use in other components in package syntax. Also transforms into css class – replacing package periods with dashes
      * @param {object} [layout]
-     * @param {string} [layout.type] Which {@link org.visallo.layout.type|layout type} to render `children`.
+     * @param {string} [layout.type] Which {@link org.openlumify.layout.type|layout type} to render `children`.
      * @param {object} [layout.options] Layout-specific options
      * @param {string} [componentPath] Additional FlightJS component to attach to this node for behavior
      * @param {string} [className] Additional css classname to add to DOM
      * @param {function} [render] Function that renders the content, is passed the `model`, and `match` configuration.
-     * @param {org.visallo.layout.component~child} [collectionItem] Reference to layout component to render for each item in model (requires model to be array).
-     * @param {array.<org.visallo.layout.component~child>} [children] Children items to render
+     * @param {org.openlumify.layout.component~child} [collectionItem] Reference to layout component to render for each item in model (requires model to be array).
+     * @param {array.<org.openlumify.layout.component~child>} [children] Children items to render
      */
-    registry.documentExtensionPoint('org.visallo.layout.component',
+    registry.documentExtensionPoint('org.openlumify.layout.component',
         'Define the layout of the Inspector based on content',
         function(e) {
             if (!_.isFunction(e.applyTo) && _.isObject(e.applyTo)) {
@@ -61,17 +61,17 @@ define([
                 return (e.applyTo.type || e.applyTo.conceptIri || e.applyTo.edgeLabel || e.applyTo.displayType);
         }
         return _.isArray(e.children) || _.isFunction(e.render) || _.isObject(e.collectionItem);
-    }, 'http://docs.visallo.org/extension-points/front-end/layout/component.html')
+    }, 'http://docs.openlumify.org/extension-points/front-end/layout/component.html')
 
     /**
-     * Visallo includes the [Flex](https://github.com/visallo/visallo/blob/master/web/war/src/main/webapp/js/detail/item/types/flex.js) layout type.
+     * OpenLumify includes the [Flex](https://github.com/openlumify/openlumify/blob/master/web/war/src/main/webapp/js/detail/item/types/flex.js) layout type.
      *
      * Layout components are passed properties: `layoutConfig` and `children`
      *
      * @param {string} type The identifier for this layout type (used by layout components)
      * @param {string} componentPath
      */
-    registry.documentExtensionPoint('org.visallo.layout.type',
+    registry.documentExtensionPoint('org.openlumify.layout.type',
         'Handles the layout of children within a component',
         function(e) {
             return _.isString(e.type) && _.isString(e.componentPath);
@@ -112,14 +112,14 @@ define([
                 .then(function() {
                     self.trigger('finishedLoadingTypeContent');
                     if (!_.isEmpty(self.attr.focus)) {
-                        self.$node.find('.org-visallo-texts').trigger('focusOnSnippet', self.attr.focus);
+                        self.$node.find('.org-openlumify-texts').trigger('focusOnSnippet', self.attr.focus);
                     }
                 })
         });
 
         this.renderRoot = function() {
             var rootLayoutComponent = findLayoutComponentsMatching({
-                    identifier: 'org.visallo.layout.root',
+                    identifier: 'org.openlumify.layout.root',
                     model: this.model,
                     rootModel: this.model,
                     constraints: this.constraints,
@@ -196,7 +196,7 @@ define([
         /**
          * _Exactly one of the following is required: `ref`, or `componentPath`._
          *
-         * @typedef org.visallo.layout.component~child
+         * @typedef org.openlumify.layout.component~child
          * @property {object} [style] CSS attributes to set on DOM
          * @property {string} [modelAttribute] Use this attribute name instead of `model` when attaching FlightJS component.
          * @property {function} [attributes] Transform attributes using function when attaching FlightJS component.
@@ -367,7 +367,7 @@ define([
             return
         }
         if (!layoutConfig.type) throw new Error('No layout type parameter specified');
-        var type = _.findWhere(registry.extensionsForPoint('org.visallo.layout.type'), { type: layoutConfig.type });
+        var type = _.findWhere(registry.extensionsForPoint('org.openlumify.layout.type'), { type: layoutConfig.type });
         if (!type) throw new Error('No registered layout type for: ' + layoutConfig.type);
 
         return Promise.require(type.componentPath)
@@ -510,7 +510,7 @@ define([
                 if (index === -1) {
                     // Special case, should be updated
                     if (existing !== 'type-content' ||
-                        !_.contains(classes, 'org-visallo-layout-root')) {
+                        !_.contains(classes, 'org-openlumify-layout-root')) {
                         toRemove.push(existing)
                     }
                 } else {
@@ -558,7 +558,7 @@ define([
         /**
          * _Only one of these allowed: conceptIri, edgeLabel, displayType, type*_
          *
-         * @typedef org.visallo.layout.component~applyTo
+         * @typedef org.openlumify.layout.component~applyTo
          * @property {string} [conceptIri] Implies vertices, only those whose concept (or ancestor) matches this Iri.
          * @property {string} [edgeLabel] Implies edges, only those whose edgeLabel matches this Iri.
          * @property {string} [displayType] Match ontological `displayType` option.
@@ -571,7 +571,7 @@ define([
          */
 
         /**
-         * @callback org.visallo.layout.component~applyToFn
+         * @callback org.openlumify.layout.component~applyToFn
          * @param {object} model
          * @param {object} match
          * @param {array.<string>} match.contexts
@@ -579,7 +579,7 @@ define([
          * @returns {boolean} If this component should apply given the `model` and `match`
          */
 
-        var components = registry.extensionsForPoint('org.visallo.layout.component'),
+        var components = registry.extensionsForPoint('org.openlumify.layout.component'),
             possible = _.filter(components, function(comp) {
                 if (comp.identifier === match.identifier) {
                     return layoutComponentAppliesToModel(comp, match.model, match.rootModel, match) &&
@@ -705,7 +705,7 @@ define([
                             if (applyTo.type === 'element') return true;
                             if (isVertex) {
                                 if (applyTo.conceptIri || applyTo.displayType) {
-                                    var conceptIriProperty = _.findWhere(useModel.properties, { name: 'http://visallo.org#conceptType'}),
+                                    var conceptIriProperty = _.findWhere(useModel.properties, { name: 'http://openlumify.org#conceptType'}),
                                         conceptIri = conceptIriProperty && conceptIriProperty.value || 'http://www.w3.org/2002/07/owl#Thing',
                                         concept;
 
@@ -750,7 +750,7 @@ define([
 
     function triggerUpdateModelAndStopPropagation(el, model) {
         // Prevent infinite loop
-        if (el.classList.contains('org-visallo-layout-root')) {
+        if (el.classList.contains('org-openlumify-layout-root')) {
             return;
         }
         $(el)

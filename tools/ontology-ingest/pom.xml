@@ -5,18 +5,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.visallo</groupId>
-        <artifactId>visallo-tools-group</artifactId>
+        <groupId>co.hackstreet</groupId>
+        <artifactId>openlumify-tools-group</artifactId>
         <version>4.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>visallo-tools-ontology-ingest</artifactId>
+    <artifactId>openlumify-tools-ontology-ingest</artifactId>
     <packaging>pom</packaging>
 
     <dependencies>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-core</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-core</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

@@ -4,15 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.visallo</groupId>
-        <artifactId>visallo</artifactId>
+        <groupId>co.hackstreet</groupId>
+        <artifactId>openlumify</artifactId>
         <version>4.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>visallo-tools-group</artifactId>
+    <artifactId>openlumify-tools-group</artifactId>
     <packaging>pom</packaging>
 
-    <name>Visallo: Tools</name>
+    <name>OpenLumify: Tools</name>
 	
 	<modules>
         <module>cli</module>

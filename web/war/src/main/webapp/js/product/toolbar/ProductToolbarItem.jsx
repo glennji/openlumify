@@ -120,7 +120,7 @@ define([
 
         /**
          * Call `props.onResize` after your component with placementHint `popover` changes size to update the popover's position
-         * @callback org.visallo.product.toolbar.item~onResize
+         * @callback org.openlumify.product.toolbar.item~onResize
          */
         positionPopover() {
             const rightOffset = this.props.rightOffset;

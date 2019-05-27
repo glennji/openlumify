@@ -12,7 +12,7 @@ define([
     'use strict';
 
     var SCOPE_SORTING_HINTS = [
-        'visallo.help.scope',
+        'openlumify.help.scope',
         'search.help.scope',
         'graph.help.scope',
         'map.help.scope'

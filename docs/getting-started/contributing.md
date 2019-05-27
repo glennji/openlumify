@@ -1,4 +1,4 @@
-# Contributing to Visallo
+# Contributing to OpenLumify
 
 Without pull requests from generous people like you, this project wouldn't be what it is today. You are planning to contribute aren't you? If so, here's a quick guide to creating a great pull request for this project:
 

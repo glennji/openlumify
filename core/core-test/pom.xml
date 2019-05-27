@@ -3,19 +3,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.visallo</groupId>
-        <artifactId>visallo-core-group</artifactId>
+        <groupId>co.hackstreet</groupId>
+        <artifactId>openlumify-core-group</artifactId>
         <version>4.1-SNAPSHOT</version>
     </parent>
-    <artifactId>visallo-core-test</artifactId>
+    <artifactId>openlumify-core-test</artifactId>
     <packaging>jar</packaging>
 
-    <name>Visallo: Core Test</name>
+    <name>OpenLumify: Core Test</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-core</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-core</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -40,14 +40,14 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-model-queue-inmemory</artifactId>
-            <version>${v5.visallo.version}</version>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-model-queue-inmemory</artifactId>
+            <version>${v5.openlumify.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-model-vertexium-inmemory</artifactId>
-            <version>${v5.visallo.version}</version>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-model-vertexium-inmemory</artifactId>
+            <version>${v5.openlumify.version}</version>
         </dependency>
     </dependencies>
 </project>

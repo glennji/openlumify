@@ -40,7 +40,7 @@ define([
 
             // Guarantees that we aren't after a selectObjects call but before objectsSelected
             this.currentSelectObjectsPromise = Promise.resolve();
-            visalloData.selectedObjectsPromise = this.selectedObjectsPromise.bind(this);
+            openlumifyData.selectedObjectsPromise = this.selectedObjectsPromise.bind(this);
 
             this.on('selectObjects', this.onSelectObjects);
             this.on('focusElements', this.onFocusElements);
@@ -87,7 +87,7 @@ define([
         this.subscribeForSelection = function() {
             const selector = state => state.selection.idsByType;
 
-            visalloData.storePromise.then((store) => store.observe(selector, (newSelection) => {
+            openlumifyData.storePromise.then((store) => store.observe(selector, (newSelection) => {
                 this.trigger('selectObjects', {
                     vertexIds: newSelection.vertices,
                     edgeIds: newSelection.edges,
@@ -116,7 +116,7 @@ define([
         this.onDeleteSelected = function(event, data) {
             var self = this;
 
-            visalloData.storePromise.then(store => {
+            openlumifyData.storePromise.then(store => {
                 var vertexIds = [],
                     product = productSelectors.getProduct(store.getState());
 
@@ -127,7 +127,7 @@ define([
                         vertexIds = _.pluck(selectedObjects.vertices, 'id')
                     }
 
-                    const extension = _.findWhere(registry.extensionsForPoint('org.visallo.workproduct'), {
+                    const extension = _.findWhere(registry.extensionsForPoint('org.openlumify.workproduct'), {
                         identifier: product.kind
                     });
 
@@ -139,13 +139,13 @@ define([
         };
 
         this.onFocusElements = function(event, data) {
-            visalloData.storePromise.then(store => {
+            openlumifyData.storePromise.then(store => {
                 store.dispatch(elementActions.setFocus(data));
             });
         };
 
         this.onDefocusElements = function(event, data) {
-            visalloData.storePromise.then(store => {
+            openlumifyData.storePromise.then(store => {
                 store.dispatch(elementActions.setFocus({ vertexIds: [], edgeIds: [] }));
             });
         };
@@ -175,7 +175,7 @@ Support will be removed in future versions, use:
                 data.options = { focus: data.focus, ...(data.options || {}) };
             }
             if (!data || data.dispatch !== false) {
-                visalloData.storePromise.then(store => {
+                openlumifyData.storePromise.then(store => {
                     var action;
                     if (data) {
                         let payload = {
@@ -312,7 +312,7 @@ Support will be removed in future versions, use:
             if (data.vertices.length || data.edges.length) {
                 require(['util/vertex/urlFormatters'], function(F) {
                     self.trigger('clipboardSet', {
-                        text: F.vertexUrl.url(data.vertices.concat(data.edges), visalloData.currentWorkspaceId)
+                        text: F.vertexUrl.url(data.vertices.concat(data.edges), openlumifyData.currentWorkspaceId)
                     });
                 })
             } else {
@@ -363,11 +363,11 @@ Support will be removed in future versions, use:
         this.onAddRelatedItems = function(event, data) {
             var self = this;
 
-            const outsideGraph = $(event.target).closest('.org-visallo-graph').length === 0;
+            const outsideGraph = $(event.target).closest('.org-openlumify-graph').length === 0;
             if (outsideGraph) {
                 return;
             }
-            if (!visalloData.currentWorkspaceEditable) {
+            if (!openlumifyData.currentWorkspaceEditable) {
                 this.displayInfo('graph.workspace.readonly')
                 return;
             }

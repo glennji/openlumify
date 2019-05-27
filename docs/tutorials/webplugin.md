@@ -6,17 +6,17 @@ If you went through the [last tutorial](./helloworldgpw.md), you already have yo
 
 ## Scaffolding the project
 
-Lets do the scaffolding of creating a new web app plugin so that we can delve into more detail on how the web app plugins are designed once it is done.  We will be working in the ```web``` folder in our project, so create a java file at ```plugins/web/src/main/java/com/visalloexample/helloworld/web/SelectedVertexWebAppPlugin.java``` and put the following into that file:
+Lets do the scaffolding of creating a new web app plugin so that we can delve into more detail on how the web app plugins are designed once it is done.  We will be working in the ```web``` folder in our project, so create a java file at ```plugins/web/src/main/java/com/openlumifyexample/helloworld/web/SelectedVertexWebAppPlugin.java``` and put the following into that file:
 
 ```java
-package com.visalloexample.helloworld.web;
+package com.openlumifyexample.helloworld.web;
 
 import com.google.inject.Singleton;
-import org.visallo.webster.Handler;
-import org.visallo.core.model.Description;
-import org.visallo.core.model.Name;
-import org.visallo.web.WebApp;
-import org.visallo.web.WebAppPlugin;
+import org.openlumify.webster.Handler;
+import org.openlumify.core.model.Description;
+import org.openlumify.core.model.Name;
+import org.openlumify.web.WebApp;
+import org.openlumify.web.WebAppPlugin;
 
 import javax.servlet.ServletContext;
 
@@ -31,26 +31,26 @@ public class SelectedVertexWebAppPlugin implements WebAppPlugin {
 }  
 ```
 
-This class is responsible for telling the web server exactly which files it will be serving and in which context it will be serving them.  Next, we need to load our web plugin into the web server using service loading, so open up the ```plugins/web/src/main/resources/META-INF/services/org.visallo.web.WebAppPlugin``` and add the line
+This class is responsible for telling the web server exactly which files it will be serving and in which context it will be serving them.  Next, we need to load our web plugin into the web server using service loading, so open up the ```plugins/web/src/main/resources/META-INF/services/org.openlumify.web.WebAppPlugin``` and add the line
 
 ```
-com.visalloexample.helloworld.web.SelectedVertexWebAppPlugin
+com.openlumifyexample.helloworld.web.SelectedVertexWebAppPlugin
 ```
 
 so now that file is going to look like:
 
 ```properties
-com.visalloexample.helloworld.web.ExampleWebAppPlugin
-com.visalloexample.helloworld.web.SelectedVertexWebAppPlugin
+com.openlumifyexample.helloworld.web.ExampleWebAppPlugin
+com.openlumifyexample.helloworld.web.SelectedVertexWebAppPlugin
 ```
 
 Lets just make sure that the web app plugin appears in the application.  At the root of your repository, run ```mvn clean package``` and then run ```./run.sh```.  When the application comes up, enter the application using `admin/admin` and look at the list of plugins in the admin pane.  Under the webapp directory, you should see that you have an entry for the web plugin that you just made.  Congratulations!  You successfully made a web plugin, but of course, it doesn't do anything.
 
 ## Making the web plugin do something
 
-There are two possible parts to each web plugin, the back-end code which will handle any web requests and the front-end code which will add to Visallo's UI.  We will be adding a little bit of both.  To start, let's create the menu item on the front-end.
+There are two possible parts to each web plugin, the back-end code which will handle any web requests and the front-end code which will add to OpenLumify's UI.  We will be adding a little bit of both.  To start, let's create the menu item on the front-end.
 
-To start, we need to create the files that will be served by Visallo and then tell the web server to serve them up.  Create a file ```plugins/web/src/main/resources/com/visalloexample/helloworld/web/selectedvertexplugin.js``` and add the following as contents of the file.
+To start, we need to create the files that will be served by OpenLumify and then tell the web server to serve them up.  Create a file ```plugins/web/src/main/resources/com/openlumifyexample/helloworld/web/selectedvertexplugin.js``` and add the following as contents of the file.
 
 ```javascript
 require([
@@ -60,9 +60,9 @@ require([
 ) {
     'use strict';
 
-    //register the extension to the registry.  Visallo will query the registry to know what plugins to run.
+    //register the extension to the registry.  OpenLumify will query the registry to know what plugins to run.
     //This code will create a new menu in the context menu and, when clicked, will launch the 'doAction' event through the dom thanks to flight.
-    api.registry.registerExtension('org.visallo.vertex.menu', {
+    api.registry.registerExtension('org.openlumify.vertex.menu', {
         label: 'Do Action',
         event: 'doAction'
     });
@@ -75,25 +75,25 @@ require([
 });
 ```
 
-We are almost done.  Now, we need to tell the web server that we want this javascript to be served on every page.  Open up the ```plugins/web/src/main/java/com/visalloexample/helloworld/web/SelectedVertexWebAppPlugin.java``` and add the following line into the init method.
+We are almost done.  Now, we need to tell the web server that we want this javascript to be served on every page.  Open up the ```plugins/web/src/main/java/com/openlumifyexample/helloworld/web/SelectedVertexWebAppPlugin.java``` and add the following line into the init method.
 
 ```java
-app.registerJavaScript("/com/visalloexample/helloworld/web/selectedvertexplugin.js", true);
+app.registerJavaScript("/com/openlumifyexample/helloworld/web/selectedvertexplugin.js", true);
 ```
 
-Now we are telling Visallo where to load the javascript from.  It will be on the classpath since the javascript is bundled in with the war which is why the location looks strange.  By setting the last boolean parameter to true, we are telling it that we want that javascript included on the page when the page loads.  Loading this file on the page is the correct thing to do when the page loads so that our plugin can be registered, but you don't typically want too many things to be loaded on the page because it will make startup slower.  Try to defer loading of resources as long as possible.
+Now we are telling OpenLumify where to load the javascript from.  It will be on the classpath since the javascript is bundled in with the war which is why the location looks strange.  By setting the last boolean parameter to true, we are telling it that we want that javascript included on the page when the page loads.  Loading this file on the page is the correct thing to do when the page loads so that our plugin can be registered, but you don't typically want too many things to be loaded on the page because it will make startup slower.  Try to defer loading of resources as long as possible.
 
 Now your web plugin class should like the following:
 
 ```java
-package com.visalloexample.helloworld.web;
+package com.openlumifyexample.helloworld.web;
 
 import com.google.inject.Singleton;
-import org.visallo.webster.Handler;
-import org.visallo.core.model.Description;
-import org.visallo.core.model.Name;
-import org.visallo.web.WebApp;
-import org.visallo.web.WebAppPlugin;
+import org.openlumify.webster.Handler;
+import org.openlumify.core.model.Description;
+import org.openlumify.core.model.Name;
+import org.openlumify.web.WebApp;
+import org.openlumify.web.WebAppPlugin;
 
 import javax.servlet.ServletContext;
 
@@ -103,7 +103,7 @@ import javax.servlet.ServletContext;
 public class SelectedVertexWebAppPlugin implements WebAppPlugin {
     @Override
     public void init(WebApp app, ServletContext servletContext, Handler authenticationHandler) {
-        app.registerJavaScript("/com/visalloexample/helloworld/web/selectedvertexplugin.js", true);
+        app.registerJavaScript("/com/openlumifyexample/helloworld/web/selectedvertexplugin.js", true);
     }
 }
 ```
@@ -116,16 +116,16 @@ Congratulations!  We now have a front-end-only web plugin which is pretty good. 
 
 To start, let's create an endpoint that we can have the ajax request hit.  For right now, we are just going to ```System.out.printf``` the information that we get receive from the front end.
 
-To do that, we need to register an endpoint to let the front end hit it, so lets create the callback first.  Create a class called SelectedVertexAction at ```plugins/web/src/main/java/com/visalloexample/helloworld/web/SelectedVertexAction.java``` with the following contents:
+To do that, we need to register an endpoint to let the front end hit it, so lets create the callback first.  Create a class called SelectedVertexAction at ```plugins/web/src/main/java/com/openlumifyexample/helloworld/web/SelectedVertexAction.java``` with the following contents:
 
 ```java
-package com.visalloexample.helloworld.web;
+package com.openlumifyexample.helloworld.web;
 
-import org.visallo.webster.ParameterizedHandler;
-import org.visallo.webster.annotations.Handle;
-import org.visallo.webster.annotations.Required;
-import org.visallo.web.clientapi.model.ClientApiObject;
-import org.visallo.web.clientapi.model.ClientApiSuccess;
+import org.openlumify.webster.ParameterizedHandler;
+import org.openlumify.webster.annotations.Handle;
+import org.openlumify.webster.annotations.Required;
+import org.openlumify.web.clientapi.model.ClientApiObject;
+import org.openlumify.web.clientapi.model.ClientApiSuccess;
 
 public class SelectedVertexAction implements ParameterizedHandler {
     @Handle
@@ -138,15 +138,15 @@ public class SelectedVertexAction implements ParameterizedHandler {
 }
 ```
 
-This class is pretty simple, it will output the vertex that was clicked on and return that it was successful.  Next, we are going to need to register this class with Visallo so open up the SelectedVertexWebAppPlugin class and add the following line:
+This class is pretty simple, it will output the vertex that was clicked on and return that it was successful.  Next, we are going to need to register this class with OpenLumify so open up the SelectedVertexWebAppPlugin class and add the following line:
 
 ```java
-   app.post("/selected", authenticationHandler.getClass(), VisalloCsrfHandler.class, SelectedVertexAction.class);
+   app.post("/selected", authenticationHandler.getClass(), OpenLumifyCsrfHandler.class, SelectedVertexAction.class);
 ```
 
 into the ```init``` method.  There are a couple of parameters that you don't have to worry about right now that are a part of the method call, but the most important parameter is the ```SelectedVertexAction.class``` parameter which references the class which will handle the web request.
 
-Unfortunately we aren't done here.  We need to write the web worker that will actually call that endpoint.  Create a file ```plugins/web/src/main/resources/com/visalloexample/helloworld/web/selectedvertexwebworker.js``` and add the following code:
+Unfortunately we aren't done here.  We need to write the web worker that will actually call that endpoint.  Create a file ```plugins/web/src/main/resources/com/openlumifyexample/helloworld/web/selectedvertexwebworker.js``` and add the following code:
 
 ```javascript
 define('data/web-worker/services/selectedvertex', [
@@ -165,15 +165,15 @@ define('data/web-worker/services/selectedvertex', [
 We will also need to register the new webworker in our `SelectedVertexWebAppPlugin` class. The class should now look like:
 
 ```java
-package com.visalloexample.helloworld.web;
+package com.openlumifyexample.helloworld.web;
 
 import com.google.inject.Singleton;
-import org.visallo.core.model.Description;
-import org.visallo.core.model.Name;
-import org.visallo.web.VisalloCsrfHandler;
-import org.visallo.web.WebApp;
-import org.visallo.web.WebAppPlugin;
-import org.visallo.webster.Handler;
+import org.openlumify.core.model.Description;
+import org.openlumify.core.model.Name;
+import org.openlumify.web.OpenLumifyCsrfHandler;
+import org.openlumify.web.WebApp;
+import org.openlumify.web.WebAppPlugin;
+import org.openlumify.webster.Handler;
 
 import javax.servlet.ServletContext;
 
@@ -183,16 +183,16 @@ import javax.servlet.ServletContext;
 public class SelectedVertexWebAppPlugin implements WebAppPlugin {
     @Override
     public void init(WebApp app, ServletContext servletContext, Handler authenticationHandler) {
-        app.registerJavaScript("/com/visalloexample/helloworld/web/selectedvertexplugin.js", true);
-        app.registerWebWorkerJavaScript("/com/visalloexample/helloworld/web/selectedvertexwebworker.js");
-        app.post("/selected", authenticationHandler.getClass(), VisalloCsrfHandler.class, SelectedVertexAction.class);
+        app.registerJavaScript("/com/openlumifyexample/helloworld/web/selectedvertexplugin.js", true);
+        app.registerWebWorkerJavaScript("/com/openlumifyexample/helloworld/web/selectedvertexwebworker.js");
+        app.post("/selected", authenticationHandler.getClass(), OpenLumifyCsrfHandler.class, SelectedVertexAction.class);
     }
 }
 ```
 
 This web worker is the data layer between the rest api and the javascript code.  It will run inside of a promise that will allow the code that calls it to use the information that is returned by the ajax request.  Since we are currently returning the ClientApiSuccess, it will only return a true value wrapped in a json object, but it will become more important to pass the data back when we are doing more complicated calculations on the server.
 
-Only one more thing to do, let the javascript use the web worker to make the callback.  Change the code in ```plugins/web/src/main/resources/com/visalloexample/helloworld/web/selectedvertexplugin.js``` to look like the following:
+Only one more thing to do, let the javascript use the web worker to make the callback.  Change the code in ```plugins/web/src/main/resources/com/openlumifyexample/helloworld/web/selectedvertexplugin.js``` to look like the following:
 
 ```javascript
 require([
@@ -202,7 +202,7 @@ require([
 ) {
     'use strict';
 
-    api.registry.registerExtension('org.visallo.vertex.menu', {
+    api.registry.registerExtension('org.openlumify.vertex.menu', {
         label: 'Do Action',
         event: 'doAction'
     });
@@ -230,18 +230,18 @@ Save that file and redo the ```mvn clean package && ./run.sh``` in your project.
 Typically, you are going to want to do something on the back end, and then send the results to the front.  To demonstrate this concept, we will need to make a couple of changes to what happens in the route that we just made.  Change the ```SelectedVertexAction.java``` file to look like the following:
 
 ```java
-package com.visalloexample.helloworld.web;
+package com.openlumifyexample.helloworld.web;
 
-import org.visallo.webster.ParameterizedHandler;
-import org.visallo.webster.annotations.Handle;
-import org.visallo.webster.annotations.Required;
+import org.openlumify.webster.ParameterizedHandler;
+import org.openlumify.webster.annotations.Handle;
+import org.openlumify.webster.annotations.Required;
 import org.vertexium.Authorizations;
 import org.vertexium.Graph;
 import org.vertexium.Vertex;
-import org.visallo.core.model.workQueue.WorkQueueRepository;
-import org.visallo.web.clientapi.model.ClientApiObject;
-import org.visallo.web.clientapi.model.ClientApiSuccess;
-import org.visallo.web.parameterProviders.ActiveWorkspaceId;
+import org.openlumify.core.model.workQueue.WorkQueueRepository;
+import org.openlumify.web.clientapi.model.ClientApiObject;
+import org.openlumify.web.clientapi.model.ClientApiSuccess;
+import org.openlumify.web.parameterProviders.ActiveWorkspaceId;
 
 import javax.inject.Inject;
 import java.text.SimpleDateFormat;
@@ -273,7 +273,7 @@ public class SelectedVertexAction implements ParameterizedHandler {
         final String newName = String.format("Action (%s)", format);
 
         //set the property on the vertex
-        v.setProperty("http://example.org/visallo-helloworld#fullName", newName, v.getVisibility(), authorizations);
+        v.setProperty("http://example.org/openlumify-helloworld#fullName", newName, v.getVisibility(), authorizations);
 
         // make sure that the changes are persisted into the graph
         this.graph.flush();
@@ -308,4 +308,4 @@ The new name of the element will be passed back to the front end and we can cons
 
 ### Conclusion
 
-This tutorial took you through the basic steps of creating a webapp plugin.  We created a web plugin that can pass data from the front end to the back end, and then send data in multiple ways back to the front end.  Using these simple concepts, it is possible to build some more of the complicated behaviors that makes Visallo customized for your organization.  
+This tutorial took you through the basic steps of creating a webapp plugin.  We created a web plugin that can pass data from the front end to the back end, and then send data in multiple ways back to the front end.  Using these simple concepts, it is possible to build some more of the complicated behaviors that makes OpenLumify customized for your organization.  

@@ -2,7 +2,7 @@
  * Replaces prop-types library with no-check shims in production,
  * Normally webpack would handle this for us, but not using that yet...
  */
-define(visalloEnvironment.dev ? ['react-proptypes-dev'] : [], function(PropTypes) {
+define(openlumifyEnvironment.dev ? ['react-proptypes-dev'] : [], function(PropTypes) {
     const PropTypeShims = getPropTypeShims();
 
     if (PropTypes) {
@@ -15,7 +15,7 @@ define(visalloEnvironment.dev ? ['react-proptypes-dev'] : [], function(PropTypes
             const extra = _.difference(shimKeys, realKeys).join(', ');
             if (missing.length) console.warn('PropTypes shim is missing:', missing);
             if (extra.length) console.warn('PropTypes shim has extras:', extra);
-            throw new Error('PropTypes that are defined for production differ from those in react');
+            // throw new Error('PropTypes that are defined for production differ from those in react');
         }
         return PropTypes;
     }

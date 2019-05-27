@@ -1,152 +1,152 @@
 {
   "concepts": [
     {
-      "id": "http://visallo.org#root",
-      "title": "http://visallo.org#root",
+      "id": "http://openlumify.org#root",
+      "title": "http://openlumify.org#root",
       "displayName": "root",
       "pluralDisplayName": "roots",
       "properties": []
     },
     {
-      "id": "http://visallo.org/dev#address",
-      "title": "http://visallo.org/dev#address",
+      "id": "http://openlumify.org/dev#address",
+      "title": "http://openlumify.org/dev#address",
       "displayName": "Address",
-      "parentConcept": "http://visallo.org/dev#location",
+      "parentConcept": "http://openlumify.org/dev#location",
       "pluralDisplayName": "Addresses",
-      "glyphIconHref": "resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23address",
+      "glyphIconHref": "resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23address",
       "color": "rgb(219, 63, 219)",
       "properties": []
     },
     {
-      "id": "http://visallo.org/dev#audio",
-      "title": "http://visallo.org/dev#audio",
+      "id": "http://openlumify.org/dev#audio",
+      "title": "http://openlumify.org/dev#audio",
       "displayName": "Audio",
       "displayType": "audio",
-      "parentConcept": "http://visallo.org/dev#raw",
+      "parentConcept": "http://openlumify.org/dev#raw",
       "pluralDisplayName": "Audios",
       "color": "rgb(149, 138, 218)",
       "intents": [
         "audio"
       ],
       "properties": [
-        "http://visallo.org/dev#duration",
-        "http://visallo.org/media#fileSize"
+        "http://openlumify.org/dev#duration",
+        "http://openlumify.org/media#fileSize"
       ],
       "metadata": {
-        "http://visallo.org#intent": "audio"
+        "http://openlumify.org#intent": "audio"
       }
     },
     {
-      "id": "http://visallo.org/dev#city",
-      "title": "http://visallo.org/dev#city",
+      "id": "http://openlumify.org/dev#city",
+      "title": "http://openlumify.org/dev#city",
       "displayName": "City",
-      "parentConcept": "http://visallo.org/dev#location",
+      "parentConcept": "http://openlumify.org/dev#location",
       "pluralDisplayName": "Cities",
-      "glyphIconHref": "resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23city",
+      "glyphIconHref": "resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23city",
       "color": "rgb(191, 13, 191)",
       "intents": [
         "city"
       ],
       "properties": [],
       "metadata": {
-        "http://visallo.org#intent": "city"
+        "http://openlumify.org#intent": "city"
       }
     },
     {
-      "id": "http://visallo.org/dev#company",
-      "title": "http://visallo.org/dev#company",
+      "id": "http://openlumify.org/dev#company",
+      "title": "http://openlumify.org/dev#company",
       "displayName": "Company",
-      "parentConcept": "http://visallo.org/dev#organization",
+      "parentConcept": "http://openlumify.org/dev#organization",
       "pluralDisplayName": "Companies",
-      "glyphIconHref": "resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23company",
+      "glyphIconHref": "resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23company",
       "color": "rgb(210, 52, 32)",
       "properties": [
-        "http://visallo.org/dev#netIncome"
+        "http://openlumify.org/dev#netIncome"
       ]
     },
     {
-      "id": "http://visallo.org/dev#contactInformation",
-      "title": "http://visallo.org/dev#contactInformation",
+      "id": "http://openlumify.org/dev#contactInformation",
+      "title": "http://openlumify.org/dev#contactInformation",
       "displayName": "Contact Information",
       "parentConcept": "http://www.w3.org/2002/07/owl#Thing",
       "pluralDisplayName": "Contact Informations",
-      "glyphIconHref": "resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23contactInformation",
+      "glyphIconHref": "resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23contactInformation",
       "color": "rgb(225, 128, 0)",
       "properties": []
     },
     {
-      "id": "http://visallo.org/dev#country",
-      "title": "http://visallo.org/dev#country",
+      "id": "http://openlumify.org/dev#country",
+      "title": "http://openlumify.org/dev#country",
       "displayName": "Country",
-      "parentConcept": "http://visallo.org/dev#location",
+      "parentConcept": "http://openlumify.org/dev#location",
       "pluralDisplayName": "Countries",
-      "glyphIconHref": "resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23country",
+      "glyphIconHref": "resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23country",
       "color": "rgb(112, 0, 112)",
       "intents": [
         "country"
       ],
       "properties": [],
       "metadata": {
-        "http://visallo.org#intent": "country"
+        "http://openlumify.org#intent": "country"
       }
     },
     {
-      "id": "http://visallo.org/dev#document",
-      "title": "http://visallo.org/dev#document",
+      "id": "http://openlumify.org/dev#document",
+      "title": "http://openlumify.org/dev#document",
       "displayName": "Document",
       "displayType": "document",
-      "parentConcept": "http://visallo.org/dev#raw",
+      "parentConcept": "http://openlumify.org/dev#raw",
       "pluralDisplayName": "Documents",
       "color": "rgb(28, 137, 28)",
       "intents": [
         "document"
       ],
       "properties": [
-        "http://visallo.org/dev#sentiment"
+        "http://openlumify.org/dev#sentiment"
       ],
       "metadata": {
-        "http://visallo.org/analystsNotebook/v8.5.1#iconFile": "Document",
-        "http://visallo.org/analystsNotebook/v6#iconFile": "Document",
-        "http://visallo.org#intent": "document",
-        "http://visallo.org/analystsNotebook/v7#iconFile": "Document",
-        "http://visallo.org/analystsNotebook/v8.9#iconFile": "Document"
+        "http://openlumify.org/analystsNotebook/v8.5.1#iconFile": "Document",
+        "http://openlumify.org/analystsNotebook/v6#iconFile": "Document",
+        "http://openlumify.org#intent": "document",
+        "http://openlumify.org/analystsNotebook/v7#iconFile": "Document",
+        "http://openlumify.org/analystsNotebook/v8.9#iconFile": "Document"
       }
     },
     {
-      "id": "http://visallo.org/dev#emailAddress",
-      "title": "http://visallo.org/dev#emailAddress",
+      "id": "http://openlumify.org/dev#emailAddress",
+      "title": "http://openlumify.org/dev#emailAddress",
       "displayName": "Email Address",
-      "parentConcept": "http://visallo.org/dev#contactInformation",
+      "parentConcept": "http://openlumify.org/dev#contactInformation",
       "pluralDisplayName": "Email Addresses",
-      "glyphIconHref": "resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23emailAddress",
+      "glyphIconHref": "resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23emailAddress",
       "color": "rgb(203, 130, 4)",
       "intents": [
         "email"
       ],
       "properties": [],
       "metadata": {
-        "http://visallo.org#intent": "email"
+        "http://openlumify.org#intent": "email"
       }
     },
     {
-      "id": "http://visallo.org/dev#event",
-      "title": "http://visallo.org/dev#event",
+      "id": "http://openlumify.org/dev#event",
+      "title": "http://openlumify.org/dev#event",
       "displayName": "Event",
       "parentConcept": "http://www.w3.org/2002/07/owl#Thing",
       "pluralDisplayName": "Events",
-      "glyphIconHref": "resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23event",
+      "glyphIconHref": "resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23event",
       "color": "rgb(23, 30, 239)",
       "properties": [
-        "http://visallo.org/dev#date",
-        "http://visallo.org/dev#geolocation"
+        "http://openlumify.org/dev#date",
+        "http://openlumify.org/dev#geolocation"
       ]
     },
     {
-      "id": "http://visallo.org/dev#image",
-      "title": "http://visallo.org/dev#image",
+      "id": "http://openlumify.org/dev#image",
+      "title": "http://openlumify.org/dev#image",
       "displayName": "Image",
       "displayType": "image",
-      "parentConcept": "http://visallo.org/dev#raw",
+      "parentConcept": "http://openlumify.org/dev#raw",
       "pluralDisplayName": "Images",
       "color": "rgb(176, 87, 53)",
       "intents": [
@@ -154,544 +154,544 @@
         "image"
       ],
       "properties": [
-        "http://visallo.org/dev#geolocation",
-        "http://visallo.org/dev#lastModifyDate",
-        "http://visallo.org/media#clockwiseRotation",
-        "http://visallo.org/media#dateTaken",
-        "http://visallo.org/media#deviceMake",
-        "http://visallo.org/media#deviceModel",
-        "http://visallo.org/media#fileSize",
-        "http://visallo.org/media#height",
-        "http://visallo.org/media#imageHeading",
-        "http://visallo.org/media#metadata",
-        "http://visallo.org/media#width",
-        "http://visallo.org/media#yAxisFlipped"
+        "http://openlumify.org/dev#geolocation",
+        "http://openlumify.org/dev#lastModifyDate",
+        "http://openlumify.org/media#clockwiseRotation",
+        "http://openlumify.org/media#dateTaken",
+        "http://openlumify.org/media#deviceMake",
+        "http://openlumify.org/media#deviceModel",
+        "http://openlumify.org/media#fileSize",
+        "http://openlumify.org/media#height",
+        "http://openlumify.org/media#imageHeading",
+        "http://openlumify.org/media#metadata",
+        "http://openlumify.org/media#width",
+        "http://openlumify.org/media#yAxisFlipped"
       ],
       "metadata": {
-        "http://visallo.org#intent": "image"
+        "http://openlumify.org#intent": "image"
       }
     },
     {
-      "id": "http://visallo.org/dev#location",
-      "title": "http://visallo.org/dev#location",
+      "id": "http://openlumify.org/dev#location",
+      "title": "http://openlumify.org/dev#location",
       "displayName": "Location",
       "parentConcept": "http://www.w3.org/2002/07/owl#Thing",
       "pluralDisplayName": "Locations",
-      "glyphIconHref": "resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23location",
+      "glyphIconHref": "resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23location",
       "color": "rgb(160, 7, 206)",
       "intents": [
         "location"
       ],
       "properties": [
-        "http://visallo.org/dev#geolocation"
+        "http://openlumify.org/dev#geolocation"
       ],
       "metadata": {
-        "http://visallo.org/analystsNotebook/v8.5.1#iconFile": "Place",
-        "http://visallo.org/analystsNotebook/v6#iconFile": "Place",
-        "http://visallo.org#intent": "location",
-        "http://visallo.org/analystsNotebook/v7#iconFile": "Place",
-        "http://visallo.org/analystsNotebook/v8.9#iconFile": "Place"
+        "http://openlumify.org/analystsNotebook/v8.5.1#iconFile": "Place",
+        "http://openlumify.org/analystsNotebook/v6#iconFile": "Place",
+        "http://openlumify.org#intent": "location",
+        "http://openlumify.org/analystsNotebook/v7#iconFile": "Place",
+        "http://openlumify.org/analystsNotebook/v8.9#iconFile": "Place"
       }
     },
     {
-      "id": "http://visallo.org/dev#nonprofit",
-      "title": "http://visallo.org/dev#nonprofit",
+      "id": "http://openlumify.org/dev#nonprofit",
+      "title": "http://openlumify.org/dev#nonprofit",
       "displayName": "Non Profit",
-      "parentConcept": "http://visallo.org/dev#company",
+      "parentConcept": "http://openlumify.org/dev#company",
       "pluralDisplayName": "Non Profits",
-      "glyphIconHref": "resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23nonprofit",
+      "glyphIconHref": "resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23nonprofit",
       "color": "rgb(210, 52, 32)",
       "properties": []
     },
     {
-      "id": "http://visallo.org/dev#organization",
-      "title": "http://visallo.org/dev#organization",
+      "id": "http://openlumify.org/dev#organization",
+      "title": "http://openlumify.org/dev#organization",
       "displayName": "Organization",
-      "subtitleFormula": "prop('http://visallo.org/dev#abbreviation') || ''",
-      "timeFormula": "prop('http://visallo.org/dev#formationDate') || ''",
+      "subtitleFormula": "prop('http://openlumify.org/dev#abbreviation') || ''",
+      "timeFormula": "prop('http://openlumify.org/dev#formationDate') || ''",
       "parentConcept": "http://www.w3.org/2002/07/owl#Thing",
       "pluralDisplayName": "Organizations",
-      "glyphIconHref": "resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23organization",
+      "glyphIconHref": "resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23organization",
       "color": "rgb(137, 39, 26)",
       "intents": [
         "organization"
       ],
       "properties": [
-        "http://visallo.org/dev#abbreviation",
-        "http://visallo.org/dev#formationDate"
+        "http://openlumify.org/dev#abbreviation",
+        "http://openlumify.org/dev#formationDate"
       ],
       "metadata": {
-        "http://visallo.org#intent": "organization"
+        "http://openlumify.org#intent": "organization"
       }
     },
     {
-      "id": "http://visallo.org/dev#person",
-      "title": "http://visallo.org/dev#person",
+      "id": "http://openlumify.org/dev#person",
+      "title": "http://openlumify.org/dev#person",
       "displayName": "Person",
-      "titleFormula": "(prop('http://visallo.org/dev#name') || '')",
-      "timeFormula": "prop('http://visallo.org/dev#birthDate') || ''",
+      "titleFormula": "(prop('http://openlumify.org/dev#name') || '')",
+      "timeFormula": "prop('http://openlumify.org/dev#birthDate') || ''",
       "parentConcept": "http://www.w3.org/2002/07/owl#Thing",
       "pluralDisplayName": "Persons",
-      "glyphIconHref": "resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23person",
+      "glyphIconHref": "resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23person",
       "color": "rgb(28, 137, 28)",
       "intents": [
         "face",
         "person"
       ],
       "properties": [
-        "http://visallo.org/dev#alias",
-        "http://visallo.org/dev#birthDate",
-        "http://visallo.org/dev#eyecolor",
-        "http://visallo.org/dev#firstName",
-        "http://visallo.org/dev#gender",
-        "http://visallo.org/dev#haircolor",
-        "http://visallo.org/dev#lastName",
-        "http://visallo.org/dev#name",
-        "http://visallo.org/dev#nationality"
+        "http://openlumify.org/dev#alias",
+        "http://openlumify.org/dev#birthDate",
+        "http://openlumify.org/dev#eyecolor",
+        "http://openlumify.org/dev#firstName",
+        "http://openlumify.org/dev#gender",
+        "http://openlumify.org/dev#haircolor",
+        "http://openlumify.org/dev#lastName",
+        "http://openlumify.org/dev#name",
+        "http://openlumify.org/dev#nationality"
       ],
       "metadata": {
-        "http://visallo.org/analystsNotebook/v8.5.1#iconFile": "Person",
-        "http://visallo.org/analystsNotebook/v6#iconFile": "Person",
-        "http://visallo.org#intent": "person",
-        "http://visallo.org/analystsNotebook/v7#iconFile": "Person",
-        "http://visallo.org/analystsNotebook/v8.9#iconFile": "Person"
+        "http://openlumify.org/analystsNotebook/v8.5.1#iconFile": "Person",
+        "http://openlumify.org/analystsNotebook/v6#iconFile": "Person",
+        "http://openlumify.org#intent": "person",
+        "http://openlumify.org/analystsNotebook/v7#iconFile": "Person",
+        "http://openlumify.org/analystsNotebook/v8.9#iconFile": "Person"
       }
     },
     {
-      "id": "http://visallo.org/dev#agent",
-      "title": "http://visallo.org/dev#agent",
+      "id": "http://openlumify.org/dev#agent",
+      "title": "http://openlumify.org/dev#agent",
       "displayName": "Agent",
-      "titleFormula": "var aliasValues = props('http://visallo.org/dev#alias'); return aliasValues.length.toString();" ,
+      "titleFormula": "var aliasValues = props('http://openlumify.org/dev#alias'); return aliasValues.length.toString();" ,
       "properties": [
-        "http://visallo.org/dev#alias"
+        "http://openlumify.org/dev#alias"
       ]
     },
     {
-      "id": "http://visallo.org/dev#phoneCall",
-      "title": "http://visallo.org/dev#phoneCall",
+      "id": "http://openlumify.org/dev#phoneCall",
+      "title": "http://openlumify.org/dev#phoneCall",
       "displayName": "Phone Call",
-      "subtitleFormula": "prop('http://visallo.org/dev#duration') || ''",
-      "parentConcept": "http://visallo.org/dev#event",
+      "subtitleFormula": "prop('http://openlumify.org/dev#duration') || ''",
+      "parentConcept": "http://openlumify.org/dev#event",
       "pluralDisplayName": "Phone Calls",
-      "glyphIconHref": "resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23phoneCall",
+      "glyphIconHref": "resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23phoneCall",
       "color": "rgb(225, 225, 24)",
       "properties": [
-        "http://visallo.org/dev#duration"
+        "http://openlumify.org/dev#duration"
       ]
     },
     {
-      "id": "http://visallo.org/dev#phoneNumber",
-      "title": "http://visallo.org/dev#phoneNumber",
+      "id": "http://openlumify.org/dev#phoneNumber",
+      "title": "http://openlumify.org/dev#phoneNumber",
       "displayName": "Phone Number",
-      "parentConcept": "http://visallo.org/dev#contactInformation",
+      "parentConcept": "http://openlumify.org/dev#contactInformation",
       "pluralDisplayName": "Phone Numbers",
-      "glyphIconHref": "resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23phoneNumber",
+      "glyphIconHref": "resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23phoneNumber",
       "color": "rgb(225, 225, 24)",
       "intents": [
         "phoneNumber"
       ],
       "properties": [],
       "metadata": {
-        "http://visallo.org#intent": "phoneNumber"
+        "http://openlumify.org#intent": "phoneNumber"
       }
     },
     {
-      "id": "http://visallo.org/dev#raw",
-      "title": "http://visallo.org/dev#raw",
+      "id": "http://openlumify.org/dev#raw",
+      "title": "http://openlumify.org/dev#raw",
       "displayName": "Raw",
       "parentConcept": "http://www.w3.org/2002/07/owl#Thing",
       "pluralDisplayName": "Raws",
-      "glyphIconHref": "resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23raw",
+      "glyphIconHref": "resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23raw",
       "color": "rgb(28, 137, 28)",
       "properties": [
-        "http://visallo.org/dev#publishedDate"
+        "http://openlumify.org/dev#publishedDate"
       ]
     },
     {
-      "id": "http://visallo.org/dev#state",
-      "title": "http://visallo.org/dev#state",
+      "id": "http://openlumify.org/dev#state",
+      "title": "http://openlumify.org/dev#state",
       "displayName": "State",
-      "parentConcept": "http://visallo.org/dev#location",
+      "parentConcept": "http://openlumify.org/dev#location",
       "pluralDisplayName": "States",
-      "glyphIconHref": "resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23state",
+      "glyphIconHref": "resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23state",
       "color": "rgb(153, 0, 153)",
       "intents": [
         "state"
       ],
       "properties": [],
       "metadata": {
-        "http://visallo.org#intent": "state"
+        "http://openlumify.org#intent": "state"
       }
     },
     {
-      "id": "http://visallo.org/dev#titleFormulaEntity",
-      "title": "http://visallo.org/dev#titleFormulaEntity",
+      "id": "http://openlumify.org/dev#titleFormulaEntity",
+      "title": "http://openlumify.org/dev#titleFormulaEntity",
       "displayName": "Title Formula Entity",
-      "titleFormula": "(prop('http://visallo.org/dev#titleFormulaEntityPropA') || '') + ', ' + (prop('http://visallo.org/dev#titleFormulaEntityPropB') || '')",
-      "subtitleFormula": "prop('http://visallo.org/dev#titleFormulaEntityPropC') || ''",
-      "timeFormula": "prop('http://visallo.org/dev#titleFormulaEntityPropD') || ''",
+      "titleFormula": "(prop('http://openlumify.org/dev#titleFormulaEntityPropA') || '') + ', ' + (prop('http://openlumify.org/dev#titleFormulaEntityPropB') || '')",
+      "subtitleFormula": "prop('http://openlumify.org/dev#titleFormulaEntityPropC') || ''",
+      "timeFormula": "prop('http://openlumify.org/dev#titleFormulaEntityPropD') || ''",
       "parentConcept": "http://www.w3.org/2002/07/owl#Thing",
       "pluralDisplayName": "Title Formula Entities",
-      "glyphIconHref": "resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23titleFormulaEntity",
+      "glyphIconHref": "resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23titleFormulaEntity",
       "color": "rgb(28, 137, 28)",
       "addRelatedConceptWhiteList": [
-        "http://visallo.org/dev#document"
+        "http://openlumify.org/dev#document"
       ],
       "properties": [
-        "http://visallo.org/dev#boolean",
-        "http://visallo.org/dev#dateAndTime",
-        "http://visallo.org/dev#dateOnly",
-        "http://visallo.org/dev#link",
-        "http://visallo.org/dev#textarea",
-        "http://visallo.org/dev#titleFormulaEntityPropA",
-        "http://visallo.org/dev#titleFormulaEntityPropB",
-        "http://visallo.org/dev#titleFormulaEntityPropC",
-        "http://visallo.org/dev#titleFormulaEntityPropD"
+        "http://openlumify.org/dev#boolean",
+        "http://openlumify.org/dev#dateAndTime",
+        "http://openlumify.org/dev#dateOnly",
+        "http://openlumify.org/dev#link",
+        "http://openlumify.org/dev#textarea",
+        "http://openlumify.org/dev#titleFormulaEntityPropA",
+        "http://openlumify.org/dev#titleFormulaEntityPropB",
+        "http://openlumify.org/dev#titleFormulaEntityPropC",
+        "http://openlumify.org/dev#titleFormulaEntityPropD"
       ]
     },
     {
-      "id": "http://visallo.org/dev#titleFormulaEntityNoSearch",
-      "title": "http://visallo.org/dev#titleFormulaEntityNoSearch",
+      "id": "http://openlumify.org/dev#titleFormulaEntityNoSearch",
+      "title": "http://openlumify.org/dev#titleFormulaEntityNoSearch",
       "displayName": "No Search Title Formula Entity",
-      "parentConcept": "http://visallo.org/dev#titleFormulaEntity",
+      "parentConcept": "http://openlumify.org/dev#titleFormulaEntity",
       "pluralDisplayName": "No Search Title Formula Entities",
       "searchable": false,
-      "glyphIconHref": "resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23titleFormulaEntityNoSearch",
+      "glyphIconHref": "resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23titleFormulaEntityNoSearch",
       "properties": []
     },
     {
-      "id": "http://visallo.org/dev#video",
-      "title": "http://visallo.org/dev#video",
+      "id": "http://openlumify.org/dev#video",
+      "title": "http://openlumify.org/dev#video",
       "displayName": "Video",
       "displayType": "video",
-      "parentConcept": "http://visallo.org/dev#raw",
+      "parentConcept": "http://openlumify.org/dev#raw",
       "pluralDisplayName": "Videos",
       "color": "rgb(149, 138, 218)",
       "intents": [
         "video"
       ],
       "properties": [
-        "http://visallo.org/dev#duration",
-        "http://visallo.org/dev#lastModifyDate",
-        "http://visallo.org/media#dateTaken",
-        "http://visallo.org/media#deviceMake",
-        "http://visallo.org/media#deviceModel",
-        "http://visallo.org/media#fileSize",
-        "http://visallo.org/media#height",
-        "http://visallo.org/media#metadata",
-        "http://visallo.org/media#width"
+        "http://openlumify.org/dev#duration",
+        "http://openlumify.org/dev#lastModifyDate",
+        "http://openlumify.org/media#dateTaken",
+        "http://openlumify.org/media#deviceMake",
+        "http://openlumify.org/media#deviceModel",
+        "http://openlumify.org/media#fileSize",
+        "http://openlumify.org/media#height",
+        "http://openlumify.org/media#metadata",
+        "http://openlumify.org/media#width"
       ],
       "metadata": {
-        "http://visallo.org#intent": "video"
+        "http://openlumify.org#intent": "video"
       }
     },
     {
-      "id": "http://visallo.org/dev#zipCode",
-      "title": "http://visallo.org/dev#zipCode",
+      "id": "http://openlumify.org/dev#zipCode",
+      "title": "http://openlumify.org/dev#zipCode",
       "displayName": "Zip Code",
-      "parentConcept": "http://visallo.org/dev#location",
+      "parentConcept": "http://openlumify.org/dev#location",
       "pluralDisplayName": "Zip Codes",
-      "glyphIconHref": "resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23zipCode",
+      "glyphIconHref": "resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23zipCode",
       "color": "rgb(219, 63, 219)",
       "intents": [
         "zipCode"
       ],
       "properties": [],
       "metadata": {
-        "http://visallo.org#intent": "zipCode"
+        "http://openlumify.org#intent": "zipCode"
       }
     },
     {
-      "id": "http://visallo.org/longRunningProcess#longRunningProcess",
-      "title": "http://visallo.org/longRunningProcess#longRunningProcess",
+      "id": "http://openlumify.org/longRunningProcess#longRunningProcess",
+      "title": "http://openlumify.org/longRunningProcess#longRunningProcess",
       "displayName": "Long Running Process",
       "parentConcept": "http://www.w3.org/2002/07/owl#Thing",
       "pluralDisplayName": "Long Running Processes",
       "userVisible": false,
       "properties": [
-        "http://visallo.org/longRunningProcess#queueItemJson"
+        "http://openlumify.org/longRunningProcess#queueItemJson"
       ]
     },
     {
-      "id": "http://visallo.org/user#user",
-      "title": "http://visallo.org/user#user",
-      "displayName": "http://visallo.org/user#user",
+      "id": "http://openlumify.org/user#user",
+      "title": "http://openlumify.org/user#user",
+      "displayName": "http://openlumify.org/user#user",
       "parentConcept": "http://www.w3.org/2002/07/owl#Thing",
-      "pluralDisplayName": "http://visallo.org/user#users",
+      "pluralDisplayName": "http://openlumify.org/user#users",
       "userVisible": false,
       "properties": [
-        "http://visallo.org/user#authorizations",
-        "http://visallo.org/user#createDate",
-        "http://visallo.org/user#currentLoginDate",
-        "http://visallo.org/user#currentLoginRemoteAddr",
-        "http://visallo.org/user#currentWorkspace",
-        "http://visallo.org/user#displayName",
-        "http://visallo.org/user#emailAddress",
-        "http://visallo.org/user#loginCount",
-        "http://visallo.org/user#passwordHash",
-        "http://visallo.org/user#passwordResetToken",
-        "http://visallo.org/user#passwordResetTokenExpirationDate",
-        "http://visallo.org/user#passwordSalt",
-        "http://visallo.org/user#previousLoginDate",
-        "http://visallo.org/user#previousLoginRemoteAddr",
-        "http://visallo.org/user#privileges",
-        "http://visallo.org/user#status",
-        "http://visallo.org/user#uiPreferences",
-        "http://visallo.org/user#username"
+        "http://openlumify.org/user#authorizations",
+        "http://openlumify.org/user#createDate",
+        "http://openlumify.org/user#currentLoginDate",
+        "http://openlumify.org/user#currentLoginRemoteAddr",
+        "http://openlumify.org/user#currentWorkspace",
+        "http://openlumify.org/user#displayName",
+        "http://openlumify.org/user#emailAddress",
+        "http://openlumify.org/user#loginCount",
+        "http://openlumify.org/user#passwordHash",
+        "http://openlumify.org/user#passwordResetToken",
+        "http://openlumify.org/user#passwordResetTokenExpirationDate",
+        "http://openlumify.org/user#passwordSalt",
+        "http://openlumify.org/user#previousLoginDate",
+        "http://openlumify.org/user#previousLoginRemoteAddr",
+        "http://openlumify.org/user#privileges",
+        "http://openlumify.org/user#status",
+        "http://openlumify.org/user#uiPreferences",
+        "http://openlumify.org/user#username"
       ]
     },
     {
-      "id": "http://visallo.org/workspace#workspace",
-      "title": "http://visallo.org/workspace#workspace",
-      "displayName": "http://visallo.org/workspace#workspace",
+      "id": "http://openlumify.org/workspace#workspace",
+      "title": "http://openlumify.org/workspace#workspace",
+      "displayName": "http://openlumify.org/workspace#workspace",
       "parentConcept": "http://www.w3.org/2002/07/owl#Thing",
-      "pluralDisplayName": "http://visallo.org/workspace#workspaces",
+      "pluralDisplayName": "http://openlumify.org/workspace#workspaces",
       "userVisible": false,
       "properties": [
-        "http://visallo.org/workspace#title"
+        "http://openlumify.org/workspace#title"
       ]
     },
     {
       "id": "http://www.w3.org/2002/07/owl#Thing",
       "title": "http://www.w3.org/2002/07/owl#Thing",
       "displayName": "thing",
-      "titleFormula": "prop('http://visallo.org#title') || ''",
-      "subtitleFormula": "prop('http://visallo.org#source') || ''",
+      "titleFormula": "prop('http://openlumify.org#title') || ''",
+      "subtitleFormula": "prop('http://openlumify.org#source') || ''",
       "timeFormula": "''",
-      "parentConcept": "http://visallo.org#root",
+      "parentConcept": "http://openlumify.org#root",
       "pluralDisplayName": "things",
       "glyphIconHref": "resource?id=http%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23Thing",
       "properties": [
-        "http://visallo.org#audio-mp3",
-        "http://visallo.org#conceptType",
-        "http://visallo.org#confidence",
-        "http://visallo.org#contentHash",
-        "http://visallo.org#createDate",
-        "http://visallo.org#createdBy",
-        "http://visallo.org#dataType",
-        "http://visallo.org#detectedObject",
-        "http://visallo.org#displayName",
-        "http://visallo.org#entityImageUrl",
-        "http://visallo.org#entityImageVertexId",
-        "http://visallo.org#fileName",
-        "http://visallo.org#fileNameExtension",
-        "http://visallo.org#graphPropertyWorkerBlackList",
-        "http://visallo.org#graphPropertyWorkerWhiteList",
-        "http://visallo.org#mappingJson",
-        "http://visallo.org#metadataJson",
-        "http://visallo.org#mimeType",
-        "http://visallo.org#modifiedBy",
-        "http://visallo.org#modifiedDate",
-        "http://visallo.org#ontologyTitle",
-        "http://visallo.org#process",
-        "http://visallo.org#publishedDate",
-        "http://visallo.org#raw",
-        "http://visallo.org#rawPosterFrame",
-        "http://visallo.org#rowKey",
-        "http://visallo.org#source",
-        "http://visallo.org#sourceUrl",
-        "http://visallo.org#text",
-        "http://visallo.org#title",
-        "http://visallo.org#video-mp4",
-        "http://visallo.org#video-webm",
-        "http://visallo.org#videoFrame",
-        "http://visallo.org#videoPreviewImage",
-        "http://visallo.org#visibilityJson",
-        "http://visallo.org#visibilitySource",
-        "http://visallo.org/comment#entry",
-        "http://visallo.org/workspace#access",
-        "http://visallo.org/workspace#creator",
-        "http://visallo.org/workspace#graphPositionX",
-        "http://visallo.org/workspace#graphPositionY",
-        "http://visallo.org/workspace#visible"
+        "http://openlumify.org#audio-mp3",
+        "http://openlumify.org#conceptType",
+        "http://openlumify.org#confidence",
+        "http://openlumify.org#contentHash",
+        "http://openlumify.org#createDate",
+        "http://openlumify.org#createdBy",
+        "http://openlumify.org#dataType",
+        "http://openlumify.org#detectedObject",
+        "http://openlumify.org#displayName",
+        "http://openlumify.org#entityImageUrl",
+        "http://openlumify.org#entityImageVertexId",
+        "http://openlumify.org#fileName",
+        "http://openlumify.org#fileNameExtension",
+        "http://openlumify.org#graphPropertyWorkerBlackList",
+        "http://openlumify.org#graphPropertyWorkerWhiteList",
+        "http://openlumify.org#mappingJson",
+        "http://openlumify.org#metadataJson",
+        "http://openlumify.org#mimeType",
+        "http://openlumify.org#modifiedBy",
+        "http://openlumify.org#modifiedDate",
+        "http://openlumify.org#ontologyTitle",
+        "http://openlumify.org#process",
+        "http://openlumify.org#publishedDate",
+        "http://openlumify.org#raw",
+        "http://openlumify.org#rawPosterFrame",
+        "http://openlumify.org#rowKey",
+        "http://openlumify.org#source",
+        "http://openlumify.org#sourceUrl",
+        "http://openlumify.org#text",
+        "http://openlumify.org#title",
+        "http://openlumify.org#video-mp4",
+        "http://openlumify.org#video-webm",
+        "http://openlumify.org#videoFrame",
+        "http://openlumify.org#videoPreviewImage",
+        "http://openlumify.org#visibilityJson",
+        "http://openlumify.org#visibilitySource",
+        "http://openlumify.org/comment#entry",
+        "http://openlumify.org/workspace#access",
+        "http://openlumify.org/workspace#creator",
+        "http://openlumify.org/workspace#graphPositionX",
+        "http://openlumify.org/workspace#graphPositionY",
+        "http://openlumify.org/workspace#visible"
       ]
     }
   ],
   "properties": [
     {
-      "title": "http://visallo.org#audio-mp3",
+      "title": "http://openlumify.org#audio-mp3",
       "displayName": "Audio MP3",
       "userVisible": false,
       "searchable": true,
       "dataType": "binary"
     },
     {
-      "title": "http://visallo.org#color",
-      "displayName": "http://visallo.org#color",
+      "title": "http://openlumify.org#color",
+      "displayName": "http://openlumify.org#color",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#conceptType",
+      "title": "http://openlumify.org#conceptType",
       "displayName": "Entity Type",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#confidence",
+      "title": "http://openlumify.org#confidence",
       "displayName": "Confidence",
       "userVisible": false,
       "searchable": true,
       "dataType": "double"
     },
     {
-      "title": "http://visallo.org#contentHash",
+      "title": "http://openlumify.org#contentHash",
       "displayName": "Content Hash",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#createDate",
+      "title": "http://openlumify.org#createDate",
       "displayName": "Create Date",
       "userVisible": false,
       "searchable": true,
       "dataType": "date"
     },
     {
-      "title": "http://visallo.org#createdBy",
+      "title": "http://openlumify.org#createdBy",
       "displayName": "Create By",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#dataType",
-      "displayName": "http://visallo.org#dataType",
+      "title": "http://openlumify.org#dataType",
+      "displayName": "http://openlumify.org#dataType",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#detectedObject",
+      "title": "http://openlumify.org#detectedObject",
       "displayName": "Detected Object",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#displayName",
-      "displayName": "http://visallo.org#displayName",
+      "title": "http://openlumify.org#displayName",
+      "displayName": "http://openlumify.org#displayName",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#displayType",
-      "displayName": "http://visallo.org#displayType",
+      "title": "http://openlumify.org#displayType",
+      "displayName": "http://openlumify.org#displayType",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#entityImageUrl",
+      "title": "http://openlumify.org#entityImageUrl",
       "displayName": "Entity Image URL",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#entityImageVertexId",
+      "title": "http://openlumify.org#entityImageVertexId",
       "displayName": "Entity Image Vertex ID",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#fileName",
+      "title": "http://openlumify.org#fileName",
       "displayName": "File Name",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#fileNameExtension",
+      "title": "http://openlumify.org#fileNameExtension",
       "displayName": "File Name Extension",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#glyphIconFileName",
-      "displayName": "http://visallo.org#glyphIconFileName",
+      "title": "http://openlumify.org#glyphIconFileName",
+      "displayName": "http://openlumify.org#glyphIconFileName",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#graphPropertyWorkerBlackList",
+      "title": "http://openlumify.org#graphPropertyWorkerBlackList",
       "displayName": "Graph Property Worker Black List",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#graphPropertyWorkerWhiteList",
+      "title": "http://openlumify.org#graphPropertyWorkerWhiteList",
       "displayName": "Graph Property Worker White List",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#mapGlyphIconFileName",
-      "displayName": "http://visallo.org#mapGlyphIconFileName",
+      "title": "http://openlumify.org#mapGlyphIconFileName",
+      "displayName": "http://openlumify.org#mapGlyphIconFileName",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#mappingJson",
+      "title": "http://openlumify.org#mappingJson",
       "displayName": "Mapping JSON",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#metadataJson",
+      "title": "http://openlumify.org#metadataJson",
       "displayName": "Metadata JSON",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#mimeType",
+      "title": "http://openlumify.org#mimeType",
       "displayName": "Mime Type",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#modifiedBy",
+      "title": "http://openlumify.org#modifiedBy",
       "displayName": "Modified By",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#modifiedDate",
+      "title": "http://openlumify.org#modifiedDate",
       "displayName": "Modified Date",
       "userVisible": false,
       "searchable": true,
       "dataType": "date"
     },
     {
-      "title": "http://visallo.org#ontologyTitle",
-      "displayName": "http://visallo.org#ontologyTitle",
+      "title": "http://openlumify.org#ontologyTitle",
+      "displayName": "http://openlumify.org#ontologyTitle",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#process",
+      "title": "http://openlumify.org#process",
       "displayName": "Process",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#publishedDate",
+      "title": "http://openlumify.org#publishedDate",
       "displayName": "Published Date",
       "userVisible": true,
       "searchable": true,
@@ -699,133 +699,133 @@
       "displayType": "dateOnly"
     },
     {
-      "title": "http://visallo.org#raw",
+      "title": "http://openlumify.org#raw",
       "displayName": "Raw Data",
       "userVisible": false,
       "searchable": true,
       "dataType": "binary"
     },
     {
-      "title": "http://visallo.org#rawPosterFrame",
+      "title": "http://openlumify.org#rawPosterFrame",
       "displayName": "Raw Poster Frame",
       "userVisible": false,
       "searchable": true,
       "dataType": "binary"
     },
     {
-      "title": "http://visallo.org#rowKey",
+      "title": "http://openlumify.org#rowKey",
       "displayName": "Row Key",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#source",
+      "title": "http://openlumify.org#source",
       "displayName": "Source",
       "userVisible": true,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#sourceUrl",
+      "title": "http://openlumify.org#sourceUrl",
       "displayName": "Source URL",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#text",
+      "title": "http://openlumify.org#text",
       "displayName": "Text",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#textIndexHints",
-      "displayName": "http://visallo.org#textIndexHints",
+      "title": "http://openlumify.org#textIndexHints",
+      "displayName": "http://openlumify.org#textIndexHints",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#title",
+      "title": "http://openlumify.org#title",
       "displayName": "Title",
       "userVisible": true,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#titleFormula",
-      "displayName": "http://visallo.org#titleFormula",
+      "title": "http://openlumify.org#titleFormula",
+      "displayName": "http://openlumify.org#titleFormula",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#video-mp4",
+      "title": "http://openlumify.org#video-mp4",
       "displayName": "Video MP4",
       "userVisible": false,
       "searchable": true,
       "dataType": "binary"
     },
     {
-      "title": "http://visallo.org#video-webm",
+      "title": "http://openlumify.org#video-webm",
       "displayName": "Video WebM",
       "userVisible": false,
       "searchable": true,
       "dataType": "binary"
     },
     {
-      "title": "http://visallo.org#videoFrame",
+      "title": "http://openlumify.org#videoFrame",
       "displayName": "Video Frame",
       "userVisible": false,
       "searchable": true,
       "dataType": "binary"
     },
     {
-      "title": "http://visallo.org#videoPreviewImage",
+      "title": "http://openlumify.org#videoPreviewImage",
       "displayName": "Video Preview Image",
       "userVisible": false,
       "searchable": true,
       "dataType": "binary"
     },
     {
-      "title": "http://visallo.org#visibilityJson",
+      "title": "http://openlumify.org#visibilityJson",
       "displayName": "Visibility JSON",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org#visibilitySource",
+      "title": "http://openlumify.org#visibilitySource",
       "displayName": "Visibility Source",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/comment#entry",
+      "title": "http://openlumify.org/comment#entry",
       "displayName": "Comment",
       "userVisible": true,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/dev#abbreviation",
+      "title": "http://openlumify.org/dev#abbreviation",
       "displayName": "Abbreviation",
       "userVisible": true,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/dev#alias",
+      "title": "http://openlumify.org/dev#alias",
       "displayName": "Alias",
       "userVisible": true,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/dev#birthDate",
+      "title": "http://openlumify.org/dev#birthDate",
       "displayName": "Birth Date",
       "userVisible": true,
       "searchable": true,
@@ -833,14 +833,14 @@
       "displayType": "dateOnly"
     },
     {
-      "title": "http://visallo.org/dev#boolean",
+      "title": "http://openlumify.org/dev#boolean",
       "displayName": "Boolean",
       "userVisible": true,
       "searchable": true,
       "dataType": "boolean"
     },
     {
-      "title": "http://visallo.org/dev#date",
+      "title": "http://openlumify.org/dev#date",
       "displayName": "Date",
       "userVisible": true,
       "searchable": true,
@@ -848,14 +848,14 @@
       "displayType": "dateOnly"
     },
     {
-      "title": "http://visallo.org/dev#dateAndTime",
+      "title": "http://openlumify.org/dev#dateAndTime",
       "displayName": "Date and Time",
       "userVisible": true,
       "searchable": true,
       "dataType": "date"
     },
     {
-      "title": "http://visallo.org/dev#dateOnly",
+      "title": "http://openlumify.org/dev#dateOnly",
       "displayName": "Date Only",
       "userVisible": true,
       "searchable": true,
@@ -863,7 +863,7 @@
       "displayType": "dateOnly"
     },
     {
-      "title": "http://visallo.org/dev#duration",
+      "title": "http://openlumify.org/dev#duration",
       "displayName": "Duration",
       "userVisible": true,
       "searchable": true,
@@ -875,7 +875,7 @@
       ]
     },
     {
-      "title": "http://visallo.org/dev#eyecolor",
+      "title": "http://openlumify.org/dev#eyecolor",
       "displayName": "Eye Color",
       "userVisible": true,
       "searchable": true,
@@ -883,14 +883,14 @@
       "propertyGroup": "Physical Characteristics"
     },
     {
-      "title": "http://visallo.org/dev#firstName",
+      "title": "http://openlumify.org/dev#firstName",
       "displayName": "First Name",
       "userVisible": true,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/dev#formationDate",
+      "title": "http://openlumify.org/dev#formationDate",
       "displayName": "Formation Date",
       "userVisible": true,
       "searchable": true,
@@ -898,7 +898,7 @@
       "displayType": "dateOnly"
     },
     {
-      "title": "http://visallo.org/dev#gender",
+      "title": "http://openlumify.org/dev#gender",
       "displayName": "Gender",
       "userVisible": true,
       "searchable": true,
@@ -910,7 +910,7 @@
       }
     },
     {
-      "title": "http://visallo.org/dev#geolocation",
+      "title": "http://openlumify.org/dev#geolocation",
       "displayName": "Geolocation",
       "userVisible": true,
       "searchable": true,
@@ -921,7 +921,7 @@
       ]
     },
     {
-      "title": "http://visallo.org/dev#haircolor",
+      "title": "http://openlumify.org/dev#haircolor",
       "displayName": "Hair Color",
       "userVisible": true,
       "searchable": true,
@@ -929,7 +929,7 @@
       "propertyGroup": "Physical Characteristics"
     },
     {
-      "title": "http://visallo.org/dev#lastModifyDate",
+      "title": "http://openlumify.org/dev#lastModifyDate",
       "displayName": "Last Modify Date",
       "userVisible": true,
       "searchable": true,
@@ -937,14 +937,14 @@
       "displayType": "dateOnly"
     },
     {
-      "title": "http://visallo.org/dev#lastName",
+      "title": "http://openlumify.org/dev#lastName",
       "displayName": "Last Name",
       "userVisible": true,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/dev#link",
+      "title": "http://openlumify.org/dev#link",
       "displayName": "Link",
       "userVisible": true,
       "searchable": true,
@@ -952,20 +952,20 @@
       "displayType": "link"
     },
     {
-      "title": "http://visallo.org/dev#name",
+      "title": "http://openlumify.org/dev#name",
       "displayName": "Name",
       "userVisible": true,
       "searchable": true,
       "dataType": "string",
-      "validationFormula": "dependentProp('http://visallo.org/dev#lastName') && dependentProp('http://visallo.org/dev#firstName')",
-      "displayFormula": "dependentProp('http://visallo.org/dev#lastName') + ', ' + dependentProp('http://visallo.org/dev#firstName')",
+      "validationFormula": "dependentProp('http://openlumify.org/dev#lastName') && dependentProp('http://openlumify.org/dev#firstName')",
+      "displayFormula": "dependentProp('http://openlumify.org/dev#lastName') + ', ' + dependentProp('http://openlumify.org/dev#firstName')",
       "dependentPropertyIris": [
-        "http://visallo.org/dev#lastName",
-        "http://visallo.org/dev#firstName"
+        "http://openlumify.org/dev#lastName",
+        "http://openlumify.org/dev#firstName"
       ]
     },
     {
-      "title": "http://visallo.org/dev#geoLocationAndDate/geolocation",
+      "title": "http://openlumify.org/dev#geoLocationAndDate/geolocation",
       "displayName": "Geolocation",
       "userVisible": true,
       "searchable": true,
@@ -973,7 +973,7 @@
       "dataType": "geoLocation"
     },
     {
-      "title": "http://visallo.org/dev#geoLocationAndDate/date",
+      "title": "http://openlumify.org/dev#geoLocationAndDate/date",
       "displayName": "Date",
       "userVisible": true,
       "searchable": true,
@@ -982,33 +982,33 @@
       "displayType": "dateOnly"
     },
     {
-      "title": "http://visallo.org/dev#geoLocationAndDate",
+      "title": "http://openlumify.org/dev#geoLocationAndDate",
       "displayName": "Geolocation And Date",
       "userVisible": true,
       "searchable": true,
       "addable": true,
       "dataType": "string",
       "dependentPropertyIris": [
-        "http://visallo.org/dev#geoLocationAndDate/date",
-        "http://visallo.org/dev#geoLocationAndDate/geolocation"
+        "http://openlumify.org/dev#geoLocationAndDate/date",
+        "http://openlumify.org/dev#geoLocationAndDate/geolocation"
       ]
     },
     {
-      "title": "http://visallo.org/dev#nationality",
+      "title": "http://openlumify.org/dev#nationality",
       "displayName": "Nationality",
       "userVisible": true,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/dev#netIncome",
+      "title": "http://openlumify.org/dev#netIncome",
       "displayName": "Net Income",
       "userVisible": true,
       "searchable": true,
       "dataType": "currency"
     },
     {
-      "title": "http://visallo.org/dev#publishedDate",
+      "title": "http://openlumify.org/dev#publishedDate",
       "displayName": "Published Date",
       "userVisible": true,
       "searchable": true,
@@ -1016,7 +1016,7 @@
       "displayType": "dateOnly"
     },
     {
-      "title": "http://visallo.org/dev#sentiment",
+      "title": "http://openlumify.org/dev#sentiment",
       "displayName": "Sentiment",
       "userVisible": true,
       "searchable": true,
@@ -1026,7 +1026,7 @@
       ]
     },
     {
-      "title": "http://visallo.org/dev#textarea",
+      "title": "http://openlumify.org/dev#textarea",
       "displayName": "Long Text",
       "userVisible": true,
       "searchable": true,
@@ -1034,28 +1034,28 @@
       "displayType": "textarea"
     },
     {
-      "title": "http://visallo.org/dev#titleFormulaEntityPropA",
+      "title": "http://openlumify.org/dev#titleFormulaEntityPropA",
       "displayName": "PropA",
       "userVisible": true,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/dev#titleFormulaEntityPropB",
+      "title": "http://openlumify.org/dev#titleFormulaEntityPropB",
       "displayName": "PropB",
       "userVisible": true,
       "searchable": false,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/dev#titleFormulaEntityPropC",
+      "title": "http://openlumify.org/dev#titleFormulaEntityPropC",
       "displayName": "PropC",
       "userVisible": true,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/dev#titleFormulaEntityPropD",
+      "title": "http://openlumify.org/dev#titleFormulaEntityPropD",
       "displayName": "PropD",
       "userVisible": true,
       "searchable": true,
@@ -1063,14 +1063,14 @@
       "displayType": "dateOnly"
     },
     {
-      "title": "http://visallo.org/longRunningProcess#queueItemJson",
+      "title": "http://openlumify.org/longRunningProcess#queueItemJson",
       "displayName": "Queue Item JSON",
       "userVisible": false,
       "searchable": false,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/media#clockwiseRotation",
+      "title": "http://openlumify.org/media#clockwiseRotation",
       "displayName": "Clockwise Rotation",
       "userVisible": false,
       "searchable": true,
@@ -1080,7 +1080,7 @@
       ]
     },
     {
-      "title": "http://visallo.org/media#dateTaken",
+      "title": "http://openlumify.org/media#dateTaken",
       "displayName": "Date Taken",
       "userVisible": true,
       "searchable": true,
@@ -1090,7 +1090,7 @@
       ]
     },
     {
-      "title": "http://visallo.org/media#deviceMake",
+      "title": "http://openlumify.org/media#deviceMake",
       "displayName": "Device Make",
       "userVisible": true,
       "searchable": true,
@@ -1100,7 +1100,7 @@
       ]
     },
     {
-      "title": "http://visallo.org/media#deviceModel",
+      "title": "http://openlumify.org/media#deviceModel",
       "displayName": "Device Model",
       "userVisible": true,
       "searchable": true,
@@ -1110,7 +1110,7 @@
       ]
     },
     {
-      "title": "http://visallo.org/media#fileSizeLegacy",
+      "title": "http://openlumify.org/media#fileSizeLegacy",
       "displayName": "File Size",
       "userVisible": true,
       "searchable": true,
@@ -1118,7 +1118,7 @@
       "displayType": "byte"
     },
     {
-      "title": "http://visallo.org/media#fileSize",
+      "title": "http://openlumify.org/media#fileSize",
       "displayName": "File Size",
       "userVisible": true,
       "searchable": true,
@@ -1129,7 +1129,7 @@
       ]
     },
     {
-      "title": "http://visallo.org/media#height",
+      "title": "http://openlumify.org/media#height",
       "displayName": "Height",
       "userVisible": true,
       "searchable": true,
@@ -1139,7 +1139,7 @@
       ]
     },
     {
-      "title": "http://visallo.org/media#imageHeading",
+      "title": "http://openlumify.org/media#imageHeading",
       "displayName": "Image Heading",
       "userVisible": true,
       "searchable": true,
@@ -1150,7 +1150,7 @@
       ]
     },
     {
-      "title": "http://visallo.org/media#metadata",
+      "title": "http://openlumify.org/media#metadata",
       "displayName": "Metadata",
       "userVisible": false,
       "searchable": true,
@@ -1160,7 +1160,7 @@
       ]
     },
     {
-      "title": "http://visallo.org/media#width",
+      "title": "http://openlumify.org/media#width",
       "displayName": "Width",
       "userVisible": true,
       "searchable": true,
@@ -1170,7 +1170,7 @@
       ]
     },
     {
-      "title": "http://visallo.org/media#yAxisFlipped",
+      "title": "http://openlumify.org/media#yAxisFlipped",
       "displayName": "Y Axis Flipped",
       "userVisible": false,
       "searchable": true,
@@ -1180,169 +1180,169 @@
       ]
     },
     {
-      "title": "http://visallo.org/user#authorizations",
-      "displayName": "http://visallo.org/user#authorizations",
+      "title": "http://openlumify.org/user#authorizations",
+      "displayName": "http://openlumify.org/user#authorizations",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/user#createDate",
-      "displayName": "http://visallo.org/user#createDate",
+      "title": "http://openlumify.org/user#createDate",
+      "displayName": "http://openlumify.org/user#createDate",
       "userVisible": false,
       "searchable": true,
       "dataType": "date"
     },
     {
-      "title": "http://visallo.org/user#currentLoginDate",
-      "displayName": "http://visallo.org/user#currentLoginDate",
+      "title": "http://openlumify.org/user#currentLoginDate",
+      "displayName": "http://openlumify.org/user#currentLoginDate",
       "userVisible": false,
       "searchable": true,
       "dataType": "date"
     },
     {
-      "title": "http://visallo.org/user#currentLoginRemoteAddr",
-      "displayName": "http://visallo.org/user#currentLoginRemoteAddr",
+      "title": "http://openlumify.org/user#currentLoginRemoteAddr",
+      "displayName": "http://openlumify.org/user#currentLoginRemoteAddr",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/user#currentWorkspace",
-      "displayName": "http://visallo.org/user#currentWorkspace",
+      "title": "http://openlumify.org/user#currentWorkspace",
+      "displayName": "http://openlumify.org/user#currentWorkspace",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/user#displayName",
-      "displayName": "http://visallo.org/user#displayName",
+      "title": "http://openlumify.org/user#displayName",
+      "displayName": "http://openlumify.org/user#displayName",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/user#emailAddress",
-      "displayName": "http://visallo.org/user#emailAddress",
+      "title": "http://openlumify.org/user#emailAddress",
+      "displayName": "http://openlumify.org/user#emailAddress",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/user#loginCount",
-      "displayName": "http://visallo.org/user#loginCount",
+      "title": "http://openlumify.org/user#loginCount",
+      "displayName": "http://openlumify.org/user#loginCount",
       "userVisible": false,
       "searchable": true,
       "dataType": "double"
     },
     {
-      "title": "http://visallo.org/user#passwordHash",
-      "displayName": "http://visallo.org/user#passwordHash",
+      "title": "http://openlumify.org/user#passwordHash",
+      "displayName": "http://openlumify.org/user#passwordHash",
       "userVisible": false,
       "searchable": true,
       "dataType": "binary"
     },
     {
-      "title": "http://visallo.org/user#passwordResetToken",
-      "displayName": "http://visallo.org/user#passwordResetToken",
+      "title": "http://openlumify.org/user#passwordResetToken",
+      "displayName": "http://openlumify.org/user#passwordResetToken",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/user#passwordResetTokenExpirationDate",
-      "displayName": "http://visallo.org/user#passwordResetTokenExpirationDate",
+      "title": "http://openlumify.org/user#passwordResetTokenExpirationDate",
+      "displayName": "http://openlumify.org/user#passwordResetTokenExpirationDate",
       "userVisible": false,
       "searchable": true,
       "dataType": "date"
     },
     {
-      "title": "http://visallo.org/user#passwordSalt",
-      "displayName": "http://visallo.org/user#passwordSalt",
+      "title": "http://openlumify.org/user#passwordSalt",
+      "displayName": "http://openlumify.org/user#passwordSalt",
       "userVisible": false,
       "searchable": true,
       "dataType": "binary"
     },
     {
-      "title": "http://visallo.org/user#previousLoginDate",
-      "displayName": "http://visallo.org/user#previousLoginDate",
+      "title": "http://openlumify.org/user#previousLoginDate",
+      "displayName": "http://openlumify.org/user#previousLoginDate",
       "userVisible": false,
       "searchable": true,
       "dataType": "date"
     },
     {
-      "title": "http://visallo.org/user#previousLoginRemoteAddr",
-      "displayName": "http://visallo.org/user#previousLoginRemoteAddr",
+      "title": "http://openlumify.org/user#previousLoginRemoteAddr",
+      "displayName": "http://openlumify.org/user#previousLoginRemoteAddr",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/user#privileges",
-      "displayName": "http://visallo.org/user#privileges",
+      "title": "http://openlumify.org/user#privileges",
+      "displayName": "http://openlumify.org/user#privileges",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/user#status",
-      "displayName": "http://visallo.org/user#status",
+      "title": "http://openlumify.org/user#status",
+      "displayName": "http://openlumify.org/user#status",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/user#uiPreferences",
-      "displayName": "http://visallo.org/user#uiPreferences",
+      "title": "http://openlumify.org/user#uiPreferences",
+      "displayName": "http://openlumify.org/user#uiPreferences",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/user#username",
-      "displayName": "http://visallo.org/user#username",
+      "title": "http://openlumify.org/user#username",
+      "displayName": "http://openlumify.org/user#username",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/workspace#access",
-      "displayName": "http://visallo.org/workspace#access",
+      "title": "http://openlumify.org/workspace#access",
+      "displayName": "http://openlumify.org/workspace#access",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/workspace#creator",
-      "displayName": "http://visallo.org/workspace#creator",
+      "title": "http://openlumify.org/workspace#creator",
+      "displayName": "http://openlumify.org/workspace#creator",
       "userVisible": false,
       "searchable": true,
       "dataType": "boolean"
     },
     {
-      "title": "http://visallo.org/workspace#graphPositionX",
-      "displayName": "http://visallo.org/workspace#graphPositionX",
+      "title": "http://openlumify.org/workspace#graphPositionX",
+      "displayName": "http://openlumify.org/workspace#graphPositionX",
       "userVisible": false,
       "searchable": true,
       "dataType": "integer"
     },
     {
-      "title": "http://visallo.org/workspace#graphPositionY",
-      "displayName": "http://visallo.org/workspace#graphPositionY",
+      "title": "http://openlumify.org/workspace#graphPositionY",
+      "displayName": "http://openlumify.org/workspace#graphPositionY",
       "userVisible": false,
       "searchable": true,
       "dataType": "integer"
     },
     {
-      "title": "http://visallo.org/workspace#title",
-      "displayName": "http://visallo.org/workspace#title",
+      "title": "http://openlumify.org/workspace#title",
+      "displayName": "http://openlumify.org/workspace#title",
       "userVisible": false,
       "searchable": true,
       "dataType": "string"
     },
     {
-      "title": "http://visallo.org/workspace#visible",
-      "displayName": "http://visallo.org/workspace#visible",
+      "title": "http://openlumify.org/workspace#visible",
+      "displayName": "http://openlumify.org/workspace#visible",
       "userVisible": false,
       "searchable": true,
       "dataType": "boolean"
@@ -1350,356 +1350,356 @@
   ],
   "relationships": [
     {
-      "title": "http://visallo.org/dev#callConnectedPhone",
+      "title": "http://openlumify.org/dev#callConnectedPhone",
       "displayName": "Call Connected",
       "domainConceptIris": [
-        "http://visallo.org/dev#phoneNumber"
+        "http://openlumify.org/dev#phoneNumber"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#phoneCall"
+        "http://openlumify.org/dev#phoneCall"
       ]
     },
     {
-      "title": "http://visallo.org/dev#entityHasImageRaw",
+      "title": "http://openlumify.org/dev#entityHasImageRaw",
       "displayName": "Has Image",
       "domainConceptIris": [
         "http://www.w3.org/2002/07/owl#Thing"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#image"
+        "http://openlumify.org/dev#image"
       ],
       "intents": [
         "entityHasImage"
       ]
     },
     {
-      "title": "http://visallo.org/dev#eventHappenedInLocation",
+      "title": "http://openlumify.org/dev#eventHappenedInLocation",
       "displayName": "Happened In",
       "domainConceptIris": [
-        "http://visallo.org/dev#event"
+        "http://openlumify.org/dev#event"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#location"
+        "http://openlumify.org/dev#location"
       ]
     },
     {
-      "title": "http://visallo.org/dev#eventPlannedByOrganization",
+      "title": "http://openlumify.org/dev#eventPlannedByOrganization",
       "displayName": "Planned By",
       "domainConceptIris": [
-        "http://visallo.org/dev#event"
+        "http://openlumify.org/dev#event"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#organization"
+        "http://openlumify.org/dev#organization"
       ]
     },
     {
-      "title": "http://visallo.org/dev#hasEmailAddress",
+      "title": "http://openlumify.org/dev#hasEmailAddress",
       "displayName": "Has Email Address",
       "domainConceptIris": [
-        "http://visallo.org/dev#organization",
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#organization",
+        "http://openlumify.org/dev#person"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#emailAddress"
+        "http://openlumify.org/dev#emailAddress"
       ]
     },
     {
-      "title": "http://visallo.org/dev#locationHasLeaderPerson",
+      "title": "http://openlumify.org/dev#locationHasLeaderPerson",
       "displayName": "Has Leader",
       "domainConceptIris": [
-        "http://visallo.org/dev#location"
+        "http://openlumify.org/dev#location"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ]
     },
     {
-      "title": "http://visallo.org/dev#locationIsCaptialOfLocation",
+      "title": "http://openlumify.org/dev#locationIsCaptialOfLocation",
       "displayName": "Is Capital Of",
       "domainConceptIris": [
-        "http://visallo.org/dev#location"
+        "http://openlumify.org/dev#location"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#location"
+        "http://openlumify.org/dev#location"
       ]
     },
     {
-      "title": "http://visallo.org/dev#locationIsInLocation",
+      "title": "http://openlumify.org/dev#locationIsInLocation",
       "displayName": "Is In",
       "domainConceptIris": [
-        "http://visallo.org/dev#location"
+        "http://openlumify.org/dev#location"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#location"
+        "http://openlumify.org/dev#location"
       ]
     },
     {
-      "title": "http://visallo.org/dev#organizationHasKeyLeader",
+      "title": "http://openlumify.org/dev#organizationHasKeyLeader",
       "displayName": "Has Key Leader",
       "domainConceptIris": [
-        "http://visallo.org/dev#organization"
+        "http://openlumify.org/dev#organization"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ]
     },
     {
-      "title": "http://visallo.org/dev#organizationHasOfficeAtLocation",
+      "title": "http://openlumify.org/dev#organizationHasOfficeAtLocation",
       "displayName": "Has Office At",
       "domainConceptIris": [
-        "http://visallo.org/dev#organization"
+        "http://openlumify.org/dev#organization"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#location"
+        "http://openlumify.org/dev#location"
       ]
     },
     {
-      "title": "http://visallo.org/dev#organizationHasPhoneNumber",
+      "title": "http://openlumify.org/dev#organizationHasPhoneNumber",
       "displayName": "Has Phone Number",
       "domainConceptIris": [
-        "http://visallo.org/dev#organization"
+        "http://openlumify.org/dev#organization"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#phoneNumber"
+        "http://openlumify.org/dev#phoneNumber"
       ]
     },
     {
-      "title": "http://visallo.org/dev#organizationHeadquarteredAtLocation",
+      "title": "http://openlumify.org/dev#organizationHeadquarteredAtLocation",
       "displayName": "Headquartered At",
       "domainConceptIris": [
-        "http://visallo.org/dev#organization"
+        "http://openlumify.org/dev#organization"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#location"
+        "http://openlumify.org/dev#location"
       ]
     },
     {
-      "title": "http://visallo.org/dev#personHasChildPerson",
+      "title": "http://openlumify.org/dev#personHasChildPerson",
       "displayName": "Has Child",
       "domainConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ],
       "inverseOfs": [
         {
-          "iri": "http://visallo.org/dev#personHasParentPerson",
-          "primaryIri": "http://visallo.org/dev#personHasChildPerson"
+          "iri": "http://openlumify.org/dev#personHasParentPerson",
+          "primaryIri": "http://openlumify.org/dev#personHasChildPerson"
         }
       ]
     },
     {
-      "title": "http://visallo.org/dev#personHasCitizenshipInCountry",
+      "title": "http://openlumify.org/dev#personHasCitizenshipInCountry",
       "displayName": "Has Citizenship In",
       "domainConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#country"
+        "http://openlumify.org/dev#country"
       ]
     },
     {
-      "title": "http://visallo.org/dev#personHasCoworkerPerson",
+      "title": "http://openlumify.org/dev#personHasCoworkerPerson",
       "displayName": "Has Coworker",
       "domainConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ]
     },
     {
-      "title": "http://visallo.org/dev#personHasFriendPerson",
+      "title": "http://openlumify.org/dev#personHasFriendPerson",
       "displayName": "Has Friend",
       "domainConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ]
     },
     {
-      "title": "http://visallo.org/dev#personHasHomeAddressLocation",
+      "title": "http://openlumify.org/dev#personHasHomeAddressLocation",
       "displayName": "Has Home Address",
       "domainConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#location"
+        "http://openlumify.org/dev#location"
       ]
     },
     {
-      "title": "http://visallo.org/dev#personHasLivedLocation",
+      "title": "http://openlumify.org/dev#personHasLivedLocation",
       "displayName": "Has Lived In",
       "domainConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#location"
+        "http://openlumify.org/dev#location"
       ]
     },
     {
-      "title": "http://visallo.org/dev#personHasParentPerson",
+      "title": "http://openlumify.org/dev#personHasParentPerson",
       "displayName": "Has Parent",
       "domainConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ],
       "inverseOfs": [
         {
-          "iri": "http://visallo.org/dev#personHasChildPerson",
-          "primaryIri": "http://visallo.org/dev#personHasChildPerson"
+          "iri": "http://openlumify.org/dev#personHasChildPerson",
+          "primaryIri": "http://openlumify.org/dev#personHasChildPerson"
         }
       ]
     },
     {
-      "title": "http://visallo.org/dev#personHasPhoneNumber",
+      "title": "http://openlumify.org/dev#personHasPhoneNumber",
       "displayName": "Has Phone Number",
       "domainConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#phoneNumber"
+        "http://openlumify.org/dev#phoneNumber"
       ]
     },
     {
-      "title": "http://visallo.org/dev#personHasSiblingPerson",
+      "title": "http://openlumify.org/dev#personHasSiblingPerson",
       "displayName": "Has Sibling",
       "domainConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ]
     },
     {
-      "title": "http://visallo.org/dev#personHasVisitedLocation",
+      "title": "http://openlumify.org/dev#personHasVisitedLocation",
       "displayName": "Has Visited",
       "domainConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#location"
+        "http://openlumify.org/dev#location"
       ]
     },
     {
-      "title": "http://visallo.org/dev#personIsEmployedByOrganizaton",
+      "title": "http://openlumify.org/dev#personIsEmployedByOrganizaton",
       "displayName": "Is Employed By",
       "domainConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#organization"
+        "http://openlumify.org/dev#organization"
       ]
     },
     {
-      "title": "http://visallo.org/dev#personIsFromLocation",
+      "title": "http://openlumify.org/dev#personIsFromLocation",
       "displayName": "Is From",
       "domainConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#location"
+        "http://openlumify.org/dev#location"
       ]
     },
     {
-      "title": "http://visallo.org/dev#personIsMemberOfOrganization",
+      "title": "http://openlumify.org/dev#personIsMemberOfOrganization",
       "displayName": "Is Member Of",
       "domainConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#organization"
+        "http://openlumify.org/dev#organization"
       ]
     },
     {
-      "title": "http://visallo.org/dev#personKnowsPerson",
+      "title": "http://openlumify.org/dev#personKnowsPerson",
       "displayName": "Knows",
       "domainConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ]
     },
     {
-      "title": "http://visallo.org/dev#personLivesAtLocation",
+      "title": "http://openlumify.org/dev#personLivesAtLocation",
       "displayName": "Lives At",
       "domainConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#location"
+        "http://openlumify.org/dev#location"
       ]
     },
     {
-      "title": "http://visallo.org/dev#personLivesWithPerson",
+      "title": "http://openlumify.org/dev#personLivesWithPerson",
       "displayName": "Lives With",
       "domainConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ]
     },
     {
-      "title": "http://visallo.org/dev#personOwnsLocation",
+      "title": "http://openlumify.org/dev#personOwnsLocation",
       "displayName": "Owns",
       "domainConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#location"
+        "http://openlumify.org/dev#location"
       ]
     },
     {
-      "title": "http://visallo.org/dev#personSupportsOrganization",
+      "title": "http://openlumify.org/dev#personSupportsOrganization",
       "displayName": "Supports",
       "domainConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#organization"
+        "http://openlumify.org/dev#organization"
       ]
     },
     {
-      "title": "http://visallo.org/dev#personWorksAtCompany",
+      "title": "http://openlumify.org/dev#personWorksAtCompany",
       "displayName": "Works At",
       "domainConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#organization"
+        "http://openlumify.org/dev#organization"
       ]
     },
     {
-      "title": "http://visallo.org/dev#phoneCallContainsAudio",
+      "title": "http://openlumify.org/dev#phoneCallContainsAudio",
       "displayName": "Contains Audio",
       "domainConceptIris": [
-        "http://visallo.org/dev#phoneCall"
+        "http://openlumify.org/dev#phoneCall"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#audio"
+        "http://openlumify.org/dev#audio"
       ]
     },
     {
-      "title": "http://visallo.org/dev#phoneMadeCall",
+      "title": "http://openlumify.org/dev#phoneMadeCall",
       "displayName": "Made Call",
       "domainConceptIris": [
-        "http://visallo.org/dev#phoneNumber"
+        "http://openlumify.org/dev#phoneNumber"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#phoneCall"
+        "http://openlumify.org/dev#phoneCall"
       ]
     },
     {
-      "title": "http://visallo.org/dev#rawContainsImageOfEntity",
+      "title": "http://openlumify.org/dev#rawContainsImageOfEntity",
       "displayName": "Contains Image of",
       "domainConceptIris": [
-        "http://visallo.org/dev#raw"
+        "http://openlumify.org/dev#raw"
       ],
       "rangeConceptIris": [
         "http://www.w3.org/2002/07/owl#Thing"
@@ -1710,10 +1710,10 @@
       ]
     },
     {
-      "title": "http://visallo.org/dev#rawHasEntity",
+      "title": "http://openlumify.org/dev#rawHasEntity",
       "displayName": "Has Entity",
       "domainConceptIris": [
-        "http://visallo.org/dev#raw"
+        "http://openlumify.org/dev#raw"
       ],
       "rangeConceptIris": [
         "http://www.w3.org/2002/07/owl#Thing"
@@ -1723,43 +1723,43 @@
       ]
     },
     {
-      "title": "http://visallo.org/dev#rawHasSourceOrganization",
+      "title": "http://openlumify.org/dev#rawHasSourceOrganization",
       "displayName": "Has Author",
       "domainConceptIris": [
-        "http://visallo.org/dev#raw"
+        "http://openlumify.org/dev#raw"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ]
     },
     {
-      "title": "http://visallo.org/dev#rawHasSourcePerson",
+      "title": "http://openlumify.org/dev#rawHasSourcePerson",
       "displayName": "Has Author",
       "domainConceptIris": [
-        "http://visallo.org/dev#raw"
+        "http://openlumify.org/dev#raw"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/dev#person"
+        "http://openlumify.org/dev#person"
       ]
     },
     {
-      "title": "http://visallo.org/longRunningProcess#hasLongRunningProcess",
-      "displayName": "http://visallo.org/longRunningProcess#hasLongRunningProcess",
+      "title": "http://openlumify.org/longRunningProcess#hasLongRunningProcess",
+      "displayName": "http://openlumify.org/longRunningProcess#hasLongRunningProcess",
       "domainConceptIris": [
-        "http://visallo.org/user#user"
+        "http://openlumify.org/user#user"
       ],
       "rangeConceptIris": [
-        "http://visallo.org/longRunningProcess#longRunningProcess"
+        "http://openlumify.org/longRunningProcess#longRunningProcess"
       ]
     },
     {
-      "title": "http://visallo.org/workspace#toEntity",
+      "title": "http://openlumify.org/workspace#toEntity",
       "displayName": "To Entity",
       "domainConceptIris": [],
       "rangeConceptIris": []
     },
     {
-      "title": "http://visallo.org/workspace#toUser",
+      "title": "http://openlumify.org/workspace#toUser",
       "displayName": "To User",
       "domainConceptIris": [],
       "rangeConceptIris": []

@@ -1,5 +1,5 @@
 {
-  "name": "visallo-docs",
+  "name": "openlumify-docs",
   "dependencies": {
     "gitbook-cli": "2.3.0"
   },

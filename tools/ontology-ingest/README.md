@@ -1,18 +1,18 @@
 
 ## Ontology Ingest
 
-These Visallo modules provide code generation and run time supoort for developing easy to use data ingestion code.
+These OpenLumify modules provide code generation and run time supoort for developing easy to use data ingestion code.
 
-:white_check_mark: Before running the code generation tool, you or your organization will need to have developed and configured an [ontology for Visallo](http://docs.visallo.org/getting-started/ontology.html). This ontology specification may be provided to the code generation tool:
+:white_check_mark: Before running the code generation tool, you or your organization will need to have developed and configured an [ontology for OpenLumify](http://docs.openlumify.org/getting-started/ontology.html). This ontology specification may be provided to the code generation tool:
 
-1. from a running instance of Visallo using username/password authentication, or
-1. saved for offline use by using a web browser to login to Visallo
+1. from a running instance of OpenLumify using username/password authentication, or
+1. saved for offline use by using a web browser to login to OpenLumify
    and then saving the JSON response when accessing https://hostname/ontology
 
 
 ### Setup
 
-We recommend that you configure three Maven modules to support running the code generator and developing ingestion code for Visallo:
+We recommend that you configure three Maven modules to support running the code generator and developing ingestion code for OpenLumify:
 
 ##### codegen
 
@@ -20,9 +20,9 @@ The `codegen` module is helpful for using your IDE to run the `ModelCodeGen` com
 
 ```xml
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-tools-ontology-ingest-codegen</artifactId>
-            <version>${visallo.version}</version>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-tools-ontology-ingest-codegen</artifactId>
+            <version>${openlumify.version}</version>
         </dependency>
 ```
 
@@ -32,9 +32,9 @@ The `generated` module will only include the generated source files and will be 
 
 ```xml
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-tools-ontology-ingest-common</artifactId>
-            <version>${visallo.version}</version>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-tools-ontology-ingest-common</artifactId>
+            <version>${openlumify.version}</version>
         </dependency>
 ```
 
@@ -52,16 +52,16 @@ The `ingest` modile will include the source files that you write. It will depend
 
 ### Run `ModelCodeGen`
 
-The `ModelCodeGen` command line tool is used to generate model classes representing the concepts and relationships defined in a Visallo ontology.
+The `ModelCodeGen` command line tool is used to generate model classes representing the concepts and relationships defined in a OpenLumify ontology.
 
-Run `org.visallo.tools.ontology.ingest.codegen.ModelCodeGen` in your IDE using the classpath for the `codegen` Maven module.
+Run `org.openlumify.tools.ontology.ingest.codegen.ModelCodeGen` in your IDE using the classpath for the `codegen` Maven module.
 
-If using a running instance of Visallo provide the following command line arguments:
+If using a running instance of OpenLumify provide the following command line arguments:
 
 ```bash
-        --visalloUrl https://hostname
-        --visalloUsername username
-        --visalloPassword password
+        --openlumifyUrl https://hostname
+        --openlumifyUsername username
+        --openlumifyPassword password
         --outputDirectory /path/to/project/generated/src/main/java
 ```
 
@@ -74,11 +74,11 @@ If using a saved `.json` file provide the following command line arguments:
 
 ### Use
 
-The generated code will have package and class names resembling the Visallo ontolgy concept and relationship IRIs.
+The generated code will have package and class names resembling the OpenLumify ontolgy concept and relationship IRIs.
 
 ```java
         import com.google.inject.Inject;
-        import org.visallo.tools.ontology.ingest.common.IngestRepository;
+        import org.openlumify.tools.ontology.ingest.common.IngestRepository;
         import com.company.project.*;
 
         class Example {
@@ -106,7 +106,7 @@ The generated code will have package and class names resembling the Visallo onto
 
                 // Use the IngestRepository to save the entities and relationships.
                 // The repository will validate that the used entities, relationships, and properties
-                // are compatible with the ontology of the Visallo instance.
+                // are compatible with the ontology of the OpenLumify instance.
                 //
                 ingestRepository.save(dilbert, phb, worksForRelationship);
             }

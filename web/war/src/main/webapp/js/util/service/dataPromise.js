@@ -2,7 +2,7 @@ define(['util/promise', 'jquery'], function() {
     'use strict';
 
     return new Promise(function(fulfill, reject) {
-        if (typeof visalloData !== 'undefined' && visalloData.readyForDataRequests) {
+        if (typeof openlumifyData !== 'undefined' && openlumifyData.readyForDataRequests) {
             fulfill();
         } else {
             $(document).one('readyForDataRequests', function() {

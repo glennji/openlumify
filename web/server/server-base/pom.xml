@@ -3,24 +3,24 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>visallo-web-server-group</artifactId>
-        <groupId>org.visallo</groupId>
+        <artifactId>openlumify-web-server-group</artifactId>
+        <groupId>co.hackstreet</groupId>
         <version>4.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>visallo-web-server-base</artifactId>
-    <name>Visallo: Web: Server: Base</name>
+    <artifactId>openlumify-web-server-base</artifactId>
+    <name>OpenLumify: Web: Server: Base</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-core</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-web</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-web</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

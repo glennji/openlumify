@@ -4,20 +4,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.visallo</groupId>
-        <artifactId>visallo-web-group</artifactId>
+        <groupId>co.hackstreet</groupId>
+        <artifactId>openlumify-web-group</artifactId>
         <version>4.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>visallo-web</artifactId>
+    <artifactId>openlumify-web</artifactId>
     <packaging>jar</packaging>
 
-    <name>Visallo: Web: Base</name>
+    <name>OpenLumify: Web: Base</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-core</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

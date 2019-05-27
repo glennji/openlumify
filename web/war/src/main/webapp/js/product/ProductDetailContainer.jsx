@@ -40,7 +40,7 @@ define([
         (state, props) => {
             const product = productSelectors.getProduct(state);
             const { loading, loaded } = productSelectors.getStatus(state);
-            const extensions = registry.extensionsForPoint('org.visallo.workproduct');
+            const extensions = registry.extensionsForPoint('org.openlumify.workproduct');
             const workspace = state.workspace.currentId ?
                 state.workspace.byId[state.workspace.currentId] : null;
 
@@ -48,10 +48,10 @@ define([
                 const productExtensions = _.where(extensions, { identifier: product.kind });
 
                 if (productExtensions.length === 0) {
-                    throw Error('No org.visallo.workproduct extensions registered for: ' + product.kind)
+                    throw Error('No org.openlumify.workproduct extensions registered for: ' + product.kind)
                 }
                 if (productExtensions.length !== 1) {
-                    throw Error('Multiple org.visallo.workproduct extensions registered for: ' + product.kind)
+                    throw Error('Multiple org.openlumify.workproduct extensions registered for: ' + product.kind)
                 }
                 return {
                     padding: state.panel.padding,

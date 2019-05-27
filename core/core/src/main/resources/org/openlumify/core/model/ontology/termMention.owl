@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://openlumify.org/termMention#"
+     xml:base="http://openlumify.org/termMention"
+     xmlns:openlumify="http://openlumify.org#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://openlumify.org/termMention">
+        <owl:imports rdf:resource="http://openlumify.org"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://openlumify.org/termMention#hasTermMention -->
+
+    <owl:ObjectProperty rdf:about="http://openlumify.org/termMention#hasTermMention">
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://openlumify.org/termMention#termMention"/>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openlumify.org/termMention#resolvedTo -->
+
+    <owl:ObjectProperty rdf:about="http://openlumify.org/termMention#resolvedTo">
+        <rdfs:domain rdf:resource="http://openlumify.org/termMention#termMention"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:ObjectProperty>
+
+    <!-- http://openlumify.org/termMention#resolvedFrom -->
+
+    <owl:ObjectProperty rdf:about="http://openlumify.org/termMention#resolvedFrom">
+        <rdfs:domain rdf:resource="http://openlumify.org/termMention#termMention"/>
+        <rdfs:range rdf:resource="http://openlumify.org/termMention#termMention"/>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:ObjectProperty>
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://openlumify.org/termMention#conceptType -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/termMention#conceptType">
+        <rdfs:domain rdf:resource="http://openlumify.org/termMention#termMention"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/termMention#endOffset -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/termMention#endOffset">
+        <rdfs:domain rdf:resource="http://openlumify.org/termMention#termMention"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/termMention#forElementId -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/termMention#forElementId">
+        <rdfs:domain rdf:resource="http://openlumify.org/termMention#termMention"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/termMention#forType -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/termMention#forType">
+        <rdfs:domain rdf:resource="http://openlumify.org/termMention#termMention"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/termMention#process -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/termMention#process">
+        <rdfs:domain rdf:resource="http://openlumify.org/termMention#termMention"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/termMention#propertyKey -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/termMention#propertyKey">
+        <rdfs:domain rdf:resource="http://openlumify.org/termMention#termMention"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/termMention#propertyName -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/termMention#propertyName">
+        <rdfs:domain rdf:resource="http://openlumify.org/termMention#termMention"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/termMention#resolvedEdgeId -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/termMention#resolvedEdgeId">
+        <rdfs:domain rdf:resource="http://openlumify.org/termMention#termMention"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/termMention#snippet -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/termMention#snippet">
+        <rdfs:domain rdf:resource="http://openlumify.org/termMention#termMention"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/termMention#startOffset -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/termMention#startOffset">
+        <rdfs:domain rdf:resource="http://openlumify.org/termMention#termMention"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/termMention#title -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/termMention#title">
+        <rdfs:domain rdf:resource="http://openlumify.org/termMention#termMention"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/termMention#visibilityJson -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/termMention#visibilityJson">
+        <rdfs:domain rdf:resource="http://openlumify.org/termMention#termMention"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/termMention#ref/propertyKey -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/termMention#ref/propertyKey">
+        <rdfs:domain rdf:resource="http://openlumify.org/termMention#termMention"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/termMention#ref/propertyName -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/termMention#ref/propertyName">
+        <rdfs:domain rdf:resource="http://openlumify.org/termMention#termMention"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/termMention#ref/propertyVisibility -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/termMention#ref/propertyVisibility">
+        <rdfs:domain rdf:resource="http://openlumify.org/termMention#termMention"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://openlumify.org/termMention#termMention -->
+
+    <owl:Class rdf:about="http://openlumify.org/termMention#termMention">
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.6.20160910-2108) https://github.com/owlcs/owlapi -->
+

@@ -3,26 +3,26 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>visallo-web-group</artifactId>
-        <groupId>org.visallo</groupId>
+        <artifactId>openlumify-web-group</artifactId>
+        <groupId>co.hackstreet</groupId>
         <version>4.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>visallo-web-plugin-base</artifactId>
-    <name>Visallo: Web: Plugin Base</name>
+    <artifactId>openlumify-web-plugin-base</artifactId>
+    <name>OpenLumify: Web: Plugin Base</name>
     <packaging>pom</packaging>
 
     <dependencies>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-web</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-web</artifactId>
             <version>${project.parent.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-model-vertexium</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-model-vertexium</artifactId>
             <version>${project.parent.version}</version>
             <scope>provided</scope>
         </dependency>

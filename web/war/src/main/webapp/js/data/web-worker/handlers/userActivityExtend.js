@@ -10,7 +10,7 @@ define(['../util/ajax'], function(ajax) {
     let sending = false;
 
     ajaxFilters.post.push((request, json, options) => {
-        const expiration = request.getResponseHeader('Visallo-Auth-Token-Expiration')
+        const expiration = request.getResponseHeader('OpenLumify-Auth-Token-Expiration')
         if (expiration) {
             nextExpiration = now() + parseInt(expiration, 10);
         }

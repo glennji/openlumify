@@ -44,7 +44,7 @@ define([
         renderSourceInfo(sourceInfo) {
             const { sourceInfoVertex, linkToSource } = this.props;
             const { snippet } = sourceInfo;
-            const title = sourceInfoVertex ? F.vertex.title(sourceInfoVertex) : sourceInfoVertex === null ? i18n('element.entity.not_found') : i18n('visallo.loading');
+            const title = sourceInfoVertex ? F.vertex.title(sourceInfoVertex) : sourceInfoVertex === null ? i18n('element.entity.not_found') : i18n('openlumify.loading');
 
             return (
                 <div className="viewing">

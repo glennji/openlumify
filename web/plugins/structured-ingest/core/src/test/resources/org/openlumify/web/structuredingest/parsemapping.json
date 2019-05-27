@@ -1,0 +1,20 @@
+{
+  "vertices": [
+    {
+      "properties":[
+        { "name": "http://openlumify.org#conceptType", "value": "http://openlumify.org/structured-file-test#person" },
+        { "name":"http://openlumify.org/structured-file-test#name", "key":0 }
+      ]
+    },
+    {
+      "properties":[
+        { "name":"http://openlumify.org#conceptType", "value":"http://openlumify.org/structured-file-test#transaction" },
+        { "name":"http://openlumify.org/structured-file-test#transactionDate", "key":1, "format":"M/d/yyyy", "timezone":"America/New_York" },
+        { "name":"http://openlumify.org/structured-file-test#suspectedFraud", "key":2, "trueValues":["yes"], "falseValues":["no"] }
+      ]
+    }
+  ],
+  "edges":[
+    { "inVertex":0, "outVertex":1, "label":"http://openlumify.org/structured-file-test#personHasTransaction" }
+  ]
+}

@@ -4,8 +4,8 @@ define([
 ], function(registry, ontology) {
     'use strict';
 
-    registry.registerExtension('org.visallo.dashboard.reportrenderer', {
-        identifier: 'org-visallo-element-list',
+    registry.registerExtension('org.openlumify.dashboard.reportrenderer', {
+        identifier: 'org-openlumify-element-list',
         supportsResponse: function(data) {
             return data.type === 'TYPE_ELEMENTS';
         },
@@ -13,8 +13,8 @@ define([
         componentPath: 'dashboard/reportRenderers/element-list'
     });
 
-    registry.registerExtension('org.visallo.dashboard.reportrenderer', {
-        identifier: 'org-visallo-bar-vertical',
+    registry.registerExtension('org.openlumify.dashboard.reportrenderer', {
+        identifier: 'org-openlumify-bar-vertical',
         supportsResponse: function(data) {
             return data.type === 'TYPE_AGGREGATION' &&
                 _.size(data.root) === 1 &&
@@ -27,8 +27,8 @@ define([
         componentPath: 'dashboard/reportRenderers/bar'
     });
 
-    registry.registerExtension('org.visallo.dashboard.reportrenderer', {
-        identifier: 'org-visallo-bar-horizontal',
+    registry.registerExtension('org.openlumify.dashboard.reportrenderer', {
+        identifier: 'org-openlumify-bar-horizontal',
         supportsResponse: function(data) {
             return data.type === 'TYPE_AGGREGATION' &&
                 _.size(data.root) === 1 &&
@@ -42,8 +42,8 @@ define([
         componentPath: 'dashboard/reportRenderers/bar'
     });
 
-    registry.registerExtension('org.visallo.dashboard.reportrenderer', {
-        identifier: 'org-visallo-pie',
+    registry.registerExtension('org.openlumify.dashboard.reportrenderer', {
+        identifier: 'org-openlumify-pie',
         supportsResponse: function(data) {
             return data.type === 'TYPE_AGGREGATION' &&
                 _.size(data.root) === 1 &&
@@ -56,8 +56,8 @@ define([
         componentPath: 'dashboard/reportRenderers/pie'
     });
 
-    registry.registerExtension('org.visallo.dashboard.reportrenderer', {
-        identifier: 'org-visallo-choropleth',
+    registry.registerExtension('org.openlumify.dashboard.reportrenderer', {
+        identifier: 'org-openlumify-choropleth',
         label: i18n('dashboard.renderers.choropleth'),
         supportsResponse: function(data) {
             return data.type === 'TYPE_AGGREGATION' &&
@@ -75,8 +75,8 @@ define([
         componentPath: 'dashboard/reportRenderers/choropleth'
     });
 
-    registry.registerExtension('org.visallo.dashboard.reportrenderer', {
-        identifier: 'org-visallo-text-overview',
+    registry.registerExtension('org.openlumify.dashboard.reportrenderer', {
+        identifier: 'org-openlumify-text-overview',
         configurationPath: 'dashboard/configs/report/text-overview-config',
         supportsResponse: function(data) {
             return data.type === 'TYPE_AGGREGATION' &&
@@ -90,8 +90,8 @@ define([
         componentPath: 'dashboard/reportRenderers/text-overview'
     });
 
-    registry.registerExtension('org.visallo.dashboard.reportrenderer', {
-        identifier: 'org-visallo-geohash',
+    registry.registerExtension('org.openlumify.dashboard.reportrenderer', {
+        identifier: 'org-openlumify-geohash',
         supportsResponse: function(data) {
             return data.type === 'TYPE_AGGREGATION' &&
                 _.size(data.root) === 1 &&

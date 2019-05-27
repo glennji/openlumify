@@ -10,12 +10,13 @@
     <meta name="description" content="{{description}}" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
-    <link href='css/visallo.css' rel='stylesheet' media='all'>
+    <link href='css/openlumify.css' rel='stylesheet' media='all'>
     <noscript id="deferred-styles">
     {{#each pluginCssResources}}<link href='{{contextPath}}/{{.}}' rel='stylesheet' media='screen'>
     {{/each}}
     </noscript>
 
+    <script src='libs/babel-polyfill/dist/polyfill.min.js'></script>
     <script src='libs/babel-polyfill/dist/polyfill.min.js'></script>
     <script src='jsc/require.config.js'></script>
     <script>
@@ -29,16 +30,16 @@
         versionParameter = versionParameter.substring(0, MAX_BUILD_LENGTH)
       }
 
-      require.urlArgs = window.visalloCacheBreaker = "vslo_v=" + versionParameter;
-      window.visalloEnvironment = { dev: {{devMode}}, prod: !{{devMode}} };
-      if (visalloEnvironment.dev) {
+      require.urlArgs = window.openlumifyCacheBreaker = "vslo_v=" + versionParameter;
+      window.openlumifyEnvironment = { dev: {{devMode}}, prod: !{{devMode}} };
+      if (openlumifyEnvironment.dev) {
         removeMinification(
           'react', 'react-dom', 'react-pure-render-mixin',
           'create-react-class', 'react-redux', 'redux',
           'react-transition-group', 'react-proptypes-dev'
         );
       }
-      window.visalloPluginResources = {
+      window.openlumifyPluginResources = {
         beforeAuth: [
         {{#each pluginJsResourcesBeforeAuth}}  '{{contextPath}}{{.}}'{{#unless @last}},{{/unless}}
         {{/each}}],
@@ -75,7 +76,7 @@
       }
     })();
   </script>
-  <script data-main="visallo" src='libs/requirejs/require.js'></script>
+  <script data-main="openlumify" src='libs/requirejs/require.js'></script>
 </head>
 <body>
 {{#if showVersionComments }}
@@ -88,7 +89,7 @@
 <div id='login'></div>
 
 {{! Inline Styles for fast loading of progress immediately after page load }}
-<div id="visallo-loading-static" style="position: absolute; left: 0; right: 0; width: 100%; text-align: center; top: 0; background: white; height: 100%; bottom: 0; pointer-events: none; font-size: 100%; "><h1 style="
+<div id="openlumify-loading-static" style="position: absolute; left: 0; right: 0; width: 100%; text-align: center; top: 0; background: white; height: 100%; bottom: 0; pointer-events: none; font-size: 100%; "><h1 style="
     position: absolute; top: 50%; width: auto;
     -webkit-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);

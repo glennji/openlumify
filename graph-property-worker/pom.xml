@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <parent>
-        <artifactId>visallo</artifactId>
-        <groupId>org.visallo</groupId>
+        <artifactId>openlumify</artifactId>
+        <groupId>co.hackstreet</groupId>
         <version>4.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>visallo-graph-property-worker-group</artifactId>
-    <name>Visallo: GraphPropertyWorker</name>
+    <artifactId>openlumify-graph-property-worker-group</artifactId>
+    <name>OpenLumify: GraphPropertyWorker</name>
 
     <modules>
         <module>plugins</module>

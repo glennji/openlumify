@@ -18,7 +18,7 @@ define([
     'use strict';
 
     var SHOW_CHANGES_TEXT_SECONDS = 3;
-    var COMMENT_ENTRY_IRI = 'http://visallo.org/comment#entry';
+    var COMMENT_ENTRY_IRI = 'http://openlumify.org/comment#entry';
     var DiffPanel;
 
     return defineComponent(Diff, withDataRequest);
@@ -175,8 +175,8 @@ define([
                 output = [];
 
             return Promise.all([
-                visalloData.storePromise,
-                visalloData.selectedObjectsPromise()
+                openlumifyData.storePromise,
+                openlumifyData.selectedObjectsPromise()
             ]).spread(function(store, selectedObjects) {
                 var state = store.getState(),
                     workspaceId = state.workspace.currentId,
@@ -226,7 +226,7 @@ define([
                                     type: 'vertex',
                                     properties: [],
                                     conceptType,
-                                    'http://visallo.org#visibilityJson': diffs[0].visibilityJson
+                                    'http://openlumify.org#visibilityJson': diffs[0].visibilityJson
                                 };
                                 outputItem.title = diffs[0].title;
                             }
@@ -251,7 +251,7 @@ define([
                                     id: elementId,
                                     type: 'edge',
                                     properties: [],
-                                    'http://visallo.org#visibilityJson': diffs[0].visibilityJson
+                                    'http://openlumify.org#visibilityJson': diffs[0].visibilityJson
                                 };
                             }
 
@@ -439,7 +439,7 @@ define([
         };
 
         this.onSelectAll = function(action) {
-            const canPublishOntology = Boolean(visalloData.currentUser.privilegesHelper.ONTOLOGY_PUBLISH);
+            const canPublishOntology = Boolean(openlumifyData.currentUser.privilegesHelper.ONTOLOGY_PUBLISH);
 
             this.resetWarning();
 
@@ -542,7 +542,7 @@ define([
         this.onApplyAll = function(type, publishOntology) {
             const self = this;
             const publishing = type === 'publish';
-            const canPublishOntology = Boolean(visalloData.currentUser.privilegesHelper.ONTOLOGY_PUBLISH);
+            const canPublishOntology = Boolean(openlumifyData.currentUser.privilegesHelper.ONTOLOGY_PUBLISH);
 
             if (publishing && !publishOntology && canPublishOntology) {
                 var ontologyToPublish = this.buildOntologyToPublish();
@@ -623,13 +623,13 @@ define([
         }
 
         this.buildOntologyToPublish = function() {
-            const currentUserId = visalloData.currentUser.id;
+            const currentUserId = openlumifyData.currentUser.id;
             const concepts = {};
             const relationships = {};
             const properties = {};
             const ontologyObjectCreatedByCurrentUser = ontology => {
                 if (ontology.metadata) {
-                    const modifiedBy = ontology.metadata['http://visallo.org#modifiedBy'];
+                    const modifiedBy = ontology.metadata['http://openlumify.org#modifiedBy'];
                     if (modifiedBy === currentUserId) {
                         return true
                     }
@@ -663,7 +663,7 @@ define([
         this.buildDiffsToSend = function(applyType) {
             const self = this;
             const publishing = applyType === 'publishing';
-            const canPublishOntology = Boolean(visalloData.currentUser.privilegesHelper.ONTOLOGY_PUBLISH);
+            const canPublishOntology = Boolean(openlumifyData.currentUser.privilegesHelper.ONTOLOGY_PUBLISH);
             let diffsToSend = [];
 
             this.diffs
@@ -871,7 +871,7 @@ define([
         this.onMarkPublish = function(diffId, state) {
             var self = this,
                 diff = this.diffsById[diffId],
-                canPublishOntology = Boolean(visalloData.currentUser.privilegesHelper.ONTOLOGY_PUBLISH),
+                canPublishOntology = Boolean(openlumifyData.currentUser.privilegesHelper.ONTOLOGY_PUBLISH),
                 vertexDiff;
             state = state === undefined ? !diff.publish : state;
 

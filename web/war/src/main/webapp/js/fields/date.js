@@ -190,9 +190,9 @@ define([
                 }
 
                 this.currentTimezoneMetadata = {
-                    'http://visallo.org#sourceTimezone': this.currentTimezone.name,
-                    'http://visallo.org#sourceTimezoneOffset': this.currentTimezone.offset,
-                    'http://visallo.org#sourceTimezoneOffsetDst': this.currentTimezone.tzOffset
+                    'http://openlumify.org#sourceTimezone': this.currentTimezone.name,
+                    'http://openlumify.org#sourceTimezoneOffset': this.currentTimezone.offset,
+                    'http://openlumify.org#sourceTimezoneOffsetDst': this.currentTimezone.tzOffset
                 };
 
                 this.select('timezoneSelector').replaceWith(
@@ -224,7 +224,7 @@ define([
                 scrollSelector: '.content',
                 timezone: this.currentTimezone.name,
                 sourceTimezone: this.attr.vertexProperty &&
-                    this.attr.vertexProperty['http://visallo.org#sourceTimezone']
+                    this.attr.vertexProperty['http://openlumify.org#sourceTimezone']
             });
         };
     }

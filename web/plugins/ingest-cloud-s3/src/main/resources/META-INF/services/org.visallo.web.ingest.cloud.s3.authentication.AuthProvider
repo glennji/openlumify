@@ -1,2 +1,0 @@
-org.visallo.web.ingest.cloud.s3.authentication.BasicAuthProvider
-org.visallo.web.ingest.cloud.s3.authentication.SessionAuthProvider

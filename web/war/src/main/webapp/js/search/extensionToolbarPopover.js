@@ -27,7 +27,7 @@ define([
                  * Flight component to render in the popover
                  * created when clicking a search toolbar item.
                  *
-                 * @typedef org.visallo.search.toolbar~Component
+                 * @typedef org.openlumify.search.toolbar~Component
                  * @property {object} model
                  * @property {object} model.search Current search object or
                  * null

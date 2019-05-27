@@ -26,13 +26,13 @@ define([
             icons = {
                 activity: 'img/glyphicons/white/glyphicons_023_cogwheels@2x.png',
                 admin: 'img/glyphicons/white/glyphicons_439_wrench@2x.png',
-                dashboard: 'img/visallo-icon@2x.png',
+                dashboard: 'img/openlumify-icon@2x.png',
                 logout: 'img/glyphicons/white/glyphicons_387_log_out@2x.png',
                 products: 'img/glyphicons/white/glyphicons_330_blog@2x.png',
                 search: 'img/glyphicons/white/glyphicons_027_search@2x.png',
                 workspaces: 'img/white_glyphicons_341_briefcase@2x_no_gray.png'
             },
-            menubarExtensions = registry.extensionsForPoint('org.visallo.menubar');
+            menubarExtensions = registry.extensionsForPoint('org.openlumify.menubar');
 
         this.attributes({
             highlightSelector: '*[data-selector]'
@@ -45,7 +45,7 @@ define([
         this.after('initialize', function() {
             this.$node
                 .css('overflow', 'auto')
-                .addClass('org-visallo-welcome')
+                .addClass('org-openlumify-welcome')
                 .html(template({}));
 
             this.on('mouseover', {

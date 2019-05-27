@@ -1,5 +1,5 @@
 /**
- * Base plugin file that defines a visallo ui plugin.
+ * Base plugin file that defines a openlumify ui plugin.
  *
  * The main purpose is to apply less css to only the attachTo node.
  */
@@ -11,9 +11,9 @@ define([
     var NODE_CLS_FOR_LESS_CONTAINMENT = 'less_cls_',
         componentInc = 0;
 
-    return defineVisalloPlugin;
+    return defineOpenLumifyPlugin;
 
-    function defineVisalloPlugin(Component, options) {
+    function defineOpenLumifyPlugin(Component, options) {
 
         console.warn('This component is deprecated as less in the client is deprecated');
 

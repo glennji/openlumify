@@ -6,7 +6,7 @@ define([
 
     return createReactClass({
         render() {
-            const user = visalloData.currentUser;
+            const user = openlumifyData.currentUser;
             const privileges = _.sortBy(user.privileges.map(p => ({
                 name: p,
                 title: i18n(`useraccount.page.access.privileges.${p}`),

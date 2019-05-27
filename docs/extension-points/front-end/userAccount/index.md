@@ -8,13 +8,13 @@ To register a page:
 
 ```js
 require(['public/v1/api'], function(registry) {
-    registry.registerExtension('org.visallo.user.account.page', {
+    registry.registerExtension('org.openlumify.user.account.page', {
         identifier: 'changePassword',
-        pageComponentPath: 'org.visallo.useraccount.changePassword'
+        pageComponentPath: 'org.openlumify.useraccount.changePassword'
     });
 
 
-    define('org.visallo.useraccount.changePassword', [
+    define('org.openlumify.useraccount.changePassword', [
         'flight/lib/component'
     ], function(defineComponent) {
         return defineComponent(ChangePassword);
@@ -46,8 +46,8 @@ To register a boolean setting:
 ```js
 require([
   'public/v1/api',
-], function(visallo) {
-    visallo.registry.registerExtension('org.visallo.user.account.page.setting', {
+], function(openlumify) {
+    openlumify.registry.registerExtension('org.openlumify.user.account.page.setting', {
         identifier: 'my-bool-setting',
         group: 'useraccount.page.settings.setting.group.test',
         displayName: 'org.project.setting.myBoolean',
@@ -62,8 +62,8 @@ To register a custom control setting:
 ```js
 require([
   'public/v1/api'
-], function(visallo) {
-    visallo.registry.registerExtension('org.visallo.user.account.page.setting', {
+], function(openlumify) {
+    openlumify.registry.registerExtension('org.openlumify.user.account.page.setting', {
         identifier: 'my-custom-setting',
         group: 'useraccount.page.settings.setting.group.test',
         displayName: 'org.project.setting.myCustom',

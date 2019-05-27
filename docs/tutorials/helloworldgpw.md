@@ -6,9 +6,9 @@ Ensure that you have gone through the [starting](starting.md) instructions.  The
 
 ## Background
 
-One of the major parts of Visallo is the system of Graph Property Workers that enhance and analyze the data.  Since most organizations are going to have different use-cases and needs for working with the data, we designed the graph property workers to be as pluggable as possible.  For more information on graph property workers, please [read the documentation](../extension-points/back-end/graphpropertyworkers.md) before beginning this tutorial.
+One of the major parts of OpenLumify is the system of Graph Property Workers that enhance and analyze the data.  Since most organizations are going to have different use-cases and needs for working with the data, we designed the graph property workers to be as pluggable as possible.  For more information on graph property workers, please [read the documentation](../extension-points/back-end/graphpropertyworkers.md) before beginning this tutorial.
 
-[After the last section](starting.md), we have created our own project to run Visallo, but haven't customized it.  We will be working in the same directory to add new functionality to that app.
+[After the last section](starting.md), we have created our own project to run OpenLumify, but haven't customized it.  We will be working in the same directory to add new functionality to that app.
 
 ## Graph Property Worker Skeleton
 
@@ -18,16 +18,16 @@ With the web app loaded, (```mvn clean package && ./run.sh``` in the project dir
 
 Stop the server by hitting Ctrl+c where maven was running the project from.
 
-Navigate into the ```./plugins/worker/src/main/java/com/visalloexample/helloworld/worker``` directory and create a new class called `HelloWorldGraphPropertyWorker`.  Make this class extend `GraphPropertyWorker` and create the two required abstract methods `isHandled` and `execute`.  The file should look like the following:
+Navigate into the ```./plugins/worker/src/main/java/com/openlumifyexample/helloworld/worker``` directory and create a new class called `HelloWorldGraphPropertyWorker`.  Make this class extend `GraphPropertyWorker` and create the two required abstract methods `isHandled` and `execute`.  The file should look like the following:
 
 
 ```java
-package com.visalloexample.helloworld.worker;
+package com.openlumifyexample.helloworld.worker;
 
 import org.vertexium.Element;
 import org.vertexium.Property;
-import org.visallo.core.ingest.graphProperty.GraphPropertyWorkData;
-import org.visallo.core.ingest.graphProperty.GraphPropertyWorker;
+import org.openlumify.core.ingest.graphProperty.GraphPropertyWorkData;
+import org.openlumify.core.ingest.graphProperty.GraphPropertyWorker;
 
 import java.io.InputStream;
 
@@ -44,19 +44,19 @@ public class HelloWorldGraphPropertyWorker extends GraphPropertyWorker {
 }
 ```
 
-This is the most barebones that a graph property worker can be.  In order to load it on the classpath, we need to modify the services file in the resources directory for java.  Go into the ```worker/src/main/resources/META-INF/services``` directory and add the `HelloWorldGraphPropertyWorker` line to the file ```org.visallo.core.ingest.graphProperty.GraphPropertyWorker```.  It should now look like this:
+This is the most barebones that a graph property worker can be.  In order to load it on the classpath, we need to modify the services file in the resources directory for java.  Go into the ```worker/src/main/resources/META-INF/services``` directory and add the `HelloWorldGraphPropertyWorker` line to the file ```org.openlumify.core.ingest.graphProperty.GraphPropertyWorker```.  It should now look like this:
 
 ```bash
-com.visalloexample.helloworld.worker.ExampleGraphPropertyWorker
-com.visalloexample.helloworld.worker.HelloWorldGraphPropertyWorker
+com.openlumifyexample.helloworld.worker.ExampleGraphPropertyWorker
+com.openlumifyexample.helloworld.worker.HelloWorldGraphPropertyWorker
 ```
 
 Go back to the root of your project and run ```mvn clean package```, then ```./run.sh``` and wait for the server to come up.  Go back to the admin pane, check the list of plugins, and expand the graph property worker drop down.  You will now see your graph property worker in the list of plugins.  Unfortunately, there isn't a nice name for it or a description, so let us add one.  
 Add the following annotations to the class (look at the example graph property worker for a reference) and import the correct classes.
 
 ```java
-import org.visallo.core.model.Description;
-import org.visallo.core.model.Name;
+import org.openlumify.core.model.Description;
+import org.openlumify.core.model.Name;
 
 @Name("My Hello World Graph Property Worker")
 @Description("Sets the title of every person vertex to Hello World")
@@ -90,7 +90,7 @@ public class HelloWorldGraphPropertyWorker extends GraphPropertyWorker {
 But that isn't all.  We only want to deal with people vertices, not every vertex is going to have a full name property.  To do that, we are going to need put one more boolean statement inside of the isHandled method.
 
 ```java
-"http://example.org/visallo-helloworld#person".equals(VisalloProperties.CONCEPT_TYPE.getPropertyValue(element));
+"http://example.org/openlumify-helloworld#person".equals(OpenLumifyProperties.CONCEPT_TYPE.getPropertyValue(element));
 ```
 
 Your HelloWorldGraphPropertyWorker should now look like this:
@@ -101,7 +101,7 @@ Your HelloWorldGraphPropertyWorker should now look like this:
 public class HelloWorldGraphPropertyWorker extends GraphPropertyWorker {
     @Override
     public boolean isHandled(Element element, Property property) {
-        return element instanceof Vertex && "http://example.org/visallo-helloworld#person".equals(VisalloProperties.CONCEPT_TYPE.getPropertyValue(element));
+        return element instanceof Vertex && "http://example.org/openlumify-helloworld#person".equals(OpenLumifyProperties.CONCEPT_TYPE.getPropertyValue(element));
     }
 
     @Override
@@ -117,36 +117,36 @@ Now we will get only the person vertices in the execute method, but we still are
 Vertex v = (Vertex)graphPropertyWorkData.getElement();
 
 // sets the property on the vertex, using the visibility of the vertex and the authorizations of the graph property worker
-v.setProperty("http://example.org/visallo-helloworld#fullName", "Hello World", v.getVisibility(), getAuthorizations());
+v.setProperty("http://example.org/openlumify-helloworld#fullName", "Hello World", v.getVisibility(), getAuthorizations());
 
 // flush the changes to the graph
 getGraph().flush();
 
 // notify the UI and future workers that there was a change to the data
-getWorkQueueRepository().pushGraphPropertyQueue(v, "", "http://example.org/visallo-helloworld#fullName", Priority.NORMAL);
+getWorkQueueRepository().pushGraphPropertyQueue(v, "", "http://example.org/openlumify-helloworld#fullName", Priority.NORMAL);
 ```
 
 Since we now are changing the properties, we need to make sure that the graph property worker won't change the title to "Hello World" continually.  Add the following boolean condition to the isHandled method
 
 ```java
-!"Hello World".equals(element.getPropertyValue("http://example.org/visallo-helloworld#fullName"))
+!"Hello World".equals(element.getPropertyValue("http://example.org/openlumify-helloworld#fullName"))
 ```
 
 Your HelloWorldGraphPropertyWorker class now looks like:
 
 ```java
-package com.visalloexample.helloworld.worker;
+package com.openlumifyexample.helloworld.worker;
 
 import org.vertexium.Element;
 import org.vertexium.Property;
 import org.vertexium.Vertex;
 
-import org.visallo.core.ingest.graphProperty.GraphPropertyWorkData;
-import org.visallo.core.ingest.graphProperty.GraphPropertyWorker;
-import org.visallo.core.model.Description;
-import org.visallo.core.model.Name;
-import org.visallo.core.model.properties.VisalloProperties;
-import org.visallo.core.model.workQueue.Priority;
+import org.openlumify.core.ingest.graphProperty.GraphPropertyWorkData;
+import org.openlumify.core.ingest.graphProperty.GraphPropertyWorker;
+import org.openlumify.core.model.Description;
+import org.openlumify.core.model.Name;
+import org.openlumify.core.model.properties.OpenLumifyProperties;
+import org.openlumify.core.model.workQueue.Priority;
 
 import java.io.InputStream;
 
@@ -156,16 +156,16 @@ public class HelloWorldGraphPropertyWorker extends GraphPropertyWorker {
     @Override
     public boolean isHandled(Element element, Property property) {
         return element instanceof Vertex &&
-               "http://example.org/visallo-helloworld#person".equals(VisalloProperties.CONCEPT_TYPE.getPropertyValue(element)) &&
-               !"Hello World".equals(element.getPropertyValue("http://example.org/visallo-helloworld#fullName"));
+               "http://example.org/openlumify-helloworld#person".equals(OpenLumifyProperties.CONCEPT_TYPE.getPropertyValue(element)) &&
+               !"Hello World".equals(element.getPropertyValue("http://example.org/openlumify-helloworld#fullName"));
     }
 
     @Override
     public void execute(InputStream inputStream, GraphPropertyWorkData graphPropertyWorkData) throws Exception {
         Vertex v = (Vertex)graphPropertyWorkData.getElement();
-        v.setProperty("http://example.org/visallo-helloworld#fullName", "Hello World", v.getVisibility(), getAuthorizations());
+        v.setProperty("http://example.org/openlumify-helloworld#fullName", "Hello World", v.getVisibility(), getAuthorizations());
         getGraph().flush();
-        getWorkQueueRepository().pushGraphPropertyQueue(v, "", "http://example.org/visallo-helloworld#fullName", Priority.NORMAL);
+        getWorkQueueRepository().pushGraphPropertyQueue(v, "", "http://example.org/openlumify-helloworld#fullName", Priority.NORMAL);
     }
 }
 ```

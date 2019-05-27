@@ -6,13 +6,13 @@ define([
     return defineComponent(DefaultEditor);
 
     /**
-     * @typedef org.visallo.visibility~Editor
+     * @typedef org.openlumify.visibility~Editor
      * @property {string} [value] The visibility source to prepopulate the editor
      * @property {string} [placeholder] The placeholder text to display when no
      * value
      * @property {string} [readonly] Show the form in read-only mode
-     * @listens org.visallo.visibility#visibilityclear
-     * @fires org.visallo.visibility#visibilitychange
+     * @listens org.openlumify.visibility#visibilityclear
+     * @fires org.openlumify.visibility#visibilitychange
      */
     function DefaultEditor() {
 
@@ -40,7 +40,7 @@ define([
 
         /**
          * Reset the form
-         * @event org.visallo.visibility#visibilityclear
+         * @event org.openlumify.visibility#visibilityclear
          */
         this.onClear = function(event, data) {
             this.select('fieldSelector').val('');
@@ -52,7 +52,7 @@ define([
             /**
              * The user has adjusted the visibility so notify
              *
-             * @event org.visallo.visibility#visibilitychange
+             * @event org.openlumify.visibility#visibilitychange
              * @param {object} data
              * @param {string} data.value The new visibility value
              * @param {boolean} data.valid Whether the value is valid
@@ -65,7 +65,7 @@ define([
 
         this.checkValid = function(value) {
             var visibilities = value.replace(/\(|\)/g, '').split(/\&|\|/g);
-            var authorizations = visalloData.currentUser.authorizations;
+            var authorizations = openlumifyData.currentUser.authorizations;
 
             return !value.length || !_.difference(visibilities, authorizations).length;
         };

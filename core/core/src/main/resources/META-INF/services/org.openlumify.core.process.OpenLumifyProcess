@@ -1,0 +1,4 @@
+org.openlumify.core.process.ExternalResourceRunnerProcess
+org.openlumify.core.process.GraphPropertyRunnerProcess
+org.openlumify.core.process.LongRunningProcessRunnerProcess
+org.openlumify.core.process.SystemNotificationProcess

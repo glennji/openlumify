@@ -37,7 +37,7 @@ define([
                 if (decimalPart) {
                     inputPrecision = decimalPart[1].length;
                 }
-                return { 'http://visallo.org#inputPrecision': inputPrecision };
+                return { 'http://openlumify.org#inputPrecision': inputPrecision };
             }
             return null;
         };

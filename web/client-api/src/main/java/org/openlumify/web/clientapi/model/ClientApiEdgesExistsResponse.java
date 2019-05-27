@@ -1,0 +1,19 @@
+package org.openlumify.web.clientapi.model;
+
+import org.openlumify.web.clientapi.util.ClientApiConverter;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ClientApiEdgesExistsResponse implements ClientApiObject {
+    private Map<String, Boolean> exists = new HashMap<String, Boolean>();
+
+    public Map<String, Boolean> getExists() {
+        return exists;
+    }
+
+    @Override
+    public String toString() {
+        return ClientApiConverter.clientApiToString(this);
+    }
+}

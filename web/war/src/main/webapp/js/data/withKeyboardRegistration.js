@@ -13,12 +13,12 @@ define([
 
         this.after('initialize', function() {
             var self = this;
-            this.on('applicationReady currentUserVisalloDataUpdated', function() {
+            this.on('applicationReady currentUserOpenLumifyDataUpdated', function() {
                 this.trigger('registerKeyboardShortcuts', {
                     scope: ['search.help.scope'].map(i18n),
                     shortcuts: {
-                        'alt-t': { fire: 'searchTitle', desc: i18n('visallo.help.search_title') },
-                        'alt-s': { fire: 'searchRelated', desc: i18n('visallo.help.search_related') }
+                        'alt-t': { fire: 'searchTitle', desc: i18n('openlumify.help.search_title') },
+                        'alt-s': { fire: 'searchRelated', desc: i18n('openlumify.help.search_related') }
                     }
                 });
             });

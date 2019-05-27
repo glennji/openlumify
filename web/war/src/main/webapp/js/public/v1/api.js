@@ -1,11 +1,11 @@
 /**
- * Plugins should `require` this module for access to Visallo components and
+ * Plugins should `require` this module for access to OpenLumify components and
  * helpers.
  *
  * @module public/v1/api
- * @classdesc Visallo Top-Level API
+ * @classdesc OpenLumify Top-Level API
  * @example
- * require(['public/v1/api'], function(visalloApi) {
+ * require(['public/v1/api'], function(openlumifyApi) {
  *     // ...
  * })
  */
@@ -101,7 +101,7 @@ define([
             withDataRequest) {
 
             /**
-             * Visallo Second-Level API
+             * OpenLumify Second-Level API
              *
              * @alias module:public/v1/api.connected
              * @namespace

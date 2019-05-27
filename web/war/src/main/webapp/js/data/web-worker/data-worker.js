@@ -52,7 +52,7 @@ function setupComplete() {
 }
 
 function setupAll(data) {
-    self.visalloEnvironment = data.environment;
+    self.openlumifyEnvironment = data.environment;
     setupConsole();
     setupWebsocket(data);
     var resolveStore;
@@ -162,7 +162,7 @@ function setupRequireJs(data, callback) {
     require.baseUrl = BASE_URL + '/jsc/';
     require.urlArgs = data.cacheBreaker;
     importScripts(BASE_URL + '/libs/requirejs/require.js?' + data.cacheBreaker);
-    if (visalloEnvironment.prod) {
+    if (openlumifyEnvironment.prod) {
         require.load = asyncRequireJSLoader
     }
 
@@ -201,12 +201,12 @@ function documentExtensionPoints() {
          * @param {function} handler The function to invoke when messages
          * arrive. Accepts one parameter: `data`
          */
-        registry.documentExtensionPoint('org.visallo.websocket.message',
+        registry.documentExtensionPoint('org.openlumify.websocket.message',
             'Add custom websocket message handlers',
             function(e) {
                 return ('name' in e) && _.isFunction(e.handler)
             },
-            'http://docs.visallo.org/extension-points/front-end/websocket'
+            'http://docs.openlumify.org/extension-points/front-end/websocket'
         );
     })
 }
@@ -276,7 +276,7 @@ function ajaxPrefilter(xmlHttpRequest, method, url, parameters) {
     function setWorkspaceHeader() {
         var hasWorkspaceParam = typeof (parameters && parameters.workspaceId) !== 'undefined';
         if (publicData.currentWorkspaceId && !hasWorkspaceParam) {
-            xmlHttpRequest.setRequestHeader('Visallo-Workspace-Id', publicData.currentWorkspaceId);
+            xmlHttpRequest.setRequestHeader('OpenLumify-Workspace-Id', publicData.currentWorkspaceId);
         }
     }
     function setCsrfHeader() {
@@ -285,7 +285,7 @@ function ajaxPrefilter(xmlHttpRequest, method, url, parameters) {
             token = user && user.csrfToken;
 
         if (eligibleForProtection && token) {
-            xmlHttpRequest.setRequestHeader('Visallo-CSRF-Token', token);
+            xmlHttpRequest.setRequestHeader('OpenLumify-CSRF-Token', token);
         }
     }
     function setSourceGuidHeader() {
@@ -293,7 +293,7 @@ function ajaxPrefilter(xmlHttpRequest, method, url, parameters) {
             guid = publicData.socketSourceGuid;
 
         if (isUpdate && guid) {
-            xmlHttpRequest.setRequestHeader('Visallo-Source-Guid', guid);
+            xmlHttpRequest.setRequestHeader('OpenLumify-Source-Guid', guid);
         }
     }
     function setGraphTracing() {

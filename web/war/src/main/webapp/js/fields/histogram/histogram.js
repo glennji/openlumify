@@ -77,7 +77,7 @@ define([
         });
 
         this.watchForProductChanges = function() {
-            visalloData.storePromise.then(store => {
+            openlumifyData.storePromise.then(store => {
                 this.subscription = store.observe(productSelectors.getProduct, (newProduct) => {
                     if (newProduct) {
                         this.renderChart().then(() => this.updateBarSelection(this.currentSelected));

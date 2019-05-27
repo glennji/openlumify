@@ -33,7 +33,7 @@ define([
     'use strict';
 
     /**
-     * @typedef org.visallo.dashboard.item~filter
+     * @typedef org.openlumify.dashboard.item~filter
      * @property {string} propertyName Iri of property name to filter.
      * @property {string} predicate Type of filter operation `has`, `hasNot`, `equal`, `contains`, `range`, `<`, `>`
      * @property {Array.<object>} [values] The values for the property length of `2` when range filter, usually `1`
@@ -48,7 +48,7 @@ define([
      *
      * `statistics` Statistics for property: [`min`, `max`, `count`, `average`, `sum`](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics-stats-aggregation.html).
      *
-     * @typedef org.visallo.dashboard.item~aggregation
+     * @typedef org.openlumify.dashboard.item~aggregation
      * @property {string} type Type of aggregation: `term`, `geohash`, `histogram`
      * @property {string} name Name the aggregation that's returned with results. Useful when more than one aggregation is used.
      * @property {string} field Property name iri to aggregate.
@@ -60,12 +60,12 @@ define([
      * * `edge/search`: Only return edges.
      * * `element/search`: Search both vertices and edges.
      *
-     * @typedef org.visallo.dashboard.item~reportParametersForSearch
+     * @typedef org.openlumify.dashboard.item~reportParametersForSearch
      * @property {string} q Search query, or asterisk.
      * @property {number} [size] Number of results to limit to, use `0` if using aggregations.
      * @property {number} [offset] Index of results to start.
-     * @property {string} filter JSON array of {@link org.visallo.dashboard.item~filter} objects to `AND`.
-     * @property {Array.<string>} [aggregations] List of {@link org.visallo.dashboard.item~aggregation} to apply, each item is json string.
+     * @property {string} filter JSON array of {@link org.openlumify.dashboard.item~filter} objects to `AND`.
+     * @property {Array.<string>} [aggregations] List of {@link org.openlumify.dashboard.item~aggregation} to apply, each item is json string.
      * The aggregations should be converted from objects to strings. See example.
      * @example
      * {
@@ -76,7 +76,7 @@ define([
      *         {
      *             type: 'term',
      *             name: 'field',
-     *             field: 'http://visallo.org#conceptType'
+     *             field: 'http://openlumify.org#conceptType'
      *         }
      *     ].map(JSON.stringify) // Convert each item to strings
      * }
@@ -85,11 +85,11 @@ define([
 
     /**
      * Allow custom content to be rendered in a card on dashboards.
-     * They can be included in defaults dashboards using the {@link org.visallo.dashboard.layout}
+     * They can be included in defaults dashboards using the {@link org.openlumify.dashboard.layout}
      * extension, or added manually by users using the "Add Item" button
      * when editing dashboards.
      *
-     * The bundled items are defined in [registerDefaultItems.js](https://github.com/visallo/visallo/blob/master/web/war/src/main/webapp/js/dashboard/registerDefaultItems.js) for examples.
+     * The bundled items are defined in [registerDefaultItems.js](https://github.com/openlumify/openlumify/blob/master/web/war/src/main/webapp/js/dashboard/registerDefaultItems.js) for examples.
      *
      * Either `componentPath` or `report` is required.
      *
@@ -97,7 +97,7 @@ define([
      *
      * Instead of specifying a component to render, specify a report
      * template that requests data from the server and passes the results
-     * to a {@link org.visallo.dashboard.reportRenderer} that can handle that data. The most common
+     * to a {@link org.openlumify.dashboard.reportRenderer} that can handle that data. The most common
      * report uses search with aggregations configured.
      *
      * An item can be a report if either:
@@ -107,18 +107,18 @@ define([
      * @param {string} identifier Unique identifier for this type of dashboard item. Only used internally, not exposed to user.
      * @param {string} title The title shown in "Add Item" list
      * @param {string} description Shown under the `title` in "Add Item" list
-     * @param {object} [report] Use Visallo reportRenderers to render a search aggregation
+     * @param {object} [report] Use OpenLumify reportRenderers to render a search aggregation
      * @param {string} [report.defaultRenderer] The identifier of a report renderer to use as default when adding this item.
-     * @param {string} report.endpoint The endpoint path to access the data. See [`Router`](https://github.com/visallo/visallo/blob/master/web/web-base/src/main/java/org/visallo/web/Router.java) for all available endpoints.
+     * @param {string} report.endpoint The endpoint path to access the data. See [`Router`](https://github.com/openlumify/openlumify/blob/master/web/web-base/src/main/java/org/openlumify/web/Router.java) for all available endpoints.
      * @param {object} [report.endpointParameters] Parameters to pass to endpoint.
-     * Parameters when using search: {@link org.visallo.dashboard.item~reportParametersForSearch}
+     * Parameters when using search: {@link org.openlumify.dashboard.item~reportParametersForSearch}
      * @param {object} [report.mapping] Custom configuration for mapping results
      * @param {string} [report.mapping.transformerModulePath] RequireJS path to function that can transform the endpoint results to something a
      * reportRenderer can handle. Only necessary if aggregations or search aren't used.
      * @param {string} [report.clickHandlerModulePath] RequireJS path to a function that handles click events. Called with arguments: `target`, `object.`
-     * @param {string} [componentPath] The path to the {@link org.visallo.dashboard.item~Component|Component}
+     * @param {string} [componentPath] The path to the {@link org.openlumify.dashboard.item~Component|Component}
      * to render when the user selects this item from the list.
-     * @param {string} [configurationPath] The path to the {@link org.visallo.dashboard.item~ConfigComponent|ConfigComponent}.
+     * @param {string} [configurationPath] The path to the {@link org.openlumify.dashboard.item~ConfigComponent|ConfigComponent}.
      * Provides custom interface displayed in the configuration popover,
      * when the user clicks the gear icon in the items toolbar.
      * @param {object} [grid] Default sizing of item in grid
@@ -129,12 +129,12 @@ define([
      * @param {boolean} [options.preventDefaultConfig=false] Set to `true` to disable the system adding a title configuration form.
      *
      * @example <caption>Report of Entity Type Counts</caption>
-     * registry.registerExtension('org.visallo.dashboard.item', {
+     * registry.registerExtension('org.openlumify.dashboard.item', {
      *     title: 'Entity Type Counts',
      *     description: 'Show total counts for entity types',
      *     identifier: 'org-example-concept-counts',
      *     report: {
-     *         defaultRenderer: 'org-visallo-pie',
+     *         defaultRenderer: 'org-openlumify-pie',
      *         endpoint: '/vertex/search',
      *         endpointParameters: {
      *             q: '*',
@@ -144,14 +144,14 @@ define([
      *                 {
      *                     type: 'term',
      *                     name: 'field',
-     *                     field: 'http://visallo.org#conceptType'
+     *                     field: 'http://openlumify.org#conceptType'
      *                 }
      *             ].map(JSON.stringify)
      *         }
      *     }
      * });
      */
-    registry.documentExtensionPoint('org.visallo.dashboard.item',
+    registry.documentExtensionPoint('org.openlumify.dashboard.item',
         'Add items that can be placed on dashboards',
         function(e) {
             return _.isString(e.identifier) &&
@@ -160,8 +160,8 @@ define([
                 e.description;
         },
         {
-            url: 'http://docs.visallo.org/extension-points/front-end/dashboard/item.html',
-            legacyName: 'org.visallo.web.dashboard.item'
+            url: 'http://docs.openlumify.org/extension-points/front-end/dashboard/item.html',
+            legacyName: 'org.openlumify.web.dashboard.item'
         }
     );
 
@@ -169,7 +169,7 @@ define([
      * Adds additional output types for dashboard items that define a `report` or `item.configuration.report`.
      *
      * There are several built-in renderers defined in
-     * [`reportRenderers.js`](https://github.com/visallo/visallo/blob/master/web/war/src/main/webapp/js/dashboard/reportRenderers.js).
+     * [`reportRenderers.js`](https://github.com/openlumify/openlumify/blob/master/web/war/src/main/webapp/js/dashboard/reportRenderers.js).
      *
      * ## withReportRenderer Mixin
      *
@@ -184,7 +184,7 @@ define([
      * @param {string} identifier Unique identifier for this type of renderer. Can be referenced by dashboard report item using `defaultRenderer: [id]` in report configuration.
      * @param {string} label Shown in the configuration interface (see tutorial) in _Visualization_ section.
      * @param {function} supportsResponse Return `true` if this renderer can handle the `data` argument passed to it.
-     * @param {string} componentPath RequireJS path to {@link org.visallo.dashboard.item~Component} component.
+     * @param {string} componentPath RequireJS path to {@link org.openlumify.dashboard.item~Component} component.
      * @param {string} [configurationPath] RequireJS path to extra configuration.
      * @example <caption>Using Mixin</caption>
      * define(['public/v1/api', 'dashboard/reportRenderers/withRenderer'], function(defineComponent, withReportRenderer) {
@@ -194,7 +194,7 @@ define([
      *     }
      * })
      */
-    registry.documentExtensionPoint('org.visallo.dashboard.reportrenderer',
+    registry.documentExtensionPoint('org.openlumify.dashboard.reportrenderer',
         'Define custom report renderers for dashboard',
         function(e) {
             return _.isFunction(e.supportsResponse) &&
@@ -204,8 +204,8 @@ define([
                 e.componentPath;
         },
         {
-            url: 'http://docs.visallo.org/extension-points/front-end/dashboard/report.html',
-            legacyName: 'org.visallo.web.dashboard.reportrenderer'
+            url: 'http://docs.openlumify.org/extension-points/front-end/dashboard/report.html',
+            legacyName: 'org.openlumify.web.dashboard.reportrenderer'
         }
     );
 
@@ -214,25 +214,25 @@ define([
      * the default dashboard items and their layout. The user is able to modify it upon its creation.
      *
      * Only one extension should be registered or an error will log to console.
-     * The default layout is defined in [`defaultLayout.js`](https://github.com/visallo/visallo/blob/master/web/war/src/main/webapp/js/dashboard/defaultLayout.js).
+     * The default layout is defined in [`defaultLayout.js`](https://github.com/openlumify/openlumify/blob/master/web/war/src/main/webapp/js/dashboard/defaultLayout.js).
      *
      * @param {Array} config Array of dashboard item configurations
      * @example
-     * registry.registerExtension('org.visallo.dashboard.layout', [
+     * registry.registerExtension('org.openlumify.dashboard.layout', [
      *     {
      *         extensionId: 'org-example-card-default',
      *         configuration: { metrics: { x: 0, y: 0, width: 6, height: 5 } }
      *     }
      * ])
      */
-    registry.documentExtensionPoint('org.visallo.dashboard.layout',
+    registry.documentExtensionPoint('org.openlumify.dashboard.layout',
         'Define dashboard layout for new cases',
         function(e) {
             return _.isArray(e);
         },
         {
-            url: 'http://docs.visallo.org/extension-points/front-end/dashboard/layout.html',
-            legacyName: 'org.visallo.web.dashboard.layout'
+            url: 'http://docs.openlumify.org/extension-points/front-end/dashboard/layout.html',
+            legacyName: 'org.openlumify.web.dashboard.layout'
         }
     );
 
@@ -247,13 +247,13 @@ define([
      * @param {string} action.type Must be either `popover`, or `event`
      * @param {string} action.type Must be either `popover`, or `event`
      * @param {string} [action.componentPath] Required when `type=popover`.
-     * Path to {@link org.visallo.dashboard.toolbar.item~Component|Component} to render in popover
+     * Path to {@link org.openlumify.dashboard.toolbar.item~Component|Component} to render in popover
      * @param {string} [action.name] Required when `type=event`. Event to trigger
      * @param {string} [tooltip] Help text to display when user hovers over button
-     * @param {org.visallo.dashboard.toolbar.item~canHandle} [canHandle] Function to decide
+     * @param {org.openlumify.dashboard.toolbar.item~canHandle} [canHandle] Function to decide
      * if this item should be added to this card
      */
-    registry.documentExtensionPoint('org.visallo.dashboard.toolbar.item',
+    registry.documentExtensionPoint('org.openlumify.dashboard.toolbar.item',
         'Define toolbar items for dashboard cards',
         function(e) {
             return e.identifier && e.icon && e.action && (
@@ -261,7 +261,7 @@ define([
                 e.action.type === 'event'
             );
         },
-        'http://docs.visallo.org/extension-points/front-end/dashboard/toolbar.html'
+        'http://docs.openlumify.org/extension-points/front-end/dashboard/toolbar.html'
     );
 
     var reportRenderers,
@@ -298,10 +298,10 @@ define([
         this.after('initialize', function() {
             var self = this;
 
-            reportRenderers = registry.extensionsForPoint('org.visallo.dashboard.reportrenderer');
-            extensions = registry.extensionsForPoint('org.visallo.dashboard.item');
-            layouts = registry.extensionsForPoint('org.visallo.dashboard.layout');
-            toolbarExtensions = registry.extensionsForPoint('org.visallo.dashboard.toolbar.item');
+            reportRenderers = registry.extensionsForPoint('org.openlumify.dashboard.reportrenderer');
+            extensions = registry.extensionsForPoint('org.openlumify.dashboard.item');
+            layouts = registry.extensionsForPoint('org.openlumify.dashboard.layout');
+            toolbarExtensions = registry.extensionsForPoint('org.openlumify.dashboard.toolbar.item');
             toolbarExtensionsById = _.indexBy(toolbarExtensions, 'identifier');
             extensionsById = _.indexBy(extensions, 'identifier');
 
@@ -399,7 +399,7 @@ define([
              *
              * Consider using `_.throttle` or `_.debounce` to limit the cost of many reflow events from user resizing.
              *
-             * @event org.visallo.dashboard.item#reflow
+             * @event org.openlumify.dashboard.item#reflow
              */
             this.$node.find('.item-content').trigger('reflow')
         };
@@ -418,7 +418,7 @@ define([
                  * The dashboard includes a refresh button in the top left.
                  * When activited, needs to notify cards to update content if necessary.
                  *
-                 * @event org.visallo.dashboard.item#refreshData
+                 * @event org.openlumify.dashboard.item#refreshData
                  */
                 $gridItem.find('.item-content').trigger('refreshData');
             });
@@ -464,7 +464,7 @@ define([
 
         this.onWorkspaceLoaded = function(event, workspace) {
             this.currentWorkspaceId = workspace.workspaceId;
-            this.isCreator = workspace.createdBy === visalloData.currentUser.id;
+            this.isCreator = workspace.createdBy === openlumifyData.currentUser.id;
             this.loadDashboards(workspace);
         };
 
@@ -874,7 +874,7 @@ define([
                      * For Flight, `trigger` an event with the name of the
                      * function instead of invoking directly.
                      *
-                     * @typedef org.visallo.dashboard.item~Component
+                     * @typedef org.openlumify.dashboard.item~Component
                      * @property {object} extension
                      * @property {object} item
                      * @property {object} [reportConfiguration]
@@ -882,9 +882,9 @@ define([
                      * @property {function} showError Render a generic error instead of this component
                      * @property {function} finishedLoading Notify that content is ready (removes loading spinner)
                      * @property {function} configureItem Open the configuration popover for this card
-                     * @property {org.visallo.dashboard.item~configurationChanged} configurationChanged Change the configuration
-                     * @listens org.visallo.dashboard.item#reflow
-                     * @listens org.visallo.dashboard.item#refreshData
+                     * @property {org.openlumify.dashboard.item~configurationChanged} configurationChanged Change the configuration
+                     * @listens org.openlumify.dashboard.item#reflow
+                     * @listens org.openlumify.dashboard.item#refreshData
                      * @example <caption>React Notify Finished</caption>
                      * componentDidMount() {
                      *     this.props.finishedLoading();
@@ -927,7 +927,7 @@ define([
                             configureItem: self.onConfigureItem.bind(self),
 
                             /**
-                             * @callback org.visallo.dashboard.item~configurationChanged
+                             * @callback org.openlumify.dashboard.item~configurationChanged
                              * @param {object} data
                              * @param {object} data.item
                              * @param {object} data.extension
@@ -1041,7 +1041,7 @@ define([
             var validExtensions = _.reject(toolbarExtensions, function(e) {
 
                     /**
-                     * @callback org.visallo.dashboard.toolbar.item~canHandle
+                     * @callback org.openlumify.dashboard.toolbar.item~canHandle
                      * @param {object} options
                      * @param {object} options.item The dashboard item
                      * @param {object} options.extension The dashboard item extension
@@ -1083,7 +1083,7 @@ define([
 
                     if (layouts.length) {
                         if (layouts.length > 1) {
-                            console.warn(layouts.length + ' org.visallo.dashboard.layout extensions were found.'
+                            console.warn(layouts.length + ' org.openlumify.dashboard.layout extensions were found.'
                             + ' Only the first one will be used.');
                         }
                         return self.requestDashboards(layouts[0]);

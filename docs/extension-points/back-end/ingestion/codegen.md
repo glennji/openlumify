@@ -1,25 +1,25 @@
 # Code Generation 
 
-Visallo has a module that will interact with your Visallo instance to generate code that will let you write customized code to ingest your data. By using the generated code, you can use any software that runs on the JVM to import data into Visallo.
+OpenLumify has a module that will interact with your OpenLumify instance to generate code that will let you write customized code to ingest your data. By using the generated code, you can use any software that runs on the JVM to import data into OpenLumify.
 
 ## Using the code generator
 
-It is typical to use the code generator inside of your IDE while developing in the Visallo project. The class `org.visallo.tools.ontology.ingest.codegen.ModelCodeGen` exposes a main method that you can use to interact with the ontology. There are two ways to use it:
+It is typical to use the code generator inside of your IDE while developing in the OpenLumify project. The class `org.openlumify.tools.ontology.ingest.codegen.ModelCodeGen` exposes a main method that you can use to interact with the ontology. There are two ways to use it:
 
-* Connect to a running Visallo instance and get the ontology from there
+* Connect to a running OpenLumify instance and get the ontology from there
 * Have an ontology in json format and use it to run the code generator
 
-Run the `org.visallo.tools.ontology.ingest.codegen.ModelCodeGen` class with no arguments in order to see what command line parameters there are. For both, you will need to specify an output directory using the command line argument -o *<outputDirectory>* but, depending on which steps you take to get the ontology, you may require more parameters.
+Run the `org.openlumify.tools.ontology.ingest.codegen.ModelCodeGen` class with no arguments in order to see what command line parameters there are. For both, you will need to specify an output directory using the command line argument -o *<outputDirectory>* but, depending on which steps you take to get the ontology, you may require more parameters.
 
 ### Connect to the Webserver
 
 To connect to the webserver you will also need to have the command line parameters 
 
-* -url *visallo url*
+* -url *openlumify url*
 * -u *username*
 * -p *password*
 
-and you will possibly need `*--includeVisalloClasses*` if your ontology has a url that starts with `http://visallo.org` since those are filtered out by default. If your ontology does not and you do not need to interact with Visallo's built-in ontology, you can skip that command line parameter.
+and you will possibly need `*--includeOpenLumifyClasses*` if your ontology has a url that starts with `http://openlumify.org` since those are filtered out by default. If your ontology does not and you do not need to interact with OpenLumify's built-in ontology, you can skip that command line parameter.
 
 For example, in intellij, your run configuration may look something like the following and will automatically generate the ontology java code in the directory that you specify:
 
@@ -29,7 +29,7 @@ Once run, the code will then be generated into the directory that you have speci
 
 ### Have an ontology json file
 
-While it is possible for you to specify a file that can be used in place of calling Visallo in order to get the ontology, there is no current native way to do it. You will have to have saved the result from the REST call into a file that you can keep using to generate code. The benefit of this approach is that you can develop with the ontology offline from having the app running, but it won't automatically be updated if there is an ontology change inside of Visallo. Therefore, while possible this way is not recommended and you should query a running instance of the app every time.
+While it is possible for you to specify a file that can be used in place of calling OpenLumify in order to get the ontology, there is no current native way to do it. You will have to have saved the result from the REST call into a file that you can keep using to generate code. The benefit of this approach is that you can develop with the ontology offline from having the app running, but it won't automatically be updated if there is an ontology change inside of OpenLumify. Therefore, while possible this way is not recommended and you should query a running instance of the app every time.
 
 ## Working with the generated code
 
@@ -38,15 +38,15 @@ While it is possible for you to specify a file that can be used in place of call
 Once you have generated the code you can start using it in order to start ingesting your data. For example, using the sample ontology we can write the following code snippet in order to ingest a phone number entity into the system:
 
 ```java
-package org.visallo;
+package org.openlumify;
 
-import org.visallo.core.cmdline.CommandLineTool;
-import org.visallo.sample.PhoneNumber;
-import org.visallo.tools.ontology.ingest.common.IngestRepository;
+import org.openlumify.core.cmdline.CommandLineTool;
+import org.openlumify.sample.PhoneNumber;
+import org.openlumify.tools.ontology.ingest.common.IngestRepository;
 
 import javax.inject.Inject;
 
-// we are using the CommandLineTool that Visallo provides to easily inject the IngestRepository
+// we are using the CommandLineTool that OpenLumify provides to easily inject the IngestRepository
 public class SampleIngest extends CommandLineTool {
     private IngestRepository ingestRepository;
 
@@ -75,7 +75,7 @@ public class SampleIngest extends CommandLineTool {
 
 ```
 
-If you are writing java code to ingest data, you will need to ensure that you have the visallo-tools-<span class="no-glossary">ontology</span>-ingest jar on your classpath in order to get the implementation of the IngestRepository. After running the code snippet, you will have a single phone number in the system. 
+If you are writing java code to ingest data, you will need to ensure that you have the openlumify-tools-<span class="no-glossary">ontology</span>-ingest jar on your classpath in order to get the implementation of the IngestRepository. After running the code snippet, you will have a single phone number in the system. 
 
 The advantages of using Java to ingest things into the system is that it can make more complicated decisions about what to put in the system in real time.
 

@@ -11,7 +11,7 @@ define([], function() {
         V = {
             url: function(vertices, workspaceId) {
                 if (!workspaceId) {
-                    workspaceId = visalloData.currentWorkspaceId;
+                    workspaceId = openlumifyData.currentWorkspaceId;
                 }
                 return window.location.href.replace(/#.*$/, '') +
                     '#v=' + _.map(vertices, function(v) {

@@ -22,7 +22,7 @@ Object.defineProperty(global, 'i18n', {
     writable: false
 });
 
-global.visalloEnvironment = { dev: false, prod: true };
+global.openlumifyEnvironment = { dev: false, prod: true };
 
 requirejs(['/base/jsc/require.config.js'], function(cfg) {
 
@@ -96,7 +96,7 @@ requirejs(['/base/jsc/require.config.js'], function(cfg) {
                 }
             });
 
-            global.publicData = global.visalloData = {
+            global.publicData = global.openlumifyData = {
                 currentWorkspaceId: 'w1',
                 currentUser: {
                     authorizations: ['a','b']
@@ -154,7 +154,7 @@ requirejs(['/base/jsc/require.config.js'], function(cfg) {
 
                 // Run tests after loading
                 if (tests.length) {
-                    visalloData.storePromise.then(function(s) {
+                    openlumifyData.storePromise.then(function(s) {
                         return Promise.all(
                             tests.map(function(t) {
                                 return new Promise(f => {

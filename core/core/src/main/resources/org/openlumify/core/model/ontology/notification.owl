@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://openlumify.org/ping#"
+     xml:base="http://openlumify.org/ping"
+     xmlns:openlumify="http://openlumify.org#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://openlumify.org/notification">
+        <owl:imports rdf:resource="http://openlumify.org/user"/>
+        <owl:imports rdf:resource="http://openlumify.org"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://openlumify.org/notification#actionEvent -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/notification#actionEvent">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:extendedDataTableDomain>http://openlumify.org/notification#systemNotificationsTable</openlumify:extendedDataTableDomain>
+        <openlumify:extendedDataTableDomain>http://openlumify.org/notification#userNotificationsTable</openlumify:extendedDataTableDomain>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+        <rdfs:label xml:lang="en">Notification Action Event</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/notification#actionPayload -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/notification#actionPayload">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:extendedDataTableDomain>http://openlumify.org/notification#systemNotificationsTable</openlumify:extendedDataTableDomain>
+        <openlumify:extendedDataTableDomain>http://openlumify.org/notification#userNotificationsTable</openlumify:extendedDataTableDomain>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+        <rdfs:label xml:lang="en">Notification Action Payload</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/notification#endDate -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/notification#endDate">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <openlumify:extendedDataTableDomain>http://openlumify.org/notification#systemNotificationsTable</openlumify:extendedDataTableDomain>
+        <openlumify:userVisible>false</openlumify:userVisible>
+        <rdfs:label xml:lang="en">Notification End Date</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/notification#expirationDate -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/notification#expirationDate">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <openlumify:extendedDataTableDomain>http://openlumify.org/notification#userNotificationsTable</openlumify:extendedDataTableDomain>
+        <openlumify:userVisible>false</openlumify:userVisible>
+        <rdfs:label xml:lang="en">Notification Expiration Date</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <!-- http://openlumify.org/notification#expirationAge -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/notification#expirationAge">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:extendedDataTableDomain>http://openlumify.org/notification#userNotificationsTable</openlumify:extendedDataTableDomain>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+        <rdfs:label xml:lang="en">Notification Expiration Age</rdfs:label>
+    </owl:DatatypeProperty>
+
+
+    <!-- http://openlumify.org/notification#markedRead -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/notification#markedRead">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <openlumify:extendedDataTableDomain>http://openlumify.org/notification#userNotificationsTable</openlumify:extendedDataTableDomain>
+        <openlumify:userVisible>false</openlumify:userVisible>
+        <rdfs:label xml:lang="en">Notification Marked Read</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/notification#message -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/notification#message">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:extendedDataTableDomain>http://openlumify.org/notification#systemNotificationsTable</openlumify:extendedDataTableDomain>
+        <openlumify:extendedDataTableDomain>http://openlumify.org/notification#userNotificationsTable</openlumify:extendedDataTableDomain>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+        <rdfs:label xml:lang="en">Notification Message</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/notification#notified -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/notification#notified">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <openlumify:extendedDataTableDomain>http://openlumify.org/notification#userNotificationsTable</openlumify:extendedDataTableDomain>
+        <openlumify:userVisible>false</openlumify:userVisible>
+        <rdfs:label xml:lang="en">Notification Notified</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/notification#sentDate -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/notification#sentDate">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <openlumify:extendedDataTableDomain>http://openlumify.org/notification#userNotificationsTable</openlumify:extendedDataTableDomain>
+        <openlumify:userVisible>false</openlumify:userVisible>
+        <rdfs:label xml:lang="en">Notification Sent Date</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/notification#severity -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/notification#severity">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:extendedDataTableDomain>http://openlumify.org/notification#systemNotificationsTable</openlumify:extendedDataTableDomain>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+        <rdfs:label xml:lang="en">Notification Severity</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/notification#startDate -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/notification#startDate">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <openlumify:extendedDataTableDomain>http://openlumify.org/notification#systemNotificationsTable</openlumify:extendedDataTableDomain>
+        <openlumify:userVisible>false</openlumify:userVisible>
+        <rdfs:label xml:lang="en">Notification Start Date</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/notification#systemNotificationsTable -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/notification#systemNotificationsTable">
+        <rdfs:domain rdf:resource="http://openlumify.org/user#user"/>
+        <rdfs:range rdf:resource="http://openlumify.org#extendedDataTable"/>
+        <openlumify:userVisible>false</openlumify:userVisible>
+        <rdfs:label xml:lang="en">System Notifications Table</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/notification#title -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/notification#title">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:extendedDataTableDomain>http://openlumify.org/notification#systemNotificationsTable</openlumify:extendedDataTableDomain>
+        <openlumify:extendedDataTableDomain>http://openlumify.org/notification#userNotificationsTable</openlumify:extendedDataTableDomain>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+        <rdfs:label xml:lang="en">Notification Title</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/notification#userNotificationsTable -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/notification#userNotificationsTable">
+        <rdfs:domain rdf:resource="http://openlumify.org/user#user"/>
+        <rdfs:range rdf:resource="http://openlumify.org#extendedDataTable"/>
+        <openlumify:userVisible>false</openlumify:userVisible>
+        <rdfs:label xml:lang="en">User Notifications Table</rdfs:label>
+    </owl:DatatypeProperty>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.6.20160910-2108) https://github.com/owlcs/owlapi -->
+

@@ -41,12 +41,12 @@ define([
         config['detail.text.popover.maxSelectionParagraphs'] ?
         parseInt(config['detail.text.popover.maxSelectionParagraphs'], 10) : 5;
     const TEXT_PROPERTIES = [
-        'http://visallo.org#videoTranscript',
-        'http://visallo.org#text'
+        'http://openlumify.org#videoTranscript',
+        'http://openlumify.org#text'
     ];
     const PREVIEW_SELECTORS = {
         audio: 'div .audio-preview',
-        video: '.org-visallo-video'
+        video: '.org-openlumify-video'
     };
 
     const hasValidOffsets = data => {
@@ -66,11 +66,11 @@ define([
      * win.
      *
      * @param {string} componentPath The component to render instead of the text
-     * @param {org.visallo.detail.text~shouldReplaceTextSectionForVertex} shouldReplaceTextSectionForVertex Whether the component should be rendered instead of the default
+     * @param {org.openlumify.detail.text~shouldReplaceTextSectionForVertex} shouldReplaceTextSectionForVertex Whether the component should be rendered instead of the default
      */
-    registry.documentExtensionPoint('org.visallo.detail.text', 'Replace Extracted Text with custom component', function(e) {
+    registry.documentExtensionPoint('org.openlumify.detail.text', 'Replace Extracted Text with custom component', function(e) {
         return _.isFunction(e.shouldReplaceTextSectionForVertex) && _.isString(e.componentPath);
-    }, 'http://docs.visallo.org/extension-points/front-end/detailText')
+    }, 'http://docs.openlumify.org/extension-points/front-end/detailText')
 
     return defineComponent(
         Text,
@@ -81,7 +81,7 @@ define([
     );
 
     function descriptionProperty(p) {
-        var textDescription = 'http://visallo.org#textDescription';
+        var textDescription = 'http://openlumify.org#textDescription';
         return p[textDescription] || p.metadata[textDescription] || p.key || p.name;
     }
 
@@ -103,7 +103,7 @@ define([
             resolvedSelector: '.resolved',
             textSelector: '.text',
             avLinkSelector: '.av-link',
-            detailSectionContainerSelector: '.org-visallo-layout-body',
+            detailSectionContainerSelector: '.org-openlumify-layout-body',
             model: null
         });
 
@@ -363,7 +363,7 @@ define([
                                             this.append('strong');
                                             this.append('button').attr('class', 'info');
                                         });
-                                    this.append('div').attr('class', 'text visallo-allow-dblclick-selection');
+                                    this.append('div').attr('class', 'text openlumify-allow-dblclick-selection');
                                 });
 
                             this.order();
@@ -452,9 +452,9 @@ define([
                 this.openTextRequest = null;
             }
 
-            var extensions = _.filter(registry.extensionsForPoint('org.visallo.detail.text'), function(e) {
+            var extensions = _.filter(registry.extensionsForPoint('org.openlumify.detail.text'), function(e) {
                     /**
-                     * @callback org.visallo.detail.text~shouldReplaceTextSectionForVertex
+                     * @callback org.openlumify.detail.text~shouldReplaceTextSectionForVertex
                      * @param {object} model The vertex/edge
                      * @param {string} propertyName
                      * @param {string} propertyKey
@@ -471,7 +471,7 @@ define([
                 textPromise = Promise.require('util/component/attacher')
                     .then(function(Attacher) {
                         /**
-                         * @typedef org.visallo.detail.text~Component
+                         * @typedef org.openlumify.detail.text~Component
                          * @property {object} model The vertex/edge
                          * @property {string} propertyName
                          * @property {string} propertyKey
@@ -1029,8 +1029,8 @@ define([
                     $detailBody.find(PREVIEW_SELECTORS.audio).parent() :
                     $detailBody.find(PREVIEW_SELECTORS.video);
             }
-            var $scrollParent = visalloData.isFullscreen ? $('html, body') : $detailBody,
-                scrollTop = visalloData.isFullscreen ? this.$mediaNode.offset().top : this.$mediaNode.position().top;
+            var $scrollParent = openlumifyData.isFullscreen ? $('html, body') : $detailBody,
+                scrollTop = openlumifyData.isFullscreen ? this.$mediaNode.offset().top : this.$mediaNode.position().top;
 
             $scrollParent.animate({
                 scrollTop: scrollTop

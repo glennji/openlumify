@@ -1,7 +1,7 @@
 # Graph Edge Class
 
-* [Graph Edge Class JavaScript API `org.visallo.graph.edge.class`](../../../javascript/org.visallo.graph.edge.class.html)
-* [Graph Edge Class Example Code](https://github.com/visallo/doc-examples/tree/master/extension-graph-edge-class)
+* [Graph Edge Class JavaScript API `org.openlumify.graph.edge.class`](../../../javascript/org.openlumify.graph.edge.class.html)
+* [Graph Edge Class Example Code](https://github.com/openlumify/doc-examples/tree/master/extension-graph-edge-class)
 
 Function that can change [Cytoscape](http://js.cytoscape.org/) classes of edges. Useful for customizing the style of edges on the graph.
 
@@ -15,14 +15,14 @@ Function that can change [Cytoscape](http://js.cytoscape.org/) classes of edges.
 
 Register a plugin file to register the extensions.
 
-{% github_embed "https://github.com/visallo/doc-examples/blob/238a4ac/extension-graph-edge-class/src/main/java/org/visallo/examples/graph_edge_class/GraphEdgeClassWebAppPlugin.java#L17" %}{% endgithub_embed %}
+{% github_embed "https://github.com/openlumify/doc-examples/blob/238a4ac/extension-graph-edge-class/src/main/java/org/openlumify/examples/graph_edge_class/GraphEdgeClassWebAppPlugin.java#L17" %}{% endgithub_embed %}
 
 ### Register Extension
 
 Register the class extension that checks if any of the edges (they are by default bundled together by type) has a comment. If any of them do, add a class.
 
-{% github_embed "https://github.com/visallo/doc-examples/blob/238a4ac/extension-graph-edge-class/src/main/resources/org/visallo/examples/graph_edge_class/plugin.js#L3-L11" %}{% endgithub_embed %}
+{% github_embed "https://github.com/openlumify/doc-examples/blob/238a4ac/extension-graph-edge-class/src/main/resources/org/openlumify/examples/graph_edge_class/plugin.js#L3-L11" %}{% endgithub_embed %}
 
 Register a style extension to test.
 
-{% github_embed "https://github.com/visallo/doc-examples/blob/238a4ac/extension-graph-edge-class/src/main/resources/org/visallo/examples/graph_edge_class/plugin.js#L13-L21" %}{% endgithub_embed %}
+{% github_embed "https://github.com/openlumify/doc-examples/blob/238a4ac/extension-graph-edge-class/src/main/resources/org/openlumify/examples/graph_edge_class/plugin.js#L13-L21" %}{% endgithub_embed %}

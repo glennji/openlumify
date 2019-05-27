@@ -2,7 +2,7 @@ define(['reselect'], function(reselect) {
     const { createSelector } = reselect;
 
     const THING = 'http://www.w3.org/2002/07/owl#Thing';
-    const ROOT = 'http://visallo.org#root';
+    const ROOT = 'http://openlumify.org#root';
     const EDGE_THING = 'http://www.w3.org/2002/07/owl#topObjectProperty';
 
     const _visible = (item, options = {}) => {

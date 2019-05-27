@@ -9,18 +9,18 @@
         <relativePath></relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.visallo</groupId>
-    <artifactId>visallo-root</artifactId>
+    <groupId>co.hackstreet</groupId>
+    <artifactId>openlumify-root</artifactId>
     <packaging>pom</packaging>
-    <name>Visallo: Root</name>
+    <name>OpenLumify: Root</name>
     <version>4.1-SNAPSHOT</version>
 
-    <inceptionYear>2013</inceptionYear>
+    <inceptionYear>2019</inceptionYear>
     <organization>
-        <name>Visallo, LLC</name>
-        <url>https://visallo.com</url>
+        <name>OpenLumify</name>
+        <url>https://openlumify.org</url>
     </organization>
-    <url>https://github.com/visallo/visallo</url>
+    <url>https://github.com/glennji/openlumify</url>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -30,13 +30,13 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/visallo/visallo</url>
-        <connection>scm:git:git://github.com:visallo/visallo.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:visallo/visallo.git</developerConnection>
+        <url>https://github.com/openlumify/openlumify</url>
+        <connection>scm:git:git://github.com:openlumify/openlumify.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:openlumify/openlumify.git</developerConnection>
     </scm>
 
     <properties>
-        <v5.visallo.version>4.1-SNAPSHOT</v5.visallo.version>
+        <v5.openlumify.version>4.1-SNAPSHOT</v5.openlumify.version>
 
         <!-- General -->
         <classpath.filename>${project.build.directory}/.classpath.${user.name}</classpath.filename>
@@ -817,17 +817,17 @@
 
     <profiles>
         <profile>
-            <id>visallo-release</id>
+            <id>openlumify-release</id>
             <distributionManagement>
                 <repository>
                     <id>enterprise-plugins</id>
                     <name>enterprise-plugins</name>
-                    <url>${visallo.nexus.enterprise-plugins}</url>
+                    <url>${openlumify.nexus.enterprise-plugins}</url>
                 </repository>
                 <snapshotRepository>
                     <id>enterprise-plugins-snapshots</id>
                     <name>enterprise-plugins-snapshots</name>
-                    <url>${visallo.nexus.enterprise-plugins-snapshots}</url>
+                    <url>${openlumify.nexus.enterprise-plugins-snapshots}</url>
                 </snapshotRepository>
             </distributionManagement>
         </profile>

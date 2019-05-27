@@ -1,7 +1,7 @@
 {
-  "name": "visallo",
+  "name": "openlumify",
   "description": "open source big data integration, analytics, and visualization",
-  "repository": "git://github.com/visallo/visallo",
+  "repository": "git://github.com/openlumify/openlumify",
   "dependencies": {
     "@visallo/bootstrap": "2.3.2",
     "@visallo/jscache-lru": "1.0.0",
@@ -115,6 +115,6 @@
     "test": "node ./node_modules/karma/bin/karma start --single-run",
     "deps": "node ./node_modules/grunt-cli/bin/grunt deps"
   },
-  "author": "Visallo, LLC",
+  "author": "OpenLumify, LLC",
   "license": "Apache-2.0"
 }

@@ -14,7 +14,7 @@ define([
         const moduleId = '/base/jsc/data/web-worker/store/middleware/undo';
         requirejs.undef(moduleId);
         if (extensionConfig) {
-            registry.registerExtension('org.visallo.store', extensionConfig);
+            registry.registerExtension('org.openlumify.store', extensionConfig);
         }
         return Promise.require(moduleId)
             .then(undo => {

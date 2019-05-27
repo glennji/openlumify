@@ -2,12 +2,12 @@ define(['util/promise', 'jquery'], function() {
     'use strict';
 
     return new Promise(function(f) {
-        if ('visalloData' in window && visalloData.currentUser) {
+        if ('openlumifyData' in window && openlumifyData.currentUser) {
             return f();
         }
 
         $(document)
-            .on('currentUserVisalloDataUpdated', function() {
+            .on('currentUserOpenLumifyDataUpdated', function() {
                 f();
             })
     })

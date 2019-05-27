@@ -151,16 +151,16 @@ define(['util/promise', './cancel'], function(Promise, cancelPreviousByHash) {
                 if (debugOptions) {
                     console.warn('Request Debugging is set for ' + url)
                     if (debugOptions.error) {
-                        r.setRequestHeader('Visallo-Request-Error', debugOptions.error);
+                        r.setRequestHeader('OpenLumify-Request-Error', debugOptions.error);
                     }
                     if (debugOptions.errorJson) {
                         if (!debugOptions.errorJson.invalidValues) {
                             debugOptions.errorJson.invalidValues = [];
                         }
-                        r.setRequestHeader('Visallo-Request-Error-Json', JSON.stringify(debugOptions.errorJson));
+                        r.setRequestHeader('OpenLumify-Request-Error-Json', JSON.stringify(debugOptions.errorJson));
                     }
                     if (debugOptions.delay) {
-                        r.setRequestHeader('Visallo-Request-Delay-Millis', debugOptions.delay);
+                        r.setRequestHeader('OpenLumify-Request-Delay-Millis', debugOptions.delay);
                     }
                 }
 

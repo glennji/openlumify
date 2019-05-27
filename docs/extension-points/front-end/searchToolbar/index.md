@@ -7,7 +7,7 @@ Search toolbar items display below the search query input field. They have acces
 ### Example
 
 ```js
-    registry.registerExtension('org.visallo.search.toolbar', {
+    registry.registerExtension('org.openlumify.search.toolbar', {
         tooltip: 'My Search Toolbar Item',
         icon: 'myIcon.png',
         canHandle: function(currentSearch) {

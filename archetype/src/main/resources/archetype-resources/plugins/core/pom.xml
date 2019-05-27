@@ -10,12 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>${artifactId}</artifactId>
     <packaging>jar</packaging>
-    <name>Example Visallo Plugins: Core</name>
+    <name>Example OpenLumify Plugins: Core</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-core</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-core</artifactId>
         </dependency>
         <dependency>
             <groupId>com.opencsv</groupId>

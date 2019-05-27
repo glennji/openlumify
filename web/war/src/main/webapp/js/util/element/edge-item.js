@@ -71,7 +71,7 @@ define([
         this.renderJustification = function () {
             const edge = this.attr.item,
                 titleSpan = this.$node.children('span.title'),
-                justification = _.findWhere(edge.properties, {name: 'http://visallo.org#justification'}),
+                justification = _.findWhere(edge.properties, {name: 'http://openlumify.org#justification'}),
                 sourceInfo = _.findWhere(edge.properties, {name: '_sourceMetadata'});
 
             if (justification || sourceInfo) {

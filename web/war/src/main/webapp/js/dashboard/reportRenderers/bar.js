@@ -94,7 +94,7 @@ define([
                 bucket = _.first(root.buckets);
 
             this.isNested = Boolean(bucket && bucket.value.nested && bucket.value.nested.length);
-            this.isHorizontal = this.attr.item.configuration.reportRenderer === 'org-visallo-bar-horizontal';
+            this.isHorizontal = this.attr.item.configuration.reportRenderer === 'org-openlumify-bar-horizontal';
 
             var reportAggregations = report.endpointParameters.aggregations.map(JSON.parse);
             this.field = reportAggregations[0].field;

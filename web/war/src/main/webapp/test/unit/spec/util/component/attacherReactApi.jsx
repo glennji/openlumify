@@ -6,7 +6,7 @@ define([
     const ReactParams = createReactClass({
         render: function(){
             return (
-              <div>{this.props.visalloApi.v1.formatters.string.plural(1, 'cat')}</div>
+              <div>{this.props.openlumifyApi.v1.formatters.string.plural(1, 'cat')}</div>
             );
         }
     })

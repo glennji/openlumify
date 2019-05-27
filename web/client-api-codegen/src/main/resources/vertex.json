@@ -1,7 +1,7 @@
 {
     "apiVersion": "0.4.0",
     "swaggerVersion": "1.2",
-    "basePath": "http://visallo-dev:8889",
+    "basePath": "http://openlumify-dev:8889",
     "resourcePath": "/vertex",
     "apis": [
         {
@@ -120,7 +120,7 @@
                             "name": "properties",
                             "description": "Additional properties to add to vertex at creation",
                             "required": false,
-                            "type": "org.visallo.web.clientapi.model.ClientApiAddElementProperties",
+                            "type": "org.openlumify.web.clientapi.model.ClientApiAddElementProperties",
                             "paramType": "query"
                         }
                     ]

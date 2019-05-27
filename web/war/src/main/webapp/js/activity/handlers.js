@@ -13,14 +13,14 @@ define(['util/formatters'], function(F) {
             autoDismiss: true
         },
         {
-            type: 'org-visallo-ingest-cloud',
+            type: 'org-openlumify-ingest-cloud',
             kind: 'longRunningProcesses',
             titleRenderer: function(el, task) {
                 const type = i18n(`${task.destination}.title`);
                 const config = _.isString(task.configuration) ? JSON.parse(task.configuration) : task.configuration;
                 const number = config.itemsCount;
                 const plural = number === 1 ? '' : 's';
-                const titleKey = 'activity.tasks.type.org-visallo-ingest-cloud.title';
+                const titleKey = 'activity.tasks.type.org-openlumify-ingest-cloud.title';
 
                 el.textContent = i18n(titleKey, number, plural, type);
             },

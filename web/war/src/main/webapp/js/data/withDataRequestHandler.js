@@ -69,7 +69,7 @@ define([], function() {
         this.after('initialize', function() {
             this.on('dataRequest', this.handleDataRequest);
             this.on('dataRequestCancel', this.handleDataRequestCancel);
-            this.visalloData.readyForDataRequests = true;
+            this.openlumifyData.readyForDataRequests = true;
             this.trigger('readyForDataRequests');
         });
 

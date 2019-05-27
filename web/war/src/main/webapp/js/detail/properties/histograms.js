@@ -9,7 +9,7 @@ define([
     var HISTOGRAM_STYLE = 'max', // max or sum
         GRAPH_TYPE = 'GRAPH_TYPE',
         EDGE_LABEL = 'edgeLabel',
-        CONCEPT_TYPE = 'http://visallo.org#conceptType',
+        CONCEPT_TYPE = 'http://openlumify.org#conceptType',
         MIN_VALUES_PRESENT_TO_DISPLAY = 1,
         BAR_HEIGHT = 25,
         PADDING = 5,

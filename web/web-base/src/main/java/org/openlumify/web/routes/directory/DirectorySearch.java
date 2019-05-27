@@ -1,0 +1,51 @@
+package org.openlumify.web.routes.directory;
+
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import org.openlumify.webster.ParameterizedHandler;
+import org.openlumify.webster.annotations.Handle;
+import org.openlumify.webster.annotations.Optional;
+import org.openlumify.webster.annotations.Required;
+import org.openlumify.core.model.directory.DirectoryRepository;
+import org.openlumify.core.user.User;
+import org.openlumify.web.clientapi.model.ClientApiDirectorySearchResponse;
+import org.openlumify.web.clientapi.model.DirectoryGroup;
+import org.openlumify.web.clientapi.model.DirectoryPerson;
+
+import java.util.List;
+
+@Singleton
+public class DirectorySearch implements ParameterizedHandler {
+    private final DirectoryRepository directoryRepository;
+
+    @Inject
+    public DirectorySearch(DirectoryRepository directoryRepository) {
+        this.directoryRepository = directoryRepository;
+    }
+
+    @Handle
+    public ClientApiDirectorySearchResponse handle(
+            @Required(name = "search", allowEmpty = false) String search,
+            @Optional(name = "people", defaultValue = "true") boolean searchPeople,
+            @Optional(name = "groups", defaultValue = "true") boolean searchGroups,
+            User user
+    ) {
+        ClientApiDirectorySearchResponse response = new ClientApiDirectorySearchResponse();
+
+        if (searchPeople) {
+            List<DirectoryPerson> people = this.directoryRepository.searchPeople(search, user);
+            for (DirectoryPerson person : people) {
+                response.getEntities().add(person);
+            }
+        }
+
+        if (searchGroups) {
+            List<DirectoryGroup> groups = this.directoryRepository.searchGroups(search, user);
+            for (DirectoryGroup group : groups) {
+                response.getEntities().add(group);
+            }
+        }
+
+        return response;
+    }
+}

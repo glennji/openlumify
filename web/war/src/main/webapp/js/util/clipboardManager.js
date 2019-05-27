@@ -4,8 +4,8 @@ define([
 ], function(defineComponent) {
     'use strict';
 
-    const IGNORE_SELECTORS = 'input,select,option,textarea,.Select,.Select *,.visallo-allow-focus,.visallo-allow-focus *,*[data-allow-focus=true],*[data-allow-focus=true] *';
-    const WAIT_FOR_DBLCLICK_SELECTORS = '.visallo-allow-dblclick-selection, .visallo-allow-dblclick-selection *';
+    const IGNORE_SELECTORS = 'input,select,option,textarea,.Select,.Select *,.openlumify-allow-focus,.openlumify-allow-focus *,*[data-allow-focus=true],*[data-allow-focus=true] *';
+    const WAIT_FOR_DBLCLICK_SELECTORS = '.openlumify-allow-dblclick-selection, .openlumify-allow-dblclick-selection *';
 
     return defineComponent(ClipboardManager);
 
@@ -17,7 +17,7 @@ define([
         this.after('initialize', function() {
             var self = this;
 
-            this.on('applicationReady currentUserVisalloDataUpdated', _.once(function() {
+            this.on('applicationReady currentUserOpenLumifyDataUpdated', _.once(function() {
                 require(['rangy-core', 'rangy-text', 'rangy-highlighter'], function(rangy) {
                     if (!rangy.initialized) rangy.init();
                 });

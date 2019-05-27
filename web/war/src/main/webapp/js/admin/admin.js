@@ -20,8 +20,8 @@ define([
      *
      * One of `Component`, `componentPath`, or `url` is required.
      *
-     * @param {org.visallo.admin~Component} [Component]
-     * @param {string} [componentPath] Path to {@link org.visallo.admin~Component}
+     * @param {org.openlumify.admin~Component} [Component]
+     * @param {string} [componentPath] Path to {@link org.openlumify.admin~Component}
      * @param {string} [url] Open a url in a new window instead of rendering a
      * form
      * @param {string} section The section to place new admin link. Either
@@ -29,29 +29,29 @@ define([
      * @param {string} name The title of the admin link
      * @param {string} subtitle The subtitle of the admin link displayed below
      * `name`
-     * @param {string|org.visallo.admin~requiredPrivilege} [requiredPrivilege] Only show link if user has the given
+     * @param {string|org.openlumify.admin~requiredPrivilege} [requiredPrivilege] Only show link if user has the given
      * privilege
      * @param {object} [options]
      * @param {number} [options.sortHint] A number indicating the admin tool's position within the section. If not
     included, admin items will be sorted within a section by `name`.
      */
-    registry.documentExtensionPoint('org.visallo.admin',
+    registry.documentExtensionPoint('org.openlumify.admin',
         'Add admin tools to admin pane',
         function(e) {
             return (e.Component || e.componentPath || e.url) &&
                 e.section && e.name && e.subtitle
         },
-        'http://docs.visallo.org/extension-points/front-end/admin'
+        'http://docs.openlumify.org/extension-points/front-end/admin'
     );
 
     var adminList = defineComponent(AdminList);
 
     adminList.getExtensions = function() {
-        var userPrivileges = visalloData.currentUser.privileges;
-        return registry.extensionsForPoint('org.visallo.admin')
+        var userPrivileges = openlumifyData.currentUser.privileges;
+        return registry.extensionsForPoint('org.openlumify.admin')
             .filter(function(extension) {
                 /**
-                 * @callback org.visallo.admin~requiredPrivilege
+                 * @callback org.openlumify.admin~requiredPrivilege
                  * @param {Array.<object>} userPrivileges The current users
                  * privileges
                  * @return {boolean} If the admin tool should be shown to user
@@ -162,7 +162,7 @@ define([
                      * FlightJS or React component displaying the admin
                      * interface.
                      *
-                     * @typedef org.visallo.admin~Component
+                     * @typedef org.openlumify.admin~Component
                      * @property {object} data Admin-tool specific data passed from router
                      */
                     var promise = attacher()

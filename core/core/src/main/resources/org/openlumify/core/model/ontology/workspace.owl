@@ -1,0 +1,320 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://openlumify.org/workspace#"
+     xml:base="http://openlumify.org/workspace"
+     xmlns:openlumify="http://openlumify.org#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://openlumify.org/workspace">
+        <owl:imports rdf:resource="http://openlumify.org/user"/>
+        <owl:imports rdf:resource="http://openlumify.org"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://openlumify.org/workspace#toDashboard -->
+
+    <owl:ObjectProperty rdf:about="http://openlumify.org/workspace#toDashboard">
+        <rdfs:domain rdf:resource="http://openlumify.org/workspace#workspace"/>
+        <rdfs:range rdf:resource="http://openlumify.org/workspace#dashboard"/>
+        <rdfs:label xml:lang="en">To Dashboard</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openlumify.org/workspace#toDashboardItem -->
+
+    <owl:ObjectProperty rdf:about="http://openlumify.org/workspace#toDashboardItem">
+        <rdfs:domain rdf:resource="http://openlumify.org/workspace#dashboard"/>
+        <rdfs:range rdf:resource="http://openlumify.org/workspace#dashboardItem"/>
+        <rdfs:label xml:lang="en">To Dashboard Item</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openlumify.org/workspace#toEntity -->
+
+    <owl:ObjectProperty rdf:about="http://openlumify.org/workspace#toEntity">
+        <rdfs:domain rdf:resource="http://openlumify.org/workspace#workspace"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:label xml:lang="en">To Entity</rdfs:label>
+    </owl:ObjectProperty>
+
+
+    <!-- http://openlumify.org/workspace#toOntology -->
+
+    <owl:ObjectProperty rdf:about="http://openlumify.org/workspace#toOntology">
+        <rdfs:domain rdf:resource="http://openlumify.org/workspace#workspace"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:label xml:lang="en">To Ontology</rdfs:label>
+    </owl:ObjectProperty>
+
+
+    <!-- http://openlumify.org/workspace#toProduct -->
+
+    <owl:ObjectProperty rdf:about="http://openlumify.org/workspace#toProduct">
+        <rdfs:domain rdf:resource="http://openlumify.org/workspace#workspace"/>
+        <rdfs:range rdf:resource="http://openlumify.org/workspace#product"/>
+        <rdfs:label xml:lang="en">To Product</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://openlumify.org/workspace/product#toEntity -->
+
+    <owl:ObjectProperty rdf:about="http://openlumify.org/workspace/product#toEntity">
+        <rdfs:domain rdf:resource="http://openlumify.org/workspace#product"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:label xml:lang="en">To Entity</rdfs:label>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://openlumify.org/workspace#toUser -->
+
+    <owl:ObjectProperty rdf:about="http://openlumify.org/workspace#toUser">
+        <rdfs:domain rdf:resource="http://openlumify.org/workspace#workspace"/>
+        <rdfs:range rdf:resource="http://openlumify.org/user#user"/>
+        <rdfs:label xml:lang="en">To User</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+
+
+    <!-- http://openlumify.org/workspace#lastActiveProductId -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/workspace#lastActiveProductId">
+        <openlumify:objectPropertyDomain>http://openlumify.org/workspace#toUser</openlumify:objectPropertyDomain>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>EXACT_MATCH</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://openlumify.org/product#data -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/product#data">
+        <rdfs:domain rdf:resource="http://openlumify.org/workspace#product"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/product#extendedData -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/product#extendedData">
+        <rdfs:domain rdf:resource="http://openlumify.org/workspace#product"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/product#kind -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/product#kind">
+        <rdfs:domain rdf:resource="http://openlumify.org/workspace#product"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/product#previewDataUrl -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/product#previewDataUrl">
+        <rdfs:domain rdf:resource="http://openlumify.org/workspace#product"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/workspace#configuration -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/workspace#configuration">
+        <rdfs:domain rdf:resource="http://openlumify.org/workspace#dashboardItem"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/workspace#extensionId -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/workspace#extensionId">
+        <rdfs:domain rdf:resource="http://openlumify.org/workspace#dashboardItem"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://openlumify.org/workspace/product#toEntity -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/workspace/product#toEntity/ancillary">
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://openlumify.org/workspace#toEntity/graphLayoutJson -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/workspace#toEntity/graphLayoutJson">
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/workspace#toEntity/graphPositionX -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/workspace#toEntity/graphPositionX">
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/workspace#toEntity/graphPositionY -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/workspace#toEntity/graphPositionY">
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/workspace#toEntity/visible -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/workspace#toEntity/visible">
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/workspace#toUser/access -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/workspace#toUser/access">
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/workspace#toUser/creator -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/workspace#toUser/creator">
+        <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://openlumify.org/workspace#workspace/title -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/workspace#workspace/title">
+        <rdfs:domain rdf:resource="http://openlumify.org/workspace#workspace"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>EXACT_MATCH,FULL_TEXT</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://openlumify.org/workspace#dashboard -->
+
+    <owl:Class rdf:about="http://openlumify.org/workspace#dashboard">
+        <openlumify:titleFormula>&apos;Dashboard: &apos; + prop(&apos;http://openlumify.org/workspace#workspace/title&apos;)</openlumify:titleFormula>
+        <openlumify:userVisible>false</openlumify:userVisible>
+        <rdfs:label xml:lang="en">Dashboard</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openlumify.org/workspace#dashboardItem -->
+
+    <owl:Class rdf:about="http://openlumify.org/workspace#dashboardItem">
+        <openlumify:titleFormula>&apos;Dashboard Item: &apos; + prop(&apos;http://openlumify.org/workspace#extensionId&apos;)</openlumify:titleFormula>
+        <openlumify:userVisible>false</openlumify:userVisible>
+        <rdfs:label xml:lang="en">Dashboard Item</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openlumify.org/workspace#product -->
+
+    <owl:Class rdf:about="http://openlumify.org/workspace#product">
+        <openlumify:userVisible>false</openlumify:userVisible>
+        <rdfs:label xml:lang="en">Product</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openlumify.org/workspace#workspace -->
+
+    <owl:Class rdf:about="http://openlumify.org/workspace#workspace">
+        <openlumify:titleFormula>&apos;Workspace: &apos; + prop(&apos;http://openlumify.org/workspace#workspace/title&apos;)</openlumify:titleFormula>
+        <openlumify:userVisible>false</openlumify:userVisible>
+        <rdfs:label xml:lang="en">Workspace</rdfs:label>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.6.20160910-2108) https://github.com/owlcs/owlapi -->
+

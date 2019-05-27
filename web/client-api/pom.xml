@@ -11,14 +11,14 @@
     </parent>
 
     <!--
-        This project does not inherit from visallo because this should be as standalone as possible.
+        This project does not inherit from openlumify because this should be as standalone as possible.
         If we inherit we get extra dependencies that we don't want.
     -->
-    <artifactId>visallo-client-api</artifactId>
-    <groupId>org.visallo</groupId>
+    <artifactId>openlumify-client-api</artifactId>
+    <groupId>co.hackstreet</groupId>
     <version>4.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>Visallo: Web: Client API</name>
+    <name>OpenLumify: Web: Client API</name>
 
     <properties>
         <java.compiler.showWarnings>true</java.compiler.showWarnings>

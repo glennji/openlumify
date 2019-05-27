@@ -2,8 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
-        <groupId>org.visallo</groupId>
-        <artifactId>visallo-root</artifactId>
+        <groupId>co.hackstreet</groupId>
+        <artifactId>openlumify-root</artifactId>
         <version>4.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -11,12 +11,12 @@
     <artifactId>${artifactId}</artifactId>
     <version>${version}</version>
     <packaging>pom</packaging>
-    <name>Example Visallo Plugins</name>
+    <name>Example OpenLumify Plugins</name>
 
     <properties>
         <java.source.version>1.8</java.source.version>
         <java.target.version>1.8</java.target.version>
-        <visallo.version>4.1-SNAPSHOT</visallo.version>
+        <openlumify.version>4.1-SNAPSHOT</openlumify.version>
     </properties>
 
     <repositories>
@@ -75,25 +75,25 @@
                 <version>${version}</version>
             </dependency>
             <dependency>
-                <groupId>org.visallo</groupId>
-                <artifactId>visallo-core</artifactId>
-                <version>${visallo.version}</version>
+                <groupId>co.hackstreet</groupId>
+                <artifactId>openlumify-core</artifactId>
+                <version>${openlumify.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.visallo</groupId>
-                <artifactId>visallo-web</artifactId>
-                <version>${visallo.version}</version>
+                <groupId>co.hackstreet</groupId>
+                <artifactId>openlumify-web</artifactId>
+                <version>${openlumify.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.visallo</groupId>
-                <artifactId>visallo-dev-tomcat-server</artifactId>
-                <version>${visallo.version}</version>
+                <groupId>co.hackstreet</groupId>
+                <artifactId>openlumify-dev-tomcat-server</artifactId>
+                <version>${openlumify.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.visallo</groupId>
-                <artifactId>visallo-core-test</artifactId>
-                <version>${visallo.version}</version>
+                <groupId>co.hackstreet</groupId>
+                <artifactId>openlumify-core-test</artifactId>
+                <version>${openlumify.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

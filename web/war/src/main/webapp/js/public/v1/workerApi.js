@@ -1,9 +1,9 @@
 /**
- * Plugins should `require` this module for access to Visallo helpers
+ * Plugins should `require` this module for access to OpenLumify helpers
  * available in the worker thread.
  *
  * @module public/v1/workerApi
- * @classdesc Visallo Top-Level API for Web Workers
+ * @classdesc OpenLumify Top-Level API for Web Workers
  * @example
  * require(['public/v1/workerApi'], function(workerApi) {
  *     // ...

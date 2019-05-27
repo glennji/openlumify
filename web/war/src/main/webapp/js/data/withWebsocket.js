@@ -7,7 +7,7 @@ define(['util/websocket'], function(websocketUtils) {
 
         var overlayPromise = new Promise(function(fulfill, reject) {
             this.after('initialize', function() {
-                this.on('applicationReady currentUserVisalloDataUpdated', function() {
+                this.on('applicationReady currentUserOpenLumifyDataUpdated', function() {
                     _.defer(function() {
                         Promise.require('util/offlineOverlay').done(fulfill);
                     })
@@ -17,8 +17,8 @@ define(['util/websocket'], function(websocketUtils) {
 
         this.after('initialize', function() {
             var self = this;
-            this.on('applicationReady currentUserVisalloDataUpdated', function() {
-                if (!visalloData.socketSourceGuid) {
+            this.on('applicationReady currentUserOpenLumifyDataUpdated', function() {
+                if (!openlumifyData.socketSourceGuid) {
                     self.setPublicApi('socketSourceGuid', websocketUtils.generateSourceGuid());
                     self.worker.postMessage({
                         type: 'atmosphereConfiguration',

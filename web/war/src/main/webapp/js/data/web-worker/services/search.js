@@ -19,14 +19,14 @@ define(['../util/ajax'], function(ajax) {
          * @param {string} urlFilter Limit searches to those of this URL
          */
         all: function(urlFilter) {
-            var visalloFilter = /^\/(?:vertex|element|edge)\/search$/;
+            var openlumifyFilter = /^\/(?:vertex|element|edge)\/search$/;
             return ajax('GET', '/search/all')
                 .then(function(result) {
                     return _.chain(result.searches)
                         .filter(function(search) {
                             if (urlFilter) {
-                                if (visalloFilter.test(urlFilter)) {
-                                    return visalloFilter.test(search.url);
+                                if (openlumifyFilter.test(urlFilter)) {
+                                    return openlumifyFilter.test(search.url);
                                 }
                                 return search.url === urlFilter;
                             }

@@ -1,0 +1,5 @@
+org.openlumify.web.webEventListeners.CurrentUserWebEventListener
+org.openlumify.web.webEventListeners.TraceWebEventListener
+org.openlumify.web.webEventListeners.ErrorHandlerWebEventListener
+org.openlumify.web.webEventListeners.SetThreadNameWebEventListener
+org.openlumify.web.webEventListeners.MemoryLoggerWebEventListener

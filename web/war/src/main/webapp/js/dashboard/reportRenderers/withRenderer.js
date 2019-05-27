@@ -29,7 +29,7 @@ define([
         TYPE_ELEMENTS = 'TYPE_ELEMENTS',
         TYPE_AGGREGATION = 'TYPE_AGGREGATION',
         TYPE_UNKNOWN = 'TYPE_UNKNOWN',
-        FIELD_CONCEPT_TYPE = 'http://visallo.org#conceptType',
+        FIELD_CONCEPT_TYPE = 'http://openlumify.org#conceptType',
         FIELD_EDGE_LABEL = '__edgeLabel',
         TIP_UNIQUE_IDENTIFIER = 0;
 
@@ -382,7 +382,7 @@ define([
 
     function checkRendererSupportsResponse(reportRendererIdentifier, root) {
         const renderer = _.findWhere(
-            registry.extensionsForPoint('org.visallo.dashboard.reportrenderer'),
+            registry.extensionsForPoint('org.openlumify.dashboard.reportrenderer'),
             { identifier: reportRendererIdentifier }
         );
         return renderer.supportsResponse(root);

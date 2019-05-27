@@ -6,18 +6,18 @@ package ${package}.worker;
 import ${package}.worker.Contact;
 import org.vertexium.*;
 import org.vertexium.property.StreamingPropertyValue;
-import org.visallo.core.exception.VisalloException;
-import org.visallo.core.ingest.graphProperty.GraphPropertyWorkData;
-import org.visallo.core.ingest.graphProperty.GraphPropertyWorker;
-import org.visallo.core.model.Description;
-import org.visallo.core.model.Name;
-import org.visallo.core.model.graph.GraphUpdateContext;
-import org.visallo.core.model.properties.VisalloProperties;
-import org.visallo.core.model.properties.types.PropertyMetadata;
-import org.visallo.core.model.workQueue.Priority;
-import org.visallo.core.model.workspace.Workspace;
-import org.visallo.web.clientapi.model.ClientApiWorkspace;
-import org.visallo.web.clientapi.model.VisibilityJson;
+import org.openlumify.core.exception.OpenLumifyException;
+import org.openlumify.core.ingest.graphProperty.GraphPropertyWorkData;
+import org.openlumify.core.ingest.graphProperty.GraphPropertyWorker;
+import org.openlumify.core.model.Description;
+import org.openlumify.core.model.Name;
+import org.openlumify.core.model.graph.GraphUpdateContext;
+import org.openlumify.core.model.properties.OpenLumifyProperties;
+import org.openlumify.core.model.properties.types.PropertyMetadata;
+import org.openlumify.core.model.workQueue.Priority;
+import org.openlumify.core.model.workspace.Workspace;
+import org.openlumify.web.clientapi.model.ClientApiWorkspace;
+import org.openlumify.web.clientapi.model.VisibilityJson;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,9 +30,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static ${package}.worker.OntologyConstants.*;
-import static org.visallo.core.model.properties.VisalloProperties.*;
+import static org.openlumify.core.model.properties.OpenLumifyProperties.*;
 
-@Name("Example Visallo Graph Property Worker")
+@Name("Example OpenLumify Graph Property Worker")
 @Description("Creates person entities from an imported CSV file.")
 public class ExampleGraphPropertyWorker extends GraphPropertyWorker {
 
@@ -56,7 +56,7 @@ public class ExampleGraphPropertyWorker extends GraphPropertyWorker {
         // This is the vertex containing the CSV file content on its RAW property. RAW is a streaming property, which
         // is used for very large values. In this case, it's convenient to copy the value content to a temporary file.
         Vertex fileVertex = (Vertex) workData.getElement();
-        StreamingPropertyValue raw = VisalloProperties.RAW.getPropertyValue(fileVertex);
+        StreamingPropertyValue raw = OpenLumifyProperties.RAW.getPropertyValue(fileVertex);
         File file = copyToTempFile(raw);
 
         Set<Element> newElements = new HashSet<>();
@@ -78,7 +78,7 @@ public class ExampleGraphPropertyWorker extends GraphPropertyWorker {
                             newElements.add(edge);
                         }
                     } catch (Exception ex) {
-                        throw new VisalloException("Could not import contact", ex);
+                        throw new OpenLumifyException("Could not import contact", ex);
                     }
                 });
             }

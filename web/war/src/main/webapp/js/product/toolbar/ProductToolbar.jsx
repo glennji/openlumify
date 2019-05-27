@@ -20,27 +20,27 @@ define([
      * Plugin to add custom item components (Flight or React) which display in toolbar at the top right of a product.
      *
      * @param {string} identifier Unique id for this item
-     * @param {string} itemComponentPath Path to {@link org.visallo.product.toolbar.item~Component} to render
+     * @param {string} itemComponentPath Path to {@link org.openlumify.product.toolbar.item~Component} to render
      * @param {func} canHandle Given `product` should this item be placed
      * @param {func} [initialize] Allows configuration of the product environment with same parameters passed to
-     *   {@link org.visallo.product.toolbar.item~Component}.
+     *   {@link org.openlumify.product.toolbar.item~Component}.
      * @param {func} [teardown] Allows cleanup of anything created in `initialize`
      * @param {string} [placementHint=menu] How this item should be displayed in the toolbar
      * * `menu` inside the hamburger menu list
      * * `popover` as a button that will expand a popover where the component is rendered.
-     *   If specified one of `icon` or `label` is required. Also passed {@link org.visallo.product.toolbar.popover~onResize}
+     *   If specified one of `icon` or `label` is required. Also passed {@link org.openlumify.product.toolbar.popover~onResize}
      * * `button` as an inline button component
      * @param {string} [buttonClass] Css class to add to the button element when placed as `button` or `popover`
      * @param {string} [icon] Path to the icon to render when displayed as a `popover`
      * @param {string} [label] Label text to render when displayed as a `popover`
      */
-    registry.documentExtensionPoint('org.visallo.product.toolbar.item',
+    registry.documentExtensionPoint('org.openlumify.product.toolbar.item',
         'Add components to the product toolbar',
         function(e) {
             return ('identifier' in e) && ('canHandle' in e && _.isFunction(e.canHandle))
                 && (['itemComponentPath', 'icon', 'label'].some(key => key in e));
         },
-        'http://docs.visallo.org/extension-points/front-end/productOptions'
+        'http://docs.openlumify.org/extension-points/front-end/productOptions'
     );
 
     const placementHint = {
@@ -81,7 +81,7 @@ define([
         },
 
         componentDidMount() {
-            $(document).on('keydown.org-visallo-product-toolbar', (event) => {
+            $(document).on('keydown.org-openlumify-product-toolbar', (event) => {
                 if (event.which === 27) { //esc
                     this.setState({ activeItem: null, stayOpen: false });
                 }
@@ -99,7 +99,7 @@ define([
 
         componentWillUnmount() {
             this.triggerTeardown()
-            $(document).off('keydown.org-visallo-product-toolbar');
+            $(document).off('keydown.org-openlumify-product-toolbar');
         },
 
         render() {
@@ -122,7 +122,7 @@ define([
                }
             };
             const items = [
-                ..._.sortBy(registry['org.visallo.product.toolbar.item'], 'identifier'),
+                ..._.sortBy(registry['org.openlumify.product.toolbar.item'], 'identifier'),
                 ...this.getDefaultItems(),
                 ...this.mapDeprecatedItems()
             ];
@@ -219,7 +219,7 @@ define([
 
             return ([
                 {
-                    identifier: 'org-visallo-product-zoom-out',
+                    identifier: 'org-openlumify-product-zoom-out',
                     placementHint: 'button',
                     label: '-',
                     props: { handler: _.partial(onZoom, 'out') },
@@ -227,7 +227,7 @@ define([
                     canHandle: () => showNavigationControls && !!onZoom
                 },
                 {
-                    identifier: 'org-visallo-product-zoom-in',
+                    identifier: 'org-openlumify-product-zoom-in',
                     placementHint: 'button',
                     label: '+',
                     props: { handler: _.partial(onZoom, 'in') },
@@ -235,7 +235,7 @@ define([
                     canHandle: () => showNavigationControls && !!onZoom
                 },
                 {
-                    identifier: 'org-visallo-product-fit',
+                    identifier: 'org-openlumify-product-fit',
                     placementHint: 'button',
                     label: i18n('product.toolbar.fit'),
                     props: { handler: onFit},
@@ -248,9 +248,9 @@ define([
             const { product, registry } = this.props;
             const items = [];
 
-            ['org.visallo.map.options', 'org.visallo.graph.options'].forEach(extensionPoint => {
-                const productKind = extensionPoint === 'org.visallo.graph.options' ?
-                    'org.visallo.web.product.graph.GraphWorkProduct' : 'org.visallo.web.product.map.MapWorkProduct';
+            ['org.openlumify.map.options', 'org.openlumify.graph.options'].forEach(extensionPoint => {
+                const productKind = extensionPoint === 'org.openlumify.graph.options' ?
+                    'org.openlumify.web.product.graph.GraphWorkProduct' : 'org.openlumify.web.product.map.MapWorkProduct';
 
                 registry[extensionPoint].forEach(item => {
                     const { optionComponentPath, ...config } = item;
@@ -306,8 +306,8 @@ define([
     });
 
     return RegistryInjectorHOC(ProductToolbar, [
-        'org.visallo.graph.options',
-        'org.visallo.map.options',
-        'org.visallo.product.toolbar.item'
+        'org.openlumify.graph.options',
+        'org.openlumify.map.options',
+        'org.openlumify.product.toolbar.item'
     ]);
 });

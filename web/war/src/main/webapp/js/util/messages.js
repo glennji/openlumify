@@ -34,16 +34,16 @@ define([
      * @param {...string} args The arguments to replace in the value
      * @return {string} The string
      * @example <caption>Message Bundle Properties</caption>
-     * visallo.help.logout=Logout
-     * visallo.offline_overlay.last_check=Last checked {0}
+     * openlumify.help.logout=Logout
+     * openlumify.offline_overlay.last_check=Last checked {0}
      * @example <caption>Handlebars Template</caption>
-     * {{ i18n 'visallo.help.logout' }}
-     * {{ i18n 'visallo.offline_overlay.last_check', date }}
+     * {{ i18n 'openlumify.help.logout' }}
+     * {{ i18n 'openlumify.offline_overlay.last_check', date }}
      * @example <caption>JavaScript Usage</caption>
-     * i18n('visallo.help.logout')
-     * // => Logout of Visallo
+     * i18n('openlumify.help.logout')
+     * // => Logout of OpenLumify
      *
-     * i18n('visallo.offline_overlay.last_check', new Date().toString())
+     * i18n('openlumify.offline_overlay.last_check', new Date().toString())
      * // => Last checked 2017-02-09T18:29:47.333Z
      */
     return function(ignoreWarning, key/**, args **/) {

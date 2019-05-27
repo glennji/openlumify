@@ -159,7 +159,7 @@ define([
          * @param {string} [placementHintAfter] identifier of another menubar
          * item that this item should be placed after
          */
-        registry.documentExtensionPoint('org.visallo.menubar',
+        registry.documentExtensionPoint('org.openlumify.menubar',
             'Add items to menubar',
             function(e) {
                 return ('title' in e) &&
@@ -167,9 +167,9 @@ define([
                     ('action' in e) &&
                     ('icon' in e);
             },
-            'http://docs.visallo.org/extension-points/front-end/menubar'
+            'http://docs.openlumify.org/extension-points/front-end/menubar'
         );
-        registry.extensionsForPoint('org.visallo.menubar')
+        registry.extensionsForPoint('org.openlumify.menubar')
             .forEach(function(data) {
                 var cls = data.identifier,
                     type = data.action.type;

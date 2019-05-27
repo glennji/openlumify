@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.visallo</groupId>
-        <artifactId>visallo-tools-ontology-ingest</artifactId>
+        <groupId>co.hackstreet</groupId>
+        <artifactId>openlumify-tools-ontology-ingest</artifactId>
         <version>4.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>visallo-tools-ontology-ingest-common</artifactId>
+    <artifactId>openlumify-tools-ontology-ingest-common</artifactId>
 
 </project>

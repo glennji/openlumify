@@ -81,7 +81,7 @@ define([
             this.on('searchtypeloaded', function(event, data) {
                 var filters = this.select('filtersSelector').find('.content')
                 this.trigger(filters, 'enableMatchSelection', {
-                    match: data.type === 'Visallo'
+                    match: data.type === 'OpenLumify'
                 })
             })
         });

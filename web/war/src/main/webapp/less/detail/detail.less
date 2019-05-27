@@ -17,15 +17,15 @@
   display: flex;
   padding: 0;
 
-  .org-visallo-layout-root {
+  .org-openlumify-layout-root {
     overflow-x: hidden;
     width: 100%;
 
     @bg: #555;
-    .org-visallo-layout-header-text {
+    .org-openlumify-layout-header-text {
       padding: 0.5em;
       background: @bg;
-      .org-visallo-layout-text {
+      .org-openlumify-layout-text {
         text-shadow: 0 0px 20px rgba(0, 0, 0, 0.2), 0 0px 2px #000000;
         color: white;
         text-overflow: ellipsis;
@@ -53,7 +53,7 @@
       }
     }
 
-    .org-visallo-layout-elements-list {
+    .org-openlumify-layout-elements-list {
       border-top: 1px solid @pane-border;
     }
   }
@@ -78,7 +78,7 @@
     }
   }
 
-  .org-visallo-video {
+  .org-openlumify-video {
     .video-preview {
       height: 240px;
       cursor: pointer;
@@ -86,7 +86,7 @@
       overflow: hidden;
     }
   }
-  .org-visallo-video .video-preview, .org-visallo-image {
+  .org-openlumify-video .video-preview, .org-openlumify-image {
     background: rgba(0, 0, 0, 0.05);
   }
 
@@ -291,7 +291,7 @@
     }
   }
   
-  .org-visallo-texts {
+  .org-openlumify-texts {
     margin: 0;
     .text-section {
       margin: 1px 0;
@@ -395,7 +395,7 @@
 
   @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
     /* Force scrollbar in IE to stop right aligned values from flashing on resize/scroll */
-    .org-visallo-layout-elements-body {
+    .org-openlumify-layout-elements-body {
       overflow-y: scroll !important;
     }
   }
@@ -466,7 +466,7 @@
     @import "./facebox";
   }
 
-  .org-visallo-image {
+  .org-openlumify-image {
     background-size: 100% 100%;
     background-repeat: no-repeat;
     display: inline-block;
@@ -497,11 +497,11 @@
     margin-top: 1em;
   }
 
-  .org-visallo-detectedObjects .underneath .form.unresolve {
+  .org-openlumify-detectedObjects .underneath .form.unresolve {
     margin-top: 0;
   }
 
-  .org-visallo-image {
+  .org-openlumify-image {
     text-align: center;      
     .image-preview {
       max-width: 100%;
@@ -558,7 +558,7 @@
 
   .vertex-header {
     position: relative;
-    .org-visallo-layout-text {
+    .org-openlumify-layout-text {
       z-index: 2;
       &.subtitle {
         pointer-events: none;
@@ -633,7 +633,7 @@
     background-color: red;
   }
 
-  .org-visallo-relationships {
+  .org-openlumify-relationships {
     .collapsible > h1 {
       strong {
         display: inline;
@@ -662,7 +662,7 @@
     }
   }
 
-  .org-visallo-texts {
+  .org-openlumify-texts {
     .text {
       line-height: 1.4;
     }

@@ -25,7 +25,7 @@ define([
             })
 
             it('should add flattenedDisplayName properties', function() {
-                var image = _.findWhere(concepts.byTitle, { id: 'http://visallo.org/dev#image' });
+                var image = _.findWhere(concepts.byTitle, { id: 'http://openlumify.org/dev#image' });
 
                 expect(image).to.exist
                 image.should.have.property('flattenedDisplayName').that.equals('Raw/Image')
@@ -33,46 +33,46 @@ define([
 
             it('should set glyphicon based on parent if not defined', function() {
                 var root = concepts.entityConcept,
-                    raw = _.findWhere(root.children, { id: 'http://visallo.org/dev#raw' }),
-                    image = _.findWhere(raw.children, { id: 'http://visallo.org/dev#image' });
+                    raw = _.findWhere(root.children, { id: 'http://openlumify.org/dev#raw' }),
+                    image = _.findWhere(raw.children, { id: 'http://openlumify.org/dev#image' });
 
                 root.should.have.property('children')
                 expect(raw).to.exist
                 expect(image).to.exist
                 expect(image).to.have.property('glyphIconHref').that.equals(
-                    'resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23raw'
+                    'resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23raw'
                 )
 
-                var byIdImage = concepts.byId['http://visallo.org/dev#image'];
+                var byIdImage = concepts.byId['http://openlumify.org/dev#image'];
                 expect(byIdImage).to.exist
                 byIdImage.should.have.property('glyphIconHref').that.equals(
-                    'resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23raw'
+                    'resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23raw'
                 )
 
-                var byTitleImage = _.findWhere(concepts.byTitle, { id: 'http://visallo.org/dev#image' })
+                var byTitleImage = _.findWhere(concepts.byTitle, { id: 'http://openlumify.org/dev#image' })
                 expect(byTitleImage).to.exist
                 byTitleImage.should.have.property('glyphIconHref').that.equals(
-                    'resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23raw'
+                    'resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23raw'
                 )
             })
 
             it('should leave glyphicon if set on concept', function() {
-                var email = _.findWhere(concepts.byTitle, { id: 'http://visallo.org/dev#emailAddress' });
+                var email = _.findWhere(concepts.byTitle, { id: 'http://openlumify.org/dev#emailAddress' });
 
                 expect(email).to.exist
                 email.should.have.property('glyphIconHref')
-                    .that.equals('resource?id=http%3A%2F%2Fvisallo.org%2Fdev%23emailAddress')
+                    .that.equals('resource?id=http%3A%2F%2Fopenlumify.org%2Fdev%23emailAddress')
             })
 
             it('should put color on concepts based on parent', function() {
-                var person = _.findWhere(concepts.byTitle, { id: 'http://visallo.org/dev#person' });
+                var person = _.findWhere(concepts.byTitle, { id: 'http://openlumify.org/dev#person' });
 
                 expect(person).to.exist
                 person.should.have.property('color').that.equals('rgb(0, 0, 0)')
             })
 
             it('should put class safe property on concepts', function() {
-                var email = _.findWhere(concepts.byTitle, { id: 'http://visallo.org/dev#emailAddress' });
+                var email = _.findWhere(concepts.byTitle, { id: 'http://openlumify.org/dev#emailAddress' });
 
                 expect(email).to.exist
 
@@ -114,9 +114,9 @@ define([
             shouldNotHaveRelationship('location', 'person', 'personLivesAtLocation')
 
             function shouldHaveRelationship(sourceName, destName, title, negate) {
-                sourceName = 'http://visallo.org/dev#' + sourceName;
-                destName = 'http://visallo.org/dev#' + destName;
-                title = 'http://visallo.org/dev#' + title;
+                sourceName = 'http://openlumify.org/dev#' + sourceName;
+                destName = 'http://openlumify.org/dev#' + destName;
+                title = 'http://openlumify.org/dev#' + title;
 
                 it('should' + (negate ? ' NOT' : '') +
                    ' have ' + title +
@@ -153,7 +153,7 @@ define([
             shouldNotHaveProperties('organization', ['netIncome'])
 
             function shouldHaveProperties(name, expectedProperties, negate) {
-                name = 'http://visallo.org/dev#' + name;
+                name = 'http://openlumify.org/dev#' + name;
 
                 it('should have concept ' + name +
                    ' that has properties ' + expectedProperties.join(','), function(done) {
@@ -163,7 +163,7 @@ define([
                     service.propertiesByConceptId(conceptId)
                         .done(function(properties) {
                             expectedProperties.forEach(function(expectedProperty) {
-                                expectedProperty = 'http://visallo.org/dev#' + expectedProperty;
+                                expectedProperty = 'http://openlumify.org/dev#' + expectedProperty;
                                 if (negate) {
                                     expect(properties.byTitle[expectedProperty]).to.be.undefined
                                 } else {

@@ -3,7 +3,7 @@ define([
 ], function(registry) {
     'use strict';
 
-    var adminExtensionPoint = 'org.visallo.admin';
+    var adminExtensionPoint = 'org.openlumify.admin';
 
     registry.registerExtension(adminExtensionPoint, {
         componentPath: 'admin/bundled/uiExtensionList/index',

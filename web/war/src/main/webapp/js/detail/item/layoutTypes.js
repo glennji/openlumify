@@ -3,7 +3,7 @@ define([
 ], function(registry) {
     'use strict';
 
-    var register = _.partial(registry.registerExtension, 'org.visallo.layout.type');
+    var register = _.partial(registry.registerExtension, 'org.openlumify.layout.type');
 
     [
         {

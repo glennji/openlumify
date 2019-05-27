@@ -88,27 +88,27 @@ define([
 
         this.setupConfig = function(config) {
             config.template = 'propertyInfo/template';
-            config.isFullscreen = visalloData.isFullscreen;
+            config.isFullscreen = openlumifyData.isFullscreen;
 
             acl.getPropertyAcls(config.data)
                 .then((propertyAcls) => {
                     if (config.property) {
-                        config.isComment = config.property.name === 'http://visallo.org/comment#entry';
-                        config.isVisibility = config.property.name === 'http://visallo.org#visibilityJson';
+                        config.isComment = config.property.name === 'http://openlumify.org/comment#entry';
+                        config.isVisibility = config.property.name === 'http://openlumify.org#visibilityJson';
                         config.canAdd = config.canEdit = config.canDelete = false;
 
                         var propertyAcl = config.isVisibility ? config.ontologyProperty :
                             acl.findPropertyAcl(propertyAcls, config.property.name, config.property.key);
 
-                        if (config.isComment && visalloData.currentWorkspaceCommentable) {
+                        if (config.isComment && openlumifyData.currentWorkspaceCommentable) {
                             config.canAdd = config.property.addable !== undefined ? config.property.addable !== false : propertyAcl.addable !== false;
                             config.canEdit = config.property.updateable !== undefined ? config.property.updateable !== false : propertyAcl.updateable !== false;
                             config.canDelete = config.property.deleteable !== undefined ? config.property.deleteable !== false : propertyAcl.deleteable !== false;
-                        } else if (!config.isComment && visalloData.currentWorkspaceEditable) {
+                        } else if (!config.isComment && openlumifyData.currentWorkspaceEditable) {
                             config.canAdd = config.property.addable !== undefined ? config.property.addable !== false : propertyAcl.addable !== false;
                             if (config.isVisibility) {
                                 // Only users with PUBLISH privilege can edit the element visibility
-                                config.canEdit = Boolean(visalloData.currentUser.privilegesHelper.PUBLISH);
+                                config.canEdit = Boolean(openlumifyData.currentUser.privilegesHelper.PUBLISH);
                             } else {
                                 config.canEdit = config.property.updateable !== undefined ? config.property.updateable !== false : propertyAcl.updateable !== false;
                             }
@@ -142,14 +142,14 @@ define([
         this.update = function() {
             var self = this,
                 element = this.attr.data,
-                isVisibility = this.attr.property.name === 'http://visallo.org#visibilityJson',
+                isVisibility = this.attr.property.name === 'http://openlumify.org#visibilityJson',
                 property = isVisibility ?
                     _.first(F.vertex.props(this.attr.data, this.attr.property.name)) :
                     _.first(F.vertex.props(this.attr.data, this.attr.property.name, this.attr.property.key)),
                 positionDialog = this.positionDialog.bind(this),
                 displayNames = this.metadataPropertiesDisplayMap,
                 displayTypes = this.metadataPropertiesTypeMap,
-                isComment = property.name === 'http://visallo.org/comment#entry',
+                isComment = property.name === 'http://openlumify.org/comment#entry',
                 metadata = _.chain(this.metadataProperties || [])
                     .map(function(name) {
                         if (isVisibility) {
@@ -168,18 +168,18 @@ define([
                     })
                     .compact()
                     .filter(function(m) {
-                        if (property.name === 'http://visallo.org#visibilityJson' &&
+                        if (property.name === 'http://openlumify.org#visibilityJson' &&
                             m[0] === 'sandboxStatus') {
                             return false;
                         }
-                        if (m[0] === 'http://visallo.org#confidence' && isComment) {
+                        if (m[0] === 'http://openlumify.org#confidence' && isComment) {
                             return false;
                         }
                         return true;
                     })
                     .tap(function(metadata) {
                         if (property.streamingPropertyValue) {
-                            var key = 'http://visallo.org#visibilityJson';
+                            var key = 'http://openlumify.org#visibilityJson';
                             metadata.push([key, property.metadata && property.metadata[key]]);
                             displayNames[key] = i18n('visibility.label');
                             displayTypes[key] = 'visibility';
@@ -242,7 +242,7 @@ define([
             // Justification
             var justification = [],
                 justificationMetadata = property.metadata &&
-                    property.metadata['http://visallo.org#justification'];
+                    property.metadata['http://openlumify.org#justification'];
 
             if (justificationMetadata && justificationMetadata.justificationText) {
                 justification.push({
@@ -251,7 +251,7 @@ define([
             }
 
             if (isVisibility) {
-                var entityJustification = _.findWhere(this.attr.data.properties, { name: 'http://visallo.org#justification' }),
+                var entityJustification = _.findWhere(this.attr.data.properties, { name: 'http://openlumify.org#justification' }),
                     sourceInfo = entityJustification && entityJustification.value;
                 if (sourceInfo && 'justificationText' in sourceInfo) {
                     justification = [{ justificationText: sourceInfo }];
@@ -277,8 +277,8 @@ define([
                         property.name,
                         property.key,
                         property.metadata &&
-                        property.metadata['http://visallo.org#visibilityJson'] &&
-                        property.metadata['http://visallo.org#visibilityJson'].source
+                        property.metadata['http://openlumify.org#visibilityJson'] &&
+                        property.metadata['http://openlumify.org#visibilityJson'].source
                     )
                         .then(function(propertyDetails) {
                             self.renderJustification(
@@ -368,7 +368,7 @@ define([
         };
 
         this.onReply = function() {
-            var metadata = this.attr.property.metadata['http://visallo.org/comment#path'],
+            var metadata = this.attr.property.metadata['http://openlumify.org/comment#path'],
                 path = (metadata ? (metadata + '/') : '') + this.attr.property.key;
 
             this.trigger('editProperty', {

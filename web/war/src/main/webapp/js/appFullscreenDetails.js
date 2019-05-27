@@ -35,7 +35,7 @@ define([
             this.$node.html(template({}));
             this.updateTitle();
 
-            visalloData.storePromise.then(store => store.observe(state => state.selection,
+            openlumifyData.storePromise.then(store => store.observe(state => state.selection,
                 (newSelection, oldSelection) => {
                     const elements = newSelection.idsByType;
                     const { vertices: vertexIds, edges: edgeIds } = elements;
@@ -80,7 +80,7 @@ define([
                             ...vertexIds.map(v => `v${v}`),
                             ...edgeIds.map(e => `e${e}`)
                         ],
-                        visalloData.currentWorkspaceId
+                        openlumifyData.currentWorkspaceId
                     );
                     window.open(url);
                 })
@@ -193,7 +193,7 @@ define([
         };
 
         this.handleNoObjects = function() {
-            var requiredFallback = this.attr.workspaceId !== visalloData.currentWorkspaceId;
+            var requiredFallback = this.attr.workspaceId !== openlumifyData.currentWorkspaceId;
 
             document.title = requiredFallback ?
                 i18n('fullscreen.unauthorized') :
@@ -215,7 +215,7 @@ define([
 
         this.handleObjectsLoaded = function(objects, data) {
             var self = this,
-                fallbackToPublic = this.attr.workspaceId !== visalloData.currentWorkspaceId;
+                fallbackToPublic = this.attr.workspaceId !== openlumifyData.currentWorkspaceId;
 
             Detail.teardownAll();
             this.$node.find('.detail-pane').remove();
@@ -290,8 +290,8 @@ define([
 
                 this.on('finishedLoadingTypeContent', function handler() {
                     this.off('finishedLoadingTypeContent', handler);
-                    this.$node.find('.org-visallo-layout-body').css({ flex: 'none', overflow: 'visible' });
-                    this.$node.find('.org-visallo-layout-root').css('overflow', 'visible');
+                    this.$node.find('.org-openlumify-layout-body').css({ flex: 'none', overflow: 'visible' });
+                    this.$node.find('.org-openlumify-layout-root').css('overflow', 'visible');
                 });
 
                 var constraints = this.objects.length === 1 ? [] : ['width'];
@@ -383,7 +383,7 @@ define([
 
             if (data.workspaceId) {
                 this.attr.workspaceId = data.workspaceId;
-                if (visalloData.currentWorkspaceId !== this.attr.workspaceId) {
+                if (openlumifyData.currentWorkspaceId !== this.attr.workspaceId) {
                     this.on(document, 'workspaceLoaded', function loaded() {
                         self.off(document, 'workspaceLoaded', loaded);
                         deferred.resolve();

@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>${artifactId}</artifactId>
     <packaging>jar</packaging>
-    <name>Example Visallo Plugins: CLI</name>
+    <name>Example OpenLumify Plugins: CLI</name>
 
     <dependencies>
         <dependency>

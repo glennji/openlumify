@@ -18,7 +18,7 @@ define([], function() {
             this.on('undo', this.onUndo);
             this.on('redo', this.onRedo);
 
-            visalloData.storePromise.then(store => store.observe(state => state.workspace, (next, prev) => {
+            openlumifyData.storePromise.then(store => store.observe(state => state.workspace, (next, prev) => {
                 const state = store.getState()
                 const oldWorkspace = prev && prev.currentId && prev.byId[prev.currentId];
                 const newWorkspace = next && next.currentId && next.byId[next.currentId];
@@ -56,14 +56,14 @@ define([], function() {
         });
 
         this.onLoadCurrentWorkspace = function(event) {
-            var currentWorkspaceId = this.visalloData.currentWorkspaceId;
+            var currentWorkspaceId = this.openlumifyData.currentWorkspaceId;
             this.trigger('switchWorkspace', { workspaceId: currentWorkspaceId });
         };
 
         this.onSwitchWorkspace = function(event, data) {
             this.setPublicApi('currentWorkspaceId', data.workspaceId);
             Promise.all([
-                visalloData.storePromise,
+                openlumifyData.storePromise,
                 Promise.require('data/web-worker/store/workspace/actions')
             ]).spread(function(store, workspaceActions) {
                 store.dispatch(workspaceActions.setCurrent(data.workspaceId))
@@ -109,20 +109,20 @@ define([], function() {
 
         this.onUndo = function() {
             Promise.all([
-                visalloData.storePromise,
+                openlumifyData.storePromise,
                 Promise.require('data/web-worker/store/undo/actions')
             ]).spread((store, actions) => {
-                const scope = this.visalloData.currentWorkspaceId;
+                const scope = this.openlumifyData.currentWorkspaceId;
                 store.dispatch(actions.undoForProduct());
             });
         };
 
         this.onRedo = function() {
             Promise.all([
-                visalloData.storePromise,
+                openlumifyData.storePromise,
                 Promise.require('data/web-worker/store/undo/actions')
             ]).spread((store, actions) => {
-                const scope = this.visalloData.currentWorkspaceId;
+                const scope = this.openlumifyData.currentWorkspaceId;
                 store.dispatch(actions.redoForProduct());
             });
         };

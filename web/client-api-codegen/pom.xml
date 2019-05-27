@@ -3,15 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>visallo-web-group</artifactId>
-        <groupId>org.visallo</groupId>
+        <artifactId>openlumify-web-group</artifactId>
+        <groupId>co.hackstreet</groupId>
         <version>4.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>visallo-client-api-codegen</artifactId>
+    <artifactId>openlumify-client-api-codegen</artifactId>
     <packaging>jar</packaging>
-    <name>Visallo: Web: Client API: Code Generator</name>
+    <name>OpenLumify: Web: Client API: Code Generator</name>
 
     <properties>
         <codegen.version>2.0.17</codegen.version>
@@ -52,7 +52,7 @@
             <!--<configuration>-->
             <!--<mainClass>com.vineetmanohar.module.CodeGenerator</mainClass>-->
             <!--<arguments>-->
-            <!--<argument>src/main/resources/visallo.json</argument>-->
+            <!--<argument>src/main/resources/openlumify.json</argument>-->
             <!--</arguments>-->
             <!--</configuration>-->
             <!--</execution>-->

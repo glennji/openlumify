@@ -6,34 +6,34 @@ define([
     var V = f.vertex,
         VERTEX_ERROR = 'Vertex is invalid',
         PROPERTY_NAME_ERROR = 'Property name is invalid',
-        PROPERTY_NAME_FIRST = 'http://visallo.org/dev#firstName',
-        PROPERTY_NAME_ALIAS = 'http://visallo.org/dev#alias',
-        PROPERTY_NAME_LAST = 'http://visallo.org/dev#lastName',
-        PROPERTY_NAME_TITLE = 'http://visallo.org#title',
-        PROPERTY_NAME_RAW = 'http://visallo.org#raw',
-        PROPERTY_NAME_BOOLEAN = 'http://visallo.org/dev#boolean',
-        PROPERTY_NAME_DOUBLE = 'http://visallo.org/dev#duration',
-        PROPERTY_NAME_DATE = 'http://visallo.org/dev#dateOnly',
-        PROPERTY_NAME_DATETIME = 'http://visallo.org/dev#dateAndTime',
-        PROPERTY_NAME_HEADING = 'http://visallo.org/testing#heading1',
-        PROPERTY_NAME_INTEGER = 'http://visallo.org/testing#integer1',
-        PROPERTY_NAME_NUMBER = 'http://visallo.org/testing#number1',
-        PROPERTY_NAME_CURRENCY = 'http://visallo.org/dev#netIncome',
-        PROPERTY_NAME_GENDER = 'http://visallo.org/dev#gender',
-        PROPERTY_NAME_GEO = 'http://visallo.org/dev#geolocation',
-        PROPERTY_NAME_CONCEPT = 'http://visallo.org#conceptType',
-        PROPERTY_NAME_GEO_AND_DATE = 'http://visallo.org/dev#geoLocationAndDate',
-        PROPERTY_NAME_GEO_AND_DATE_GEO = 'http://visallo.org/dev#geoLocationAndDate/geolocation',
-        PROPERTY_NAME_GEO_AND_DATE_DATE = 'http://visallo.org/dev#geoLocationAndDate/date',
-        PROPERTY_NAME_MP4_VIDEO = 'http://visallo.org#video-mp4',
-        PROPERTY_NAME_WEBM_VIDEO = 'http://visallo.org#video-webm',
-        PROPERTY_NAME_AAC_AUDIO = 'http://visallo.org#audio-aac',
-        PROPERTY_NAME_OGG_AUDIO = 'http://visallo.org#audio-ogg',
-        PROPERTY_NAME_MIMETYPE = 'http://visallo.org#mimeType',
-        PROPERTY_NAME_FILESIZE_LEGACY = 'http://visallo.org/media#fileSizeLegacy',
-        PROPERTY_NAME_FILESIZE = 'http://visallo.org/media#fileSize',
-        COMPOUND_PROPERTY_NAME = 'http://visallo.org/dev#name',
-        COMPOUND_TEST_PROPERTY_NAME = 'http://visallo.org/testing#compound1',
+        PROPERTY_NAME_FIRST = 'http://openlumify.org/dev#firstName',
+        PROPERTY_NAME_ALIAS = 'http://openlumify.org/dev#alias',
+        PROPERTY_NAME_LAST = 'http://openlumify.org/dev#lastName',
+        PROPERTY_NAME_TITLE = 'http://openlumify.org#title',
+        PROPERTY_NAME_RAW = 'http://openlumify.org#raw',
+        PROPERTY_NAME_BOOLEAN = 'http://openlumify.org/dev#boolean',
+        PROPERTY_NAME_DOUBLE = 'http://openlumify.org/dev#duration',
+        PROPERTY_NAME_DATE = 'http://openlumify.org/dev#dateOnly',
+        PROPERTY_NAME_DATETIME = 'http://openlumify.org/dev#dateAndTime',
+        PROPERTY_NAME_HEADING = 'http://openlumify.org/testing#heading1',
+        PROPERTY_NAME_INTEGER = 'http://openlumify.org/testing#integer1',
+        PROPERTY_NAME_NUMBER = 'http://openlumify.org/testing#number1',
+        PROPERTY_NAME_CURRENCY = 'http://openlumify.org/dev#netIncome',
+        PROPERTY_NAME_GENDER = 'http://openlumify.org/dev#gender',
+        PROPERTY_NAME_GEO = 'http://openlumify.org/dev#geolocation',
+        PROPERTY_NAME_CONCEPT = 'http://openlumify.org#conceptType',
+        PROPERTY_NAME_GEO_AND_DATE = 'http://openlumify.org/dev#geoLocationAndDate',
+        PROPERTY_NAME_GEO_AND_DATE_GEO = 'http://openlumify.org/dev#geoLocationAndDate/geolocation',
+        PROPERTY_NAME_GEO_AND_DATE_DATE = 'http://openlumify.org/dev#geoLocationAndDate/date',
+        PROPERTY_NAME_MP4_VIDEO = 'http://openlumify.org#video-mp4',
+        PROPERTY_NAME_WEBM_VIDEO = 'http://openlumify.org#video-webm',
+        PROPERTY_NAME_AAC_AUDIO = 'http://openlumify.org#audio-aac',
+        PROPERTY_NAME_OGG_AUDIO = 'http://openlumify.org#audio-ogg',
+        PROPERTY_NAME_MIMETYPE = 'http://openlumify.org#mimeType',
+        PROPERTY_NAME_FILESIZE_LEGACY = 'http://openlumify.org/media#fileSizeLegacy',
+        PROPERTY_NAME_FILESIZE = 'http://openlumify.org/media#fileSize',
+        COMPOUND_PROPERTY_NAME = 'http://openlumify.org/dev#name',
+        COMPOUND_TEST_PROPERTY_NAME = 'http://openlumify.org/testing#compound1',
 
         keyIdent = 0,
         elementIdent = 0,
@@ -46,10 +46,10 @@ define([
             return newProp;
         },
         created = function(property, date) {
-            return addMetadata(property, 'http://visallo.org#createDate', date.getTime());
+            return addMetadata(property, 'http://openlumify.org#createDate', date.getTime());
         },
         confidence = function(property, confidence) {
-            return addMetadata(property, 'http://visallo.org#confidence', confidence);
+            return addMetadata(property, 'http://openlumify.org#confidence', confidence);
         },
         propertyFactory = function(name, optionalKey, value) {
             if (arguments.length === 2) {
@@ -437,7 +437,7 @@ define([
         describe('longestProp', function() {
             it('should return only userVisible properties', function() {
                 var vertex = vertexFactory([
-                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://visallo.org/dev#person')
+                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://openlumify.org/dev#person')
                     ]);
 
                 expect(V.longestProp(vertex)).to.be.undefined
@@ -476,7 +476,7 @@ define([
                     propertyFactory(PROPERTY_NAME_TITLE, 'lastname1'),
                     propertyFactory(PROPERTY_NAME_FIRST, 'k1', 'first'),
                     propertyFactory(PROPERTY_NAME_LAST, 'k1', 'lastname'),
-                    propertyFactory(PROPERTY_NAME_CONCEPT, 'http://visallo.org/dev#person')
+                    propertyFactory(PROPERTY_NAME_CONCEPT, 'http://openlumify.org/dev#person')
                 ]);
                 V.longestProp(vertex).should.equal('lastname, first')
             })
@@ -485,7 +485,7 @@ define([
                     propertyFactory(PROPERTY_NAME_TITLE, 'lastname1'),
                     propertyFactory(PROPERTY_NAME_FIRST, 'k1', 'first'),
                     propertyFactory(PROPERTY_NAME_LAST, 'k1', 'lastname'),
-                    propertyFactory(PROPERTY_NAME_CONCEPT, 'http://visallo.org/dev#personSub')
+                    propertyFactory(PROPERTY_NAME_CONCEPT, 'http://openlumify.org/dev#personSub')
                 ]);
                 V.longestProp(vertex).should.equal('lastname, first')
             })
@@ -494,7 +494,7 @@ define([
                     propertyFactory(PROPERTY_NAME_TITLE, 'lastname1'),
                     propertyFactory(PROPERTY_NAME_FIRST, 'k1', 'first'),
                     propertyFactory(PROPERTY_NAME_LAST, 'k1', 'lastname'),
-                    propertyFactory(PROPERTY_NAME_CONCEPT, 'http://visallo.org/dev#location')
+                    propertyFactory(PROPERTY_NAME_CONCEPT, 'http://openlumify.org/dev#location')
                 ]);
                 V.longestProp(vertex).should.equal('lastname1')
             })
@@ -528,7 +528,7 @@ define([
                 var vertex = vertexFactory([
                         propertyFactory(PROPERTY_NAME_FIRST, 'k1', 'jason'),
                         propertyFactory(PROPERTY_NAME_LAST, 'k1', 'harwig'),
-                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://visallo.org/dev#person')
+                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://openlumify.org/dev#person')
                     ]);
                 V.titles([vertex]).should.be.equal('harwig, jason')
             })
@@ -537,17 +537,17 @@ define([
                 var v1 = vertexFactory([
                         propertyFactory(PROPERTY_NAME_FIRST, 'k1', 'jason'),
                         propertyFactory(PROPERTY_NAME_LAST, 'k1', 'harwig'),
-                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://visallo.org/dev#person')
+                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://openlumify.org/dev#person')
                     ]);
                 var v2 = vertexFactory([
                         propertyFactory(PROPERTY_NAME_FIRST, 'k1', 'jeff'),
                         propertyFactory(PROPERTY_NAME_LAST, 'k1', 'kunkle'),
-                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://visallo.org/dev#person')
+                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://openlumify.org/dev#person')
                     ]);
                 var v3 = vertexFactory([
                         propertyFactory(PROPERTY_NAME_FIRST, 'k1', 'joan'),
                         propertyFactory(PROPERTY_NAME_LAST, 'k1', 'smith'),
-                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://visallo.org/dev#person')
+                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://openlumify.org/dev#person')
                     ]);
                 V.titles([v1, v2, v3], { maxBeforeOther: 1, maxTitleWords: 1 })
                     .should.be.equal('harwig…, vertex.titles.others(2)')
@@ -565,7 +565,7 @@ define([
                 var vertex = vertexFactory([
                         propertyFactory(PROPERTY_NAME_FIRST, 'k1', 'jason'),
                         propertyFactory(PROPERTY_NAME_LAST, 'k1', 'harwig'),
-                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://visallo.org/dev#person')
+                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://openlumify.org/dev#person')
                     ]);
 
                 V.title(vertex).should.equal('harwig, jason')
@@ -575,7 +575,7 @@ define([
                 var vertex = vertexFactory([
                         propertyFactory(PROPERTY_NAME_ALIAS, 'k1', 'jason harwig'),
                         propertyFactory(PROPERTY_NAME_ALIAS, 'k2', 'jason'),
-                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://visallo.org/dev#agent')
+                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://openlumify.org/dev#agent')
                     ]);
 
                 V.title(vertex).should.equal('2')
@@ -583,14 +583,14 @@ define([
 
             it('Concept should be available to formulas for vertices', function() {
                 var vertex = vertexFactory([
-                    propertyFactory(PROPERTY_NAME_CONCEPT, '', 'http://visallo.org/dev#formulaTestConcept')
+                    propertyFactory(PROPERTY_NAME_CONCEPT, '', 'http://openlumify.org/dev#formulaTestConcept')
                 ])
                 V.title(vertex).should.equal('FormulaTestConcept')
             })
 
             it('Check for scope vars in formula', function() {
                 var vertex = vertexFactory([
-                    propertyFactory(PROPERTY_NAME_CONCEPT, '', 'http://visallo.org/dev#formulaTest')
+                    propertyFactory(PROPERTY_NAME_CONCEPT, '', 'http://openlumify.org/dev#formulaTest')
                 ])
                 V.title(vertex).should.equal('true')
             })
@@ -598,7 +598,7 @@ define([
 
         describe('singlePropValid', function() {
             it('should validate property without validation formula', function() {
-                var property = propertyFactory('http://visallo.org/testing#integer1noform', 1);
+                var property = propertyFactory('http://openlumify.org/testing#integer1noform', 1);
                 V.singlePropValid(property.value, property.name, property.key).should.equal(true);
             });
 
@@ -617,7 +617,7 @@ define([
                         propertyFactory(PROPERTY_NAME_FIRST, 'k1', 'jason'),
                         propertyFactory(PROPERTY_NAME_LAST, 'k1', 'harwig'),
                         propertyFactory(PROPERTY_NAME_LAST, 'k2', 'harwig'),
-                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://visallo.org/dev#person')
+                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://openlumify.org/dev#person')
                     ]);
 
                 expect(V.propValid(vertex, [], COMPOUND_PROPERTY_NAME, 'k1')).to.be.true
@@ -629,7 +629,7 @@ define([
                         propertyFactory(PROPERTY_NAME_FIRST, 'k1', 'jason'),
                         propertyFactory(PROPERTY_NAME_LAST, 'k1', 'harwig'),
                         propertyFactory(PROPERTY_NAME_LAST, 'k2', 'harwig'),
-                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://visallo.org/dev#person')
+                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://openlumify.org/dev#person')
                     ]);
 
                 expect(V.propValid(vertex, ['override last name', undefined], COMPOUND_PROPERTY_NAME, 'k1')).to.be.false
@@ -638,7 +638,7 @@ define([
 
             it('should accept compound values with nested arrays', function() {
                 var vertex = vertexFactory([
-                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://visallo.org/dev#person')
+                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://openlumify.org/dev#person')
                     ]);
 
                 expect(V.propValid(vertex, [['override last name'], [undefined]], COMPOUND_PROPERTY_NAME)).to.be.false
@@ -649,7 +649,7 @@ define([
                 var vertex = vertexFactory([
                     propertyFactory(PROPERTY_NAME_GEO_AND_DATE_DATE, 'k1', Date.UTC(2017, 12, 1)),
                     propertyFactory(PROPERTY_NAME_GEO_AND_DATE_GEO, 'k1', { latitude: 1, longitude: 1 }),
-                    propertyFactory(PROPERTY_NAME_CONCEPT, 'http://visallo.org/dev#person')
+                    propertyFactory(PROPERTY_NAME_CONCEPT, 'http://openlumify.org/dev#person')
                 ]);
 
                 expect(V.propValid(vertex, ['', ''], PROPERTY_NAME_GEO_AND_DATE, 'k1')).to.be.false
@@ -660,7 +660,7 @@ define([
             it('should not modify vertex', function() {
                 var vertex = vertexFactory([
                         propertyFactory(PROPERTY_NAME_FIRST, 'k1', 'jason'),
-                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://visallo.org/dev#person')
+                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://openlumify.org/dev#person')
                     ]);
 
                 expect(V.propValid(vertex, ['harwig', 'j2'], COMPOUND_PROPERTY_NAME, 'k1')).to.be.true
@@ -671,7 +671,7 @@ define([
             it('should validate property without key', function() {
                 var vertex = vertexFactory([
                         propertyFactory(PROPERTY_NAME_FIRST, 'k1', 'jason'),
-                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://visallo.org/dev#person')
+                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://openlumify.org/dev#person')
                     ]);
 
                 expect(V.propValid(vertex, [], COMPOUND_PROPERTY_NAME)).to.be.false
@@ -688,7 +688,7 @@ define([
                     vertex = vertexFactory([
                         propertyFactory(PROPERTY_NAME_FIRST, ''),
                         propertyFactory(PROPERTY_NAME_LAST, ''),
-                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://visallo.org/dev#person')
+                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://openlumify.org/dev#person')
                     ]);
                 });
 
@@ -721,11 +721,11 @@ define([
 
                 describe('without validation formula on compound property', function() {
                     it('should validate existing values', function () {
-                        validateExisting('http://visallo.org/dev#nameNoValidationFormula');
+                        validateExisting('http://openlumify.org/dev#nameNoValidationFormula');
                     });
 
                     it('should validate overriding values', function () {
-                        validateOverriding('http://visallo.org/dev#nameNoValidationFormula');
+                        validateOverriding('http://openlumify.org/dev#nameNoValidationFormula');
                     });
                 });
             });
@@ -740,10 +740,10 @@ define([
                 var vertex = vertexFactory([
                         propertyFactory(PROPERTY_NAME_FIRST, 'jason'),
                         propertyFactory(PROPERTY_NAME_LAST, 'harwig'),
-                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://visallo.org/dev#person')
+                        propertyFactory(PROPERTY_NAME_CONCEPT, 'http://openlumify.org/dev#person')
                     ]);
 
-                expect(V.propRaw(vertex, 'conceptType')).to.equal('http://visallo.org/dev#person')
+                expect(V.propRaw(vertex, 'conceptType')).to.equal('http://openlumify.org/dev#person')
             })
 
             it('should get prop values', function() {
@@ -933,7 +933,7 @@ define([
         describe('displayType', function() {
             it('should return \'entity\' if the passed in entity is a non-artifact entity', function() {
                 var vertex = vertexFactory('v1', [
-                    propertyFactory(PROPERTY_NAME_CONCEPT, 'http://visallo.org/dev#person')
+                    propertyFactory(PROPERTY_NAME_CONCEPT, 'http://openlumify.org/dev#person')
                 ]);
                 expect(V.displayType(vertex)).to.equal('entity');
             })

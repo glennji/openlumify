@@ -33,7 +33,7 @@ define([
         };
 
         this.update = function() {
-            var user = visalloData.currentUser,
+            var user = openlumifyData.currentUser,
                 editable = this.workspaceEditable,
                 commentable = this.workspaceCommentable,
                 cls = [];

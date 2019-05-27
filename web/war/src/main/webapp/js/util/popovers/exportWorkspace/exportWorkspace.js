@@ -54,7 +54,7 @@ define([
                      * `attributes` function, all those attributes will be
                      * available as well.
                      *
-                     * @typedef org.visallo.graph.export~Exporter
+                     * @typedef org.openlumify.graph.export~Exporter
                      * @property {string} workspaceId
                      * @property {string} productId
                      * @property {object} exporter

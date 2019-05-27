@@ -11,7 +11,7 @@ define(['./withFaceboxTpl.hbs'], function(tpl) {
         })
 
         this.initializeFacebox = function(container) {
-            var root = this.$node.closest('.org-visallo-layout-root');
+            var root = this.$node.closest('.org-openlumify-layout-root');
 
             this.container = container.append(tpl({}));
             this.setupEditingFacebox();

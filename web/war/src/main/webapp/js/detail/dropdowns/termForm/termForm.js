@@ -86,8 +86,8 @@ define([
                 });
 
                 var conceptType = _.isArray(info) ?
-                    _.findWhere(info, { name: 'http://visallo.org#conceptType' }) :
-                    (info && (info['http://visallo.org#conceptType'] || info.concept));
+                    _.findWhere(info, { name: 'http://openlumify.org#conceptType' }) :
+                    (info && (info['http://openlumify.org#conceptType'] || info.concept));
                 conceptType = conceptType && conceptType.value || conceptType || '';
 
                 if (conceptType === '' && self.attr.restrictConcept) {
@@ -464,10 +464,10 @@ define([
                     });
 
                     self.selectedConceptId = vertexInfo && (
-                        vertexInfo['http://visallo.org#conceptType'] ||
+                        vertexInfo['http://openlumify.org#conceptType'] ||
                         (
                             vertexInfo.properties &&
-                            vertexInfo.properties['http://visallo.org#conceptType'].value
+                            vertexInfo.properties['http://openlumify.org#conceptType'].value
                         )
                     ) || '';
 

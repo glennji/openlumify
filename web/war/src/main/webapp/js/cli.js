@@ -33,7 +33,7 @@ define([], function() {
             description: 'Darken pane backgrounds for poor displays/projectors. (persisted)',
             preferenceKey: 'highcontrast',
             value: function(enable) {
-                var stylesheet = document.querySelector('link[href*=visallo-contrast]');
+                var stylesheet = document.querySelector('link[href*=openlumify-contrast]');
                 if (!enable && stylesheet) {
                     stylesheet.parentNode.removeChild(stylesheet);
                     localStorage.removeItem('highcontrast');
@@ -43,7 +43,7 @@ define([], function() {
                     console.warn('Running high contrast stylesheet. "enableHighContrast(false)" to disable');
                     stylesheet = document.createElement('link');
                     stylesheet.rel = 'stylesheet';
-                    stylesheet.href = '../css/visallo-contrast.css';
+                    stylesheet.href = '../css/openlumify-contrast.css';
                     document.head.appendChild(stylesheet);
                     localStorage.setItem('highcontrast', true);
                 }
@@ -130,12 +130,12 @@ define([], function() {
 
     var helpName = 'help';
     if (typeof window.help !== 'undefined') {
-        helpName = 'visalloHelp';
-        console.warn('Unable to create console help, already esists. Using visalloHelp');
+        helpName = 'openlumifyHelp';
+        console.warn('Unable to create console help, already esists. Using openlumifyHelp');
     }
 
     window[helpName] = function() {
-        console.group('Visallo Help')
+        console.group('OpenLumify Help')
             console.info('Descriptions of some of the debugging and global state objects');
             console.group('Global Helper Functions')
                 _.sortBy(globals, 'name').forEach(function(global) {
@@ -143,7 +143,7 @@ define([], function() {
                 })
             console.groupEnd();
             console.group('Global Objects')
-            console.log('visalloData: ' + 'Only Shared Global State');
+            console.log('openlumifyData: ' + 'Only Shared Global State');
             console.log('\t.currentUser: ' + 'Current user object');
             console.log('\t.currentWorkspaceId: ' + 'Current workspaceId');
             console.log('\t.selectedObjects: ' + 'Current object selection');

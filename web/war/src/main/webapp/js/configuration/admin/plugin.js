@@ -1,5 +1,5 @@
 /**
- * Base plugin file that defines a visallo admin ui plugin.
+ * Base plugin file that defines a openlumify admin ui plugin.
  */
 define([
     'flight/lib/component',
@@ -15,18 +15,18 @@ define([
     var NODE_CLS_FOR_LESS_CONTAINMENT = 'admin_less_cls_',
         componentInc = 0;
 
-    defineVisalloAdminPlugin.ALL_COMPONENTS = [];
+    defineOpenLumifyAdminPlugin.ALL_COMPONENTS = [];
 
-    return defineVisalloAdminPlugin;
+    return defineOpenLumifyAdminPlugin;
 
-    function defineVisalloAdminPlugin(Component, options) {
+    function defineOpenLumifyAdminPlugin(Component, options) {
 
         var FlightComponent = defineComponent.apply(null, [Component].concat(options && options.mixins || [])),
             attachTo = FlightComponent.attachTo,
             cls = NODE_CLS_FOR_LESS_CONTAINMENT + (componentInc++);
 
         console.warn('Admin plugin is deprecated, use registry for', options.section + '/' + options.name)
-        registry.registerExtension('org.visallo.admin', {
+        registry.registerExtension('org.openlumify.admin', {
             Component: FlightComponent,
             section: options.section,
             name: options.name,
@@ -80,7 +80,7 @@ define([
 
         componentInc++;
 
-        defineVisalloAdminPlugin.ALL_COMPONENTS.push(
+        defineOpenLumifyAdminPlugin.ALL_COMPONENTS.push(
             $.extend({},
                 _.pick(options || {}, 'section', 'name', 'subtitle'),
                 {

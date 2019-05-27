@@ -66,9 +66,9 @@ func main() {
   // create a vertex
   newElementValues := url.Values{
     "vertexId": {"V1"},
-    "conceptType": {"http://visallo.org/person"},
+    "conceptType": {"http://openlumify.org/person"},
     "visibilitySource": {""},
-    "properties": {`{"properties":[{"propertyKey":"k1", "propertyName":"http://visallo.org#title", "value":"Joe", "visibilitySource":"", "metadataString":""}]}`},
+    "properties": {`{"properties":[{"propertyKey":"k1", "propertyName":"http://openlumify.org#title", "value":"Joe", "visibilitySource":"", "metadataString":""}]}`},
   }
   elem := Element{}
   fmt.Printf("Creating vertex\n")

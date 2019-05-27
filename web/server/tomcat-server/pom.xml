@@ -4,15 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.visallo</groupId>
-        <artifactId>visallo-web-server-group</artifactId>
+        <groupId>co.hackstreet</groupId>
+        <artifactId>openlumify-web-server-group</artifactId>
         <version>4.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>visallo-tomcat-server</artifactId>
+    <artifactId>openlumify-tomcat-server</artifactId>
     <packaging>jar</packaging>
 
-    <name>Visallo: Web: Server: Tomcat</name>
+    <name>OpenLumify: Web: Server: Tomcat</name>
 
     <properties>
         <tomcat.version>8.5.23</tomcat.version>
@@ -20,9 +20,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-web-server-base</artifactId>
-            <version>${v5.visallo.version}</version>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-web-server-base</artifactId>
+            <version>${v5.openlumify.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>

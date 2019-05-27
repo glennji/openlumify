@@ -32,7 +32,7 @@ define(['tpl!./alert'], function(alertTemplate) {
             } catch(e) { /*eslint no-empty:0 */ }
 
             if (_.isError(error)) {
-                messages.push(error.message || i18n('visallo.server.error'))
+                messages.push(error.message || i18n('openlumify.server.error'))
             } else if (_.isObject(error)) {
                 _.keys(error).forEach(function(fieldName) {
                     switch (fieldName) {

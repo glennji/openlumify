@@ -19,7 +19,7 @@ define([
             if (this.props.setting.uiPreferenceName) {
                 this.setState({
                     disabled: false,
-                    value: P.bool.parse(visalloData.currentUser.uiPreferences[this.props.setting.uiPreferenceName], false)
+                    value: P.bool.parse(openlumifyData.currentUser.uiPreferences[this.props.setting.uiPreferenceName], false)
                 });
             } else if (this.props.setting.getInitialValue) {
                 Promise.resolve(this.props.setting.getInitialValue())
@@ -56,7 +56,7 @@ define([
                         value = value.toString();
                         return withDataRequest.dataRequest('user', 'preference', this.props.setting.uiPreferenceName, value)
                             .then(() => {
-                                visalloData.currentUser.uiPreferences[this.props.setting.uiPreferenceName] = value;
+                                openlumifyData.currentUser.uiPreferences[this.props.setting.uiPreferenceName] = value;
                                 return value;
                             });
                     } else {

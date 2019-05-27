@@ -4,20 +4,20 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>visallo-tools-group</artifactId>
-        <groupId>org.visallo</groupId>
+        <artifactId>openlumify-tools-group</artifactId>
+        <groupId>co.hackstreet</groupId>
         <version>4.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>visallo-tools-graph-check</artifactId>
+    <artifactId>openlumify-tools-graph-check</artifactId>
     <packaging>jar</packaging>
 
-    <name>Visallo: Tools: Graph Check</name>
+    <name>OpenLumify: Tools: Graph Check</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-core</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-core</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

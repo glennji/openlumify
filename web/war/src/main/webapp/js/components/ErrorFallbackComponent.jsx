@@ -14,8 +14,8 @@ define(['prop-types'], function(PropTypes) {
         return (
             <div className="ui-error">
                 <div className="error-image"></div>
-                <p className="error-text">{ i18n('visallo.default.ui.error.message') }</p>
-                { visalloEnvironment.dev ?
+                <p className="error-text">{ i18n('openlumify.default.ui.error.message') }</p>
+                { openlumifyEnvironment.dev ?
                     <p className="error-dev" title={stack}>{ message }</p>
                 : null }
             </div>

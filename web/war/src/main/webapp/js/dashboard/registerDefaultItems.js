@@ -1,10 +1,10 @@
 define(['configuration/plugins/registry'], function(registry) {
     'use strict';
 
-    registry.registerExtension('org.visallo.dashboard.item', {
+    registry.registerExtension('org.openlumify.dashboard.item', {
         title: i18n('dashboard.savedsearches.title'),
         description: i18n('dashboard.savedsearches.description'),
-        identifier: 'org-visallo-web-saved-search',
+        identifier: 'org-openlumify-web-saved-search',
         componentPath: 'search/dashboard/savedSearch',
         configurationPath: 'search/dashboard/configure',
         grid: {
@@ -13,10 +13,10 @@ define(['configuration/plugins/registry'], function(registry) {
         }
     });
 
-    registry.registerExtension('org.visallo.dashboard.item', {
+    registry.registerExtension('org.openlumify.dashboard.item', {
         title: i18n('dashboard.notifications.title'),
         description: i18n('dashboard.notifications.description'),
-        identifier: 'org-visallo-web-notifications',
+        identifier: 'org-openlumify-web-notifications',
         componentPath: 'notifications/dashboardItem',
         grid: {
             width: 3,
@@ -24,10 +24,10 @@ define(['configuration/plugins/registry'], function(registry) {
         }
     });
 
-    registry.registerExtension('org.visallo.dashboard.toolbar.item', {
-        identifier: 'org-visallo-notification-clear-all',
+    registry.registerExtension('org.openlumify.dashboard.toolbar.item', {
+        identifier: 'org-openlumify-notification-clear-all',
         canHandle: function(options) {
-            return options.extension.identifier === 'org-visallo-web-notifications'
+            return options.extension.identifier === 'org-openlumify-web-notifications'
         },
         tooltip: i18n('dashboard.notifications.clearall.hover'),
         icon: 'img/trash.png',
@@ -37,12 +37,12 @@ define(['configuration/plugins/registry'], function(registry) {
         }
     });
 
-    registry.registerExtension('org.visallo.dashboard.item', {
+    registry.registerExtension('org.openlumify.dashboard.item', {
         title: i18n('dashboard.pie.entity.title'),
         description: i18n('dashboard.pie.entity.description'),
-        identifier: 'org-visallo-web-dashboard-concept-counts',
+        identifier: 'org-openlumify-web-dashboard-concept-counts',
         report: {
-            defaultRenderer: 'org-visallo-pie',
+            defaultRenderer: 'org-openlumify-pie',
             endpoint: '/vertex/search',
             endpointParameters: {
                 q: '*',
@@ -52,7 +52,7 @@ define(['configuration/plugins/registry'], function(registry) {
                     {
                         type: 'term',
                         name: 'field',
-                        field: 'http://visallo.org#conceptType'
+                        field: 'http://openlumify.org#conceptType'
                     }
                 ].map(JSON.stringify)
             }
@@ -63,12 +63,12 @@ define(['configuration/plugins/registry'], function(registry) {
         }
     });
 
-    registry.registerExtension('org.visallo.dashboard.item', {
+    registry.registerExtension('org.openlumify.dashboard.item', {
         title: i18n('dashboard.pie.edge.title'),
         description: i18n('dashboard.pie.edge.description'),
-        identifier: 'org-visallo-web-dashboard-edge-counts',
+        identifier: 'org-openlumify-web-dashboard-edge-counts',
         report: {
-            defaultRenderer: 'org-visallo-pie',
+            defaultRenderer: 'org-openlumify-pie',
             endpoint: '/edge/search',
             endpointParameters: {
                 q: '*',
@@ -89,10 +89,10 @@ define(['configuration/plugins/registry'], function(registry) {
         }
     });
 
-    registry.registerExtension('org.visallo.dashboard.item', {
+    registry.registerExtension('org.openlumify.dashboard.item', {
         title: i18n('dashboard.welcome.title'),
         description: i18n('dashboard.welcome.description'),
-        identifier: 'org-visallo-web-dashboard-welcome',
+        identifier: 'org-openlumify-web-dashboard-welcome',
         componentPath: 'dashboard/items/welcome/welcome',
         options: {
             preventDefaultConfig: true

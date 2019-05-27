@@ -46,7 +46,7 @@ define([
              * @example
              * RelationshipSelect.attachTo($node)
              * //...
-             * $node.trigger('limitParentConceptId', { conceptId: 'http://www.visallo.org/minimal#person' })
+             * $node.trigger('limitParentConceptId', { conceptId: 'http://www.openlumify.org/minimal#person' })
              */
             this.on('limitParentConceptId', function(event, data) {
                 const { conceptId, sourceConceptId: sourceId, targetConceptId: targetId } = data;

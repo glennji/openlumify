@@ -1,0 +1,2 @@
+org.openlumify.web.structuredingest.spreadsheet.CsvParser
+org.openlumify.web.structuredingest.spreadsheet.ExcelParser

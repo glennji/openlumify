@@ -9,7 +9,7 @@ define([
 ], function(createReactClass, PropTypes, redux, ProductList, productActions, productSelectors, registry) {
     'use strict';
 
-    registry.markUndocumentedExtensionPoint('org.visallo.workproduct')
+    registry.markUndocumentedExtensionPoint('org.openlumify.workproduct')
 
     var initial;
     $(document)
@@ -26,7 +26,7 @@ define([
         .on('productsPaneVisible', function handler(event, data) {
             $(document).off('productsPaneVisible', handler);
             if (initial) return;
-            visalloData.storePromise.then(store => {
+            openlumifyData.storePromise.then(store => {
                 const state = store.getState();
                 const selected = productSelectors.getSelectedId(state)
                 if (!selected) {
@@ -67,7 +67,7 @@ define([
                     dispatch(productActions.select(productId))
                 },
                 onDropElements: (product, elements) => {
-                    const extension = _.findWhere(registry.extensionsForPoint('org.visallo.workproduct'), {
+                    const extension = _.findWhere(registry.extensionsForPoint('org.openlumify.workproduct'), {
                         identifier: product.kind
                     });
 

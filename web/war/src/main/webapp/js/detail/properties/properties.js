@@ -18,9 +18,9 @@ define([
     'use strict';
 
     var component = defineComponent(Properties, withDataRequest, withPropertyInfo),
-        HIDE_PROPERTIES = ['http://visallo.org/comment#entry'],
-        VISIBILITY_NAME = 'http://visallo.org#visibilityJson',
-        SANDBOX_STATUS_NAME = 'http://visallo.org#sandboxStatus',
+        HIDE_PROPERTIES = ['http://openlumify.org/comment#entry'],
+        VISIBILITY_NAME = 'http://openlumify.org#visibilityJson',
+        SANDBOX_STATUS_NAME = 'http://openlumify.org#sandboxStatus',
         NO_GROUP = '${NO_GROUP}',
 
         // Property td types
@@ -85,7 +85,7 @@ define([
 
     function isJustification(property) {
         return (
-            property.name === 'http://visallo.org#justification' ||
+            property.name === 'http://openlumify.org#justification' ||
             property.name === '_sourceMetadata'
         );
     }
@@ -99,7 +99,7 @@ define([
         this.update = function(properties) {
             var self = this,
                 displayProperties = this.transformPropertiesForUpdate(properties),
-                expandedSections = visalloData.currentUser.uiPreferences['property-groups-expanded'];
+                expandedSections = openlumifyData.currentUser.uiPreferences['property-groups-expanded'];
 
             if (expandedSections) {
                 expandedSections = JSON.parse(expandedSections);
@@ -216,8 +216,8 @@ define([
                         return 0;
                     })
                     .sortBy(function(property) {
-                        if (property.metadata && ('http://visallo.org#confidence' in property.metadata)) {
-                            return property.metadata['http://visallo.org#confidence'] * -1;
+                        if (property.metadata && ('http://openlumify.org#confidence' in property.metadata)) {
+                            return property.metadata['http://openlumify.org#confidence'] * -1;
                         }
                         return 0;
                     })
@@ -266,7 +266,7 @@ define([
                 node = this.node,
                 root = d3.select(node);
 
-            node.classList.add('org-visallo-properties');
+            node.classList.add('org-openlumify-properties');
 
             this.showMoreExpanded = {};
             this.tableRoot = root
@@ -345,7 +345,7 @@ define([
                 vertexId = data.vertexId || this.data.id,
                 service = data.isEdge ? 'edge' : 'vertex';
 
-            if (data.property.name === 'http://visallo.org#visibilityJson') {
+            if (data.property.name === 'http://openlumify.org#visibilityJson') {
                 var visibilitySource = data.property.visibilitySource || '';
                 this.dataRequest(service, 'setVisibility', vertexId, visibilitySource)
                     .then(this.closePropertyForm.bind(this, data.node))
@@ -432,7 +432,7 @@ define([
 
         this.saveSectionTogglePreference = function(sectionEl, expanded) {
             var name = $(sectionEl).data('sectionName'),
-                previouslyExpanded = visalloData.currentUser.uiPreferences['property-groups-expanded'],
+                previouslyExpanded = openlumifyData.currentUser.uiPreferences['property-groups-expanded'],
                 shouldSave = false;
 
             if (previouslyExpanded) {
@@ -453,7 +453,7 @@ define([
 
             if (shouldSave) {
                 var prefValue = JSON.stringify(previouslyExpanded);
-                visalloData.currentUser.uiPreferences['property-groups-expanded'] = prefValue;
+                openlumifyData.currentUser.uiPreferences['property-groups-expanded'] = prefValue;
                 this.dataRequest('user', 'preference', 'property-groups-expanded', prefValue);
             }
         };

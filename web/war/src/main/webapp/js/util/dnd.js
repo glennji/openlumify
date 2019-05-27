@@ -1,6 +1,6 @@
 define(['util/vertex/formatters'], function(F) {
 
-    const FALLBACK_PREFIX = 'Visallo_ElementIds: ';
+    const FALLBACK_PREFIX = 'OpenLumify_ElementIds: ';
     let supportsMultipleTypes;
     // IE doesn't support setData([mimetype], ...), it only supports setData('text', ...)
     const checkIfSupportsMultipleTypes = (dataTransfer) => {
@@ -51,7 +51,7 @@ define(['util/vertex/formatters'], function(F) {
 
             Promise.all([
                 Promise.require('data/web-worker/store/element/actions'),
-                visalloData.storePromise
+                openlumifyData.storePromise
             ]).spread((actions, store) => store.dispatch(actions.setFocus({ elementIds: [] })));
         },
         getElementsFromDataTransfer(dataTransfer) {
@@ -90,10 +90,10 @@ define(['util/vertex/formatters'], function(F) {
                 }
             })
         }
-        const url = F.vertexUrl.url(hasFullElements ? elements : vertexIds.concat(edgeIds), visalloData.currentWorkspaceId);
+        const url = F.vertexUrl.url(hasFullElements ? elements : vertexIds.concat(edgeIds), openlumifyData.currentWorkspaceId);
         const plain = hasFullElements ?
             elements.map(item => [
-                F.vertex.title(item), F.vertexUrl.url([item], visalloData.currentWorkspaceId)
+                F.vertex.title(item), F.vertexUrl.url([item], openlumifyData.currentWorkspaceId)
             ].join('\n')).join('\n\n') :
             url
 

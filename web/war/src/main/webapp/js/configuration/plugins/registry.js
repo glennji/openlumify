@@ -1,6 +1,6 @@
 /**
  * View all available extensions and registrations in the _Admin_ panel inside
- * Visallo under _UI Extensions_.  Documentation with examples is available at {@link http://docs.visallo.org/extension-points/front-end docs.visallo.org}.
+ * OpenLumify under _UI Extensions_.  Documentation with examples is available at {@link http://docs.openlumify.org/extension-points/front-end docs.openlumify.org}.
  *
  * @module registry
  * @classdesc Registry for adding and removing extensions given documented extension points
@@ -156,7 +156,7 @@ The extension will continue to work, but the old name will be removed in future 
             },
 
             /**
-             * Register new functionality at the given `extensionPoint`. View the {@link http://docs.visallo.org/extension-points/front-end docs} for available extension points, or in Visallo, open the Admin panel, then UI Extensions.
+             * Register new functionality at the given `extensionPoint`. View the {@link http://docs.openlumify.org/extension-points/front-end docs} for available extension points, or in OpenLumify, open the Admin panel, then UI Extensions.
              *
              * @param {String} extensionPoint string that designates the
              * extension to extend.
@@ -164,9 +164,9 @@ The extension will continue to work, but the old name will be removed in future 
              * extension requirements.
              * @returns {String} extensionUuid used to {@link module:configuration/plugins/registry.unregisterExtension unregister an extension}
              * @example
-             * registry.registerExtension('org.visallo.menubar', {
+             * registry.registerExtension('org.openlumify.menubar', {
              *     title: 'New'
-             *     identifier: 'org-visallo-example-new',
+             *     identifier: 'org-openlumify-example-new',
              *     action: {
              *         type: 'full',
              *         componentPath: 'example-new-page'

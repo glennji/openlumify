@@ -11,13 +11,13 @@
         <relativePath></relativePath>
     </parent>
 
-    <groupId>org.visallo</groupId>
-    <artifactId>visallo-plugin-archetype</artifactId>
+    <groupId>co.hackstreet</groupId>
+    <artifactId>openlumify-plugin-archetype</artifactId>
     <version>4.1-SNAPSHOT</version>
     <packaging>maven-archetype</packaging>
 
-    <name>Visallo: Maven Archetype</name>
-    <description>Generate a project for Visallo plugin development</description>
+    <name>OpenLumify: Maven Archetype</name>
+    <description>Generate a project for OpenLumify plugin development</description>
 
 
     <properties>

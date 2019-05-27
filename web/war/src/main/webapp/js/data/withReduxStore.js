@@ -13,7 +13,7 @@ define([
     function withReduxStore() {
 
         this.before('initialize', function() {
-            visalloData.storePromise = new Promise(done => { this.storeReady = done });
+            openlumifyData.storePromise = new Promise(done => { this.storeReady = done });
         })
 
         this.reduxStoreInit = function(message) {
@@ -68,14 +68,14 @@ define([
                 });
             }
             function loadOntology() {
-                if (!visalloData.currentUser) {
-                    self.on(document, 'currentUserVisalloDataUpdated', function handler() {
-                        self.off(document, 'currentUserVisalloDataUpdated', handler);
+                if (!openlumifyData.currentUser) {
+                    self.on(document, 'currentUserOpenLumifyDataUpdated', function handler() {
+                        self.off(document, 'currentUserOpenLumifyDataUpdated', handler);
                         loadOntology();
                     });
                     return;
                 }
-                const workspaceId = visalloData.currentUser.currentWorkspaceId;
+                const workspaceId = openlumifyData.currentUser.currentWorkspaceId;
                 require(['data/web-worker/store/ontology/actions'], ontologyActions => {
                     self._reduxStore.dispatch(ontologyActions.get(workspaceId))
                 });

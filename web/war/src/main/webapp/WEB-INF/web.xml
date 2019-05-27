@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <listener>
-        <listener-class>org.visallo.web.ApplicationBootstrap</listener-class>
+        <listener-class>org.openlumify.web.ApplicationBootstrap</listener-class>
     </listener>
     <distributable/>
 
     <servlet>
         <servlet-name>ErrorHandler</servlet-name>
-        <servlet-class>org.visallo.web.VisalloDefaultErrorHandler</servlet-class>
+        <servlet-class>org.openlumify.web.OpenLumifyDefaultErrorHandler</servlet-class>
     </servlet>
 
     <servlet-mapping>

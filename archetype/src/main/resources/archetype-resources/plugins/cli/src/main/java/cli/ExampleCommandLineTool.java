@@ -8,12 +8,12 @@ import com.google.inject.Inject;
 import ${package}.worker.OntologyConstants;
 import org.vertexium.EdgeBuilderByVertexId;
 import org.vertexium.Visibility;
-import org.visallo.core.cmdline.CommandLineTool;
-import org.visallo.core.model.graph.GraphRepository;
-import org.visallo.core.model.graph.GraphUpdateContext;
-import org.visallo.core.model.properties.types.PropertyMetadata;
-import org.visallo.core.model.workQueue.Priority;
-import org.visallo.web.clientapi.model.VisibilityJson;
+import org.openlumify.core.cmdline.CommandLineTool;
+import org.openlumify.core.model.graph.GraphRepository;
+import org.openlumify.core.model.graph.GraphUpdateContext;
+import org.openlumify.core.model.properties.types.PropertyMetadata;
+import org.openlumify.core.model.workQueue.Priority;
+import org.openlumify.web.clientapi.model.VisibilityJson;
 
 @Parameters(commandDescription = "Example Command Line")
 public class ExampleCommandLineTool extends CommandLineTool {

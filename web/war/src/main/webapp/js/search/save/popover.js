@@ -47,7 +47,7 @@ define([
 
         this.before('initialize', function(node, config) {
             config.template = '/search/save/template.hbs';
-            config.canSaveGlobal = visalloData.currentUser.privileges.indexOf('SEARCH_SAVE_GLOBAL') > -1;
+            config.canSaveGlobal = openlumifyData.currentUser.privileges.indexOf('SEARCH_SAVE_GLOBAL') > -1;
             config.maxHeight = $(window).height() / 2;
             config.name = config.update && config.update.name || '';
             config.updatingGlobal = config.update && config.update.scope === SCOPES.GLOBAL;

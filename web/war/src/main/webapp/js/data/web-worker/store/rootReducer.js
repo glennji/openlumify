@@ -19,7 +19,7 @@ For example:
             ...
         })
     })`);
-    console.error('Visallo is deadlocked until circular dependency is resolved.')
+    console.error('OpenLumify is deadlocked until circular dependency is resolved.')
 }
 
 define([
@@ -42,7 +42,7 @@ define([
     // Add reducers above, the name of the function will be used as the key
 ], function(registry, redux, pluginsFinished, ...reducers) {
 
-    registry.markUndocumentedExtensionPoint('org.visallo.store');
+    registry.markUndocumentedExtensionPoint('org.openlumify.store');
 
     const composeReducers = (reducers) => {
         return (state, payload) => {
@@ -56,7 +56,7 @@ define([
             }, state)
         }
     }
-    const reducerExtensions = registry.extensionsForPoint('org.visallo.store');
+    const reducerExtensions = registry.extensionsForPoint('org.openlumify.store');
     const reducersByKey = _.groupBy(reducerExtensions, 'key');
     const baseReducers = _.object(
         reducers.map(reducerFn => {

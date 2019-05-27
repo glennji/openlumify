@@ -44,8 +44,8 @@ define([
             throw new Error('Valid component or path is required')
         }
         if (this._params) {
-            if ('visalloApi' in this._params) {
-                throw new Error('Refrain from setting visalloApi key in params to avoid collisions');
+            if ('openlumifyApi' in this._params) {
+                throw new Error('Refrain from setting openlumifyApi key in params to avoid collisions');
             }
             if (!_.isObject(this._params) || _.isArray(this._params) || _.isFunction(this._params)) {
                 throw new Error('Params must be an object')
@@ -84,11 +84,11 @@ define([
                 return Promise.all([
                     self._component || Promise.require(self._path).then(componentOrDefault),
                     cachedApiVersions || (cachedApiVersions = loadApiVersions()),
-                    visalloData.storePromise
+                    openlumifyData.storePromise
                 ]);
             })
             .spread(function(Component, api, store) {
-                params.visalloApi = api;
+                params.openlumifyApi = api;
                 const flight = isFlight(Component);
 
                 if (options.teardown) {

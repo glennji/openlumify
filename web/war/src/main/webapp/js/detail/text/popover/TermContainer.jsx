@@ -204,7 +204,7 @@ define([
         },
         _do(...params) {
             this.setState({ error: null, loading: true })
-            this.props.visalloApi.v1.dataRequest(...params)
+            this.props.openlumifyApi.v1.dataRequest(...params)
                 .then(result => {
                     this.props.reloadText();
                     this.doClose();

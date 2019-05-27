@@ -27,19 +27,19 @@ define([
      * @param {string} pageComponentPath The path to component to render in the
      * content area of the modal.
      */
-    registry.documentExtensionPoint('org.visallo.user.account.page',
+    registry.documentExtensionPoint('org.openlumify.user.account.page',
         'Add new tabs to user account modal dialog',
         function(e) {
             return ('identifier' in e) && ('pageComponentPath' in e);
         },
-        'http://docs.visallo.org/extension-points/front-end/userAccount'
+        'http://docs.openlumify.org/extension-points/front-end/userAccount'
     );
 
 
     const LAST_SAVED_UPDATE_FREQUENCY_SECONDS = 30;
     const UPDATE_WORKSPACE_DIFF_SECONDS = 5;
     const SHOW_UNPUBLUSHED_CHANGES_SECONDS = 3;
-    const COMMENT_ENTRY_IRI = 'http://visallo.org/comment#entry';
+    const COMMENT_ENTRY_IRI = 'http://openlumify.org/comment#entry';
 
     return defineComponent(WorkspaceOverlay, withDataRequest);
 
@@ -70,7 +70,7 @@ define([
 
             this.$node.hide().html(template({}));
 
-            this.updateUserTooltip({user: visalloData.currentUser});
+            this.updateUserTooltip({user: openlumifyData.currentUser});
 
             requestAnimationFrame(function() {
                 self.$node.addClass('visible');
@@ -204,7 +204,7 @@ define([
         };
 
         this.onWorkspaceUpdated = function(event, data) {
-            if (visalloData.currentWorkspaceId === data.workspace.workspaceId) {
+            if (openlumifyData.currentWorkspaceId === data.workspace.workspaceId) {
                 this.updateWithNewWorkspaceData(data.workspace);
             }
         };
@@ -433,7 +433,7 @@ define([
                             'workspaces/userAccount/userAccount'
                         ], function(modalTemplate, UserAccount) {
                             var modal = $(modalTemplate({
-                                displayName: visalloData.currentUser.displayName
+                                displayName: openlumifyData.currentUser.displayName
                             })).appendTo(document.body);
                             UserAccount.attachTo(modal);
                             modal.modal('show');

@@ -20,13 +20,13 @@ define([
     d3) {
     'use strict';
 
-    var VISIBILITY_NAME = 'http://visallo.org#visibilityJson';
+    var VISIBILITY_NAME = 'http://openlumify.org#visibilityJson';
 
     return defineComponent(Comments, withCollapsibleSections, withDataRequest, withPropertyInfo);
 
     function toCommentTree(properties) {
         var comments = _.chain(properties)
-                .where({ name: 'http://visallo.org/comment#entry' })
+                .where({ name: 'http://openlumify.org/comment#entry' })
                 .sortBy(function(p) {
                     return p.key;
                 })
@@ -34,7 +34,7 @@ define([
             maxDepth = 1,
             total = comments.length,
             userIds = _.unique(_.map(comments, function(c) {
-                return c.metadata['http://visallo.org#modifiedBy'];
+                return c.metadata['http://openlumify.org#modifiedBy'];
             })),
             commentsByKey = _.indexBy(_.map(comments, function(c) {
                 return [c, []];
@@ -42,12 +42,12 @@ define([
                 return a[0].key;
             }),
             rootComments = _.filter(comments, function(p) {
-                return !p.metadata['http://visallo.org/comment#path'];
+                return !p.metadata['http://openlumify.org/comment#path'];
             }),
             roots = [];
 
         comments.forEach(function(comment) {
-            var path = comment.metadata['http://visallo.org/comment#path'];
+            var path = comment.metadata['http://openlumify.org/comment#path'];
             if (path) {
                 var components = path.split('/');
                 maxDepth = Math.max(maxDepth, components.length + 1);
@@ -59,7 +59,7 @@ define([
                             key: key,
                             redacted: true,
                             metadata: {
-                                'http://visallo.org#modifiedDate': ''
+                                'http://openlumify.org#modifiedDate': ''
                             }
                         }, []];
                         if (i === 0) {
@@ -222,7 +222,7 @@ define([
                     $this.hide();
                 } else {
                     var currentUserId = $this.data('userId'),
-                        newUserId = p[0].metadata['http://visallo.org#modifiedBy'],
+                        newUserId = p[0].metadata['http://openlumify.org#modifiedBy'],
                         currentText = $this.text(),
                         loading = i18n('detail.comments.user.loading');
                     if ((!currentUserId || currentUserId === newUserId) &&
@@ -241,7 +241,7 @@ define([
                     if (p[0].redacted) {
                         return '';
                     }
-                    var modified = p[0].metadata['http://visallo.org#modifiedDate'],
+                    var modified = p[0].metadata['http://openlumify.org#modifiedDate'],
                         created = getCreated(p[0]) || modified,
                         relativeString = modified && F.date.relativeToNow(F.date.utc(modified)),
                         dateTimeString = modified && F.date.dateTimeString(modified);
@@ -263,7 +263,7 @@ define([
                     if (p[0].redacted) {
                         return '';
                     }
-                    var modified = p[0].metadata['http://visallo.org#modifiedDate'],
+                    var modified = p[0].metadata['http://openlumify.org#modifiedDate'],
                         created = getCreated(p[0]) || modified,
                         modifiedStr = modified && F.date.dateTimeString(modified) || '',
                         createdStr = created && F.date.dateTimeString(created) || '',

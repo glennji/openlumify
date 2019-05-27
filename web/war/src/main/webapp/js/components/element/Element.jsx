@@ -21,8 +21,8 @@ define([
     ontologySelectors,
     selectionActions) {
 
-    const ClassName = 'org-visallo-element';
-    const ClassNameLoading = 'org-visallo-element-loading';
+    const ClassName = 'org-openlumify-element';
+    const ClassNameLoading = 'org-openlumify-element-loading';
 
     const Vertex = function(props) {
         const { vertex, ...rest } = props;
@@ -43,7 +43,7 @@ define([
 
     const Edge = function(props) {
         const { edge, inVertex, outVertex, relationshipLabel, ...rest } = props;
-        let title = i18n('visallo.loading');
+        let title = i18n('openlumify.loading');
         let titleStr = title;
 
         if (relationshipLabel && inVertex && outVertex) {

@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://openlumify.org/workspace/product/graph#"
+     xml:base="http://openlumify.org/workspace/product/graph"
+     xmlns:openlumify="http://openlumify.org#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://openlumify.org/product">
+        <owl:imports rdf:resource="http://openlumify.org/workspace"/>
+        <owl:imports rdf:resource="http://openlumify.org"/>
+    </owl:Ontology>
+
+
+
+    <!--
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+
+
+    <!-- http://openlumify.org/workspace/product/graph#entityPosition -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/workspace/product/graph#entityPosition">
+        <openlumify:objectPropertyDomain rdf:resource="http://openlumify.org/workspace/product#toEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://openlumify.org/workspace/product/graph#parentNode -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/workspace/product/graph#parentNode">
+        <openlumify:objectPropertyDomain rdf:resource="http://openlumify.org/workspace/product#toEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://openlumify.org/workspace/product/graph#nodeChildren -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/workspace/product/graph#nodeChildren">
+        <openlumify:objectPropertyDomain rdf:resource="http://openlumify.org/workspace/product#toEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+
+
+
+    <!-- http://openlumify.org/workspace/product/graph#nodeTitle -->
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/workspace/product/graph#nodeTitle">
+        <openlumify:objectPropertyDomain rdf:resource="http://openlumify.org/workspace/product#toEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <openlumify:textIndexHints>NONE</openlumify:textIndexHints>
+        <openlumify:userVisible>false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+
+
+
+
+    <!--
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+
+    <!-- http://openlumify.org/workspace/product/graph#compoundNode -->
+
+    <owl:Class rdf:about="http://openlumify.org/workspace/product/graph#compoundNode">
+        <openlumify:userVisible>false</openlumify:userVisible>
+        <rdfs:label xml:lang="en">Graph Product Compound Node</rdfs:label>
+    </owl:Class>
+
+</rdf:RDF>

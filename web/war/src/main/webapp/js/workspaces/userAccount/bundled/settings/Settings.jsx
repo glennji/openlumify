@@ -18,7 +18,7 @@ define([
      * @param {string=} getInitialValue Required when type=boolean, if uiPreferenceName is not provided
      * @param {string=} onChange Required when type=boolean, if uiPreferenceName is not provided
      */
-    registry.documentExtensionPoint('org.visallo.user.account.page.setting',
+    registry.documentExtensionPoint('org.openlumify.user.account.page.setting',
         'Add new settings to the general settings page',
         function(e) {
             if (!(('identifier' in e) && ('group' in e) && ('displayName' in e) && ('type' in e))) {
@@ -35,13 +35,13 @@ define([
                     return false;
             }
         },
-        'http://docs.visallo.org/extension-points/front-end/userAccount'
+        'http://docs.openlumify.org/extension-points/front-end/userAccount'
     );
 
     const TIMEZONE_SETTING = {
-        identifier: 'org.visallo.user.account.page.setting.timezone',
+        identifier: 'org.openlumify.user.account.page.setting.timezone',
         group: 'useraccount.page.settings.setting.group.locale',
-        displayName: 'org.visallo.user.account.page.setting.timezone.displayName',
+        displayName: 'org.openlumify.user.account.page.setting.timezone.displayName',
         type: 'custom',
         componentPath: 'workspaces/userAccount/bundled/settings/TimeZoneSetting'
     };
@@ -114,10 +114,10 @@ define([
 
     const Settings = createReactClass({
         getSettingsExtensions() {
-            const settings = registry.extensionsForPoint('org.visallo.user.account.page.setting');
+            const settings = registry.extensionsForPoint('org.openlumify.user.account.page.setting');
 
             if (!_.findWhere(settings, {identifier: TIMEZONE_SETTING.identifier})) {
-                registry.registerExtension('org.visallo.user.account.page.setting', TIMEZONE_SETTING);
+                registry.registerExtension('org.openlumify.user.account.page.setting', TIMEZONE_SETTING);
                 settings.push(TIMEZONE_SETTING);
             }
 

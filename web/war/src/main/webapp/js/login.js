@@ -52,24 +52,24 @@ define([
             /**
              * Provide custom authentication interface to login users.
              *
-             * _Visallo will display an error if:_
+             * _OpenLumify will display an error if:_
              *
              * * No authentication plugins are registered
              * * More than one plugins are registered
              *
-             * @param {string} componentPath {@link org.visallo.authentication~Component|Component} that renders the interface to login users
+             * @param {string} componentPath {@link org.openlumify.authentication~Component|Component} that renders the interface to login users
              */
-            registry.documentExtensionPoint('org.visallo.authentication',
+            registry.documentExtensionPoint('org.openlumify.authentication',
                 'Provides interface for authentication',
                 function(e) {
                     return _.isString(e.componentPath);
                 },
-                'http://docs.visallo.org/extension-points/front-end/authentication'
+                'http://docs.openlumify.org/extension-points/front-end/authentication'
             );
 
             this.$node.html(template({ showPoweredBy: configProperties['login.showPoweredBy'] === 'true' }));
             var self = this,
-                authPlugins = registry.extensionsForPoint('org.visallo.authentication'),
+                authPlugins = registry.extensionsForPoint('org.openlumify.authentication'),
                 authNode = this.select('authenticationSelector'),
                 error = '',
                 componentPath = '';
@@ -116,21 +116,21 @@ define([
                      * Display `errorMessage` property somewhere in interface
                      * if it is non-empty.
                      *
-                     * @typedef org.visallo.authentication~Component
+                     * @typedef org.openlumify.authentication~Component
                      * @property {string} [errorMessage=''] Error Message to display
-                     * @fires org.visallo.authentication#loginSuccess
+                     * @fires org.openlumify.authentication#loginSuccess
                      */
                     AuthenticationPlugin.attachTo(authNode, {
                         errorMessage
                     });
 
                     /**
-                     * Notify Visallo that user is valid and application should
+                     * Notify OpenLumify that user is valid and application should
                      * start.
                      *
                      * Will fail if `/user/me` actually returns `403` errors
                      *
-                     * @event org.visallo.authentication#loginSuccess
+                     * @event org.openlumify.authentication#loginSuccess
                      * @example
                      * this.trigger('loginSuccess')
                      */

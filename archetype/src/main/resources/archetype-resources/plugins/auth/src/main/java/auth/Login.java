@@ -9,12 +9,12 @@ import org.visallo.webster.ParameterizedHandler;
 import org.visallo.webster.annotations.Handle;
 import org.visallo.webster.annotations.Required;
 import org.json.JSONObject;
-import org.visallo.core.exception.VisalloAccessDeniedException;
-import org.visallo.core.model.user.UserNameAuthorizationContext;
-import org.visallo.core.model.user.UserRepository;
-import org.visallo.core.user.User;
-import org.visallo.web.CurrentUser;
-import org.visallo.web.util.RemoteAddressUtil;
+import org.openlumify.core.exception.OpenLumifyAccessDeniedException;
+import org.openlumify.core.model.user.UserNameAuthorizationContext;
+import org.openlumify.core.model.user.UserRepository;
+import org.openlumify.core.user.User;
+import org.openlumify.web.CurrentUser;
+import org.openlumify.web.util.RemoteAddressUtil;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -45,7 +45,7 @@ public class Login implements ParameterizedHandler {
             json.put("status", "OK");
             return json;
         } else {
-            throw new VisalloAccessDeniedException("", null, null);
+            throw new OpenLumifyAccessDeniedException("", null, null);
         }
     }
 

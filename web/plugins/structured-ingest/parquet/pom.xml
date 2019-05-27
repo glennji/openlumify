@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>org.visallo</groupId>
-        <artifactId>visallo-web-plugin-base</artifactId>
+        <groupId>co.hackstreet</groupId>
+        <artifactId>openlumify-web-plugin-base</artifactId>
         <version>4.1-SNAPSHOT</version>
         <relativePath>../../../web-plugin-base</relativePath>
     </parent>
@@ -14,13 +14,13 @@
         <parquet.version>1.7.0</parquet.version>
     </properties>
 
-    <artifactId>visallo-web-structured-ingest-parquet</artifactId>
-    <name>Visallo: Web: Structured Ingest: Parquet</name>
+    <artifactId>openlumify-web-structured-ingest-parquet</artifactId>
+    <name>OpenLumify: Web: Structured Ingest: Parquet</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-web-structured-ingest-core</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-web-structured-ingest-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -79,10 +79,10 @@
                                     <include>org.xerial.snappy:snappy-java</include>
                                 </includes>
                                 <excludes>
-                                    <exclude>org.visallo:visallo-web-structured-ingest-core</exclude>
+                                    <exclude>org.openlumify:openlumify-web-structured-ingest-core</exclude>
                                     <exclude>org.apache.tika:tika-parsers</exclude>
                                     <exclude>org.apache.hadoop:hadoop-client</exclude>
-                                    <exclude>org.visallo:visallo-web-structured-ingest-core</exclude>
+                                    <exclude>org.openlumify:openlumify-web-structured-ingest-core</exclude>
                                 </excludes>
                             </artifactSet>
                             <relocations>

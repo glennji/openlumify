@@ -8,7 +8,7 @@ define([
 
     function propertyUrl(elementType, property) {
         return '/' + elementType + '/' +
-            (property.name === 'http://visallo.org/comment#entry' ? 'comment' : 'property');
+            (property.name === 'http://openlumify.org/comment#entry' ? 'comment' : 'property');
     }
 
     function indexElementProperties(element) {

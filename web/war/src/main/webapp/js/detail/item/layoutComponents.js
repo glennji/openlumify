@@ -7,7 +7,7 @@ define([
 ], function(registry) {
     'use strict';
 
-    var register = _.partial(registry.registerExtension, 'org.visallo.layout.component'),
+    var register = _.partial(registry.registerExtension, 'org.openlumify.layout.component'),
         componentArrays = _.rest(arguments, 1);
 
     componentArrays.forEach(function(components) {

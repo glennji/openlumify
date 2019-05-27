@@ -11,7 +11,7 @@
  * @attr {number} total The total count of items. Required when `infiniteScrolling` enabled.
  * @attr {number} nextOffset When `infiniteScrolling` is enabled, specifies where the next request should start
  * @attr {string|undefined} usageContext Describes the context this component is used so ListItemRenderers can determine if they should override behavior.
- * @see org.visallo.entity.listItemRenderer
+ * @see org.openlumify.entity.listItemRenderer
  * @fires module:components/List#infiniteScrollRequest
  * @listens module:components/List#addInfiniteItems
  * @example <caption>Static list</caption>
@@ -62,23 +62,23 @@ define([
      * Requires either `component` or `componentPath`.
      *
      * <div class="warning">
-     * **The `item` property passed to {@link org.visallo.entity.listItemRenderer~Component|Component}
+     * **The `item` property passed to {@link org.openlumify.entity.listItemRenderer~Component|Component}
      * can differ depending on `usageContext`.**
      * <p>
      * `usageContext == 'detail/relationships'` => `{ vertex, relationship }`<br>
      * `usageContext == 'searchresults'` => The element
      * </div>
      *
-     * @param {org.visallo.entity.listItemRenderer~canHandle} canHandle Whether the extension should run given an item and usageContext
-     * @param {org.visallo.entity.listItemRenderer~Component} [component] The FlightJS component to handle rendering
-     * @param {string} [componentPath] Path to {@link org.visallo.entity.listItemRenderer~Component}
+     * @param {org.openlumify.entity.listItemRenderer~canHandle} canHandle Whether the extension should run given an item and usageContext
+     * @param {org.openlumify.entity.listItemRenderer~Component} [component] The FlightJS component to handle rendering
+     * @param {string} [componentPath] Path to {@link org.openlumify.entity.listItemRenderer~Component}
      */
-    registry.documentExtensionPoint('org.visallo.entity.listItemRenderer',
+    registry.documentExtensionPoint('org.openlumify.entity.listItemRenderer',
         'Implement custom implementations for rendering items into element lists',
         function(e) {
             return _.isFunction(e.canHandle) && (e.component || e.componentPath);
         },
-        'http://docs.visallo.org/extension-points/front-end/entityListItemRenderer/'
+        'http://docs.openlumify.org/extension-points/front-end/entityListItemRenderer/'
     );
 
     return defineComponent(List, withPositionUpdates, withDataRequest);
@@ -99,7 +99,7 @@ define([
             // deprecated vertex/list and edge/list components
             this.attr.items = this.attr.items || this.attr.edges || this.attr.vertices;
 
-            this.renderers = registry.extensionsForPoint('org.visallo.entity.listItemRenderer').concat([
+            this.renderers = registry.extensionsForPoint('org.openlumify.entity.listItemRenderer').concat([
                 { canHandle: function(item, usageContext) {
                         return usageContext === 'detail/relationships' &&
                                 item && item.relationship &&
@@ -148,7 +148,7 @@ define([
 
                     self.$node.droppable({ accept: '*', tolerance: 'pointer' });
 
-                    self.onObjectsSelected(null, visalloData.selectedObjects);
+                    self.onObjectsSelected(null, openlumifyData.selectedObjects);
 
                     self.on('selectAll', self.onSelectAll);
                     self.on('downUp', self.move);
@@ -175,7 +175,7 @@ define([
             event.stopPropagation();
             this.trigger('focusComponent');
 
-            let {vertexIds, edgeIds} = visalloData.selectedObjects;
+            let {vertexIds, edgeIds} = openlumifyData.selectedObjects;
             const $target = $(event.target).parents('li');
             const pushData = (data) => {
                 if (data.vertexId) selectVertexIds.push(data.vertexId)
@@ -262,8 +262,8 @@ define([
                 moveTo = previousSelected[e.type === 'upUp' ? 'prev' : 'next']('.element-item');
 
             if (moveTo.length) {
-                var selectedVertexIds = data.shiftKey ? _.keys(visalloData.selectedObjects.vertexIds) : [],
-                    selectedEdgeIds = data.shiftKey ? _.keys(visalloData.selectedObjects.edgeIds) : [],
+                var selectedVertexIds = data.shiftKey ? _.keys(openlumifyData.selectedObjects.vertexIds) : [],
+                    selectedEdgeIds = data.shiftKey ? _.keys(openlumifyData.selectedObjects.edgeIds) : [],
                     vertexId = moveTo.children('a').data('vertexId'),
                     edgeId = moveTo.children('a').data('edgeId');
 
@@ -395,7 +395,7 @@ define([
                      * Defines whether the given extension should be used give
                      * the item + usageContext pair.
                      *
-                     * @callback org.visallo.entity.listItemRenderer~canHandle
+                     * @callback org.openlumify.entity.listItemRenderer~canHandle
                      * @param {object} item Element/Edge object
                      * @param {string|undefined} usageContext The context this list is running. 'search, detail/relationships', etc.
                      * @returns {boolean} If the extension renderer should be invoked
@@ -410,8 +410,8 @@ define([
              * Flight Component that handles row rendering for a given
              * `item` and `usageContext`.
              *
-             * @typedef org.visallo.entity.listItemRenderer~Component
-             * @listens org.visallo.entity.listItemRenderer#loadPreview
+             * @typedef org.openlumify.entity.listItemRenderer~Component
+             * @listens org.openlumify.entity.listItemRenderer#loadPreview
              * @property {object} item The rows item value
              * @property {string} usageContext The context of this element list
              */
@@ -513,7 +513,7 @@ define([
             }
 
             /**
-             * Triggered on all {@link org.visallo.entity.listItemRenderer~Component}
+             * Triggered on all {@link org.openlumify.entity.listItemRenderer~Component}
              * components when the user scrolls to make the row visible.
              *
              * The component should render any images, or make any auxillary
@@ -522,7 +522,7 @@ define([
              * **This event might be triggered more than once, use `_.once`
              * or another method to only take action once.**
              *
-             * @event org.visallo.entity.listItemRenderer#loadPreview
+             * @event org.openlumify.entity.listItemRenderer#loadPreview
              * @example
              * this.on('loadPreview', _.once(this.onLoadPreview.bind(this)));
              */

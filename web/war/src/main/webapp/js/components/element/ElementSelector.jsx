@@ -59,7 +59,7 @@ define([
                     optionHeight={28}
                     labelKey="id"
                     valueKey="id"
-                    placeholder={i18n('visallo.search')}
+                    placeholder={i18n('openlumify.search')}
                     isLoading={isLoading}
                     filterOption={() => true}
                     options={options}

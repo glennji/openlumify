@@ -1,8 +1,8 @@
 define(['text!/base/test/unit/mocks/ontology.json'], function(json) {
     // Hack ontology for testing
     var ontologyJson = JSON.parse(json),
-        name = _.findWhere(ontologyJson.properties, { id: 'http://visallo.org/dev#name' }),
-        person = _.findWhere(ontologyJson.concepts, { id: 'http://visallo.org/dev#person' });
+        name = _.findWhere(ontologyJson.properties, { id: 'http://openlumify.org/dev#name' }),
+        person = _.findWhere(ontologyJson.concepts, { id: 'http://openlumify.org/dev#person' });
 
     // Delete color for person
     if (person) {
@@ -10,44 +10,44 @@ define(['text!/base/test/unit/mocks/ontology.json'], function(json) {
     }
 
     ontologyJson.properties.push({
-      'title': 'http://visallo.org/dev#nameNoValidationFormula',
+      'title': 'http://openlumify.org/dev#nameNoValidationFormula',
       'displayName': 'Name',
       'userVisible': true,
       'searchable': true,
       'dataType': 'string',
       'dependentPropertyIris': [
-        'http://visallo.org/dev#lastName',
-        'http://visallo.org/dev#firstName'
+        'http://openlumify.org/dev#lastName',
+        'http://openlumify.org/dev#firstName'
       ]
     });
 
-    var first = _.findWhere(ontologyJson.properties, { title: 'http://visallo.org/dev#firstName' })
-    first.validationFormula = "propRaw('http://visallo.org/dev#firstName') && propRaw('http://visallo.org/dev#firstName').length > 1";
-    var last = _.findWhere(ontologyJson.properties, { title: 'http://visallo.org/dev#lastName' })
-    last.validationFormula = "propRaw('http://visallo.org/dev#lastName') && propRaw('http://visallo.org/dev#lastName').length > 2";
+    var first = _.findWhere(ontologyJson.properties, { title: 'http://openlumify.org/dev#firstName' })
+    first.validationFormula = "propRaw('http://openlumify.org/dev#firstName') && propRaw('http://openlumify.org/dev#firstName').length > 1";
+    var last = _.findWhere(ontologyJson.properties, { title: 'http://openlumify.org/dev#lastName' })
+    last.validationFormula = "propRaw('http://openlumify.org/dev#lastName') && propRaw('http://openlumify.org/dev#lastName').length > 2";
 
     // Add compound field that dependends on another compound
     ontologyJson.properties.push({
-        title: 'http://visallo.org/testing#compound1',
+        title: 'http://openlumify.org/testing#compound1',
         displayName: 'Testing Compound',
         userVisible: true,
         searchable: true,
         dataType: 'string',
         validationFormula:
-            'dependentProp("http://visallo.org/dev#title") && ' +
-            'dependentProp("http://visallo.org/dev#name")',
+            'dependentProp("http://openlumify.org/dev#title") && ' +
+            'dependentProp("http://openlumify.org/dev#name")',
         displayFormula:
-            'dependentProp("http://visallo.org/dev#name") + ", "' +
-            'dependentProp("http://visallo.org/dev#title")',
+            'dependentProp("http://openlumify.org/dev#name") + ", "' +
+            'dependentProp("http://openlumify.org/dev#title")',
         dependentPropertyIris: [
-            'http://visallo.org/dev#title',
-            'http://visallo.org/dev#name'
+            'http://openlumify.org/dev#title',
+            'http://openlumify.org/dev#name'
         ]
     })
 
     // Add heading
     ontologyJson.properties.push({
-        title: 'http://visallo.org/testing#heading1',
+        title: 'http://openlumify.org/testing#heading1',
         displayName: 'Testing Heading',
         userVisible: true,
         searchable: true,
@@ -56,16 +56,16 @@ define(['text!/base/test/unit/mocks/ontology.json'], function(json) {
     })
 
     ontologyJson.properties.push({
-        title: 'http://visallo.org/testing#integer1',
+        title: 'http://openlumify.org/testing#integer1',
         displayName: 'Testing integer',
         userVisible: true,
         searchable: true,
         dataType: 'integer',
-        validationFormula: 'propRaw("http://visallo.org/testing#integer1") > 1'
+        validationFormula: 'propRaw("http://openlumify.org/testing#integer1") > 1'
     })
 
     ontologyJson.properties.push({
-        title: 'http://visallo.org/testing#integer1noform',
+        title: 'http://openlumify.org/testing#integer1noform',
         displayName: 'Testing integer',
         userVisible: true,
         searchable: true,
@@ -73,7 +73,7 @@ define(['text!/base/test/unit/mocks/ontology.json'], function(json) {
     })
 
     ontologyJson.properties.push({
-        title: 'http://visallo.org/testing#number1',
+        title: 'http://openlumify.org/testing#number1',
         displayName: 'Testing number',
         userVisible: true,
         searchable: true,
@@ -82,40 +82,40 @@ define(['text!/base/test/unit/mocks/ontology.json'], function(json) {
 
     // Add video sub concept to test displayType
     ontologyJson.concepts.push({
-        id:'http://visallo.org/dev#videoSub',
-        title:'http://visallo.org/dev#videoSub',
+        id:'http://openlumify.org/dev#videoSub',
+        title:'http://openlumify.org/dev#videoSub',
         displayName:'VideoSub',
-        parentConcept:'http://visallo.org/dev#video',
+        parentConcept:'http://openlumify.org/dev#video',
         pluralDisplayName:'VideoSubs',
         searchable:true,
         properties:[]
     });
 
     ontologyJson.concepts.push({
-        id:'http://visallo.org/dev#personSub',
-        title:'http://visallo.org/dev#personSub',
+        id:'http://openlumify.org/dev#personSub',
+        title:'http://openlumify.org/dev#personSub',
         displayName:'PersonSub',
-        parentConcept:'http://visallo.org/dev#person',
+        parentConcept:'http://openlumify.org/dev#person',
         pluralDisplayName:'PersonSubs',
         searchable:true,
         properties:[]
     });
 
     ontologyJson.concepts.push({
-        id:'http://visallo.org/dev#formulaTestConcept',
-        title:'http://visallo.org/dev#formulaTestConcept',
+        id:'http://openlumify.org/dev#formulaTestConcept',
+        title:'http://openlumify.org/dev#formulaTestConcept',
         displayName:'FormulaTestConcept',
-        parentConcept:'http://visallo.org#root',
+        parentConcept:'http://openlumify.org#root',
         pluralDisplayName:'FormulaTestConcepts',
         titleFormula: 'ontology.displayName',
         properties:[]
     })
 
     ontologyJson.concepts.push({
-        id:'http://visallo.org/dev#formulaTest',
-        title:'http://visallo.org/dev#formulaTest',
+        id:'http://openlumify.org/dev#formulaTest',
+        title:'http://openlumify.org/dev#formulaTest',
         displayName:'FormulaTest',
-        parentConcept:'http://visallo.org#root',
+        parentConcept:'http://openlumify.org#root',
         pluralDisplayName:'FormulaTests',
         titleFormula: `String(
             typeof prop === "function" &&

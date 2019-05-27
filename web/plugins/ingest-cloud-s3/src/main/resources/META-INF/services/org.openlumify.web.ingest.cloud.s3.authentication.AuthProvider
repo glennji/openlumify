@@ -1,0 +1,2 @@
+org.openlumify.web.ingest.cloud.s3.authentication.BasicAuthProvider
+org.openlumify.web.ingest.cloud.s3.authentication.SessionAuthProvider

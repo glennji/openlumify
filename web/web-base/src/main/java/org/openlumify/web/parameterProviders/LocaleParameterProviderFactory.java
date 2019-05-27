@@ -1,0 +1,39 @@
+package org.openlumify.web.parameterProviders;
+
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import org.openlumify.core.config.Configuration;
+import org.openlumify.webster.HandlerChain;
+import org.openlumify.webster.parameterProviders.ParameterProvider;
+import org.openlumify.webster.parameterProviders.ParameterProviderFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.Locale;
+
+@Singleton
+public class LocaleParameterProviderFactory extends ParameterProviderFactory<Locale> {
+    private final ParameterProvider<Locale> parameterProvider;
+
+    @Inject
+    public LocaleParameterProviderFactory(Configuration configuration) {
+        parameterProvider = new OpenLumifyBaseParameterProvider<Locale>(configuration) {
+            @Override
+            public Locale getParameter(HttpServletRequest request, HttpServletResponse response, HandlerChain chain) {
+                return getLocale(request);
+            }
+        };
+    }
+
+    @Override
+    public boolean isHandled(Method handleMethod, Class<? extends Locale> parameterType, Annotation[] parameterAnnotations) {
+        return Locale.class.isAssignableFrom(parameterType);
+    }
+
+    @Override
+    public ParameterProvider<Locale> createParameterProvider(Method handleMethod, Class<?> parameterType, Annotation[] parameterAnnotations) {
+        return parameterProvider;
+    }
+}

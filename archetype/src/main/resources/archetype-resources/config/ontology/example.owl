@@ -5,7 +5,7 @@
 
 
 <!DOCTYPE rdf:RDF [
-        <!ENTITY visallo "http://visallo.org${symbol_pound}" >
+        <!ENTITY openlumify "http://openlumify.org${symbol_pound}" >
         <!ENTITY owl "http://www.w3.org/2002/07/owl${symbol_pound}" >
         <!ENTITY xsd "http://www.w3.org/2001/XMLSchema${symbol_pound}" >
         <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema${symbol_pound}" >
@@ -15,13 +15,13 @@
 
 <rdf:RDF xmlns="${ontologyBaseIri}${symbol_pound}"
          xml:base="${ontologyBaseIri}"
-         xmlns:visallo="http://visallo.org${symbol_pound}"
+         xmlns:openlumify="http://openlumify.org${symbol_pound}"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns${symbol_pound}"
          xmlns:owl="http://www.w3.org/2002/07/owl${symbol_pound}"
          xmlns:xsd="http://www.w3.org/2001/XMLSchema${symbol_pound}"
          xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema${symbol_pound}">
     <owl:Ontology rdf:about="${ontologyBaseIri}">
-        <owl:imports rdf:resource="http://visallo.org"/>
+        <owl:imports rdf:resource="http://openlumify.org"/>
     </owl:Ontology>
 
 
@@ -40,7 +40,7 @@
 
     <owl:ObjectProperty rdf:about="${ontologyBaseIri}${symbol_pound}entityHasMedia">
         <rdfs:label xml:lang="en">Has Media</rdfs:label>
-        <visallo:intent>entityHasImage</visallo:intent>
+        <openlumify:intent>entityHasImage</openlumify:intent>
         <rdfs:range rdf:resource="${ontologyBaseIri}${symbol_pound}raw"/>
         <rdfs:domain rdf:resource="&owl;Thing"/>
     </owl:ObjectProperty>
@@ -51,7 +51,7 @@
 
     <owl:ObjectProperty rdf:about="${ontologyBaseIri}${symbol_pound}hasEntity">
         <rdfs:label xml:lang="en">Has Entity</rdfs:label>
-        <visallo:intent xml:lang="en">artifactHasEntity</visallo:intent>
+        <openlumify:intent xml:lang="en">artifactHasEntity</openlumify:intent>
         <rdfs:domain rdf:resource="${ontologyBaseIri}${symbol_pound}document"/>
         <rdfs:range rdf:resource="&owl;Thing"/>
     </owl:ObjectProperty>
@@ -70,8 +70,8 @@
 
     <owl:ObjectProperty rdf:about="${ontologyBaseIri}${symbol_pound}rawContainsImageOfEntity">
         <rdfs:label xml:lang="en">Contains Image of</rdfs:label>
-        <visallo:intent>artifactContainsImageOfEntity</visallo:intent>
-        <visallo:intent>artifactContainsImage</visallo:intent>
+        <openlumify:intent>artifactContainsImageOfEntity</openlumify:intent>
+        <openlumify:intent>artifactContainsImage</openlumify:intent>
         <rdfs:domain rdf:resource="${ontologyBaseIri}${symbol_pound}raw"/>
         <rdfs:range rdf:resource="&owl;Thing"/>
     </owl:ObjectProperty>
@@ -92,7 +92,7 @@
 
     <owl:DatatypeProperty rdf:about="${ontologyBaseIri}${symbol_pound}fullName">
         <rdfs:label>Full Name</rdfs:label>
-        <visallo:textIndexHints>FULL_TEXT</visallo:textIndexHints>
+        <openlumify:textIndexHints>FULL_TEXT</openlumify:textIndexHints>
         <rdfs:domain rdf:resource="${ontologyBaseIri}${symbol_pound}person"/>
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
@@ -103,7 +103,7 @@
 
     <owl:DatatypeProperty rdf:about="${ontologyBaseIri}${symbol_pound}phoneNumber">
         <rdfs:label>Phone Number</rdfs:label>
-        <visallo:textIndexHints>FULL_TEXT</visallo:textIndexHints>
+        <openlumify:textIndexHints>FULL_TEXT</openlumify:textIndexHints>
         <rdfs:domain rdf:resource="${ontologyBaseIri}${symbol_pound}person"/>
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
@@ -114,7 +114,7 @@
 
     <owl:DatatypeProperty rdf:about="${ontologyBaseIri}${symbol_pound}emailAddress">
         <rdfs:label>Email Address</rdfs:label>
-        <visallo:textIndexHints>FULL_TEXT</visallo:textIndexHints>
+        <openlumify:textIndexHints>FULL_TEXT</openlumify:textIndexHints>
         <rdfs:domain rdf:resource="${ontologyBaseIri}${symbol_pound}person"/>
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
@@ -125,8 +125,8 @@
 
     <owl:DatatypeProperty rdf:about="${ontologyBaseIri}${symbol_pound}clockwiseRotation">
         <rdfs:label>Clockwise Rotation</rdfs:label>
-        <visallo:userVisible rdf:datatype="&xsd;boolean">false</visallo:userVisible>
-        <visallo:intent>media.clockwiseRotation</visallo:intent>
+        <openlumify:userVisible rdf:datatype="&xsd;boolean">false</openlumify:userVisible>
+        <openlumify:intent>media.clockwiseRotation</openlumify:intent>
         <rdfs:domain rdf:resource="${ontologyBaseIri}${symbol_pound}raw"/>
         <rdfs:range rdf:resource="&xsd;integer"/>
     </owl:DatatypeProperty>
@@ -137,7 +137,7 @@
 
     <owl:DatatypeProperty rdf:about="${ontologyBaseIri}${symbol_pound}dateTaken">
         <rdfs:label xml:lang="en">Date Taken</rdfs:label>
-        <visallo:intent xml:lang="en">media.dateTaken</visallo:intent>
+        <openlumify:intent xml:lang="en">media.dateTaken</openlumify:intent>
         <rdfs:domain rdf:resource="${ontologyBaseIri}${symbol_pound}raw"/>
         <rdfs:range rdf:resource="&xsd;dateTime"/>
     </owl:DatatypeProperty>
@@ -148,7 +148,7 @@
 
     <owl:DatatypeProperty rdf:about="${ontologyBaseIri}${symbol_pound}deviceMake">
         <rdfs:label xml:lang="en">Device Make</rdfs:label>
-        <visallo:intent xml:lang="en">media.deviceMake</visallo:intent>
+        <openlumify:intent xml:lang="en">media.deviceMake</openlumify:intent>
         <rdfs:domain rdf:resource="${ontologyBaseIri}${symbol_pound}raw"/>
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
@@ -159,7 +159,7 @@
 
     <owl:DatatypeProperty rdf:about="${ontologyBaseIri}${symbol_pound}deviceModel">
         <rdfs:label xml:lang="en">Device Model</rdfs:label>
-        <visallo:intent xml:lang="en">media.deviceModel</visallo:intent>
+        <openlumify:intent xml:lang="en">media.deviceModel</openlumify:intent>
         <rdfs:domain rdf:resource="${ontologyBaseIri}${symbol_pound}raw"/>
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
@@ -170,9 +170,9 @@
 
     <owl:DatatypeProperty rdf:about="${ontologyBaseIri}${symbol_pound}duration">
         <rdfs:label xml:lang="en">Duration</rdfs:label>
-        <visallo:intent xml:lang="en">audioDuration</visallo:intent>
-        <visallo:intent xml:lang="en">media.duration</visallo:intent>
-        <visallo:intent xml:lang="en">videoDuration</visallo:intent>
+        <openlumify:intent xml:lang="en">audioDuration</openlumify:intent>
+        <openlumify:intent xml:lang="en">media.duration</openlumify:intent>
+        <openlumify:intent xml:lang="en">videoDuration</openlumify:intent>
         <rdfs:domain rdf:resource="${ontologyBaseIri}${symbol_pound}raw"/>
         <rdfs:range rdf:resource="&xsd;double"/>
     </owl:DatatypeProperty>
@@ -183,7 +183,7 @@
 
     <owl:DatatypeProperty rdf:about="${ontologyBaseIri}${symbol_pound}fileSize">
         <rdfs:label xml:lang="en">File Size</rdfs:label>
-        <visallo:intent xml:lang="en">media.fileSize</visallo:intent>
+        <openlumify:intent xml:lang="en">media.fileSize</openlumify:intent>
         <rdfs:domain rdf:resource="${ontologyBaseIri}${symbol_pound}raw"/>
         <rdfs:range rdf:resource="&xsd;integer"/>
     </owl:DatatypeProperty>
@@ -194,9 +194,9 @@
 
     <owl:DatatypeProperty rdf:about="${ontologyBaseIri}${symbol_pound}geolocation">
         <rdfs:label xml:lang="en">Geolocation</rdfs:label>
-        <visallo:intent xml:lang="en">geoLocation</visallo:intent>
-        <visallo:intent xml:lang="en">media.geoLocation</visallo:intent>
-        <rdfs:range rdf:resource="&visallo;geolocation"/>
+        <openlumify:intent xml:lang="en">geoLocation</openlumify:intent>
+        <openlumify:intent xml:lang="en">media.geoLocation</openlumify:intent>
+        <rdfs:range rdf:resource="&openlumify;geolocation"/>
         <rdfs:domain rdf:resource="${ontologyBaseIri}${symbol_pound}raw"/>
     </owl:DatatypeProperty>
 
@@ -206,7 +206,7 @@
 
     <owl:DatatypeProperty rdf:about="${ontologyBaseIri}${symbol_pound}height">
         <rdfs:label xml:lang="en">Height</rdfs:label>
-        <visallo:intent xml:lang="en">media.height</visallo:intent>
+        <openlumify:intent xml:lang="en">media.height</openlumify:intent>
         <rdfs:domain rdf:resource="${ontologyBaseIri}${symbol_pound}raw"/>
         <rdfs:range rdf:resource="&xsd;integer"/>
     </owl:DatatypeProperty>
@@ -217,7 +217,7 @@
 
     <owl:DatatypeProperty rdf:about="${ontologyBaseIri}${symbol_pound}imageHeading">
         <rdfs:label xml:lang="en">Image Heading</rdfs:label>
-        <visallo:intent>media.imageHeading</visallo:intent>
+        <openlumify:intent>media.imageHeading</openlumify:intent>
         <rdfs:domain rdf:resource="${ontologyBaseIri}${symbol_pound}raw"/>
         <rdfs:range rdf:resource="&xsd;double"/>
     </owl:DatatypeProperty>
@@ -228,7 +228,7 @@
 
     <owl:DatatypeProperty rdf:about="${ontologyBaseIri}${symbol_pound}rawMetadata">
         <rdfs:label xml:lang="en">Metadata</rdfs:label>
-        <visallo:intent xml:lang="en">media.metadata</visallo:intent>
+        <openlumify:intent xml:lang="en">media.metadata</openlumify:intent>
         <rdfs:domain rdf:resource="${ontologyBaseIri}${symbol_pound}raw"/>
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
@@ -239,7 +239,7 @@
 
     <owl:DatatypeProperty rdf:about="${ontologyBaseIri}${symbol_pound}width">
         <rdfs:label xml:lang="en">Width</rdfs:label>
-        <visallo:intent xml:lang="en">media.width</visallo:intent>
+        <openlumify:intent xml:lang="en">media.width</openlumify:intent>
         <rdfs:domain rdf:resource="${ontologyBaseIri}${symbol_pound}raw"/>
         <rdfs:range rdf:resource="&xsd;integer"/>
     </owl:DatatypeProperty>
@@ -250,8 +250,8 @@
 
     <owl:DatatypeProperty rdf:about="${ontologyBaseIri}${symbol_pound}yAxisFlipped">
         <rdfs:label>Y Axis Flipped</rdfs:label>
-        <visallo:userVisible rdf:datatype="&xsd;boolean">false</visallo:userVisible>
-        <visallo:intent>media.yAxisFlipped</visallo:intent>
+        <openlumify:userVisible rdf:datatype="&xsd;boolean">false</openlumify:userVisible>
+        <openlumify:intent>media.yAxisFlipped</openlumify:intent>
         <rdfs:domain rdf:resource="${ontologyBaseIri}${symbol_pound}raw"/>
         <rdfs:range rdf:resource="&xsd;boolean"/>
     </owl:DatatypeProperty>
@@ -273,9 +273,9 @@
     <owl:Class rdf:about="${ontologyBaseIri}${symbol_pound}contactsCsvFile">
         <rdfs:label>Contacts CSV File</rdfs:label>
         <rdfs:subClassOf rdf:resource="${ontologyBaseIri}${symbol_pound}document"/>
-        <visallo:titleFormula>
-            prop(&apos;http://visallo.org${symbol_pound}fileName&apos;)
-        </visallo:titleFormula>
+        <openlumify:titleFormula>
+            prop(&apos;http://openlumify.org${symbol_pound}fileName&apos;)
+        </openlumify:titleFormula>
     </owl:Class>
 
 
@@ -284,10 +284,10 @@
 
     <owl:Class rdf:about="${ontologyBaseIri}${symbol_pound}person">
         <rdfs:label>Person</rdfs:label>
-        <visallo:glyphIconFileName>person.png</visallo:glyphIconFileName>
-        <visallo:titleFormula>
+        <openlumify:glyphIconFileName>person.png</openlumify:glyphIconFileName>
+        <openlumify:titleFormula>
             prop(&apos;${ontologyBaseIri}${symbol_pound}fullName&apos;)
-        </visallo:titleFormula>
+        </openlumify:titleFormula>
     </owl:Class>
 
 
@@ -297,9 +297,9 @@
     <owl:Class rdf:about="${ontologyBaseIri}${symbol_pound}audio">
         <rdfs:label xml:lang="en">Audio</rdfs:label>
         <rdfs:subClassOf rdf:resource="${ontologyBaseIri}${symbol_pound}raw"/>
-        <visallo:intent>audio</visallo:intent>
-        <visallo:displayType xml:lang="en">audio</visallo:displayType>
-        <visallo:color xml:lang="en">rgb(149, 138, 218)</visallo:color>
+        <openlumify:intent>audio</openlumify:intent>
+        <openlumify:displayType xml:lang="en">audio</openlumify:displayType>
+        <openlumify:color xml:lang="en">rgb(149, 138, 218)</openlumify:color>
     </owl:Class>
 
 
@@ -309,9 +309,9 @@
     <owl:Class rdf:about="${ontologyBaseIri}${symbol_pound}document">
         <rdfs:label xml:lang="en">Document</rdfs:label>
         <rdfs:subClassOf rdf:resource="${ontologyBaseIri}${symbol_pound}raw"/>
-        <visallo:intent>document</visallo:intent>
-        <visallo:displayType xml:lang="en">document</visallo:displayType>
-        <visallo:color xml:lang="en">rgb(28, 137, 28)</visallo:color>
+        <openlumify:intent>document</openlumify:intent>
+        <openlumify:displayType xml:lang="en">document</openlumify:displayType>
+        <openlumify:color xml:lang="en">rgb(28, 137, 28)</openlumify:color>
     </owl:Class>
 
 
@@ -321,10 +321,10 @@
     <owl:Class rdf:about="${ontologyBaseIri}${symbol_pound}image">
         <rdfs:label xml:lang="en">Image</rdfs:label>
         <rdfs:subClassOf rdf:resource="${ontologyBaseIri}${symbol_pound}raw"/>
-        <visallo:intent>entityImage</visallo:intent>
-        <visallo:intent>image</visallo:intent>
-        <visallo:displayType xml:lang="en">image</visallo:displayType>
-        <visallo:color xml:lang="en">rgb(176, 87, 53)</visallo:color>
+        <openlumify:intent>entityImage</openlumify:intent>
+        <openlumify:intent>image</openlumify:intent>
+        <openlumify:displayType xml:lang="en">image</openlumify:displayType>
+        <openlumify:color xml:lang="en">rgb(176, 87, 53)</openlumify:color>
     </owl:Class>
 
 
@@ -333,9 +333,9 @@
 
     <owl:Class rdf:about="${ontologyBaseIri}${symbol_pound}location">
         <rdfs:label xml:lang="en">Location</rdfs:label>
-        <visallo:intent>location</visallo:intent>
-        <visallo:glyphIconFileName xml:lang="en">location.png</visallo:glyphIconFileName>
-        <visallo:color xml:lang="en">rgb(160, 7, 206)</visallo:color>
+        <openlumify:intent>location</openlumify:intent>
+        <openlumify:glyphIconFileName xml:lang="en">location.png</openlumify:glyphIconFileName>
+        <openlumify:color xml:lang="en">rgb(160, 7, 206)</openlumify:color>
     </owl:Class>
 
 
@@ -344,8 +344,8 @@
 
     <owl:Class rdf:about="${ontologyBaseIri}${symbol_pound}raw">
         <rdfs:label xml:lang="en">Raw</rdfs:label>
-        <visallo:glyphIconFileName xml:lang="en">raw.png</visallo:glyphIconFileName>
-        <visallo:color xml:lang="en">rgb(28, 137, 28)</visallo:color>
+        <openlumify:glyphIconFileName xml:lang="en">raw.png</openlumify:glyphIconFileName>
+        <openlumify:color xml:lang="en">rgb(28, 137, 28)</openlumify:color>
     </owl:Class>
 
 
@@ -355,9 +355,9 @@
     <owl:Class rdf:about="${ontologyBaseIri}${symbol_pound}video">
         <rdfs:label xml:lang="en">Video</rdfs:label>
         <rdfs:subClassOf rdf:resource="${ontologyBaseIri}${symbol_pound}raw"/>
-        <visallo:color xml:lang="en">rgb(149, 138, 218)</visallo:color>
-        <visallo:intent>video</visallo:intent>
-        <visallo:displayType xml:lang="en">video</visallo:displayType>
+        <openlumify:color xml:lang="en">rgb(149, 138, 218)</openlumify:color>
+        <openlumify:intent>video</openlumify:intent>
+        <openlumify:displayType xml:lang="en">video</openlumify:displayType>
     </owl:Class>
 </rdf:RDF>
 

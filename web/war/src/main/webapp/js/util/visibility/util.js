@@ -6,23 +6,23 @@ define(['configuration/plugins/registry', 'util/promise'], function(registry) {
      *
      * The visibility component requires two FlightJS components registered for viewing and editing:
      *
-     * @param {string} editorComponentPath The path to {@link org.visallo.visibility~Editor} component
-     * @param {string} viewerComponentPath The path to {@link org.visallo.visibility~Viewer} component
+     * @param {string} editorComponentPath The path to {@link org.openlumify.visibility~Editor} component
+     * @param {string} viewerComponentPath The path to {@link org.openlumify.visibility~Viewer} component
      */
-    registry.documentExtensionPoint('org.visallo.visibility',
+    registry.documentExtensionPoint('org.openlumify.visibility',
         'Implement custom interface for visibility display and editing',
         function(e) {
             return _.isString(e.editorComponentPath) ||
                 _.isString(e.viewerComponentPath)
         },
-        'http://docs.visallo.org/extension-points/front-end/visibility'
+        'http://docs.openlumify.org/extension-points/front-end/visibility'
     );
 
     var defaultVisibility = {
             editorComponentPath: 'util/visibility/default/edit',
             viewerComponentPath: 'util/visibility/default/view'
         },
-        point = 'org.visallo.visibility',
+        point = 'org.openlumify.visibility',
         visibilityExtensions = registry.extensionsForPoint(point),
         components = {
             editor: undefined,

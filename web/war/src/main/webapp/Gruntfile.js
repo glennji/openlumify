@@ -47,18 +47,18 @@ module.exports = function(grunt) {
             options: {
                 paths: ['less'],
                 sourceMap: true,
-                sourceMapFilename: 'css/visallo.css.map',
-                sourceMapURL: 'visallo.css.map',
+                sourceMapFilename: 'css/openlumify.css.map',
+                sourceMapURL: 'openlumify.css.map',
                 sourceMapRootpath: '/'
             },
             development: {
                 files: {
-                    'css/visallo.css': 'less/visallo.less'
+                    'css/openlumify.css': 'less/openlumify.less'
                 }
             },
             developmentContrast: {
                 files: {
-                    'css/visallo-contrast.css': 'less/visallo.less'
+                    'css/openlumify-contrast.css': 'less/openlumify.less'
                 },
                 options: {
                     modifyVars: {
@@ -68,7 +68,7 @@ module.exports = function(grunt) {
             },
             productionContrast: {
                 files: {
-                    'css/visallo-contrast.css': 'less/visallo.less'
+                    'css/openlumify-contrast.css': 'less/openlumify.less'
                 },
                 options: {
                     compress: true,
@@ -79,7 +79,7 @@ module.exports = function(grunt) {
             },
             production: {
                 files: {
-                    'css/visallo.css': 'less/visallo.less'
+                    'css/openlumify.css': 'less/openlumify.less'
                 },
                 options: {
                     compress: true
@@ -199,7 +199,7 @@ module.exports = function(grunt) {
                 tasks: ['sprites']
             },
             compiledCss: {
-                files: ['css/visallo.css'],
+                files: ['css/openlumify.css'],
                 options: {
                     debounceDelay: 0,
                     livereload: {
@@ -238,13 +238,13 @@ module.exports = function(grunt) {
         notify: {
             js: {
                 options: {
-                    title: 'Visallo',
+                    title: 'OpenLumify',
                     message: 'Scripts finished'
                 }
             },
             css: {
                 options: {
-                    title: 'Visallo',
+                    title: 'OpenLumify',
                     message: 'Less finished'
                 }
             }

@@ -62,14 +62,14 @@ define([
                         error.message.indexOf('component or path').should.be.at.least(0)
                     })
             })
-            it('should error if params includes visalloApi', function() {
+            it('should error if params includes openlumifyApi', function() {
                 return attacher()
                     .node(this.node)
                     .path('fakepath')
-                    .params({ visalloApi: {} })
+                    .params({ openlumifyApi: {} })
                     .attach()
                     .then(function() {
-                        throw new Error('No error thrown when passing overridden visalloApi')
+                        throw new Error('No error thrown when passing overridden openlumifyApi')
                     }, function(error) {
                         error.message.indexOf('avoid collisions').should.be.at.least(0)
                     })

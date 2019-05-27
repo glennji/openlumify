@@ -20,7 +20,7 @@ define([
         this.after('initialize', function() {
             var self = this,
                 configuration = this.attr.item.configuration || {},
-                renderers = registry.extensionsForPoint('org.visallo.dashboard.reportrenderer');
+                renderers = registry.extensionsForPoint('org.openlumify.dashboard.reportrenderer');
 
             this.on('change', {
                 typeSelector: this.onChange
@@ -43,7 +43,7 @@ define([
 
             this.on('reportResults', function(event, data) {
                 var $select = this.select('typeSelector'),
-                    validReportRenderers = _.filter(registry.extensionsForPoint('org.visallo.dashboard.reportrenderer'), function(e) {
+                    validReportRenderers = _.filter(registry.extensionsForPoint('org.openlumify.dashboard.reportrenderer'), function(e) {
                         try {
                             return e.supportsResponse(data.results);
                         } catch(error) {

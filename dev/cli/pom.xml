@@ -3,19 +3,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>visallo-dev</artifactId>
-        <groupId>org.visallo</groupId>
+        <artifactId>openlumify-dev</artifactId>
+        <groupId>co.hackstreet</groupId>
         <version>4.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>visallo-dev-cli</artifactId>
-    <name>Visallo: Dev: CLI</name>
+    <artifactId>openlumify-dev-cli</artifactId>
+    <name>OpenLumify: Dev: CLI</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-cli</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-cli</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

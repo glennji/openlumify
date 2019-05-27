@@ -136,7 +136,7 @@ define([
                 userIds = _.pluck(workspaceUsers, 'userId'),
                 html = $();
 
-            userIds = _.without(userIds, visalloData.currentUser.id);
+            userIds = _.without(userIds, openlumifyData.currentUser.id);
 
             (userIds.length ?
                 this.dataRequest('user', 'search', { userIds: userIds }) :
@@ -153,7 +153,7 @@ define([
                         var user = usersById[userPermission.userId];
                         return user && user.displayName || 1;
                     }).forEach(function(userPermission) {
-                        if (String(userPermission.userId) !== String(visalloData.currentUser.id)) {
+                        if (String(userPermission.userId) !== String(openlumifyData.currentUser.id)) {
                             var data = self.shareRowDataForPermission(userPermission);
                             if (data) {
                                 html = html.add(shareRowTemplate(data));

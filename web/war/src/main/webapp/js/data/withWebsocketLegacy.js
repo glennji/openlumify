@@ -11,8 +11,8 @@ define([], function() {
                 atmospherePromise = Promise.all([
                     Promise.require('atmosphere'),
                     new Promise(function(fulfill, reject) {
-                        if (visalloData.currentUser) return fulfill();
-                        self.on('applicationReady currentUserVisalloDataUpdated', fulfill);
+                        if (openlumifyData.currentUser) return fulfill();
+                        self.on('applicationReady currentUserOpenLumifyDataUpdated', fulfill);
                     })
                 ]).then(function(result) {
                     var atmosphere = result.shift();
@@ -51,7 +51,7 @@ define([], function() {
             this.around('pushSocket', function(push, message) {
                 atmospherePromise.then(function(socket) {
                     var string = JSON.stringify(_.extend({}, message, {
-                        sourceGuid: visalloData.socketSourceGuid
+                        sourceGuid: openlumifyData.socketSourceGuid
                     }));
                     socket.push(string);
                 })
@@ -72,7 +72,7 @@ define([], function() {
                         var socket = r[0],
                             websocketUtils = r[1];
 
-                        websocketUtils.pushDataToSocket(socket, visalloData.socketSourceGuid, message.message);
+                        websocketUtils.pushDataToSocket(socket, openlumifyData.socketSourceGuid, message.message);
                     });
                 }
             }

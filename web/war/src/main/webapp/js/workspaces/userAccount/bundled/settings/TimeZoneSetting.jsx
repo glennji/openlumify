@@ -32,9 +32,9 @@ define([
         },
 
         savePreferences(preferences) {
-            withDataRequest.dataRequest('user', 'preference', 'org.visallo.timezone', JSON.stringify(preferences))
+            withDataRequest.dataRequest('user', 'preference', 'org.openlumify.timezone', JSON.stringify(preferences))
                 .then(() => {
-                    visalloData.currentUser.uiPreferences['org.visallo.timezone'] = JSON.stringify(preferences);
+                    openlumifyData.currentUser.uiPreferences['org.openlumify.timezone'] = JSON.stringify(preferences);
                     F.timezone.setCurrentTimezone(null);
                     this.setState({
                         ...preferences,
@@ -55,7 +55,7 @@ define([
                                disabled={this.state.disabled}
                                style={{marginLeft: '.5em', marginBottom: '4px', display: 'inline'}}
                                checked={this.state.detect}
-                               onChange={this.handleDetectChange}/> {i18n('org.visallo.user.account.page.setting.timezone.field.detect')}
+                               onChange={this.handleDetectChange}/> {i18n('org.openlumify.user.account.page.setting.timezone.field.detect')}
                     </label>
                 </div>
             </div>);

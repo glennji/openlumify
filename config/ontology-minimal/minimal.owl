@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
-<rdf:RDF xmlns="http://visallo.org/minimal#"
-     xml:base="http://visallo.org/minimal"
-     xmlns:visallo="http://visallo.org#"
+<rdf:RDF xmlns="http://openlumify.org/minimal#"
+     xml:base="http://openlumify.org/minimal"
+     xmlns:openlumify="http://openlumify.org#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
-    <owl:Ontology rdf:about="http://visallo.org/minimal">
-        <owl:imports rdf:resource="http://visallo.org"/>
+    <owl:Ontology rdf:about="http://openlumify.org/minimal">
+        <owl:imports rdf:resource="http://openlumify.org"/>
     </owl:Ontology>
     
 
@@ -24,35 +24,35 @@
     
 
 
-    <!-- http://visallo.com/minimal#rawContainsImageOfEntity -->
+    <!-- http://openlumify.com/minimal#rawContainsImageOfEntity -->
 
-    <owl:ObjectProperty rdf:about="http://visallo.com/minimal#rawContainsImageOfEntity">
+    <owl:ObjectProperty rdf:about="http://openlumify.com/minimal#rawContainsImageOfEntity">
         <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
-        <rdfs:domain rdf:resource="http://visallo.org/minimal#raw"/>
-        <visallo:intent>artifactContainsImage</visallo:intent>
-        <visallo:intent>artifactContainsImageOfEntity</visallo:intent>
+        <rdfs:domain rdf:resource="http://openlumify.org/minimal#raw"/>
+        <openlumify:intent>artifactContainsImage</openlumify:intent>
+        <openlumify:intent>artifactContainsImageOfEntity</openlumify:intent>
         <rdfs:label xml:lang="en">Contains Image of</rdfs:label>
     </owl:ObjectProperty>
     
 
 
-    <!-- http://visallo.org/minimal#entityHasMedia -->
+    <!-- http://openlumify.org/minimal#entityHasMedia -->
 
-    <owl:ObjectProperty rdf:about="http://visallo.org/minimal#entityHasMedia">
+    <owl:ObjectProperty rdf:about="http://openlumify.org/minimal#entityHasMedia">
         <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
-        <rdfs:range rdf:resource="http://visallo.org/minimal#raw"/>
-        <visallo:intent>entityHasImage</visallo:intent>
+        <rdfs:range rdf:resource="http://openlumify.org/minimal#raw"/>
+        <openlumify:intent>entityHasImage</openlumify:intent>
         <rdfs:label xml:lang="en">Has Media</rdfs:label>
     </owl:ObjectProperty>
     
 
 
-    <!-- http://visallo.org/minimal#hasEntity -->
+    <!-- http://openlumify.org/minimal#hasEntity -->
 
-    <owl:ObjectProperty rdf:about="http://visallo.org/minimal#hasEntity">
-        <rdfs:domain rdf:resource="http://visallo.org/minimal#document"/>
+    <owl:ObjectProperty rdf:about="http://openlumify.org/minimal#hasEntity">
+        <rdfs:domain rdf:resource="http://openlumify.org/minimal#document"/>
         <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
-        <visallo:intent xml:lang="en">artifactHasEntity</visallo:intent>
+        <openlumify:intent xml:lang="en">artifactHasEntity</openlumify:intent>
         <rdfs:label xml:lang="en">Has Entity</rdfs:label>
     </owl:ObjectProperty>
     
@@ -69,166 +69,166 @@
     
 
 
-    <!-- http://visallo.org/minimal#clockwiseRotation -->
+    <!-- http://openlumify.org/minimal#clockwiseRotation -->
 
-    <owl:DatatypeProperty rdf:about="http://visallo.org/minimal#clockwiseRotation">
-        <rdfs:domain rdf:resource="http://visallo.org/minimal#raw"/>
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/minimal#clockwiseRotation">
+        <rdfs:domain rdf:resource="http://openlumify.org/minimal#raw"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-        <visallo:intent>media.clockwiseRotation</visallo:intent>
-        <visallo:userVisible rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</visallo:userVisible>
+        <openlumify:intent>media.clockwiseRotation</openlumify:intent>
+        <openlumify:userVisible rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</openlumify:userVisible>
         <rdfs:label>Clockwise Rotation</rdfs:label>
     </owl:DatatypeProperty>
     
 
 
-    <!-- http://visallo.org/minimal#dateTaken -->
+    <!-- http://openlumify.org/minimal#dateTaken -->
 
-    <owl:DatatypeProperty rdf:about="http://visallo.org/minimal#dateTaken">
-        <rdfs:domain rdf:resource="http://visallo.org/minimal#raw"/>
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/minimal#dateTaken">
+        <rdfs:domain rdf:resource="http://openlumify.org/minimal#raw"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
-        <visallo:intent xml:lang="en">media.dateTaken</visallo:intent>
+        <openlumify:intent xml:lang="en">media.dateTaken</openlumify:intent>
         <rdfs:label xml:lang="en">Date Taken</rdfs:label>
     </owl:DatatypeProperty>
     
 
 
-    <!-- http://visallo.org/minimal#deviceMake -->
+    <!-- http://openlumify.org/minimal#deviceMake -->
 
-    <owl:DatatypeProperty rdf:about="http://visallo.org/minimal#deviceMake">
-        <rdfs:domain rdf:resource="http://visallo.org/minimal#raw"/>
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/minimal#deviceMake">
+        <rdfs:domain rdf:resource="http://openlumify.org/minimal#raw"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-        <visallo:intent xml:lang="en">media.deviceMake</visallo:intent>
+        <openlumify:intent xml:lang="en">media.deviceMake</openlumify:intent>
         <rdfs:label xml:lang="en">Device Make</rdfs:label>
     </owl:DatatypeProperty>
     
 
 
-    <!-- http://visallo.org/minimal#deviceModel -->
+    <!-- http://openlumify.org/minimal#deviceModel -->
 
-    <owl:DatatypeProperty rdf:about="http://visallo.org/minimal#deviceModel">
-        <rdfs:domain rdf:resource="http://visallo.org/minimal#raw"/>
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/minimal#deviceModel">
+        <rdfs:domain rdf:resource="http://openlumify.org/minimal#raw"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-        <visallo:intent xml:lang="en">media.deviceModel</visallo:intent>
+        <openlumify:intent xml:lang="en">media.deviceModel</openlumify:intent>
         <rdfs:label xml:lang="en">Device Model</rdfs:label>
     </owl:DatatypeProperty>
     
 
 
-    <!-- http://visallo.org/minimal#duration -->
+    <!-- http://openlumify.org/minimal#duration -->
 
-    <owl:DatatypeProperty rdf:about="http://visallo.org/minimal#duration">
-        <rdfs:domain rdf:resource="http://visallo.org/minimal#raw"/>
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/minimal#duration">
+        <rdfs:domain rdf:resource="http://openlumify.org/minimal#raw"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
-        <visallo:intent xml:lang="en">audioDuration</visallo:intent>
-        <visallo:intent xml:lang="en">media.duration</visallo:intent>
-        <visallo:intent xml:lang="en">videoDuration</visallo:intent>
+        <openlumify:intent xml:lang="en">audioDuration</openlumify:intent>
+        <openlumify:intent xml:lang="en">media.duration</openlumify:intent>
+        <openlumify:intent xml:lang="en">videoDuration</openlumify:intent>
         <rdfs:label xml:lang="en">Duration</rdfs:label>
     </owl:DatatypeProperty>
     
 
 
-    <!-- http://visallo.org/minimal#fileSize -->
+    <!-- http://openlumify.org/minimal#fileSize -->
 
-    <owl:DatatypeProperty rdf:about="http://visallo.org/minimal#fileSize">
-        <rdfs:domain rdf:resource="http://visallo.org/minimal#raw"/>
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/minimal#fileSize">
+        <rdfs:domain rdf:resource="http://openlumify.org/minimal#raw"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-        <visallo:intent xml:lang="en">media.fileSize</visallo:intent>
+        <openlumify:intent xml:lang="en">media.fileSize</openlumify:intent>
         <rdfs:label xml:lang="en">File Size</rdfs:label>
-	<visallo:displayType>bytes</visallo:displayType>
+	<openlumify:displayType>bytes</openlumify:displayType>
     </owl:DatatypeProperty>
 
-    <!-- http://visallo.org/minimal#pageCount -->
+    <!-- http://openlumify.org/minimal#pageCount -->
 
-    <owl:DatatypeProperty rdf:about="http://visallo.org/minimal#pageCount">
-        <rdfs:domain rdf:resource="http://visallo.org/minimal#document"/>
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/minimal#pageCount">
+        <rdfs:domain rdf:resource="http://openlumify.org/minimal#document"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-        <visallo:intent xml:lang="en">pageCount</visallo:intent>
+        <openlumify:intent xml:lang="en">pageCount</openlumify:intent>
         <rdfs:label xml:lang="en">Page Count</rdfs:label>
     </owl:DatatypeProperty>
     
-    <!-- http://visallo.org/minimal#author -->
+    <!-- http://openlumify.org/minimal#author -->
 
-    <owl:DatatypeProperty rdf:about="http://visallo.org/minimal#author">
-        <rdfs:domain rdf:resource="http://visallo.org/minimal#document"/>
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/minimal#author">
+        <rdfs:domain rdf:resource="http://openlumify.org/minimal#document"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-        <visallo:intent xml:lang="en">documentAuthor</visallo:intent>
+        <openlumify:intent xml:lang="en">documentAuthor</openlumify:intent>
         <rdfs:label xml:lang="en">Author</rdfs:label>
     </owl:DatatypeProperty>
 
-    <!-- http://visallo.org/minimal#artifactTitle -->
+    <!-- http://openlumify.org/minimal#artifactTitle -->
 
-    <owl:DatatypeProperty rdf:about="http://visallo.org/minimal#artifactTitle">
-        <rdfs:domain rdf:resource="http://visallo.org/minimal#document"/>
-        <visallo:textIndexHints>ALL</visallo:textIndexHints>
-        <visallo:intent>artifactTitle</visallo:intent>
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/minimal#artifactTitle">
+        <rdfs:domain rdf:resource="http://openlumify.org/minimal#document"/>
+        <openlumify:textIndexHints>ALL</openlumify:textIndexHints>
+        <openlumify:intent>artifactTitle</openlumify:intent>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
         <rdfs:label>Title</rdfs:label>
     </owl:DatatypeProperty>
 
-    <!-- http://visallo.org/minimal#geolocation -->
+    <!-- http://openlumify.org/minimal#geolocation -->
 
-    <owl:DatatypeProperty rdf:about="http://visallo.org/minimal#geolocation">
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/minimal#geolocation">
         <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
-        <rdfs:range rdf:resource="http://visallo.org#geolocation"/>
-        <visallo:intent>geoLocation</visallo:intent>
-        <visallo:intent>media.geoLocation</visallo:intent>
+        <rdfs:range rdf:resource="http://openlumify.org#geolocation"/>
+        <openlumify:intent>geoLocation</openlumify:intent>
+        <openlumify:intent>media.geoLocation</openlumify:intent>
         <rdfs:label xml:lang="en">Geolocation</rdfs:label>
     </owl:DatatypeProperty>
     
 
 
-    <!-- http://visallo.org/minimal#height -->
+    <!-- http://openlumify.org/minimal#height -->
 
-    <owl:DatatypeProperty rdf:about="http://visallo.org/minimal#height">
-        <rdfs:domain rdf:resource="http://visallo.org/minimal#raw"/>
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/minimal#height">
+        <rdfs:domain rdf:resource="http://openlumify.org/minimal#raw"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-        <visallo:intent>media.height</visallo:intent>
+        <openlumify:intent>media.height</openlumify:intent>
         <rdfs:label xml:lang="en">Height</rdfs:label>
     </owl:DatatypeProperty>
     
 
 
-    <!-- http://visallo.org/minimal#imageHeading -->
+    <!-- http://openlumify.org/minimal#imageHeading -->
 
-    <owl:DatatypeProperty rdf:about="http://visallo.org/minimal#imageHeading">
-        <rdfs:domain rdf:resource="http://visallo.org/minimal#raw"/>
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/minimal#imageHeading">
+        <rdfs:domain rdf:resource="http://openlumify.org/minimal#raw"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
-        <visallo:intent>media.imageHeading</visallo:intent>
+        <openlumify:intent>media.imageHeading</openlumify:intent>
         <rdfs:label xml:lang="en">Image Heading</rdfs:label>
     </owl:DatatypeProperty>
     
 
 
-    <!-- http://visallo.org/minimal#rawMetadata -->
+    <!-- http://openlumify.org/minimal#rawMetadata -->
 
-    <owl:DatatypeProperty rdf:about="http://visallo.org/minimal#rawMetadata">
-        <rdfs:domain rdf:resource="http://visallo.org/minimal#raw"/>
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/minimal#rawMetadata">
+        <rdfs:domain rdf:resource="http://openlumify.org/minimal#raw"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-        <visallo:intent>media.metadata</visallo:intent>
+        <openlumify:intent>media.metadata</openlumify:intent>
         <rdfs:label xml:lang="en">Metadata</rdfs:label>
-        <visallo:userVisible rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</visallo:userVisible>
+        <openlumify:userVisible rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</openlumify:userVisible>
     </owl:DatatypeProperty>
     
 
 
-    <!-- http://visallo.org/minimal#width -->
+    <!-- http://openlumify.org/minimal#width -->
 
-    <owl:DatatypeProperty rdf:about="http://visallo.org/minimal#width">
-        <rdfs:domain rdf:resource="http://visallo.org/minimal#raw"/>
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/minimal#width">
+        <rdfs:domain rdf:resource="http://openlumify.org/minimal#raw"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-        <visallo:intent>media.width</visallo:intent>
+        <openlumify:intent>media.width</openlumify:intent>
         <rdfs:label xml:lang="en">Width</rdfs:label>
     </owl:DatatypeProperty>
     
 
 
-    <!-- http://visallo.org/minimal#yAxisFlipped -->
+    <!-- http://openlumify.org/minimal#yAxisFlipped -->
 
-    <owl:DatatypeProperty rdf:about="http://visallo.org/minimal#yAxisFlipped">
-        <rdfs:domain rdf:resource="http://visallo.org/minimal#raw"/>
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/minimal#yAxisFlipped">
+        <rdfs:domain rdf:resource="http://openlumify.org/minimal#raw"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
-        <visallo:intent>media.yAxisFlipped</visallo:intent>
-        <visallo:userVisible rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</visallo:userVisible>
+        <openlumify:intent>media.yAxisFlipped</openlumify:intent>
+        <openlumify:userVisible rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</openlumify:userVisible>
         <rdfs:label>Y Axis Flipped</rdfs:label>
     </owl:DatatypeProperty>
     
@@ -242,93 +242,93 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    <!-- http://visallo.org/minimal#email -->
+    <!-- http://openlumify.org/minimal#email -->
 
-    <owl:Class rdf:about="http://visallo.org/minimal#email">
-        <visallo:color>rgb(134, 90, 215)</visallo:color>
-        <visallo:intent>email</visallo:intent>
+    <owl:Class rdf:about="http://openlumify.org/minimal#email">
+        <openlumify:color>rgb(134, 90, 215)</openlumify:color>
+        <openlumify:intent>email</openlumify:intent>
         <rdfs:label xml:lang="en">Email</rdfs:label>
     </owl:Class>
 
-    <!-- http://visallo.org/minimal#phoneNumber -->
+    <!-- http://openlumify.org/minimal#phoneNumber -->
 
-    <owl:Class rdf:about="http://visallo.org/minimal#phoneNumber">
-        <visallo:color>rgb(113, 255, 255)</visallo:color>
-        <visallo:intent>phoneNumber</visallo:intent>
+    <owl:Class rdf:about="http://openlumify.org/minimal#phoneNumber">
+        <openlumify:color>rgb(113, 255, 255)</openlumify:color>
+        <openlumify:intent>phoneNumber</openlumify:intent>
         <rdfs:label xml:lang="en">Phone Number</rdfs:label>
     </owl:Class>
 
-    <!-- http://visallo.org/minimal#zipcode -->
+    <!-- http://openlumify.org/minimal#zipcode -->
 
-    <owl:Class rdf:about="http://visallo.org/minimal#zipcode">
-        <visallo:color>rgb(160, 138, 206)</visallo:color>
-        <visallo:intent>zipCode</visallo:intent>y
+    <owl:Class rdf:about="http://openlumify.org/minimal#zipcode">
+        <openlumify:color>rgb(160, 138, 206)</openlumify:color>
+        <openlumify:intent>zipCode</openlumify:intent>y
         <rdfs:label xml:lang="en">Zip Code</rdfs:label>
-        <rdfs:subClassOf rdf:resource="http://visallo.org/minimal#location"/>
+        <rdfs:subClassOf rdf:resource="http://openlumify.org/minimal#location"/>
     </owl:Class>
 
-    <!-- http://visallo.org/minimal#location -->
+    <!-- http://openlumify.org/minimal#location -->
 
-    <owl:Class rdf:about="http://visallo.org/minimal#location">
-        <visallo:color>rgb(160, 7, 206)</visallo:color>
-        <visallo:intent>location</visallo:intent>
+    <owl:Class rdf:about="http://openlumify.org/minimal#location">
+        <openlumify:color>rgb(160, 7, 206)</openlumify:color>
+        <openlumify:intent>location</openlumify:intent>
         <rdfs:label xml:lang="en">Location</rdfs:label>
     </owl:Class>
 
-    <!-- http://visallo.org/minimal#audio -->
+    <!-- http://openlumify.org/minimal#audio -->
 
-    <owl:Class rdf:about="http://visallo.org/minimal#audio">
-        <rdfs:subClassOf rdf:resource="http://visallo.org/minimal#raw"/>
-        <visallo:color xml:lang="en">rgb(149, 138, 218)</visallo:color>
-        <visallo:displayType xml:lang="en">audio</visallo:displayType>
-        <visallo:intent>audio</visallo:intent>
+    <owl:Class rdf:about="http://openlumify.org/minimal#audio">
+        <rdfs:subClassOf rdf:resource="http://openlumify.org/minimal#raw"/>
+        <openlumify:color xml:lang="en">rgb(149, 138, 218)</openlumify:color>
+        <openlumify:displayType xml:lang="en">audio</openlumify:displayType>
+        <openlumify:intent>audio</openlumify:intent>
         <rdfs:label xml:lang="en">Audio</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- http://visallo.org/minimal#document -->
+    <!-- http://openlumify.org/minimal#document -->
 
-    <owl:Class rdf:about="http://visallo.org/minimal#document">
-        <rdfs:subClassOf rdf:resource="http://visallo.org/minimal#raw"/>
-        <visallo:color xml:lang="en">rgb(28, 137, 28)</visallo:color>
-        <visallo:displayType xml:lang="en">document</visallo:displayType>
-        <visallo:intent>document</visallo:intent>
+    <owl:Class rdf:about="http://openlumify.org/minimal#document">
+        <rdfs:subClassOf rdf:resource="http://openlumify.org/minimal#raw"/>
+        <openlumify:color xml:lang="en">rgb(28, 137, 28)</openlumify:color>
+        <openlumify:displayType xml:lang="en">document</openlumify:displayType>
+        <openlumify:intent>document</openlumify:intent>
         <rdfs:label xml:lang="en">Document</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- http://visallo.org/minimal#image -->
+    <!-- http://openlumify.org/minimal#image -->
 
-    <owl:Class rdf:about="http://visallo.org/minimal#image">
-        <rdfs:subClassOf rdf:resource="http://visallo.org/minimal#raw"/>
-        <visallo:color xml:lang="en">rgb(176, 87, 53)</visallo:color>
-        <visallo:displayType xml:lang="en">image</visallo:displayType>
-        <visallo:intent>entityImage</visallo:intent>
-        <visallo:intent>image</visallo:intent>
+    <owl:Class rdf:about="http://openlumify.org/minimal#image">
+        <rdfs:subClassOf rdf:resource="http://openlumify.org/minimal#raw"/>
+        <openlumify:color xml:lang="en">rgb(176, 87, 53)</openlumify:color>
+        <openlumify:displayType xml:lang="en">image</openlumify:displayType>
+        <openlumify:intent>entityImage</openlumify:intent>
+        <openlumify:intent>image</openlumify:intent>
         <rdfs:label xml:lang="en">Image</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- http://visallo.org/minimal#raw -->
+    <!-- http://openlumify.org/minimal#raw -->
 
-    <owl:Class rdf:about="http://visallo.org/minimal#raw">
-        <visallo:color xml:lang="en">rgb(28, 137, 28)</visallo:color>
-        <visallo:glyphIconFileName xml:lang="en">raw.png</visallo:glyphIconFileName>
+    <owl:Class rdf:about="http://openlumify.org/minimal#raw">
+        <openlumify:color xml:lang="en">rgb(28, 137, 28)</openlumify:color>
+        <openlumify:glyphIconFileName xml:lang="en">raw.png</openlumify:glyphIconFileName>
         <rdfs:label xml:lang="en">Raw</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- http://visallo.org/minimal#video -->
+    <!-- http://openlumify.org/minimal#video -->
 
-    <owl:Class rdf:about="http://visallo.org/minimal#video">
-        <rdfs:subClassOf rdf:resource="http://visallo.org/minimal#raw"/>
-        <visallo:color xml:lang="en">rgb(149, 138, 218)</visallo:color>
-        <visallo:displayType xml:lang="en">video</visallo:displayType>
-        <visallo:intent>video</visallo:intent>
+    <owl:Class rdf:about="http://openlumify.org/minimal#video">
+        <rdfs:subClassOf rdf:resource="http://openlumify.org/minimal#raw"/>
+        <openlumify:color xml:lang="en">rgb(149, 138, 218)</openlumify:color>
+        <openlumify:displayType xml:lang="en">video</openlumify:displayType>
+        <openlumify:intent>video</openlumify:intent>
         <rdfs:label xml:lang="en">Video</rdfs:label>
     </owl:Class>
 </rdf:RDF>

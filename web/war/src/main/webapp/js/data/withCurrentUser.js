@@ -17,16 +17,16 @@ define(['data/web-worker/store/user/actions'], function(userActions) {
                 var user = request.result;
 
                 this.setPublicApi('currentUser', user, { onlyIfNull: true });
-                visalloData.storePromise.then(store => store.dispatch(userActions.putUser({ user })));
+                openlumifyData.storePromise.then(store => store.dispatch(userActions.putUser({ user })));
 
                 if (user.currentWorkspaceId) {
                     this.setPublicApi('currentWorkspaceId', user.currentWorkspaceId, { onlyIfNull: true });
                 }
             } else if (isUserPreferencesUpdate(request)) {
                 const { uiPreferences: preferences } = request.result;
-                visalloData.currentUser.uiPreferences = preferences;
-                this.setPublicApi('currentUser', visalloData.currentUser);
-                visalloData.storePromise.then(store => store.dispatch(userActions.putUserPreferences({ preferences })));
+                openlumifyData.currentUser.uiPreferences = preferences;
+                this.setPublicApi('currentUser', openlumifyData.currentUser);
+                openlumifyData.storePromise.then(store => store.dispatch(userActions.putUserPreferences({ preferences })));
             }
 
             return dataRequestCompleted.call(this, request);

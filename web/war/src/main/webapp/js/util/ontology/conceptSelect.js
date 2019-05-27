@@ -20,7 +20,7 @@
  * ConceptSelect.attachTo(node)
  * @example <caption>Select a concept</caption>
  * ConceptSelect.attachTo(node, {
- *     selectedConceptId: 'http://www.visallo.org/minimal#person'
+ *     selectedConceptId: 'http://www.openlumify.org/minimal#person'
  * })
  */
 define([
@@ -64,7 +64,7 @@ define([
              * ConceptSelect.attachTo($node)
              * //...
              * $node.trigger('selectConceptId', {
-             *     conceptId: 'http://www.visallo.org/minimal#person'
+             *     conceptId: 'http://www.openlumify.org/minimal#person'
              * })
              */
             this.on('selectConceptId', function(event, { conceptId }) {

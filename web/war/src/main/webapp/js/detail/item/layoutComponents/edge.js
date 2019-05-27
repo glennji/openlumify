@@ -27,24 +27,24 @@ define([
     return [
         {
             applyTo: { type: 'edge' },
-            identifier: 'org.visallo.layout.root',
+            identifier: 'org.openlumify.layout.root',
             layout: { type: 'flex', options: { direction: 'column' }},
             componentPath: 'detail/item/edge',
             children: [
-                { ref: 'org.visallo.layout.header', style: { flex: '0 0 auto' } },
-                { ref: 'org.visallo.layout.body', style: { flex: '1 1 auto', overflow: 'auto' } }
+                { ref: 'org.openlumify.layout.header', style: { flex: '0 0 auto' } },
+                { ref: 'org.openlumify.layout.body', style: { flex: '1 1 auto', overflow: 'auto' } }
             ]
         },
         {
             applyTo: { type: 'edge' },
-            identifier: 'org.visallo.layout.header.text',
+            identifier: 'org.openlumify.layout.header.text',
             className: 'edge-heading',
             children: [
-                { ref: 'org.visallo.layout.text', style: 'title', className: 'vertex-out', model: outVertexDisplay, truncate: 12 },
-                { ref: 'org.visallo.layout.text', style: 'subtitle', model: outVertexConceptDisplay },
-                { ref: 'org.visallo.layout.text', className: 'edge-label', model: edgeLabelDisplay },
-                { ref: 'org.visallo.layout.text', style: 'title', className: 'vertex-in', model: inVertexDisplay, truncate: 12 },
-                { ref: 'org.visallo.layout.text', style: 'subtitle', model: inVertexConceptDisplay }
+                { ref: 'org.openlumify.layout.text', style: 'title', className: 'vertex-out', model: outVertexDisplay, truncate: 12 },
+                { ref: 'org.openlumify.layout.text', style: 'subtitle', model: outVertexConceptDisplay },
+                { ref: 'org.openlumify.layout.text', className: 'edge-label', model: edgeLabelDisplay },
+                { ref: 'org.openlumify.layout.text', style: 'title', className: 'vertex-in', model: inVertexDisplay, truncate: 12 },
+                { ref: 'org.openlumify.layout.text', style: 'subtitle', model: inVertexConceptDisplay }
             ]
         }
     ];

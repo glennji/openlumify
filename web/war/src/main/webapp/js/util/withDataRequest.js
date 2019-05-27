@@ -11,7 +11,7 @@
  * See the documented **Services** in the navigation menu on the left.
  *
  * To create custom services in plugins refer to the
- * {@link http://docs.visallo.org/tutorials/webplugin.html|Web Plugin Tutorial}.
+ * {@link http://docs.openlumify.org/tutorials/webplugin.html|Web Plugin Tutorial}.
  *
  * @module dataRequest
  * @classdesc Invoke service requests on Web Worker

@@ -1,10 +1,10 @@
 #set( $symbol_pound = '#' )
 #set( $symbol_dollar = '$' )
 #set( $symbol_escape = '\' )
-require(['public/v1/api'], function(visallo) {
+require(['public/v1/api'], function(openlumify) {
     'use strict';
 
-    visallo.registry.registerExtension('org.visallo.detail.toolbar', {
+    openlumify.registry.registerExtension('org.openlumify.detail.toolbar', {
         title: i18n('${package}.web.detail.toolbar.google'),
         event: 'google',
         canHandle: function(objects) {
@@ -13,7 +13,7 @@ require(['public/v1/api'], function(visallo) {
         }
     });
 
-    visallo.connect().then(function(api) {
+    openlumify.connect().then(function(api) {
         ${symbol_dollar}(document).on('google', function(e, data) {
             var person = data.vertices[0];
             var name = api.formatters.vertex.prop(person, '${ontologyBaseIri}#fullName');

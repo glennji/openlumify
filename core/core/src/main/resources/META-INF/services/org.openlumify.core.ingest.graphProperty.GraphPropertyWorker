@@ -1,0 +1,2 @@
+org.openlumify.core.ingest.MetadataGraphPropertyWorker
+org.openlumify.core.ping.PingGraphPropertyWorker

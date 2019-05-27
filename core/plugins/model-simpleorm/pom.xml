@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.visallo</groupId>
-        <artifactId>visallo-core-plugins-group</artifactId>
+        <groupId>co.hackstreet</groupId>
+        <artifactId>openlumify-core-plugins-group</artifactId>
         <version>4.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>visallo-model-simpleorm</artifactId>
-    <name>Visallo: Core: Plugin: Model: SimpleORM</name>
+    <artifactId>openlumify-model-simpleorm</artifactId>
+    <name>OpenLumify: Core: Plugin: Model: SimpleORM</name>
 
     <dependencies>
         <dependency>
@@ -19,15 +19,15 @@
             <version>${simple-orm.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-core</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-core</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-core-test</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-core-test</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>

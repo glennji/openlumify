@@ -1,14 +1,14 @@
 
 # Configuration
 
-There are many strategies for locating Visallo configuration properties. By default, Visallo will use `org.visallo.core.config.FileConfigurationLoader` to load configuration files and `org.visallo.core.bootstrap.lib.LibDirectoryLoader` to load additional `.jar` files.
+There are many strategies for locating OpenLumify configuration properties. By default, OpenLumify will use `org.openlumify.core.config.FileConfigurationLoader` to load configuration files and `org.openlumify.core.bootstrap.lib.LibDirectoryLoader` to load additional `.jar` files.
 
 The following directories will be searched in order:
 
-* `/opt/visallo/` for Linux/OS X
-* `c:/opt/visallo/` for Windows
-* `${appdata}/Visallo`
-* `${user.home}/.visallo`
+* `/opt/openlumify/` for Linux/OS X
+* `c:/opt/openlumify/` for Windows
+* `${appdata}/OpenLumify`
+* `${user.home}/.openlumify`
 * a directory specified with the `VISALLO_DIR` environment variable
 
 All files in `/config` subdirectories with `.properties` extensions will then be loaded alphabetically allowing you to override properties in various places.

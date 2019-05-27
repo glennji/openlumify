@@ -6,7 +6,7 @@ define([
     return defineComponent(DefaultViewer);
 
     /**
-     * @typedef org.visallo.visibility~Viewer
+     * @typedef org.openlumify.visibility~Viewer
      * @property {string} [value] The visibility source to view
      * @property {string} [property] The property that this visibility is
      * attached. Could be undefined

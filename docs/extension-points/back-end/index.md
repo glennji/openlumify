@@ -1,6 +1,6 @@
 # Back End
 
-Visallo's back end is extensible in the following ways:
+OpenLumify's back end is extensible in the following ways:
 
 * [Ingestion](ingestion/index.md)
 * [External Resource Worker](externalresourceworker.md)

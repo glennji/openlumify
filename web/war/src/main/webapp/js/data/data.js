@@ -32,7 +32,7 @@ define([
             this.setupDataWorker();
 
             this.dataRequestPromise = new Promise(function(fulfill, reject) {
-                    if (self.visalloData.readyForDataRequests) {
+                    if (self.openlumifyData.readyForDataRequests) {
                         fulfill();
                     } else {
                         var timer = _.delay(reject, 10000);
@@ -71,11 +71,11 @@ define([
         this.setupDataWorker = function() {
             var self = this;
 
-            this.worker = new Worker(PATH_TO_WORKER + '?' + visalloCacheBreaker);
+            this.worker = new Worker(PATH_TO_WORKER + '?' + openlumifyCacheBreaker);
             this.worker.postMessage(JSON.stringify({
-                cacheBreaker: visalloCacheBreaker,
-                webWorkerResources: visalloPluginResources.webWorker,
-                environment: visalloEnvironment
+                cacheBreaker: openlumifyCacheBreaker,
+                webWorkerResources: openlumifyPluginResources.webWorker,
+                environment: openlumifyEnvironment
             }));
             this.worker.onmessage = this.onDataWorkerMessage.bind(this);
             this.worker.onerror = this.onDataWorkerError.bind(this);

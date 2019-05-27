@@ -3,8 +3,8 @@
 # Map Style
 
 
-* [Map Style JavaScript API `org.visallo.map.style`](../../../javascript/org.visallo.map.style.html)
-* [Map Style Example Code](https://github.com/visallo/doc-examples/tree/master/extension-map-style)
+* [Map Style JavaScript API `org.openlumify.map.style`](../../../javascript/org.openlumify.map.style.html)
+* [Map Style Example Code](https://github.com/openlumify/doc-examples/tree/master/extension-map-style)
 
 
 ## Tutorial

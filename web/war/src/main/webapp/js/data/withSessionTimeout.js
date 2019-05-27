@@ -51,7 +51,7 @@ are open and inactive.`)
                 this.sessionTimeoutWillLogout = true;
                 require(['util/offlineOverlay'], Offline => {
                     if (!$(document).lookupComponent(Offline)) {
-                        let message = userInitiatedLogout ? null : i18n('visallo.session.expired')
+                        let message = userInitiatedLogout ? null : i18n('openlumify.session.expired')
                         $(document).trigger('logout', { message });
                     }
                 });

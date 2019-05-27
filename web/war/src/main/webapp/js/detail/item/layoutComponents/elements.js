@@ -7,29 +7,29 @@ define([
     return [
         {
             applyTo: { type: 'element[]' },
-            identifier: 'org.visallo.layout.root',
+            identifier: 'org.openlumify.layout.root',
             layout: { type: 'flex', options: { direction: 'column' }},
             componentPath: 'detail/item/elements',
             children: [
-                { ref: 'org.visallo.layout.elements.header' },
-                { ref: 'org.visallo.layout.elements.body', style: { flex: '1 1 auto', overflow: 'auto', minHeight: '5.5em' } },
-                { ref: 'org.visallo.layout.elements.list', style: { flex: '0 0 auto' }, className: 'ui-ignore-pane-width' }
+                { ref: 'org.openlumify.layout.elements.header' },
+                { ref: 'org.openlumify.layout.elements.body', style: { flex: '1 1 auto', overflow: 'auto', minHeight: '5.5em' } },
+                { ref: 'org.openlumify.layout.elements.list', style: { flex: '0 0 auto' }, className: 'ui-ignore-pane-width' }
             ]
         },
         {
-            identifier: 'org.visallo.layout.elements.header',
+            identifier: 'org.openlumify.layout.elements.header',
             children: [
-                { componentPath: 'detail/toolbar/toolbar', className: 'org-visallo-toolbar' }
+                { componentPath: 'detail/toolbar/toolbar', className: 'org-openlumify-toolbar' }
             ]
         },
         {
-            identifier: 'org.visallo.layout.elements.body',
+            identifier: 'org.openlumify.layout.elements.body',
             children: [
                 { componentPath: 'detail/properties/histograms' }
             ]
         },
         {
-            identifier: 'org.visallo.layout.elements.list',
+            identifier: 'org.openlumify.layout.elements.list',
             layout: { type: 'flex', options: { direction: 'column' }},
             children: [
                 {

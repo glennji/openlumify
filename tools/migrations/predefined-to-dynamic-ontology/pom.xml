@@ -5,23 +5,23 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.visallo</groupId>
-        <artifactId>visallo-tools-migrations</artifactId>
+        <groupId>co.hackstreet</groupId>
+        <artifactId>openlumify-tools-migrations</artifactId>
         <version>4.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>visallo-tools-migration-predefined-to-dynamic-ontology</artifactId>
-    <name>Visallo: Tools - Migration Predefined to Dynamic Ontology</name>
+    <artifactId>openlumify-tools-migration-predefined-to-dynamic-ontology</artifactId>
+    <name>OpenLumify: Tools - Migration Predefined to Dynamic Ontology</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-tools-migration-core</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-tools-migration-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-model-vertexium</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-model-vertexium</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

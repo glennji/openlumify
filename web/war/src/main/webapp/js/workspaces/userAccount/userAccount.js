@@ -45,13 +45,13 @@ define([
             });
 
             require(['configuration/plugins/registry'], function(registry) {
-                var pages = registry.extensionsForPoint('org.visallo.user.account.page');
+                var pages = registry.extensionsForPoint('org.openlumify.user.account.page');
                 if (!_.findWhere(pages, { identifier: SETTINGS_EXTENSION_PAGE.identifier })) {
-                    registry.registerExtension('org.visallo.user.account.page', SETTINGS_EXTENSION_PAGE);
+                    registry.registerExtension('org.openlumify.user.account.page', SETTINGS_EXTENSION_PAGE);
                     pages.push(SETTINGS_EXTENSION_PAGE);
                 }
                 if (!_.findWhere(pages, { identifier: ACCESS_EXTENSION_PAGE.identifier })) {
-                    registry.registerExtension('org.visallo.user.account.page', ACCESS_EXTENSION_PAGE);
+                    registry.registerExtension('org.openlumify.user.account.page', ACCESS_EXTENSION_PAGE);
                     pages.push(ACCESS_EXTENSION_PAGE);
                 }
 

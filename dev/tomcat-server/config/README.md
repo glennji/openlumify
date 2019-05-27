@@ -3,10 +3,10 @@ Linux
 -----
 
 ```bash
-keytool -importkeystore -srckeystore visallo-vm.visallo.org.jks -destkeystore visallo-vm.visallo.org.p12 -srcalias visallo-vm.visallo.org -srcstoretype jks -deststoretype pkcs12
+keytool -importkeystore -srckeystore openlumify-vm.openlumify.org.jks -destkeystore openlumify-vm.openlumify.org.p12 -srcalias openlumify-vm.openlumify.org -srcstoretype jks -deststoretype pkcs12
 # password is password
-openssl pkcs12 -in visallo-vm.visallo.org.p12 -out visallo-vm.visallo.org.pem
-certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n visallo-vm.visallo.org -i visallo-vm.visallo.org.pem
+openssl pkcs12 -in openlumify-vm.openlumify.org.p12 -out openlumify-vm.openlumify.org.pem
+certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n openlumify-vm.openlumify.org -i openlumify-vm.openlumify.org.pem
 ```
 
 completely restart Chrome

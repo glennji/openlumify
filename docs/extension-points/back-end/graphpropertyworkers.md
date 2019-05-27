@@ -2,21 +2,21 @@
 
 ## Overview
 
-[Graph Property Workers](../../java/org/visallo/core/ingest/graphProperty/GraphPropertyWorker.html) are designed for data enhancement and individual scoring analytics on each element or property inside of Visallo.  Graph Property Workers will get notified of every change made to elements and properties in the system and allow other Graph Property Workers to act on those changes.  For example, the [PhoneNumberGraphPropertyWorker](../../java/org/visallo/phoneNumber/PhoneNumberGraphPropertyWorker.html) analyzes each property of every element in the system and tries to determine if there is a phone number in the text.  It then proposes that the phone number it found should be resolved to a concept that is defined in the ontology and broadcasts the changes to the UI.
+[Graph Property Workers](../../java/org/openlumify/core/ingest/graphProperty/GraphPropertyWorker.html) are designed for data enhancement and individual scoring analytics on each element or property inside of OpenLumify.  Graph Property Workers will get notified of every change made to elements and properties in the system and allow other Graph Property Workers to act on those changes.  For example, the [PhoneNumberGraphPropertyWorker](../../java/org/openlumify/phoneNumber/PhoneNumberGraphPropertyWorker.html) analyzes each property of every element in the system and tries to determine if there is a phone number in the text.  It then proposes that the phone number it found should be resolved to a concept that is defined in the ontology and broadcasts the changes to the UI.
 
-The Graph Property Workers follow the [blackboard design pattern](https://en.wikipedia.org/wiki/Blackboard_%28design_pattern%29) model.  Each Graph Property Worker notifies the thread that is running it that it can work on an element and an optional property.  If the worker returns true from its [```isHandled```](../../java/org/visallo/core/ingest/graphProperty/GraphPropertyWorker.html#isHandled-org.vertexium.Element-org.vertexium.Property-) method is called, then that Graph Property Worker's ```execute``` method is called with additional data.  The Graph Property Worker is then able to contribute data or run operations on that specific element or property.
+The Graph Property Workers follow the [blackboard design pattern](https://en.wikipedia.org/wiki/Blackboard_%28design_pattern%29) model.  Each Graph Property Worker notifies the thread that is running it that it can work on an element and an optional property.  If the worker returns true from its [```isHandled```](../../java/org/openlumify/core/ingest/graphProperty/GraphPropertyWorker.html#isHandled-org.vertexium.Element-org.vertexium.Property-) method is called, then that Graph Property Worker's ```execute``` method is called with additional data.  The Graph Property Worker is then able to contribute data or run operations on that specific element or property.
 
 ## Development
 
-There are many examples of Graph Property Workers in the open source Visallo project. You can find some of them [here](https://github.com/visallo/visallo/search?q=%22extends+GraphPropertyWorker%22&type=Code).  
+There are many examples of Graph Property Workers in the open source OpenLumify project. You can find some of them [here](https://github.com/openlumify/openlumify/search?q=%22extends+GraphPropertyWorker%22&type=Code).  
 
-For a bare-bones Graph Property Worker you must implement two methods: the [```execute```](../../java/org/visallo/core/ingest/graphProperty/GraphPropertyWorker.html#execute-java.io.InputStream-org.visallo.core.ingest.graphProperty.GraphPropertyWorkData-) method and the [```isHandled```](../../java/org/visallo/core/ingest/graphProperty/GraphPropertyWorker.html#isHandled-org.vertexium.Element-org.vertexium.Property-) method.
+For a bare-bones Graph Property Worker you must implement two methods: the [```execute```](../../java/org/openlumify/core/ingest/graphProperty/GraphPropertyWorker.html#execute-java.io.InputStream-org.openlumify.core.ingest.graphProperty.GraphPropertyWorkData-) method and the [```isHandled```](../../java/org/openlumify/core/ingest/graphProperty/GraphPropertyWorker.html#isHandled-org.vertexium.Element-org.vertexium.Property-) method.
 
-### [```isHandled```](../../java/org/visallo/core/ingest/graphProperty/GraphPropertyWorker.html#isHandled-org.vertexium.Element-org.vertexium.Property-)
+### [```isHandled```](../../java/org/openlumify/core/ingest/graphProperty/GraphPropertyWorker.html#isHandled-org.vertexium.Element-org.vertexium.Property-)
 This method must return true if the specific GraphPropertyWorker can handle the element or property that is passed into that method.  Otherwise the method return false and the execute method on the GraphPropertyWorker will not be called.
 
-### [```execute```](../../java/org/visallo/core/ingest/graphProperty/GraphPropertyWorker.html#execute-java.io.InputStream-org.visallo.core.ingest.graphProperty.GraphPropertyWorkData-)
-All work should be done inside of this method for every Graph Property Worker.  The InputStream parameter is only populated if the value that is retrieved from the vertex is a StreamingPropertyValue.  The GraphPropertyWorkerData object that gets passed in is a data object that encapsulates all of the information about the element and the context in which the Graph Property Worker may need to consider.  See the [javadoc](../../java/org/visallo/core/ingest/graphProperty/GraphPropertyWorker.html) for more information.
+### [```execute```](../../java/org/openlumify/core/ingest/graphProperty/GraphPropertyWorker.html#execute-java.io.InputStream-org.openlumify.core.ingest.graphProperty.GraphPropertyWorkData-)
+All work should be done inside of this method for every Graph Property Worker.  The InputStream parameter is only populated if the value that is retrieved from the vertex is a StreamingPropertyValue.  The GraphPropertyWorkerData object that gets passed in is a data object that encapsulates all of the information about the element and the context in which the Graph Property Worker may need to consider.  See the [javadoc](../../java/org/openlumify/core/ingest/graphProperty/GraphPropertyWorker.html) for more information.
 
 ## Use Cases
 
@@ -59,14 +59,14 @@ Graph Property Workers are deployed inside of the web server by default.  Having
 
 ```bash
 #Set number of graph property worker threads to 4
-org.visallo.core.process.GraphPropertyRunnerProcess.threadcount=4
+org.openlumify.core.process.GraphPropertyRunnerProcess.threadcount=4
 ```
 
 If you do not want the graph property workers running inside of the web server, add the following to your configuration.
 
 ```bash
 #disable the graph property workers running inside of the web server
-disable.org.visallo.core.process.GraphPropertyRunnerProcess=true
+disable.org.openlumify.core.process.GraphPropertyRunnerProcess=true
 
 ```
 

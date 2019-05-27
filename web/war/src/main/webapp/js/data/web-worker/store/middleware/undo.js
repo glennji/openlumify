@@ -1,9 +1,9 @@
 define([
     'configuration/plugins/registry',
 ], function createUndoMiddleware(registry) {
-    registry.markUndocumentedExtensionPoint('org.visallo.store');
+    registry.markUndocumentedExtensionPoint('org.openlumify.store');
 
-    const undoExtensions = registry.extensionsForPoint('org.visallo.store')
+    const undoExtensions = registry.extensionsForPoint('org.openlumify.store')
         .filter(e => e.undoActions);
     const undoActionsByType = undoExtensions
         .map(e => e.undoActions)

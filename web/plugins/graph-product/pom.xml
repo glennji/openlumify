@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>visallo-web-plugin-base</artifactId>
-        <groupId>org.visallo</groupId>
+        <artifactId>openlumify-web-plugin-base</artifactId>
+        <groupId>co.hackstreet</groupId>
         <version>4.1-SNAPSHOT</version>
         <relativePath>../../web-plugin-base</relativePath>
     </parent>
 
-    <artifactId>visallo-web-product-graph</artifactId>
-    <name>Visallo: Web: Plugin: Graph Work Product</name>
+    <artifactId>openlumify-web-product-graph</artifactId>
+    <name>OpenLumify: Web: Plugin: Graph Work Product</name>
 
     <build>
         <plugins>
@@ -20,7 +20,7 @@
                 <artifactId>frontend-maven-plugin</artifactId>
                 <version>${plugin.frontend}</version>
                 <configuration>
-                    <workingDirectory>src/main/resources/org/visallo/web/product/graph</workingDirectory>
+                    <workingDirectory>src/main/resources/org/openlumify/web/product/graph</workingDirectory>
                     <installDirectory>${frontend.installDirectory}</installDirectory>
                 </configuration>
                 <executions>
@@ -57,7 +57,7 @@
                 <configuration>
                     <filesets>
                         <fileset>
-                            <directory>src/main/resources/org/visallo/web/product/graph</directory>
+                            <directory>src/main/resources/org/openlumify/web/product/graph</directory>
                             <includes>
                                 <include>dist/</include>
                                 <include>node_modules/</include>

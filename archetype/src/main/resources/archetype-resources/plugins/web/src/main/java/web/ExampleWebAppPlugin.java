@@ -4,14 +4,14 @@
 package ${package}.web;
 
 import org.visallo.webster.Handler;
-import org.visallo.core.model.Description;
-import org.visallo.core.model.Name;
-import org.visallo.web.WebApp;
-import org.visallo.web.WebAppPlugin;
+import org.openlumify.core.model.Description;
+import org.openlumify.core.model.Name;
+import org.openlumify.web.WebApp;
+import org.openlumify.web.WebAppPlugin;
 
 import javax.servlet.ServletContext;
 
-@Name("Example Visallo Web App Plugin")
+@Name("Example OpenLumify Web App Plugin")
 @Description("Registers a detail toolbar plugin that launches a Google search for the displayed person name.")
 public class ExampleWebAppPlugin implements WebAppPlugin {
     @Override

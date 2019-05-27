@@ -205,7 +205,7 @@ define([
                                 this.append('h1')
                                     .call(function() {
                                         this.append('strong');
-                                        if (!visalloData.isFullscreen) {
+                                        if (!openlumifyData.isFullscreen) {
                                             this.append('s')
                                                 .attr('class', 'search-related')
                                                 .attr('title', i18n('detail.entity.relationships.open_in_search'));

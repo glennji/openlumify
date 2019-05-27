@@ -5,10 +5,10 @@ Use this as a template to create admin components. Be sure to `require`, not `de
     require([
         'configuration/admin/plugin',
         'util/messages'
-    ], function(defineVisalloAdminPlugin, i18n) {
+    ], function(defineOpenLumifyAdminPlugin, i18n) {
         'use strict';
 
-        return defineVisalloAdminPlugin(MyAdminPlugin, {
+        return defineOpenLumifyAdminPlugin(MyAdminPlugin, {
             section: i18n('admin.myadminplugin.section'),
             name: i18n('admin.myadminplugin.name'),
             subtitle: i18n('admin.myadminplugin.subtitle')

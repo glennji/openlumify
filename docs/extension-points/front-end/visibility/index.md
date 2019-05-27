@@ -5,7 +5,7 @@ Plugin to configure the user interface for displaying and editing visibility aut
 The visibility component requires two FlightJS components registered for viewing and editing:
 
 ```js
-registry.registerExtension('org.visallo.visibility', {
+registry.registerExtension('org.openlumify.visibility', {
     editorComponentPath: 'myEditor',
     viewerComponentPath: 'myViewer'
 });

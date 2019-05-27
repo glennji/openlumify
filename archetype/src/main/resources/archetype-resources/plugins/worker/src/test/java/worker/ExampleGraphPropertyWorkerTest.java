@@ -13,10 +13,10 @@ import org.vertexium.inmemory.InMemoryAuthorizations;
 import org.vertexium.property.StreamingPropertyValue;
 import org.vertexium.query.Query;
 import org.vertexium.query.SortDirection;
-import org.visallo.core.model.properties.VisalloProperties;
-import org.visallo.core.user.User;
-import org.visallo.core.util.VisalloInMemoryGPWTestBase;
-import org.visallo.web.clientapi.model.VisibilityJson;
+import org.openlumify.core.model.properties.OpenLumifyProperties;
+import org.openlumify.core.user.User;
+import org.openlumify.core.util.OpenLumifyInMemoryGPWTestBase;
+import org.openlumify.web.clientapi.model.VisibilityJson;
 
 import java.io.InputStream;
 import java.util.List;
@@ -25,10 +25,10 @@ import java.util.stream.Collectors;
 import static ${package}.worker.OntologyConstants.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.visallo.core.util.StreamUtil.stream;
+import static org.openlumify.core.util.StreamUtil.stream;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ExampleGraphPropertyWorkerTest extends VisalloInMemoryGPWTestBase {
+public class ExampleGraphPropertyWorkerTest extends OpenLumifyInMemoryGPWTestBase {
     private static final String VISIBILITY_SOURCE = "TheVisibilitySource";
     private static final String WORKSPACE_ID = "WORKSPACE_ID";
     private Visibility visibility;
@@ -50,12 +50,12 @@ public class ExampleGraphPropertyWorkerTest extends VisalloInMemoryGPWTestBase {
         authorizations = new InMemoryAuthorizations(VISIBILITY_SOURCE, WORKSPACE_ID);
 
         archiveVertex = getGraph().addVertex(visibility, authorizations);
-        VisalloProperties.MIME_TYPE.addPropertyValue(archiveVertex, "", "text/csv", visibility, authorizations);
-        VisalloProperties.VISIBILITY_JSON.setProperty(archiveVertex, visibilityJson, visibility, authorizations);
+        OpenLumifyProperties.MIME_TYPE.addPropertyValue(archiveVertex, "", "text/csv", visibility, authorizations);
+        OpenLumifyProperties.VISIBILITY_JSON.setProperty(archiveVertex, visibilityJson, visibility, authorizations);
 
         InputStream archiveIn = getClass().getResource("/contacts.csv").openStream();
         StreamingPropertyValue value = new StreamingPropertyValue(archiveIn, byte[].class);
-        VisalloProperties.RAW.setProperty(archiveVertex, value, visibility, authorizations);
+        OpenLumifyProperties.RAW.setProperty(archiveVertex, value, visibility, authorizations);
         archiveIn.close();
 
         user = getUserRepository().findOrAddUser("test", "test", "test@test.com", "test");
@@ -66,18 +66,18 @@ public class ExampleGraphPropertyWorkerTest extends VisalloInMemoryGPWTestBase {
 
     @Test
     public void isHandledReturnsTrueForRawPropertyWithCsvMimeType() throws Exception {
-        boolean handled = worker.isHandled(archiveVertex, VisalloProperties.RAW.getProperty(archiveVertex));
+        boolean handled = worker.isHandled(archiveVertex, OpenLumifyProperties.RAW.getProperty(archiveVertex));
 
         assertThat(handled, is(true));
     }
 
     @Test
     public void isHandledReturnsFalseForRawPropertyWithOtherMimeType() throws Exception {
-        VisalloProperties.MIME_TYPE.removeProperty(archiveVertex, "", authorizations);
-        VisalloProperties.MIME_TYPE.addPropertyValue(
+        OpenLumifyProperties.MIME_TYPE.removeProperty(archiveVertex, "", authorizations);
+        OpenLumifyProperties.MIME_TYPE.addPropertyValue(
                 archiveVertex, "", "application/octet-stream", visibility, authorizations);
 
-        boolean handled = worker.isHandled(archiveVertex, VisalloProperties.RAW.getProperty(archiveVertex));
+        boolean handled = worker.isHandled(archiveVertex, OpenLumifyProperties.RAW.getProperty(archiveVertex));
 
         assertThat(handled, is(false));
     }
@@ -92,13 +92,13 @@ public class ExampleGraphPropertyWorkerTest extends VisalloInMemoryGPWTestBase {
         run(worker, createWorkerPrepareData(null, user, null, null), archiveVertex, WORKSPACE_ID);
 
         Query csvFileQuery = getGraph().query(authorizations)
-                .has(VisalloProperties.CONCEPT_TYPE.getPropertyName(), CONTACTS_CSV_FILE_CONCEPT_TYPE);
+                .has(OpenLumifyProperties.CONCEPT_TYPE.getPropertyName(), CONTACTS_CSV_FILE_CONCEPT_TYPE);
         List<Vertex> csvFileVertices = stream(csvFileQuery.vertices()).collect(Collectors.toList());
         assertThat(csvFileVertices.size(), is(1));
         Vertex csvFileVertex = csvFileVertices.get(0);
 
         Query personQuery = getGraph().query(authorizations)
-                .has(VisalloProperties.CONCEPT_TYPE.getPropertyName(), PERSON_CONCEPT_TYPE)
+                .has(OpenLumifyProperties.CONCEPT_TYPE.getPropertyName(), PERSON_CONCEPT_TYPE)
                 .sort(PERSON_FULL_NAME_PROPERTY.getPropertyName(), SortDirection.ASCENDING);
         List<Vertex> personVertices = stream(personQuery.vertices()).collect(Collectors.toList());
         assertThat(personVertices.size(), is(2));

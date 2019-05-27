@@ -1,0 +1,4 @@
+org.openlumify.core.ingest.cloud.CloudImportLongRunningProcessWorker
+org.openlumify.core.model.longRunningProcess.FindPathLongRunningProcessWorker
+org.openlumify.core.model.longRunningProcess.ReindexLongRunningProcessWorker
+org.openlumify.core.ping.PingLongRunningProcess

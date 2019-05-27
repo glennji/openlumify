@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY openlumify "http://openlumify.org#" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://openlumify.org/structured-file#"
+     xml:base="http://openlumify.org/structured-file"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:openlumify="http://openlumify.org#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://openlumify.org/structured-file">
+        <owl:imports rdf:resource="http://openlumify.org"/>
+        <owl:imports rdf:resource="http://openlumify.org/user"/>
+    </owl:Ontology>
+
+
+
+    <owl:ObjectProperty rdf:about="http://openlumify.org/structured-file#elementHasSource">
+        <rdfs:label xml:lang="en">Has Source</rdfs:label>
+        <rdfs:domain rdf:resource="&owl;Thing"/>
+        <rdfs:range rdf:resource="&owl;Thing"/>
+        <openlumify:userVisible rdf:datatype="&xsd;boolean">false</openlumify:userVisible>
+        <openlumify:addable rdf:datatype="&xsd;boolean">false</openlumify:addable>
+        <openlumify:updateable rdf:datatype="&xsd;boolean">false</openlumify:updateable>
+    </owl:ObjectProperty>
+
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/structured-file#structuredFileParsingError">
+        <rdfs:label xml:lang="en">Parsing Error</rdfs:label>
+        <openlumify:displayFormula>
+          _.compact([dependentProp(&apos;http://openlumify.org/structured-file#targetPropertyName&apos;),
+                     dependentProp(&apos;http://openlumify.org/structured-file#errorMessage&apos;)]).join(&apos;, &apos;)
+        </openlumify:displayFormula>
+
+        <openlumify:dependentPropertyIri xml:lang="en">http://openlumify.org/structured-file#errorMessage</openlumify:dependentPropertyIri>
+        <openlumify:dependentPropertyIri xml:lang="en">http://openlumify.org/structured-file#targetPropertyName</openlumify:dependentPropertyIri>
+        <openlumify:dependentPropertyIri xml:lang="en">http://openlumify.org/structured-file#rawCellValue</openlumify:dependentPropertyIri>
+        <openlumify:dependentPropertyIri xml:lang="en">http://openlumify.org/structured-file#sheet</openlumify:dependentPropertyIri>
+        <openlumify:dependentPropertyIri xml:lang="en">http://openlumify.org/structured-file#row</openlumify:dependentPropertyIri>
+
+        <rdfs:domain rdf:resource="&owl;Thing"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <openlumify:addable rdf:datatype="&xsd;boolean">false</openlumify:addable>
+        <openlumify:updateable rdf:datatype="&xsd;boolean">false</openlumify:updateable>
+        <openlumify:userVisible rdf:datatype="&xsd;boolean">false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/structured-file#errorMessage">
+        <rdfs:label xml:lang="en">Error Message</rdfs:label>
+        <rdfs:domain rdf:resource="&owl;Thing"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <openlumify:addable rdf:datatype="&xsd;boolean">false</openlumify:addable>
+        <openlumify:updateable rdf:datatype="&xsd;boolean">false</openlumify:updateable>
+        <openlumify:userVisible rdf:datatype="&xsd;boolean">false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/structured-file#targetPropertyName">
+        <rdfs:label xml:lang="en">Target Property</rdfs:label>
+        <rdfs:domain rdf:resource="&owl;Thing"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <openlumify:addable rdf:datatype="&xsd;boolean">false</openlumify:addable>
+        <openlumify:updateable rdf:datatype="&xsd;boolean">false</openlumify:updateable>
+        <openlumify:userVisible rdf:datatype="&xsd;boolean">false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/structured-file#rawCellValue">
+        <rdfs:label xml:lang="en">Raw Value</rdfs:label>
+        <rdfs:domain rdf:resource="&owl;Thing"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <openlumify:addable rdf:datatype="&xsd;boolean">false</openlumify:addable>
+        <openlumify:updateable rdf:datatype="&xsd;boolean">false</openlumify:updateable>
+        <openlumify:userVisible rdf:datatype="&xsd;boolean">false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/structured-file#sheet">
+        <rdfs:label xml:lang="en">Sheet</rdfs:label>
+        <rdfs:domain rdf:resource="&owl;Thing"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <openlumify:addable rdf:datatype="&xsd;boolean">false</openlumify:addable>
+        <openlumify:updateable rdf:datatype="&xsd;boolean">false</openlumify:updateable>
+        <openlumify:userVisible rdf:datatype="&xsd;boolean">false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/structured-file#row">
+        <rdfs:label xml:lang="en">Row</rdfs:label>
+        <rdfs:domain rdf:resource="&owl;Thing"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <openlumify:addable rdf:datatype="&xsd;boolean">false</openlumify:addable>
+        <openlumify:updateable rdf:datatype="&xsd;boolean">false</openlumify:updateable>
+        <openlumify:userVisible rdf:datatype="&xsd;boolean">false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="http://openlumify.org/structured-file#mapping">
+        <rdfs:label xml:lang="en">Mapping</rdfs:label>
+        <rdfs:domain rdf:resource="&owl;Thing"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <openlumify:userVisible rdf:datatype="&xsd;boolean">false</openlumify:userVisible>
+    </owl:DatatypeProperty>
+</rdf:RDF>

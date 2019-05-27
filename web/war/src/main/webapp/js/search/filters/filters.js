@@ -151,7 +151,7 @@ define([
             var filterSearchType = this.attr.searchType,
                 $container = this.select('extensionsSelector'),
                 extensions = _.where(
-                    registry.extensionsForPoint('org.visallo.search.filter'),
+                    registry.extensionsForPoint('org.openlumify.search.filter'),
                     { searchType: filterSearchType }
                 ),
                 componentPromises = _.map(extensions, function(extension) {

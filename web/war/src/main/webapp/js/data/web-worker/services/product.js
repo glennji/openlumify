@@ -23,8 +23,8 @@ define(['../util/ajax', '../store'], function(ajax, store) {
          * Create a new product
          *
          * Built-in Kinds:
-         * * `org.visallo.web.product.graph.GraphWorkProduct`
-         * * `org.visallo.web.product.map.MapWorkProduct`
+         * * `org.openlumify.web.product.graph.GraphWorkProduct`
+         * * `org.openlumify.web.product.map.MapWorkProduct`
          *
          * @param {string} kind The type of work product
          * @param {string} [title=Untitled]

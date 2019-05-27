@@ -95,7 +95,7 @@ define([
     }
 
     function moveScrubber(source, dest) {
-            var scrubber = source.find('.org-visallo-video-scrubber');
+            var scrubber = source.find('.org-openlumify-video-scrubber');
             if (scrubber) {
                 scrubber.appendTo(dest);
                 dest.css('display', 'block');

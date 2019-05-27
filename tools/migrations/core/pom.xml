@@ -5,18 +5,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.visallo</groupId>
-        <artifactId>visallo-tools-migrations</artifactId>
+        <groupId>co.hackstreet</groupId>
+        <artifactId>openlumify-tools-migrations</artifactId>
         <version>4.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>visallo-tools-migration-core</artifactId>
-    <name>Visallo: Tools - Migration Core</name>
+    <artifactId>openlumify-tools-migration-core</artifactId>
+    <name>OpenLumify: Tools - Migration Core</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-core</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-core</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

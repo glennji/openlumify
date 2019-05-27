@@ -197,7 +197,7 @@ define([
 
                 dropdown.html(
                         this.previousValues.map(function(p, i) {
-                            var visibility = p.metadata && p.metadata['http://visallo.org#visibilityJson'];
+                            var visibility = p.metadata && p.metadata['http://openlumify.org#visibilityJson'];
                             return _.template(
                                 '<li data-index="{i}">' +
                                     '<a href="#">{value}' +
@@ -267,7 +267,7 @@ define([
             visibility.teardownAllComponents();
             justification.teardownAllComponents();
 
-            var vertexProperty = property.title === 'http://visallo.org#visibilityJson' ?
+            var vertexProperty = property.title === 'http://openlumify.org#visibilityJson' ?
                     _.first(F.vertex.props(this.attr.data, property.title)) :
                     !_.isUndefined(property.key) ?
                     _.first(F.vertex.props(this.attr.data, property.title, property.key)) :
@@ -275,10 +275,10 @@ define([
                 previousValue = vertexProperty && vertexProperty.value,
                 visibilityValue = vertexProperty &&
                     vertexProperty.metadata &&
-                    vertexProperty.metadata['http://visallo.org#visibilityJson'],
+                    vertexProperty.metadata['http://openlumify.org#visibilityJson'],
                 sandboxStatus = vertexProperty && vertexProperty.sandboxStatus,
                 isExistingProperty = typeof vertexProperty !== 'undefined',
-                isEditingVisibility = propertyName === 'http://visallo.org#visibilityJson' || (
+                isEditingVisibility = propertyName === 'http://openlumify.org#visibilityJson' || (
                     vertexProperty && vertexProperty.streamingPropertyValue
                 ),
                 previousValues = disablePreviousValuePrompt !== true && F.vertex.props(this.attr.data, propertyName),
@@ -296,7 +296,7 @@ define([
                 this.visibilitySource = { value: visibilityValue, valid: true };
             }
 
-            if (property.name === 'http://visallo.org#visibilityJson') {
+            if (property.name === 'http://openlumify.org#visibilityJson') {
                 vertexProperty = property;
                 isExistingProperty = true;
                 previousValues = null;
@@ -347,12 +347,12 @@ define([
                     deleteButton.hide();
                 }
                 self.currentPropertyDetails = propertyDetails;
-                if (propertyName === 'http://visallo.org#visibilityJson') {
+                if (propertyName === 'http://openlumify.org#visibilityJson') {
                     var val = vertexProperty && vertexProperty.value,
                         source = (val && val.source) || (val && val.value && val.value.source);
                     self.editVisibility(visibility, source);
                 } else if (vertexProperty && vertexProperty.streamingPropertyValue && vertexProperty.metadata) {
-                    var visibilityMetadata = vertexProperty.metadata['http://visallo.org#visibilityJson'];
+                    var visibilityMetadata = vertexProperty.metadata['http://openlumify.org#visibilityJson'];
                     self.editVisibility(visibility, visibilityMetadata.source);
                 } else if (propertyDetails) {
                     var isCompoundField = propertyDetails.dependentPropertyIris &&
@@ -455,11 +455,11 @@ define([
 
         this.onVisibilityChange = function(event, data) {
             const { value, title, metadata } = this.currentProperty;
-            const isVisibilityProp = title === 'http://visallo.org#visibilityJson';
-            const isExistingProp = isVisibilityProp || (metadata && 'http://visallo.org#visibilityJson' in metadata);
+            const isVisibilityProp = title === 'http://openlumify.org#visibilityJson';
+            const isExistingProp = isVisibilityProp || (metadata && 'http://openlumify.org#visibilityJson' in metadata);
             const isModified = (isExistingProp, isVisibilityProp) => {
                 let current = data.value;
-                let previous = isVisibilityProp ? value.source : metadata['http://visallo.org#visibilityJson'].source;
+                let previous = isVisibilityProp ? value.source : metadata['http://openlumify.org#visibilityJson'].source;
 
                 if (isVisibilityProp && !isExistingProp) {
                     return !!current;
@@ -616,8 +616,8 @@ define([
             const oldMetadata = this.currentProperty.metadata;
             const { sourceInfo, justificationText } = this.justification;
             const justification = sourceInfo ? { sourceInfo } : justificationText ? { justificationText } : {};
-            const oldVisibilitySource = oldMetadata && oldMetadata['http://visallo.org#visibilityJson']
-                ? oldMetadata['http://visallo.org#visibilityJson'].source
+            const oldVisibilitySource = oldMetadata && oldMetadata['http://openlumify.org#visibilityJson']
+                ? oldMetadata['http://openlumify.org#visibilityJson'].source
                 : undefined;
             const dependentPropertyIris = this.currentPropertyDetails.dependentPropertyIris;
             let value = this.currentValue;

@@ -38,7 +38,7 @@ define([
         this.updateLastCheck = function() {
             if (this.lastCheck) {
                 this.$lastCheck.text(
-                    i18n('visallo.offline_overlay.last_check', F.date.relativeToNow(this.lastCheck))
+                    i18n('openlumify.offline_overlay.last_check', F.date.relativeToNow(this.lastCheck))
                 ).show();
             } else {
                 this.$lastCheck.hide();

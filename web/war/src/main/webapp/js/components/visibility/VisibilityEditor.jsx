@@ -28,7 +28,7 @@ define([
         render() {
             const { registry, style, value: oldValue, placeholder, ...rest } = this.props;
             const { value, valid } = this.state;
-            const custom = _.first(registry['org.visallo.visibility']);
+            const custom = _.first(registry['org.openlumify.visibility']);
 
             // Use new react visibility renderer as default if no custom exists
             if (custom && custom.editorComponentPath !== DEFAULT_FLIGHT_EDITOR) {
@@ -73,6 +73,6 @@ define([
         (dispatch, props) => ({
         })
     )(RegistryInjectorHOC(VisibilityEditor, [
-        'org.visallo.visibility'
+        'org.openlumify.visibility'
     ]));
 });

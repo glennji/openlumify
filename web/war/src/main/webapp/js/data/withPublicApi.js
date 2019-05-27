@@ -6,8 +6,8 @@ define([], function() {
     function withPublicApi() {
 
         this.before('initialize', function() {
-            this.visalloData = {};
-            window.visalloData = this.visalloData;
+            this.openlumifyData = {};
+            window.openlumifyData = this.openlumifyData;
         });
 
         this.after('initialize', function() {
@@ -23,15 +23,15 @@ define([], function() {
                     onlyIfNull: false
                 }, options || {});
 
-            if (options.onlyIfNull && (key in this.visalloData)) {
+            if (options.onlyIfNull && (key in this.openlumifyData)) {
                 return;
             }
 
             if (typeof obj === 'undefined') {
-                delete this.visalloData[key];
+                delete this.openlumifyData[key];
             } else {
-                this.visalloData[key] = obj;
-                this.trigger(key + 'VisalloDataUpdated', {
+                this.openlumifyData[key] = obj;
+                this.trigger(key + 'OpenLumifyDataUpdated', {
                     key: key,
                     object: obj
                 });

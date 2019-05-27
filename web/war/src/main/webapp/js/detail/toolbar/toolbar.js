@@ -24,26 +24,26 @@ define([
      * @param {string} title The text to display in the toolbar
      * @param {string} [subtitle] The text to display underneath the title
      * @param {string} [cls] A CSS classname to add to the items element. Add `disabled` to prevent events from firing
-     * @param {org.visallo.detail.toolbar~canHandle} [canHandle] Whether this item should be added based on what's in the detail pane.
+     * @param {org.openlumify.detail.toolbar~canHandle} [canHandle] Whether this item should be added based on what's in the detail pane.
      * @param {boolean} [divider=false] Specify `true` for a toolbar menu divider instead of an actionable item
      * @param {Array.<object>} [submenu] Specify list of submenu toolbar items. Only one level supported
      * @param {boolean} [right=false] Specify `true` to float item to the right
      * @param {object} [options]
-     * @param {org.visallo.detail.toolbar~insertIntoMenuItems} [options.insertIntoMenuItems] function to place the item in a specific location/order
+     * @param {org.openlumify.detail.toolbar~insertIntoMenuItems} [options.insertIntoMenuItems] function to place the item in a specific location/order
      * @example <caption>Add Button</caption>
-     * registry.registerExtension('org.visallo.detail.toolbar', {
+     * registry.registerExtension('org.openlumify.detail.toolbar', {
      *     event: 'myEvent',
      *     title: 'Test Button'
      * })
      * @example <caption>Add Divider</caption>
-     * registry.registerExtension('org.visallo.detail.toolbar', { divider: true })
+     * registry.registerExtension('org.openlumify.detail.toolbar', { divider: true })
      */
-    registry.documentExtensionPoint('org.visallo.detail.toolbar',
+    registry.documentExtensionPoint('org.openlumify.detail.toolbar',
         'Add Inspector toolbar items',
         function(e) {
             return e.divider || (('event' in e) && ('title' in e));
         },
-        'http://docs.visallo.org/extension-points/front-end/detailToolbar'
+        'http://docs.openlumify.org/extension-points/front-end/detailToolbar'
     );
 
     var DIVIDER = {
@@ -123,12 +123,12 @@ define([
         this.initializeToolbar = function(config) {
             var toolbarItems = config.items,
                 objects = config.objects,
-                toolbarExtensions = _.sortBy(registry.extensionsForPoint('org.visallo.detail.toolbar'), 'title');
+                toolbarExtensions = _.sortBy(registry.extensionsForPoint('org.openlumify.detail.toolbar'), 'title');
 
             toolbarExtensions.forEach(function(item) {
 
                 /**
-                 * @callback org.visallo.detail.toolbar~canHandle
+                 * @callback org.openlumify.detail.toolbar~canHandle
                  * @param {Array.<object>} objects List of all objects displayed in detail pane
                  * @returns {boolean} Whether this extension should display for `objects`
                  */
@@ -143,7 +143,7 @@ define([
                          * `item` into the list, or into a submenu of an item
                          * in the list.
                          *
-                         * @callback org.visallo.detail.toolbar~insertIntoMenuItems
+                         * @callback org.openlumify.detail.toolbar~insertIntoMenuItems
                          * @param {object} item the toolbar item to insert
                          * @param {Array.<object>} items The existing toolbar items
                          * @example
@@ -284,9 +284,9 @@ define([
         };
 
         this.selectionHistory = function() {
-            if ('selectedObjectsStack' in visalloData) {
+            if ('selectedObjectsStack' in openlumifyData) {
                 var menus = [],
-                    stack = visalloData.selectedObjectsStack;
+                    stack = openlumifyData.selectedObjectsStack;
 
                 for (var i = stack.length - 1; i >= 0; i--) {
                     var s = stack[i];
@@ -314,7 +314,7 @@ define([
         };
 
         this.openToolbarItem = function(model) {
-            var rawProps = F.vertex.props(model, 'http://visallo.org#raw');
+            var rawProps = F.vertex.props(model, 'http://openlumify.org#raw');
             if (rawProps.length) {
                 return {
                     title: i18n('detail.artifact.open.original'),
@@ -325,7 +325,7 @@ define([
         };
 
         this.downloadToolbarItem = function(model) {
-            var rawProps = F.vertex.props(model, 'http://visallo.org#raw');
+            var rawProps = F.vertex.props(model, 'http://openlumify.org#raw');
             if (rawProps.length) {
                 return {
                     title: i18n('detail.artifact.open.download.original'),
@@ -337,7 +337,7 @@ define([
 
         this.sourceUrlToolbarItem = function(model) {
             if (_.isObject(model) && _.isArray(model.properties)) {
-                var sourceUrl = _.findWhere(model.properties, { name: 'http://visallo.org#sourceUrl' });
+                var sourceUrl = _.findWhere(model.properties, { name: 'http://openlumify.org#sourceUrl' });
 
                 if (sourceUrl) {
                     return {
@@ -354,10 +354,10 @@ define([
 
         this.addPropertyToolbarItem = function(model, propertyAcls) {
             var commentPropertyAcls = _.reject(propertyAcls, function(property) {
-                    return property.name === 'http://visallo.org/comment#entry';
+                    return property.name === 'http://openlumify.org/comment#entry';
                 }),
                 hasAddableProperties = _.where(commentPropertyAcls, { addable: true }).length > 0 ||
-                    visalloData.currentUser.privilegesHelper.ONTOLOGY_ADD,
+                    openlumifyData.currentUser.privilegesHelper.ONTOLOGY_ADD,
                 disableAdd = (model.hasOwnProperty('updateable') && !model.updateable) || !hasAddableProperties;
 
             if (!disableAdd) {
@@ -378,7 +378,7 @@ define([
         };
 
         this.addCommentToolbarItem = function(model, propertyAcls) {
-            var hasAddableCommentProperty = _.where(propertyAcls, { name: 'http://visallo.org/comment#entry', addable: true }).length > 0,
+            var hasAddableCommentProperty = _.where(propertyAcls, { name: 'http://openlumify.org/comment#entry', addable: true }).length > 0,
                 disableAdd = (model.hasOwnProperty('updateable') && !model.updateable) || !hasAddableCommentProperty;
 
             if (!disableAdd) {

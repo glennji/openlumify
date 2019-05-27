@@ -3,15 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>visallo-dev</artifactId>
-        <groupId>org.visallo</groupId>
+        <artifactId>openlumify-dev</artifactId>
+        <groupId>co.hackstreet</groupId>
         <version>4.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>visallo-dev-tomcat-server</artifactId>
+    <artifactId>openlumify-dev-tomcat-server</artifactId>
     <packaging>jar</packaging>
-    <name>Visallo: Dev: Tomcat Server</name>
+    <name>OpenLumify: Dev: Tomcat Server</name>
     <description>This project is only here to create a good classpath with the plugins for your IDE</description>
 
     <properties>
@@ -24,8 +24,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-tomcat-server</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-tomcat-server</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -34,7 +34,7 @@
             <version>${javax.servlet.api.version}</version>
             <scope>runtime</scope>
         </dependency>
-        <!-- Groovy is required when Visallo is configured to use in-process elasticsearch -->
+        <!-- Groovy is required when OpenLumify is configured to use in-process elasticsearch -->
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy</artifactId>
@@ -42,91 +42,95 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-web-auth-username-only</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-web-auth-username-only</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-web-plugins-admin-user-tools</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-web-plugins-admin-user-tools</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-web-plugins-admin-user-property-auth</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-web-plugins-admin-user-property-auth</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-web-plugins-admin-user-property-privileges</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-web-plugins-admin-user-property-privileges</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-web-product-graph</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-web-product-graph</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-web-product-map</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-web-product-map</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-web-table</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-web-table</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-ingest-cloud-s3</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-ingest-cloud-s3</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-web-structured-ingest-core</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-web-structured-ingest-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-web-structured-ingest-spreadsheet</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-web-structured-ingest-spreadsheet</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-web-structured-ingest-parquet</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-web-structured-ingest-parquet</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <!-- Graph Property Workers -->
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-gpw-email-extractor</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-gpw-email-extractor</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-gpw-mime-type-ontology-mapper</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-gpw-mime-type-ontology-mapper</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-gpw-phone-number-extractor</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-gpw-phone-number-extractor</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-gpw-tika-mime-type</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-gpw-tika-mime-type</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-gpw-tika-text-extractor</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-gpw-tika-text-extractor</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-gpw-zipcode-extractor</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-gpw-zipcode-extractor</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.vertexium</groupId>
+            <artifactId>vertexium-sql</artifactId>
         </dependency>
     </dependencies>
 
@@ -143,10 +147,10 @@
                             <executable>java</executable>
                             <arguments>
                                 <argument>-DVISALLO_DIR=${basedir}/../..</argument>
-                                <argument>-Dvisallo.VISALLO_DIR=${basedir}/../..</argument>
+                                <argument>-Dopenlumify.VISALLO_DIR=${basedir}/../..</argument>
                                 <argument>-classpath</argument>
                                 <classpath/>
-                                <argument>org.visallo.web.TomcatWebServer</argument>
+                                <argument>org.openlumify.web.TomcatWebServer</argument>
                                 <argument>--webAppDir</argument>
                                 <argument>${web.basedir}/src/main/webapp</argument>
                                 <argument>--port</argument>
@@ -154,7 +158,7 @@
                                 <argument>--httpsPort</argument>
                                 <argument>${https.port}</argument>
                                 <argument>--keyStorePath</argument>
-                                <argument>${basedir}/config/visallo-vm.visallo.org.jks</argument>
+                                <argument>${basedir}/config/openlumify-vm.openlumify.org.jks</argument>
                                 <argument>--keyStorePassword</argument>
                                 <argument>password</argument>
                                 <argument>--trustStorePath</argument>

@@ -12,8 +12,8 @@ define([
 
     const reportConfigurationPath = 'dashboard/configs/report';
 
-    var reportRenderers = registry.extensionsForPoint('org.visallo.dashboard.reportrenderer'),
-        extensions = registry.extensionsForPoint('org.visallo.dashboard.item');
+    var reportRenderers = registry.extensionsForPoint('org.openlumify.dashboard.reportrenderer'),
+        extensions = registry.extensionsForPoint('org.openlumify.dashboard.item');
 
     return defineComponent(ConfigPopover, withPopover);
 
@@ -43,11 +43,11 @@ define([
                  * For Flight, `trigger` an event with the name of the
                  * function instead of invoking directly.
                  *
-                 * @typedef org.visallo.dashboard.item~ConfigComponent
+                 * @typedef org.openlumify.dashboard.item~ConfigComponent
                  * @property {object} extension
                  * @property {object} item
                  * @property {object} [report]
-                 * @property {org.visallo.dashboard.item~configurationChanged} configurationChanged Change the configuration
+                 * @property {org.openlumify.dashboard.item~configurationChanged} configurationChanged Change the configuration
                  */
                 paths.push(extension.configurationPath);
             }

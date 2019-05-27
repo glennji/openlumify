@@ -3,15 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>org.visallo</groupId>
-        <artifactId>visallo-web-plugins-group</artifactId>
+        <groupId>co.hackstreet</groupId>
+        <artifactId>openlumify-web-plugins-group</artifactId>
         <version>4.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
 
-    <artifactId>visallo-web-structured-ingest</artifactId>
-    <name>Visallo: Web: Structured Ingest</name>
+    <artifactId>openlumify-web-structured-ingest</artifactId>
+    <name>OpenLumify: Web: Structured Ingest</name>
 
     <modules>
         <module>core</module>

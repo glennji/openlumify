@@ -1082,12 +1082,12 @@ define([
             },
 
             getPreferences: function () {
-                if (visalloData
-                    && visalloData.currentUser
-                    && visalloData.currentUser.uiPreferences
-                    && 'org.visallo.timezone' in visalloData.currentUser.uiPreferences) {
+                if (openlumifyData
+                    && openlumifyData.currentUser
+                    && openlumifyData.currentUser.uiPreferences
+                    && 'org.openlumify.timezone' in openlumifyData.currentUser.uiPreferences) {
                     try {
-                        return JSON.parse(visalloData.currentUser.uiPreferences['org.visallo.timezone']);
+                        return JSON.parse(openlumifyData.currentUser.uiPreferences['org.openlumify.timezone']);
                     } catch(e) {
                         console.error('could not parse timezone preferences', e);
                     }

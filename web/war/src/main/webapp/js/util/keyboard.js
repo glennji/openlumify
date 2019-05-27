@@ -7,7 +7,7 @@ define([
     return defineComponent(Keyboard);
 
     function shouldFilter(e) {
-        return $(e.target).is('input,select,textarea:not(.clipboardManager),.visallo-allow-focus,.visallo-allow-focus *');
+        return $(e.target).is('input,select,textarea:not(.clipboardManager),.openlumify-allow-focus,.openlumify-allow-focus *');
     }
 
     function eventParts(e) {
@@ -25,7 +25,7 @@ define([
             this.shortcutsEnabled = true;
             this.focusElementStack = [];
 
-            window.visalloKeyboard = {};
+            window.openlumifyKeyboard = {};
             window.lastMousePositionX = this.mousePageX = $(window).width() / 2;
             window.lastMousePositionY = this.mousePageY = $(window).height() / 2;
 
@@ -59,7 +59,7 @@ define([
         });
 
         this.onDocumentMouseDown = function(event) {
-            window.visalloKeyboard = _.pick(event, 'shiftKey', 'altKey', 'metaKey', 'ctrlKey');
+            window.openlumifyKeyboard = _.pick(event, 'shiftKey', 'altKey', 'metaKey', 'ctrlKey');
         };
 
         this.onRequestKeyboardShortcuts = function() {

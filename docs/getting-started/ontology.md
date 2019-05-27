@@ -1,21 +1,21 @@
 # Ontology
 
-Visallo uses OWL files to define what type of entities you can create, what properties they can have and what they
-can connect to. Visallo has extended the OWL file to include additional attributes that will change how Visallo
+OpenLumify uses OWL files to define what type of entities you can create, what properties they can have and what they
+can connect to. OpenLumify has extended the OWL file to include additional attributes that will change how OpenLumify
 works.
 
-For an example see the [sample ontology](https://github.com/visallo/visallo/tree/master/config/ontology-sample).
+For an example see the [sample ontology](https://github.com/openlumify/openlumify/tree/master/config/ontology-sample).
 
 ## Loading an ontology via configuration
 
 Add the following to your [configuration](configuration.md).
 
 ```
-repository.ontology.owl.default.iri=http://visallo.org/sample
+repository.ontology.owl.default.iri=http://openlumify.org/sample
 repository.ontology.owl.default.dir=$VISALLO_DIR/config/ontology-sample
 ```
 
-## Visallo OWL Extensions
+## OpenLumify OWL Extensions
 
 ### DatatypeProperty
 
@@ -23,7 +23,7 @@ repository.ontology.owl.default.dir=$VISALLO_DIR/config/ontology-sample
 * **objectPropertyDomain** - Allows property to be added to edge / ObjectProperty. Similar syntax to `rdfs:domain`
 
     ```xml
-    <visallo:objectPropertyDomain rdf:resource="http://example.com/objectProp" />
+    <openlumify:objectPropertyDomain rdf:resource="http://example.com/objectProp" />
     ```
 
 * **textIndexHints** - Specifies how text is indexed in the full text search. By default text will not be indexed.
@@ -36,62 +36,62 @@ repository.ontology.owl.default.dir=$VISALLO_DIR/config/ontology-sample
   * EXACT_MATCH - Allow exact matching. Good for multi-word known values.
 
   ```xml
-  <visallo:textIndexHints>ALL</visallo:textIndexHints>
+  <openlumify:textIndexHints>ALL</openlumify:textIndexHints>
   ```
 
 * **searchable** - Should this property show up in the _Filter By Property_ list in the search interface.
 
     ```xml
-    <visallo:searchable rdf:datatype="&xsd;boolean">false</visallo:searchable>
+    <openlumify:searchable rdf:datatype="&xsd;boolean">false</openlumify:searchable>
     ```
 
 * **deleteable** - Should the delete button show in the UI and allow deleting properties in REST calls.
 
     ```xml
-    <visallo:deleteable rdf:datatype="&xsd;boolean">false</visallo:deleteable>
+    <openlumify:deleteable rdf:datatype="&xsd;boolean">false</openlumify:deleteable>
     ```
 
 * **updateable** - Should the edit button show in the UI and allow updating property values in REST calls.
 
     ```xml
-    <visallo:updateable rdf:datatype="&xsd;boolean">false</visallo:updateable>
+    <openlumify:updateable rdf:datatype="&xsd;boolean">false</openlumify:updateable>
     ```
 
 * **addable** - Should the add property list show this property and allow creating property values in REST calls.
 
     ```xml
-    <visallo:addable rdf:datatype="&xsd;boolean">false</visallo:addable>
+    <openlumify:addable rdf:datatype="&xsd;boolean">false</openlumify:addable>
     ```
 
 * **displayType** - Specifies how the UI should display the value. Plugins can add new display types, see the _Ontology Property Display Types_ section in [Front-end Plugins](../front-end/index.md).
   * `bytes`: Show the value in a human readable size unit based on size. Assumes the value is in bytes.
     ```xml
-    <visallo:displayType>bytes</visallo:displayType>
+    <openlumify:displayType>bytes</openlumify:displayType>
     ```
   * `dateOnly`: Remove the time from the property value and stop timezone shifting display for users (Date will be same regardless of users timezone).
     ```xml
-    <visallo:displayType>dateOnly</visallo:displayType>
+    <openlumify:displayType>dateOnly</openlumify:displayType>
     ```
-  * `geoLocation`: Show the geolocation using description (if available), and truncated coordinates. All `<rdfs:range rdf:resource="&visallo;geolocation"/>` properties automatically use this for display.
+  * `geoLocation`: Show the geolocation using description (if available), and truncated coordinates. All `<rdfs:range rdf:resource="&openlumify;geolocation"/>` properties automatically use this for display.
     ```xml
-    <visallo:displayType>geoLocation</visallo:displayType>
+    <openlumify:displayType>geoLocation</openlumify:displayType>
     ```
   * `heading`: Show a direction arrow, assumes the value is number in degrees.
     ```xml
-    <visallo:displayType>heading</visallo:displayType>
+    <openlumify:displayType>heading</openlumify:displayType>
     ```
-  * `link`: Show the value as a link (assumes the value is valid href). If the property has a metadata value `http://visallo.org#linkTitle` it will be displayed instead of the raw value.  
+  * `link`: Show the value as a link (assumes the value is valid href). If the property has a metadata value `http://openlumify.org#linkTitle` it will be displayed instead of the raw value.  
     ```xml
-    <visallo:displayType>link</visallo:displayType>
+    <openlumify:displayType>link</openlumify:displayType>
     ```
   * `textarea`: Show the value using multiline whitespace, and allow editing in a `<textarea>` instead of one line `<input>`
     ```xml
-    <visallo:displayType>textarea</visallo:displayType>
+    <openlumify:displayType>textarea</openlumify:displayType>
     ```
 * **propertyGroup** - Allows multiple properties to be included under a unified collapsible header in the Inspector. All properties that match the value (<span class="no-glossary">case</span>-sensitive) will be placed in a section.
 
     ```xml
-    <visallo:propertyGroup xml:lang="en">My Group</visallo:propertyGroup>
+    <openlumify:propertyGroup xml:lang="en">My Group</openlumify:propertyGroup>
     ```
 
 * **possibleValues** - Creates a pick list on the UI. The value is a JSON document describing the possible values. In this example, `F` will be the raw value saved in the property value, but `Female` would be displayed to user in pick list and in the Inspector.
@@ -108,13 +108,13 @@ repository.ontology.owl.default.dir=$VISALLO_DIR/config/ontology-sample
 * **deleteable** - Should the delete button show in the UI and allow deleting properties in REST calls.
 
     ```xml
-    <visallo:deleteable rdf:datatype="&xsd;boolean">false</visallo:deleteable>
+    <openlumify:deleteable rdf:datatype="&xsd;boolean">false</openlumify:deleteable>
     ```
 
 * **updateable** - Should the edit button show in the UI and allow updating property values in REST calls.
 
     ```xml
-    <visallo:updateable rdf:datatype="&xsd;boolean">false</visallo:updateable>
+    <openlumify:updateable rdf:datatype="&xsd;boolean">false</openlumify:updateable>
     ```
 
 ### Class
@@ -143,21 +143,21 @@ repository.ontology.owl.default.dir=$VISALLO_DIR/config/ontology-sample
 
     ```xml
     <!-- Expression with CDATA -->
-    <visallo:titleFormula xml:lang="en">![CDATA[
+    <openlumify:titleFormula xml:lang="en">![CDATA[
         prop('http://example.org/aProp') || ''
-    ]]></visallo:titleFormula>
+    ]]></openlumify:titleFormula>
 
     <!-- Expression escaped -->
-    <visallo:titleFormula xml:lang="en">
+    <openlumify:titleFormula xml:lang="en">
         prop(&apos;http://example.org/aProp&apos;) || &apos;&apos;
-    </visallo:titleFormula>
+    </openlumify:titleFormula>
 
     <!-- Multiline with return -->
-    <visallo:titleFormula xml:lang="en">![CDATA[
+    <openlumify:titleFormula xml:lang="en">![CDATA[
         var p = prop('http://example.org/aProp');
         if (p) return p;
         return 'Not available';
-    ]]></visallo:titleFormula>
+    ]]></openlumify:titleFormula>
     ```
 
 * **subtitleFormula** - A JavaScript snippet used to display additional information in the search results.
@@ -169,26 +169,26 @@ repository.ontology.owl.default.dir=$VISALLO_DIR/config/ontology-sample
 <a name="intent"/>
 ## Intents
 
-The ontology defines concepts, relationships, and properties. During data processing Visallo needs to know
- what type of concept, relationship, and property to assign when it finds them. For example if Visallo is scanning a
- document and finds a phone number, Visallo will need to assign a concept to that phone number. This is where
+The ontology defines concepts, relationships, and properties. During data processing OpenLumify needs to know
+ what type of concept, relationship, and property to assign when it finds them. For example if OpenLumify is scanning a
+ document and finds a phone number, OpenLumify will need to assign a concept to that phone number. This is where
  intents come in.
 
 Intents can be defined in the ontology and overridden in the configuration. To assign an intent you add the
  intent attribute to an OWL element.
 
 ```xml
-<owl:Class rdf:about="http://visallo.org/sample#phoneNumber">
+<owl:Class rdf:about="http://openlumify.org/sample#phoneNumber">
   <rdfs:label xml:lang="en">Phone Number</rdfs:label>
-  <visallo:intent>phoneNumber</visallo:intent>
+  <openlumify:intent>phoneNumber</openlumify:intent>
   ...
 </owl:Class>
 ```
 
 To override an intent you can add the following to your configuration.
 
-    ontology.intent.concept.phoneNumber=http://visallo.org/sample#phoneNumber
-    ontology.intent.relationship.hasMedia=http://visallo.org/sample#entityHasMedia
+    ontology.intent.concept.phoneNumber=http://openlumify.org/sample#phoneNumber
+    ontology.intent.relationship.hasMedia=http://openlumify.org/sample#entityHasMedia
 
 ### Concepts
 
@@ -227,7 +227,7 @@ To override an intent you can add the following to your configuration.
 | artifactTitle           | string      | The title of an artifact (fallback if documentTitle, etc. is not specified) |
 | city                    | string      | Geographic city                             |
 | documentTitle           | string      | The title of a document                     |
-| geocodable              | string      | Marks a property as being geocoded by a configured org.visallo.core.geocoding.GeocoderRepository |
+| geocodable              | string      | Marks a property as being geocoded by a configured org.openlumify.core.geocoding.GeocoderRepository |
 | geoLocation             | geoLocation | Geo-location                                |
 | media.clockwiseRotation | integer     | Image clockwise rotation                    |
 | media.dateTaken         | date        | Date/time image was taken                   |

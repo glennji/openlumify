@@ -24,7 +24,7 @@ define([
     Attacher) {
     'use strict';
 
-    var SEARCH_TYPES = ['Visallo'];
+    var SEARCH_TYPES = ['OpenLumify'];
 
     /**
      * Search toolbar items display below the search query input field.
@@ -36,7 +36,7 @@ define([
      * @param {object} action Action to take place on click events. Must include `type` key set to one of:
      * @param {string} action.type Type of action event to occur: `popover` or `event`
      * @param {string} [action.componentPath] Required when `type='popover'`
-     * Path to {@link org.visallo.search.toolbar~Component}
+     * Path to {@link org.openlumify.search.toolbar~Component}
      * @param {string} [action.name] Required when `type='event'`, name of
      * event to fire
      *
@@ -45,11 +45,11 @@ define([
      *         // data.extension
      *         // data.currentSearch
      *     })
-     * @param {org.visallo.search.toolbar~canHandle} [canHandle] Set a function to determine if the toolbar icon should be displayed.
-     * @param {org.visallo.search.toolbar~onElementCreated} [onElementCreated] Will be called after icon ImageElement is created.
-     * @param {org.visallo.search.toolbar~onClick} [onClick] Function will be called during click event, before the `action` behavior
+     * @param {org.openlumify.search.toolbar~canHandle} [canHandle] Set a function to determine if the toolbar icon should be displayed.
+     * @param {org.openlumify.search.toolbar~onElementCreated} [onElementCreated] Will be called after icon ImageElement is created.
+     * @param {org.openlumify.search.toolbar~onClick} [onClick] Function will be called during click event, before the `action` behavior
      */
-    registry.documentExtensionPoint('org.visallo.search.toolbar',
+    registry.documentExtensionPoint('org.openlumify.search.toolbar',
         'Add toolbar icons under search query box',
         function(e) {
             return (!e.canHandle || _.isFunction(e.canHandle)) &&
@@ -62,7 +62,7 @@ define([
                     (e.action.type === 'event' && e.action.name)
                 )
         },
-        'http://docs.visallo.org/extension-points/front-end/searchToolbar'
+        'http://docs.openlumify.org/extension-points/front-end/searchToolbar'
     );
 
     /**
@@ -70,29 +70,29 @@ define([
      *
      * Each of the search interfaces has its own saved searches.
      *
-     * @param {string} componentPath Path to {@link org.visallo.search.advanced~Component}
+     * @param {string} componentPath Path to {@link org.openlumify.search.advanced~Component}
      * @param {string} displayName The text to display in search dropdown (to
      * select the type of search interface)
      * @param {string} savedSearchUrl The endpoint to execute when search is changed
      */
-    registry.documentExtensionPoint('org.visallo.search.advanced',
+    registry.documentExtensionPoint('org.openlumify.search.advanced',
         'Add alternate search interfaces',
         function(e) {
             return (e.componentPath && e.displayName && e.savedSearchUrl);
         },
-        'http://docs.visallo.org/extension-points/front-end/searchAdvanced'
+        'http://docs.openlumify.org/extension-points/front-end/searchAdvanced'
     );
 
     /**
      * @undocumented
      */
-    registry.documentExtensionPoint('org.visallo.search.filter',
+    registry.documentExtensionPoint('org.openlumify.search.filter',
         'Add new types of search filters',
         function(e) {
             return ('searchType' in e) &&
                 ('componentPath' in e);
         },
-        'http://docs.visallo.org/extension-points/front-end/searchFilters'
+        'http://docs.openlumify.org/extension-points/front-end/searchFilters'
     );
 
     var SavedSearchPopover;
@@ -167,10 +167,10 @@ define([
 
         /**
          * Fired when user selects a saved search.
-         * {@link org.visallo.search.advanced~Component|AdvancedSearch}
+         * {@link org.openlumify.search.advanced~Component|AdvancedSearch}
          * components should listen and load the search
          *
-         * @event org.visallo.search.advanced#savedQuerySelected
+         * @event org.openlumify.search.advanced#savedQuerySelected
          * @property {object} data
          * @property {object} data.query
          * @property {string} data.query.url The search endpoint
@@ -206,7 +206,7 @@ define([
             this.currentSearchByUrl[data.url] = data;
 
             var advancedSearch = data.url &&
-                _.findWhere(registry.extensionsForPoint('org.visallo.search.advanced'), { savedSearchUrl: data.url })
+                _.findWhere(registry.extensionsForPoint('org.openlumify.search.advanced'), { savedSearchUrl: data.url })
 
             if (!data.url) data.url = '/vertex/search';
             if (!data.parameters) data.parameters = {};
@@ -214,7 +214,7 @@ define([
 
             this.openSearchType(advancedSearch ?
                 { ...advancedSearch, advancedSearch: advancedSearch.componentPath } :
-                'Visallo'
+                'OpenLumify'
             ).then(function() {
                 var node = self.getSearchTypeNode().find('.search-filters > .content');
                 if ('q' in data.parameters) {
@@ -228,7 +228,7 @@ define([
         };
 
         /**
-         * @event org.visallo.search.advanced#setCurrentSearchForSaving
+         * @event org.openlumify.search.advanced#setCurrentSearchForSaving
          * @property {object} data
          * @property {string} data.url The endpoint url (should match extension
          * point savedSearchUrl)
@@ -238,9 +238,9 @@ define([
             if (event.target && $(event.target).is(this.attr.savedSearchSelector)) return;
 
             if (data && data.url) {
-                var visalloFilter = /^\/(?:vertex|element|edge)\/search$/;
+                var openlumifyFilter = /^\/(?:vertex|element|edge)\/search$/;
                 this.currentSearchByUrl[data.url] = data;
-                if (visalloFilter.test(data.url)) {
+                if (openlumifyFilter.test(data.url)) {
                     this.currentSearchByUrl['/vertex/search'] = data;
                 }
                 this.currentSearch = data;
@@ -254,7 +254,7 @@ define([
 
         this.updateQueryToolbarExtensions = function() {
             var self = this,
-                extensions = registry.extensionsForPoint('org.visallo.search.toolbar');
+                extensions = registry.extensionsForPoint('org.openlumify.search.toolbar');
             if (!this.toolbarExtensionsById) {
                 var inc = 0,
                     mapped = extensions.map(function(e) {
@@ -267,7 +267,7 @@ define([
             var $container = this.select('queryExtensionsSelector'),
                 items = _.filter(extensions, function(e) {
                     /**
-                     * @callback org.visallo.search.toolbar~canHandle
+                     * @callback org.openlumify.search.toolbar~canHandle
                      * @param {object} [currentSearch] Could be null if
                      * current search is invalid
                      * @param {object} currentSearch.url
@@ -285,7 +285,7 @@ define([
                         .each(function(e) {
                             if (_.isFunction(e.onElementCreated)) {
                                 /**
-                                 * @callback org.visallo.search.toolbar~onElementCreated
+                                 * @callback org.openlumify.search.toolbar~onElementCreated
                                  * @param {Element} element The dom element that the
                                  * toolbar item is in
                                  */
@@ -310,7 +310,7 @@ define([
             if (extension) {
                 if (_.isFunction(extension.onClick)) {
                     /**
-                     * @callback org.visallo.search.toolbar~onClick
+                     * @callback org.openlumify.search.toolbar~onClick
                      * @param {Event} event The click event
                      * @returns {boolean} If false the `action` defined in the
                      * extension won't execute.
@@ -404,7 +404,7 @@ define([
         this.onSearchByProperty = function(event, data) {
             var self = this;
 
-            this.openSearchType('Visallo')
+            this.openSearchType('OpenLumify')
                 .done(function() {
                     var node = self.getSearchTypeNode().find('.search-filters .content');
                     self.select('querySelector').val('');
@@ -415,7 +415,7 @@ define([
         this.onSearchByRelatedEntity = function(event, data) {
             var self = this;
 
-            this.openSearchType('Visallo')
+            this.openSearchType('OpenLumify')
                 .done(function() {
                     var node = self.getSearchTypeNode().find('.search-filters .content');
                     self.select('querySelector').val('');
@@ -443,7 +443,7 @@ define([
         /**
          * Display the status of a submitted query. If no argument is given it will clear the current status.
          *
-         * @callback org.visallo.search.advanced~updateQueryStatus
+         * @callback org.openlumify.search.advanced~updateQueryStatus
          * @param {object} [status]
          * @param {boolean} [status.success]
          * @param {string} [status.error] Custom error message to display
@@ -622,8 +622,8 @@ define([
         };
 
         this.onSwitchSearchType = function(event, data) {
-            if (data !== 'Visallo' && !_.isObject(data) && !data.advancedSearch) {
-                throw new Error('Only Visallo search type supported');
+            if (data !== 'OpenLumify' && !_.isObject(data) && !data.advancedSearch) {
+                throw new Error('Only OpenLumify search type supported');
             }
             this.switchSearchType(data);
         };
@@ -682,16 +682,16 @@ define([
                      * Responsible for displaying the interface for
                      * searching, and displaying the results.
                      *
-                     * @typedef org.visallo.search.advanced~Component
+                     * @typedef org.openlumify.search.advanced~Component
                      * @property {string} resultsSelector <span class="important">Deprecated:</span>
                      * Use `renderResults` function instead.
                      * Css selector of the container that will hold results
                      * @property {object} [initialParameters] The search endpoint parameters
                      * @property {function} renderResults takes a callback which is given the DOM node of the results container
-                     * @property {org.visallo.search.advanced~updateQueryStatus} updateQueryStatus Display error/success message
+                     * @property {org.openlumify.search.advanced~updateQueryStatus} updateQueryStatus Display error/success message
                      * @see module:components/List
-                     * @listens org.visallo.search.advanced#savedQuerySelected
-                     * @fires org.visallo.search.advanced#setCurrentSearchForSaving
+                     * @listens org.openlumify.search.advanced#savedQuerySelected
+                     * @fires org.openlumify.search.advanced#setCurrentSearchForSaving
                      * @example <caption>Rendering results</caption>
                      * this.props.renderResults((resultsNode) => {
                      *     List.attachTo($(resultsNode), {
@@ -779,7 +779,7 @@ define([
                         i18n('search.advanced.default')
                 ) + ' ';
             }
-            this.$node.find('.search-dropdowns').toggle(_.isObject(newSearchType) || newSearchType === 'Visallo');
+            this.$node.find('.search-dropdowns').toggle(_.isObject(newSearchType) || newSearchType === 'OpenLumify');
         }
 
         this.updateTypeCss = function() {
@@ -851,12 +851,12 @@ define([
                 const classList = this.$node.find('.advanced-search-type.active').attr('class');
                 return classList.match(/id[0-9]+/)[0];
             } else {
-                return 'Visallo';
+                return 'OpenLumify';
             }
         }
 
         this.render = function() {
-            const extensions = registry.extensionsForPoint('org.visallo.search.advanced');
+            const extensions = registry.extensionsForPoint('org.openlumify.search.advanced');
 
             this.$node.html(template({
                 advancedSearch: extensions,
@@ -865,7 +865,7 @@ define([
                         cls: type.toLowerCase(),
                         name: type,
                         displayName: {
-                            Visallo: i18n('search.types.visallo'),
+                            OpenLumify: i18n('search.types.openlumify'),
                             Workspace: i18n('search.types.workspace')
                         }[type],
                         selected: i === 0

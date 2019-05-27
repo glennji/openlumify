@@ -347,7 +347,7 @@ define([
         };
 
         this.onUpdateModel = function(event, data) {
-           var hasCustomImage = _.contains(data.model.edgeLabels, 'http://visallo.org/dev#entityHasImageRaw');
+           var hasCustomImage = _.contains(data.model.edgeLabels, 'http://openlumify.org/dev#entityHasImageRaw');
 
            if (hasCustomImage) {
               this.updateImageBackground(this.srcForGlyphIconUrl(F.vertex.imageDetail(data.model)));

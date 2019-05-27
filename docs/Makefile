@@ -8,7 +8,7 @@
 
 LINK_CHECK_PORT      := 9988
 # Should match plugins in book.js
-PLUGINS              := ga theme-visallo github-embed
+PLUGINS              := ga theme-openlumify github-embed
 WEBAPP               := ../web/war/src/main/webapp
 GITBOOK              := node_modules/gitbook-cli/bin/gitbook.js
 CURRENT_BRANCH       := $(shell git symbolic-ref HEAD --short)
@@ -101,11 +101,11 @@ link-check-external: build
 			--ordered \
 			--exclude "java/" \
 			--exclude "https://aws.amazon.com/marketplace/" \
-			--exclude "https://myvisalloinstance/" \
-			--exclude "http://docs.visallo.org/" \
+			--exclude "https://myopenlumifyinstance/" \
+			--exclude "http://docs.openlumify.org/" \
 			--exclude "http://localhost:8888/" \
-			--exclude "http://visallo.org/sample#" \
-			--exclude "http://visallo.org/#" ; \
+			--exclude "http://openlumify.org/sample#" \
+			--exclude "http://openlumify.org/#" ; \
 		EXIT="$$?"; \
 		kill "$$PID"; \
 		exit "$$EXIT"

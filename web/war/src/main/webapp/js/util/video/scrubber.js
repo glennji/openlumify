@@ -34,7 +34,7 @@ define([
 
         this.after('initialize', function() {
             this.$node
-                .addClass('org-visallo-video-scrubber')
+                .addClass('org-openlumify-video-scrubber')
                 .toggleClass('disableScrubbing', true)
                 .toggleClass('allowPlayback', false);
 

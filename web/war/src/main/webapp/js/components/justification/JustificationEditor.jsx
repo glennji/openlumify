@@ -125,7 +125,7 @@ define([
             const { vertices } = this.props;
             const vertex = vertices && vertices[vertexId];
             const title = vertex ? F.vertex.title(vertex) : vertex === null ?
-                i18n('element.entity.not_found') : i18n('visallo.loading');
+                i18n('element.entity.not_found') : i18n('openlumify.loading');
 
             return (
                 <div className="viewing">
@@ -211,7 +211,7 @@ define([
             }
         },
         sourceInfoForText(text) {
-            var clipboard = visalloData.copiedDocumentText,
+            var clipboard = openlumifyData.copiedDocumentText,
                 normalizeWhiteSpace = function(str) {
                     return str.replace(/\s+/g, ' ');
                 };

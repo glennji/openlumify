@@ -132,7 +132,7 @@ define([
         },
         callHandlersForName = function(name, data) {
             var extensions = _.where(
-                registry.extensionsForPoint('org.visallo.websocket.message'),
+                registry.extensionsForPoint('org.openlumify.websocket.message'),
                 { name: name }
             );
             if (extensions.length) {

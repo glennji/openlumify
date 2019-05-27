@@ -22,7 +22,7 @@ v4.0.0
 * Search in map will zoom to the area of the current map product zoom/pan (if map is currently opened)
 * Searching by any property with a type of geolocation.
 * Vertex and Edge objects in redux have a new property named `propertiesByName`, which is a map of propertyName to property values.
-* VisalloInMemoryGPWTestBase
+* OpenLumifyInMemoryGPWTestBase
 * Work product toolbar item to configure the display and order of layers on map products.
 * You can pass a boolean `hideCompound` attribute to `components/propertySelect` to hide compound/parent properties from the list of options. (Defaults to false)
 * audit service to audit login, logout, and access denied messages
@@ -34,7 +34,7 @@ v4.0.0
 
 * Added dynamic ontology privileges to default privileges
 * Apache Poi version from 3.15-beta1 to 3.15
-* Changed `http://visallo.org/minimal#rawMetadata` to not user visible in minimal.owl
+* Changed `http://openlumify.org/minimal#rawMetadata` to not user visible in minimal.owl
 * Default sort direction to be descending
 * GPW jar files no longer contain all dependencies
 * Graph circle layout has been replaced with concentric circles layout with nodes having most edges in the center
@@ -99,7 +99,7 @@ v4.0.0
 
 ## Deprecated
 
-* VisalloInMemoryTestBase
+* OpenLumifyInMemoryTestBase
 
 ## Removed
 
@@ -166,7 +166,7 @@ v3.1.0
 
 ## Added
 
-* Map configuration UI with [`org.visallo.map.options`](http://docs.visallo.org/extension-points/front-end/mapOptions/) extension point
+* Map configuration UI with [`org.openlumify.map.options`](http://docs.openlumify.org/extension-points/front-end/mapOptions/) extension point
 * Cli tool to update the graph metadata version
 * Configuration parameters to adjust the web server file upload limits. Set to 10MB / file, and 50MB / upload by default. `multipart.maxFileSize` and `multipart.maxRequestSize`
 * JSONObject#null values to be serialized by objectmapper
@@ -178,18 +178,18 @@ v3.1.0
 * Structured file ingest mapping interface. Ingest spreadsheets (csv, excel)
 * Tomcat dependencies are inside of war when running with desktop profile
 * Tool to run GPW from command line in isolation
-* VisalloInMemoryTestBase to aid in creating tests
+* OpenLumifyInMemoryTestBase to aid in creating tests
 * WorkspaceListener class to listen to workspace repository events
 * Work product relationships and properties to ontology
 * `logQuiet` System property will use `log4j-quiet.xml` in configuration path
 * Message when pasting elements
 * Methods to update work product data and extended data
-* `org.visallo.search.advanced` extension point with tutorial and documentation
+* `org.openlumify.search.advanced` extension point with tutorial and documentation
 
 ## Changed
 
 * `/resource` requests will inherit images from parent concepts
-* Added empty relativePath to Visallo pom files whose parent pom is not located at `../pom.xml`
+* Added empty relativePath to OpenLumify pom files whose parent pom is not located at `../pom.xml`
 * Better title validation in work products
 * Case titles are now checked to be unique only among your own cases, not those shared to you
 * Collapse equal histogram detail values instead of range
@@ -276,9 +276,9 @@ v3.1.0
 
 ## Documentation
 
-* Added [JavaScript Public API](http://docs.visallo.org/javascript)
+* Added [JavaScript Public API](http://docs.openlumify.org/javascript)
 * Added documentation for running a cloud-based development environment
-* Added tutorial and documented [`org.visallo.entity.listItemRenderer`](http://docs.visallo.org/extension-points/front-end/entityListItemRenderer/)
+* Added tutorial and documented [`org.openlumify.entity.listItemRenderer`](http://docs.openlumify.org/extension-points/front-end/entityListItemRenderer/)
 * Renamed Details Panel to Element Inspector
 * How to ingest through REST, code generation, RDF NT + XML, and Vertexium with functional code examples
 * New JSDoc documentation of front-end API, services, extension points
@@ -294,7 +294,7 @@ v3.1.0
 * Admin `dictionary`, `dictionaryDelete`, `dictionaryAdd` front-end services
 * Conflicting inner dependencies of tika-parser
 * Hierarchical graph layout for selections
-* `org.visallo.detail.extensions` extension point, instead use the `org.visallo.layout.component` extension to adjust element inspector display
+* `org.openlumify.detail.extensions` extension point, instead use the `org.openlumify.layout.component` extension to adjust element inspector display
 
 v3.0.0
 ==================
@@ -302,7 +302,7 @@ v3.0.0
 ## Added
 
 * Added route to get saved search on workspace
-* Add map configuration UI with [`org.visallo.map.options`](http://docs.visallo.org/extension-points/front-end/mapOptions/) extension point
+* Add map configuration UI with [`org.openlumify.map.options`](http://docs.openlumify.org/extension-points/front-end/mapOptions/) extension point
 * Graph and Map are now &#34;Case Work Products&#34; within a workspace. Multiple of each type can be created within one workspace.
 
 
@@ -400,7 +400,7 @@ v2.2.0
 * OwlToJava: Support StreamingPropertyValue and DirectoryEntity types
 * Allow admin extensions to request a sort within a section
 * Provide a way to redirect the user after authenticating
-* Add methods which take timestamps to SingleValueVisalloProperty and VisalloProperty
+* Add methods which take timestamps to SingleValueOpenLumifyProperty and OpenLumifyProperty
 * Include babel polyfill https://babeljs.io/docs/usage/polyfill/
 
 ## Changed
@@ -413,7 +413,7 @@ v2.2.0
 
 ## Fixed
 
-* Add user admin privilges plugin to visallo-dev-jetty-server module
+* Add user admin privilges plugin to openlumify-dev-jetty-server module
 * Dashboard pie chart infinite loop
 
 ## Documentation
@@ -440,9 +440,9 @@ v2.1.1
 
 * Only show available properties that are sortable (specified in
   ontology) in search pane sort inv.
-* Pass vertex to `shouldDisable` handler for `org.visallo.vertex.menu`
+* Pass vertex to `shouldDisable` handler for `org.openlumify.vertex.menu`
   extensions
-* The `org.visallo.detail.text` front-end extension function
+* The `org.openlumify.detail.text` front-end extension function
   `shouldReplaceTextSectionForVertex` is now passed property name and
 key
 
@@ -467,14 +467,14 @@ key
 ## Documentation
 
 * Add `shouldDisable` example to
-  [`org.visallo.vertex.menu`](http://docs.visallo.org/extension-points/front-end/vertexMenu/)
+  [`org.openlumify.vertex.menu`](http://docs.openlumify.org/extension-points/front-end/vertexMenu/)
 * Extension documentation for
-  [`org.visallo.detail.text`](http://docs.visallo.org/extension-points/front-end/detailText/)
+  [`org.openlumify.detail.text`](http://docs.openlumify.org/extension-points/front-end/detailText/)
 * Update web app plugin tutorial to use public API and fix errors
 
 ## Removed
 
-* FormatVisallo CLI tool
+* FormatOpenLumify CLI tool
 
 v2.1.0
 ==================
@@ -492,13 +492,13 @@ v2.1.0
   * Escape quotes exported RDF literals
   * Fix bug with importing strings with quotes in them from rdf
   * RDF Import: Fix metadata import, mutation not being updated to a ExistingElementMutation correctly
-  * Add visallo system metadata to elements and properties when importing using xml rdf (#541)
+  * Add openlumify system metadata to elements and properties when importing using xml rdf (#541)
   * Remove includes as IE doesn't have it
   * UserAdminCLI: Support setting authorizations and privileges from the user admin CLI
   * Add popover positioning to map component
   * Protect against NPE's when checking workspace access. Happens when shared workspace deleted
   * Fix dashboard saved search still loading when limit is set
-  * Match visallo dep to poi with tika's dep version. Fixes importing docx
+  * Match openlumify dep to poi with tika's dep version. Fixes importing docx
   * Fix firefox text cutting off at end of dashboard bar charts
   * Use init parameters when creating configuration
   * Change exec-maven-plugin group id from org.apache.maven.plugins to org.codehaus.mojo.
@@ -508,7 +508,7 @@ v2.1.0
   * Fix some race conditions with text property updating while in the process of opening another text
   * Fix uploaded image not being pushed onto queue
   * MetricsManager in RdfTripleImportHelper
-  * Configuration: Support setting system properties via Visallo configuration properties
+  * Configuration: Support setting system properties via OpenLumify configuration properties
   * Fix exceptions in iterator finalize
   * Fix dashboard missing extension toolbar items when on shared workspace dashboard
   * Add option requiredPrivilege to registerExtension to suppress extension based on privileges
@@ -540,7 +540,7 @@ v2.1.0
   * Add workspace and user title formulas. Add concept type properties to dashboard and dashboard item vertices
   * RDF: Support raw (not transformed by VisibilityTranslator) visibility.
   * Move eslint and set root flag
-  * Add ConfigDirectoryStaticResourceHandler helper class to load files and serve them from the Visallo config directories
+  * Add ConfigDirectoryStaticResourceHandler helper class to load files and serve them from the OpenLumify config directories
   * Fix z-index calculation for multiple stacked modals
   * Upgrade tika to 1.13 and commons compress to 1.11 to match tika dependency
   * Add additional checks to ACLProvider to help troubleshoot

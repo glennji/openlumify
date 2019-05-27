@@ -87,7 +87,7 @@ define([
         },
         componentDidMount: function() {
             var self = this;
-            this.request = this.props.visalloApi.v1.dataRequest('admin', 'plugins')
+            this.request = this.props.openlumifyApi.v1.dataRequest('admin', 'plugins')
                 .then(function(plugins) {
                     self.setState({ loading: false, plugins: plugins })
                 })
@@ -97,7 +97,7 @@ define([
         },
         render: function() {
             var state = this.state,
-                api = this.props.visalloApi.v1;
+                api = this.props.openlumifyApi.v1;
 
             if (state.loading) {
                 return (

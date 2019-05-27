@@ -104,17 +104,17 @@ define([
              * @param {function} config The function to call during logout.
              * @returns {boolean} To cancel logout return `false`
              * @example
-             * registry.registerExtension('org.visallo.logout', function() {
+             * registry.registerExtension('org.openlumify.logout', function() {
              *     window.location.href = '/logout';
              *     return false;
              * });
              */
-            registry.documentExtensionPoint('org.visallo.logout',
+            registry.documentExtensionPoint('org.openlumify.logout',
                 'Override logout',
                 function(e) {
                     return _.isFunction(e);
                 },
-                'http://docs.visallo.org/extension-points/front-end/logout'
+                'http://docs.openlumify.org/extension-points/front-end/logout'
             );
             /**
              * Add menu items to the context menu of vertices.
@@ -138,16 +138,16 @@ define([
              * @param {object} [options]
              * @param {function} [options.insertIntoMenuItems] function to place the item in a specific location/order, given `item` and `items`.
              *
-             * Syntax similar to {@link org.visallo.detail.toolbar~insertIntoMenuItems}
+             * Syntax similar to {@link org.openlumify.detail.toolbar~insertIntoMenuItems}
              */
-            registry.documentExtensionPoint('org.visallo.vertex.menu',
+            registry.documentExtensionPoint('org.openlumify.vertex.menu',
                 'Add vertex context menu items',
                 function(e) {
                     return e === 'DIVIDER' || (
                         ('event' in e || 'submenu' in e) && ('label' in e)
                     );
                 },
-                'http://docs.visallo.org/extension-points/front-end/elementMenu'
+                'http://docs.openlumify.org/extension-points/front-end/elementMenu'
             );
             /**
              * Add menu items to the context menu of edges.
@@ -171,16 +171,16 @@ define([
              * @param {object} [options]
              * @param {function} [options.insertIntoMenuItems] function to place the item in a specific location/order, given `item` and `items`.
              *
-             * Syntax similar to {@link org.visallo.detail.toolbar~insertIntoMenuItems}
+             * Syntax similar to {@link org.openlumify.detail.toolbar~insertIntoMenuItems}
              */
-            registry.documentExtensionPoint('org.visallo.edge.menu',
+            registry.documentExtensionPoint('org.openlumify.edge.menu',
                 'Add edge context menu items',
                 function(e) {
                     return e === 'DIVIDER' || (
                             ('event' in e || 'submenu' in e) && ('label' in e)
                         );
                 },
-                'http://docs.visallo.org/extension-points/front-end/elementMenu'
+                'http://docs.openlumify.org/extension-points/front-end/elementMenu'
             );
 
             fixMultipleBootstrapModals();
@@ -210,7 +210,7 @@ define([
             this.trigger(document, 'registerKeyboardShortcuts', {
                 scope: ['graph.help.scope', 'map.help.scope'].map(i18n),
                 shortcuts: {
-                    escape: { fire: 'escape', desc: i18n('visallo.help.escape') }
+                    escape: { fire: 'escape', desc: i18n('openlumify.help.escape') }
                 }
             });
 
@@ -222,9 +222,9 @@ define([
             });
 
             this.trigger(document, 'registerKeyboardShortcuts', {
-                scope: i18n('visallo.help.scope'),
+                scope: i18n('openlumify.help.scope'),
                 shortcuts: {
-                    'alt-l': { fire: 'logout', desc: i18n('visallo.help.logout') }
+                    'alt-l': { fire: 'logout', desc: i18n('openlumify.help.logout') }
                 }
             });
 
@@ -337,7 +337,7 @@ define([
         };
 
         this.attachReactComponentWithStore = function(Comp, props, div) {
-            return visalloData.storePromise.then(function(store) {
+            return openlumifyData.storePromise.then(function(store) {
                 var component = React.createElement(Comp, props || {}),
                     provider = React.createElement(redux.Provider, { store }, component),
                     node = _.isFunction(div.get) ? div.get(0) : div;
@@ -384,7 +384,7 @@ define([
                             ...vertexIds.map(v => `v${v}`),
                             ...edgeIds.map(e => `e${e}`)
                         ],
-                        visalloData.currentWorkspaceId
+                        openlumifyData.currentWorkspaceId
                     );
                     window.open(url);
                 })
@@ -529,7 +529,7 @@ define([
 
         this.logout = function(event, data) {
             var self = this,
-                logoutExtensions = registry.extensionsForPoint('org.visallo.logout'),
+                logoutExtensions = registry.extensionsForPoint('org.openlumify.logout'),
                 errorMessage = data && data.message,
                 executeHandlers = function() {
                     if (!logoutExtensions.length) {
@@ -579,7 +579,7 @@ define([
                         })
                     })
                     .catch(function() {
-                        showLoginComponent(i18n('visallo.server.not_found'));
+                        showLoginComponent(i18n('openlumify.server.not_found'));
                     });
             }
         };
@@ -591,7 +591,7 @@ define([
                 name = data && (data.nameFull || data.name),
                 pane = this.select(name + 'Selector'),
                 deferred = $.Deferred(),
-                menubarExtensions = registry.extensionsForPoint('org.visallo.menubar'),
+                menubarExtensions = registry.extensionsForPoint('org.openlumify.menubar'),
                 extension;
 
             if (name) {
@@ -828,7 +828,7 @@ define([
                 this._updateStorePadding(padding);
             } else {
                 Promise.all([
-                    visalloData.storePromise,
+                    openlumifyData.storePromise,
                     Promise.require('data/web-worker/store/panel/actions')
                 ]).spread((store, actions) => {
                     this._updateStorePadding = _.debounce(function(padding) {
@@ -869,7 +869,7 @@ define([
         };
 
         this.onResizeCreateLoad = function(event) {
-            const user = visalloData.currentUser,
+            const user = openlumifyData.currentUser,
                 $pane = $(event.target),
                 sizePaneName = $pane.data('sizePreference'),
                 widthPaneName = !sizePaneName && $pane.data('widthPreference'),
@@ -954,7 +954,7 @@ define([
             }
 
             if (key !== keyPrefix && !_.isUndefined(value)) {
-                visalloData.currentUser.uiPreferences[key] = String(value);
+                openlumifyData.currentUser.uiPreferences[key] = String(value);
                 this.dataRequest('user', 'preference', key, value)
             }
         };

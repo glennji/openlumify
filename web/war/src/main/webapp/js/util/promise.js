@@ -37,7 +37,7 @@
         if (P) {
             Promise.config({
                 cancellation: true,
-                longStackTraces: visalloEnvironment.dev,
+                longStackTraces: openlumifyEnvironment.dev,
                 warnings: {
                     wForgottenReturn: false
                 }

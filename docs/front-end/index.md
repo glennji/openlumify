@@ -3,9 +3,9 @@
 ## Getting Started
 
 * [Building a Web Plugin](../tutorials/webplugin.md) describes creating a Web Plugin.
-* [Building a React Web Plugin](../tutorials/webplugin-react.md) dives deeper into React specific components in Visallo.
-* The [Visallo Front-End Public API](../javascript/module-public_v1_api.html) are documents the front-end API for plugin authors to extend Visallo.
-* View the [Extension Point Documentation](../extension-points/front-end/index.md) for information on extending Visallo components.
+* [Building a React Web Plugin](../tutorials/webplugin-react.md) dives deeper into React specific components in OpenLumify.
+* The [OpenLumify Front-End Public API](../javascript/module-public_v1_api.html) are documents the front-end API for plugin authors to extend OpenLumify.
+* View the [Extension Point Documentation](../extension-points/front-end/index.md) for information on extending OpenLumify components.
 
 ## Compiling Front-End
 
@@ -41,38 +41,38 @@ i18n("my.property", "quick", "jumps");
 
 ## Routing with Fragment URLs
 
-Visallo has a built-in set of routing using the URLs fragment identifier.
+OpenLumify has a built-in set of routing using the URLs fragment identifier.
 
 * **Open Entity / Relation Details** 
 
         Fragment: #v=[(v[vertexId] | e[edgeId])]&w=[workspaceId]
-        Example: https://visallo.com/#v=vMY_VERTEX_ID,eMy_EDGE_ID&w=MY_WORKSPACE
+        Example: https://openlumify.com/#v=vMY_VERTEX_ID,eMy_EDGE_ID&w=MY_WORKSPACE
 
     Opens the full-screen view of one or many entities / relationships. A `v` or `e` must prefix the id to signify the element type.
 
 * **Prompt User to Add Entity / Relation**
 
         Fragment: #add=[(v[vertexId] | e[edgeId])]
-        Example: https://visallo.com/#add=MY_VERTEX_ID_1,MY_VERTEX_ID_2
+        Example: https://openlumify.com/#add=MY_VERTEX_ID_1,MY_VERTEX_ID_2
 
-    Opens Visallo, but prompts the user to add the passed in vertices to their case. Those vertices must be published.
+    Opens OpenLumify, but prompts the user to add the passed in vertices to their case. Those vertices must be published.
 
-* **Open Visallo Admin Section**
+* **Open OpenLumify Admin Section**
     
         Fragment: #admin=[section][name]
-        Example: https://visallo.com/#admin=element:editor
-                 https://visallo.com/#admin=plugin:ui+extensions
+        Example: https://openlumify.com/#admin=element:editor
+                 https://openlumify.com/#admin=plugin:ui+extensions
 
-    Opens Visallo, and the admin pane (if the user has admin privilege) to the admin tool with name `[name]` in section `[section]`. 
+    Opens OpenLumify, and the admin pane (if the user has admin privilege) to the admin tool with name `[name]` in section `[section]`. 
 
-* **Open Visallo Menu Bar Tools**
+* **Open OpenLumify Menu Bar Tools**
 
         Fragment: #tools=[menubar name, [menubar name]]
-        Example: https://visallo.com/#tools=products      // Open Work Products (and first product)
-                 https://visallo.com/#tools=products&id=[WORK_PRODUCT_ID]&w=[WORKSPACE_ID] // Open Work Products list and specific product id in a case (workspaceId)
-                 https://visallo.com/#tools=dashboard,workspaces,activity // Open Dashboard, Cases, and Activity Pane
+        Example: https://openlumify.com/#tools=products      // Open Work Products (and first product)
+                 https://openlumify.com/#tools=products&id=[WORK_PRODUCT_ID]&w=[WORKSPACE_ID] // Open Work Products list and specific product id in a case (workspaceId)
+                 https://openlumify.com/#tools=dashboard,workspaces,activity // Open Dashboard, Cases, and Activity Pane
 
-    Opens Visallo to the specified menu bar identifiers. Multiple tools can be passed if one is fullscreen and one is a pane. Behavior is undefined if the number of fullscreen tools is not equal to 1, or multiple panes are given.
+    Opens OpenLumify to the specified menu bar identifiers. Multiple tools can be passed if one is fullscreen and one is a pane. Behavior is undefined if the number of fullscreen tools is not equal to 1, or multiple panes are given.
 
 ## Configuration
 

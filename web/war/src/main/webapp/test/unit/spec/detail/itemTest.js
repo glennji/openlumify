@@ -1,8 +1,8 @@
 require(['configuration/plugins/registry'], function(registry) {
     var gen = {},
-        rootLayout = 'org.visallo.layout.root',
-        layoutTypePoint = 'org.visallo.layout.type',
-        layoutComponentPoint = 'org.visallo.layout.component',
+        rootLayout = 'org.openlumify.layout.root',
+        layoutTypePoint = 'org.openlumify.layout.type',
+        layoutComponentPoint = 'org.openlumify.layout.component',
         PATH_PREFIX = '../test/unit/spec/detail',
         collectionItemExample;
 
@@ -75,7 +75,7 @@ require(['configuration/plugins/registry'], function(registry) {
                         node.children[0].className.should.equal('c')
                     })
                     .trigger('updateModel', {
-                        model: vertexGen([propGen('http://visallo.org#conceptType', 'c')])
+                        model: vertexGen([propGen('http://openlumify.org#conceptType', 'c')])
                     })
             })
 
@@ -405,43 +405,43 @@ require(['configuration/plugins/registry'], function(registry) {
 
         })
 
-        describe('org.visallo.layout.text component tests', function() {
+        describe('org.openlumify.layout.text component tests', function() {
             it('should render text as strings', function() {
                 var self = this
-                return setup(this, { ref: 'org.visallo.layout.text', model: 'testing' }).then(function() {
-                    self.component.$node.find('.org-visallo-layout-text').text().should.equal('testing')
+                return setup(this, { ref: 'org.openlumify.layout.text', model: 'testing' }).then(function() {
+                    self.component.$node.find('.org-openlumify-layout-text').text().should.equal('testing')
                 })
             })
 
             it('should render empty strings without error', function() {
                 var self = this
-                return setup(this, { ref: 'org.visallo.layout.text', model: '' }).then(function() {
-                    self.component.$node.find('.org-visallo-layout-text').text().should.equal('')
+                return setup(this, { ref: 'org.openlumify.layout.text', model: '' }).then(function() {
+                    self.component.$node.find('.org-openlumify-layout-text').text().should.equal('')
                 })
             })
 
             it('should render functions that return empty strings without error', function() {
                 var self = this
-                return setup(this, { ref: 'org.visallo.layout.text', model: function() {
+                return setup(this, { ref: 'org.openlumify.layout.text', model: function() {
                     return '';
                 } }).then(function() {
-                    self.component.$node.find('.org-visallo-layout-text').text().should.equal('')
+                    self.component.$node.find('.org-openlumify-layout-text').text().should.equal('')
                 })
             })
 
             it('should render functions that return promise of empty strings without error', function() {
                 var self = this
-                return setup(this, { ref: 'org.visallo.layout.text', model: function() {
+                return setup(this, { ref: 'org.openlumify.layout.text', model: function() {
                     return Promise.resolve('');
                 } }).then(function() {
-                    self.component.$node.find('.org-visallo-layout-text').text().should.equal('')
+                    self.component.$node.find('.org-openlumify-layout-text').text().should.equal('')
                 })
             })
 
             it('should render objects as strings', function() {
                 var self = this
-                return setup(this, { ref: 'org.visallo.layout.text' }).then(function() {
-                    self.component.$node.find('.org-visallo-layout-text').text().should.equal('[object Object]')
+                return setup(this, { ref: 'org.openlumify.layout.text' }).then(function() {
+                    self.component.$node.find('.org-openlumify-layout-text').text().should.equal('[object Object]')
                 })
             })
 
@@ -452,10 +452,10 @@ require(['configuration/plugins/registry'], function(registry) {
                 return _.reduce(styles, function(promise, s) {
                     return promise
                         .then(function() {
-                            return setup(self, { ref: 'org.visallo.layout.text', style: s })
+                            return setup(self, { ref: 'org.openlumify.layout.text', style: s })
                         })
                         .then(function() {
-                            var $text = self.component.$node.find('.org-visallo-layout-text');
+                            var $text = self.component.$node.find('.org-openlumify-layout-text');
                             $text.text().should.equal('[object Object]')
                             $text.hasClass(s).should.be.true
                             self.component.teardown()
@@ -466,7 +466,7 @@ require(['configuration/plugins/registry'], function(registry) {
             function setup(ctx, config) {
                 return Promise.require('detail/item/layoutComponents/generic')
                     .then(function(generic) {
-                        var text = _.findWhere(generic, { identifier: 'org.visallo.layout.text' })
+                        var text = _.findWhere(generic, { identifier: 'org.openlumify.layout.text' })
                         return setupItemComponent.call(ctx, [
                             text,
                             {
@@ -974,7 +974,7 @@ require(['configuration/plugins/registry'], function(registry) {
         var self = this,
             extensionsToRegister = _.isArray(root) ? root : [root]
             extensionsToRegister.forEach(function(e) {
-                registry.registerExtension('org.visallo.layout.component', e)
+                registry.registerExtension('org.openlumify.layout.component', e)
             })
 
         doc()

@@ -16,8 +16,8 @@ describeComponent('detail/image/image', function() {
                 id: 'avertexid',
                 type: 'vertex',
                 properties: [
-                    { name: 'http://visallo.org#conceptType', value: 'http://visallo.org/dev#image' },
-                    { name: 'http://visallo.org#raw', value: '', metadata: { 'http://visallo.org#mimeType': 'image/png' } } 
+                    { name: 'http://openlumify.org#conceptType', value: 'http://openlumify.org/dev#image' },
+                    { name: 'http://openlumify.org#raw', value: '', metadata: { 'http://openlumify.org#mimeType': 'image/png' } }
                 ]
             }
         });
@@ -43,7 +43,7 @@ describeComponent('detail/image/image', function() {
             box.is(':visible').should.be.false
 
             this.$node.trigger('DetectedObjectEnter', {
-                'http://visallo.org#rowKey': ROW_KEY,
+                'http://openlumify.org#rowKey': ROW_KEY,
                 x1: 0, y1: 0,
                 x2: 10, y2: 10
             })
@@ -57,7 +57,7 @@ describeComponent('detail/image/image', function() {
             var box = this.$facebox;
 
             this.$node.trigger('DetectedObjectLeave', {
-                'http://visallo.org#rowKey': ROW_KEY
+                'http://openlumify.org#rowKey': ROW_KEY
             })
 
             box.is(':visible').should.be.false
@@ -70,7 +70,7 @@ describeComponent('detail/image/image', function() {
                     id: VERTEX_ID,
                     properties: {}
                 },
-                'http://visallo.org#rowKey': ROW_KEY,
+                'http://openlumify.org#rowKey': ROW_KEY,
                 x1: 0, y1: 0, x2: 10, y2: 10
             })
 
@@ -80,7 +80,7 @@ describeComponent('detail/image/image', function() {
             checkFacebox(this.$faceboxEdit, { visible: true, disabled: true, left: '0px'})
 
             this.$node.trigger('DetectedObjectEnter', {
-                'http://visallo.org#rowKey': ROW_KEY_2,
+                'http://openlumify.org#rowKey': ROW_KEY_2,
                 x1: EXPECTED_WIDTH / 2,
                 y1: 0,
                 x2: EXPECTED_WIDTH,
@@ -102,7 +102,7 @@ describeComponent('detail/image/image', function() {
 
         xit('should show facebox for unresolved entity', function() {
             this.$node.trigger('DetectedObjectEdit', {
-                'http://visallo.org#rowKey': ROW_KEY,
+                'http://openlumify.org#rowKey': ROW_KEY,
                 x1: 0, y1: 0, x2: 10, y2: 10
             })
 
@@ -112,7 +112,7 @@ describeComponent('detail/image/image', function() {
             checkFacebox(this.$faceboxEdit, { visible: true, disabled: false, left: '0px'})
 
             this.$node.trigger('DetectedObjectEnter', {
-                'http://visallo.org#rowKey': ROW_KEY_2,
+                'http://openlumify.org#rowKey': ROW_KEY_2,
                 x1: EXPECTED_WIDTH / 2,
                 y1: 0,
                 x2: EXPECTED_WIDTH,

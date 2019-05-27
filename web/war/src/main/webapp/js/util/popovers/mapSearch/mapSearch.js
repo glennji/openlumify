@@ -36,7 +36,7 @@ define([
                 this.positionDialog();
                 this.mode = MODE_REGION_SELECTION_MODE_POINT;
                 this.setInfo();
-                visalloData.storePromise.then(store => {
+                openlumifyData.storePromise.then(store => {
                     this.setupMap(store);
                 })
             });

@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>${artifactId}</artifactId>
     <packaging>jar</packaging>
-    <name>Example Visallo Plugins: GPW</name>
+    <name>Example OpenLumify Plugins: GPW</name>
 
     <dependencies>
         <dependency>
@@ -18,8 +18,8 @@
             <artifactId>${rootArtifactId}-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.visallo</groupId>
-            <artifactId>visallo-core-test</artifactId>
+            <groupId>co.hackstreet</groupId>
+            <artifactId>openlumify-core-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
