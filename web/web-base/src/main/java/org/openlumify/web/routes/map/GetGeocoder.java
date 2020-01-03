@@ -2,9 +2,9 @@ package org.openlumify.web.routes.map;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.openlumify.webster.ParameterizedHandler;
-import org.openlumify.webster.annotations.Handle;
-import org.openlumify.webster.annotations.Required;
+import org.visallo.webster.ParameterizedHandler;
+import org.visallo.webster.annotations.Handle;
+import org.visallo.webster.annotations.Required;
 import org.openlumify.core.geocoding.GeocodeResult;
 import org.openlumify.core.geocoding.GeocoderRepository;
 import org.openlumify.web.OpenLumifyResponse;

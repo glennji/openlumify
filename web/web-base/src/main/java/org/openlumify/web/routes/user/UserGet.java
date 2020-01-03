@@ -14,9 +14,9 @@ import org.openlumify.core.user.User;
 import org.openlumify.core.util.OpenLumifyLogger;
 import org.openlumify.core.util.OpenLumifyLoggerFactory;
 import org.openlumify.web.clientapi.model.ClientApiUser;
-import org.openlumify.webster.ParameterizedHandler;
-import org.openlumify.webster.annotations.Handle;
-import org.openlumify.webster.annotations.Required;
+import org.visallo.webster.ParameterizedHandler;
+import org.visallo.webster.annotations.Handle;
+import org.visallo.webster.annotations.Required;
 
 @Singleton
 public class UserGet implements ParameterizedHandler {

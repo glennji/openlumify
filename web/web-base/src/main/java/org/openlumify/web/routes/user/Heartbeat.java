@@ -3,8 +3,8 @@ package org.openlumify.web.routes.user;
 import com.google.inject.Singleton;
 import org.openlumify.web.OpenLumifyResponse;
 import org.openlumify.web.clientapi.model.ClientApiSuccess;
-import org.openlumify.webster.ParameterizedHandler;
-import org.openlumify.webster.annotations.Handle;
+import org.visallo.webster.ParameterizedHandler;
+import org.visallo.webster.annotations.Handle;
 
 /**
  * Called by client to keep the auth token valid when there is

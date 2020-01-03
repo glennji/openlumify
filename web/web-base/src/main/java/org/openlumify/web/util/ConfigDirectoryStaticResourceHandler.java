@@ -1,7 +1,7 @@
 package org.openlumify.web.util;
 
-import org.openlumify.webster.HandlerChain;
-import org.openlumify.webster.RequestResponseHandler;
+import org.visallo.webster.HandlerChain;
+import org.visallo.webster.RequestResponseHandler;
 import org.apache.commons.io.IOUtils;
 import org.openlumify.core.bootstrap.InjectHelper;
 import org.openlumify.core.exception.OpenLumifyException;

@@ -4,9 +4,9 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.openlumify.core.config.Configuration;
 import org.openlumify.web.clientapi.model.ClientApiSourceInfo;
-import org.openlumify.webster.HandlerChain;
-import org.openlumify.webster.parameterProviders.ParameterProvider;
-import org.openlumify.webster.parameterProviders.ParameterProviderFactory;
+import org.visallo.webster.HandlerChain;
+import org.visallo.webster.parameterProviders.ParameterProvider;
+import org.visallo.webster.parameterProviders.ParameterProviderFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

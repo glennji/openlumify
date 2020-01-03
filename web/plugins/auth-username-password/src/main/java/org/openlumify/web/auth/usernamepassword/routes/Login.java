@@ -10,9 +10,9 @@ import org.openlumify.core.security.AuditService;
 import org.openlumify.core.user.User;
 import org.openlumify.web.CurrentUser;
 import org.openlumify.web.util.RemoteAddressUtil;
-import org.openlumify.webster.ParameterizedHandler;
-import org.openlumify.webster.annotations.Handle;
-import org.openlumify.webster.annotations.Required;
+import org.visallo.webster.ParameterizedHandler;
+import org.visallo.webster.annotations.Handle;
+import org.visallo.webster.annotations.Required;
 
 import javax.servlet.http.HttpServletRequest;
 

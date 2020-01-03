@@ -13,9 +13,9 @@ import org.openlumify.core.user.User;
 import org.openlumify.core.util.OpenLumifyLogger;
 import org.openlumify.core.util.OpenLumifyLoggerFactory;
 import org.openlumify.web.clientapi.model.ClientApiUsers;
-import org.openlumify.webster.ParameterizedHandler;
-import org.openlumify.webster.annotations.Handle;
-import org.openlumify.webster.annotations.Optional;
+import org.visallo.webster.ParameterizedHandler;
+import org.visallo.webster.annotations.Handle;
+import org.visallo.webster.annotations.Optional;
 
 import java.util.ArrayList;
 import java.util.HashMap;

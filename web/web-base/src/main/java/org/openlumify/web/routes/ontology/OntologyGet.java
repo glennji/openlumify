@@ -2,8 +2,8 @@ package org.openlumify.web.routes.ontology;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.openlumify.webster.annotations.Handle;
-import org.openlumify.webster.annotations.Optional;
+import org.visallo.webster.annotations.Handle;
+import org.visallo.webster.annotations.Optional;
 import org.openlumify.core.model.ontology.Concept;
 import org.openlumify.core.model.ontology.OntologyProperty;
 import org.openlumify.core.model.ontology.OntologyRepository;

@@ -2,10 +2,10 @@ package org.openlumify.web.routes.vertex;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.openlumify.webster.ParameterizedHandler;
-import org.openlumify.webster.annotations.Handle;
-import org.openlumify.webster.annotations.Optional;
-import org.openlumify.webster.annotations.Required;
+import org.visallo.webster.ParameterizedHandler;
+import org.visallo.webster.annotations.Handle;
+import org.visallo.webster.annotations.Optional;
+import org.visallo.webster.annotations.Required;
 import org.vertexium.*;
 import org.openlumify.core.ingest.ArtifactDetectedObject;
 import org.openlumify.core.model.graph.GraphRepository;

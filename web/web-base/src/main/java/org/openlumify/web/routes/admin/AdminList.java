@@ -1,10 +1,10 @@
 package org.openlumify.web.routes.admin;
 
-import org.openlumify.webster.App;
-import org.openlumify.webster.ParameterizedHandler;
-import org.openlumify.webster.Route;
-import org.openlumify.webster.annotations.ContentType;
-import org.openlumify.webster.annotations.Handle;
+import org.visallo.webster.App;
+import org.visallo.webster.ParameterizedHandler;
+import org.visallo.webster.Route;
+import org.visallo.webster.annotations.ContentType;
+import org.visallo.webster.annotations.Handle;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;

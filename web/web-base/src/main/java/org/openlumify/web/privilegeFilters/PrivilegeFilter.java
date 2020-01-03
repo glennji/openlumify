@@ -5,8 +5,8 @@ import org.openlumify.core.model.user.PrivilegeRepository;
 import org.openlumify.core.user.User;
 import org.openlumify.web.CurrentUser;
 import org.openlumify.web.clientapi.model.Privilege;
-import org.openlumify.webster.HandlerChain;
-import org.openlumify.webster.RequestResponseHandler;
+import org.visallo.webster.HandlerChain;
+import org.visallo.webster.RequestResponseHandler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

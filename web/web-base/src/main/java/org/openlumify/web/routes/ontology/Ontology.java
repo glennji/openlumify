@@ -2,8 +2,8 @@ package org.openlumify.web.routes.ontology;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.openlumify.webster.ParameterizedHandler;
-import org.openlumify.webster.annotations.Handle;
+import org.visallo.webster.ParameterizedHandler;
+import org.visallo.webster.annotations.Handle;
 import org.openlumify.core.model.ontology.OntologyRepository;
 import org.openlumify.web.OpenLumifyResponse;
 import org.openlumify.web.clientapi.model.ClientApiOntology;

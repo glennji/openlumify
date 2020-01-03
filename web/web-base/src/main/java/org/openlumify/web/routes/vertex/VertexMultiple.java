@@ -14,10 +14,10 @@ import org.openlumify.core.util.ClientApiConverter;
 import org.openlumify.web.clientapi.model.ClientApiVertex;
 import org.openlumify.web.clientapi.model.ClientApiVertexMultipleResponse;
 import org.openlumify.web.parameterProviders.OpenLumifyBaseParameterProvider;
-import org.openlumify.webster.ParameterizedHandler;
-import org.openlumify.webster.annotations.Handle;
-import org.openlumify.webster.annotations.Optional;
-import org.openlumify.webster.annotations.Required;
+import org.visallo.webster.ParameterizedHandler;
+import org.visallo.webster.annotations.Handle;
+import org.visallo.webster.annotations.Optional;
+import org.visallo.webster.annotations.Required;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;

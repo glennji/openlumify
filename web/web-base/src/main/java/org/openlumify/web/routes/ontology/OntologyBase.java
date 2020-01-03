@@ -1,6 +1,6 @@
 package org.openlumify.web.routes.ontology;
 
-import org.openlumify.webster.ParameterizedHandler;
+import org.visallo.webster.ParameterizedHandler;
 import org.vertexium.util.IterableUtils;
 import org.openlumify.core.exception.OpenLumifyException;
 import org.openlumify.core.model.ontology.Concept;

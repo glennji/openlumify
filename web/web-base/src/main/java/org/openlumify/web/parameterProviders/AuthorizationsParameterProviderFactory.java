@@ -8,9 +8,9 @@ import org.openlumify.core.model.user.AuthorizationRepository;
 import org.openlumify.core.model.workspace.WorkspaceRepository;
 import org.openlumify.core.user.User;
 import org.openlumify.web.CurrentUser;
-import org.openlumify.webster.HandlerChain;
-import org.openlumify.webster.parameterProviders.ParameterProvider;
-import org.openlumify.webster.parameterProviders.ParameterProviderFactory;
+import org.visallo.webster.HandlerChain;
+import org.visallo.webster.parameterProviders.ParameterProvider;
+import org.visallo.webster.parameterProviders.ParameterProviderFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -12,7 +12,7 @@ Lets do the scaffolding of creating a new web app plugin so that we can delve in
 package com.openlumifyexample.helloworld.web;
 
 import com.google.inject.Singleton;
-import org.openlumify.webster.Handler;
+import org.visallo.webster.Handler;
 import org.openlumify.core.model.Description;
 import org.openlumify.core.model.Name;
 import org.openlumify.web.WebApp;
@@ -89,7 +89,7 @@ Now your web plugin class should like the following:
 package com.openlumifyexample.helloworld.web;
 
 import com.google.inject.Singleton;
-import org.openlumify.webster.Handler;
+import org.visallo.webster.Handler;
 import org.openlumify.core.model.Description;
 import org.openlumify.core.model.Name;
 import org.openlumify.web.WebApp;
@@ -121,9 +121,9 @@ To do that, we need to register an endpoint to let the front end hit it, so lets
 ```java
 package com.openlumifyexample.helloworld.web;
 
-import org.openlumify.webster.ParameterizedHandler;
-import org.openlumify.webster.annotations.Handle;
-import org.openlumify.webster.annotations.Required;
+import org.visallo.webster.ParameterizedHandler;
+import org.visallo.webster.annotations.Handle;
+import org.visallo.webster.annotations.Required;
 import org.openlumify.web.clientapi.model.ClientApiObject;
 import org.openlumify.web.clientapi.model.ClientApiSuccess;
 
@@ -173,7 +173,7 @@ import org.openlumify.core.model.Name;
 import org.openlumify.web.OpenLumifyCsrfHandler;
 import org.openlumify.web.WebApp;
 import org.openlumify.web.WebAppPlugin;
-import org.openlumify.webster.Handler;
+import org.visallo.webster.Handler;
 
 import javax.servlet.ServletContext;
 
@@ -232,9 +232,9 @@ Typically, you are going to want to do something on the back end, and then send 
 ```java
 package com.openlumifyexample.helloworld.web;
 
-import org.openlumify.webster.ParameterizedHandler;
-import org.openlumify.webster.annotations.Handle;
-import org.openlumify.webster.annotations.Required;
+import org.visallo.webster.ParameterizedHandler;
+import org.visallo.webster.annotations.Handle;
+import org.visallo.webster.annotations.Required;
 import org.vertexium.Authorizations;
 import org.vertexium.Graph;
 import org.vertexium.Vertex;

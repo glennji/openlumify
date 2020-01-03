@@ -2,10 +2,10 @@ package org.openlumify.web.routes.directory;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.openlumify.webster.ParameterizedHandler;
-import org.openlumify.webster.annotations.Handle;
-import org.openlumify.webster.annotations.Optional;
-import org.openlumify.webster.annotations.Required;
+import org.visallo.webster.ParameterizedHandler;
+import org.visallo.webster.annotations.Handle;
+import org.visallo.webster.annotations.Optional;
+import org.visallo.webster.annotations.Required;
 import org.openlumify.core.model.directory.DirectoryRepository;
 import org.openlumify.core.user.User;
 import org.openlumify.web.clientapi.model.ClientApiDirectorySearchResponse;

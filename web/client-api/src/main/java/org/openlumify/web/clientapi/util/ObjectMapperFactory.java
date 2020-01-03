@@ -22,7 +22,7 @@ public class ObjectMapperFactory {
         return mapper;
     }
 
-    private static Module createOpenLumifyObjectMapperModule() {
+    private static com.fasterxml.jackson.databind.Module createOpenLumifyObjectMapperModule() {
         SimpleModule openlumifyModule = new SimpleModule();
         openlumifyModule.addSerializer(JSONObject.NULL.getClass(), new JSONObjectNullSerializer());
         return openlumifyModule;

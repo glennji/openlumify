@@ -2,7 +2,7 @@ package org.openlumify.web.routes.extendedData;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.openlumify.webster.ParameterizedHandler;
+import org.visallo.webster.ParameterizedHandler;
 import org.vertexium.Graph;
 import org.openlumify.core.model.search.VertexiumObjectSearchRunnerBase;
 import org.openlumify.core.model.search.ExtendedDataSearchRunner;

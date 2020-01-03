@@ -2,9 +2,9 @@ package org.openlumify.web.auth.usernamepassword.routes;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.openlumify.webster.ParameterizedHandler;
-import org.openlumify.webster.annotations.Handle;
-import org.openlumify.webster.annotations.Required;
+import org.visallo.webster.ParameterizedHandler;
+import org.visallo.webster.annotations.Handle;
+import org.visallo.webster.annotations.Required;
 import org.openlumify.core.model.user.UserRepository;
 import org.openlumify.core.user.User;
 import org.openlumify.core.util.OpenLumifyLogger;

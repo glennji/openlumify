@@ -1,6 +1,6 @@
 package org.openlumify.web.parameterProviders;
 
-import org.openlumify.webster.DefaultParameterValueConverter;
+import org.visallo.webster.DefaultParameterValueConverter;
 import org.openlumify.core.exception.OpenLumifyException;
 import org.openlumify.web.clientapi.model.ClientApiObject;
 import org.openlumify.web.clientapi.util.ObjectMapperFactory;

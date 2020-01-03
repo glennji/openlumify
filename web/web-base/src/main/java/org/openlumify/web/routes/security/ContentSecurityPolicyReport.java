@@ -1,19 +1,16 @@
 package org.openlumify.web.routes.security;
 
 import com.google.common.base.Charsets;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.openlumify.core.exception.OpenLumifyException;
 import org.openlumify.core.util.OpenLumifyLogger;
 import org.openlumify.core.util.OpenLumifyLoggerFactory;
-import org.openlumify.webster.ParameterizedHandler;
-import org.openlumify.webster.annotations.Handle;
+import org.visallo.webster.ParameterizedHandler;
+import org.visallo.webster.annotations.Handle;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Part;
 import java.io.IOException;
 
 public class ContentSecurityPolicyReport implements ParameterizedHandler {

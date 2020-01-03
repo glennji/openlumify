@@ -10,8 +10,8 @@ import org.openlumify.web.CurrentUser;
 import org.openlumify.web.OpenLumifyResponse;
 import org.openlumify.web.auth.AuthTokenHttpResponse;
 import org.openlumify.web.clientapi.model.ClientApiSuccess;
-import org.openlumify.webster.ParameterizedHandler;
-import org.openlumify.webster.annotations.Handle;
+import org.visallo.webster.ParameterizedHandler;
+import org.visallo.webster.annotations.Handle;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

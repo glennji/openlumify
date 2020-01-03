@@ -13,9 +13,9 @@ import org.openlumify.web.clientapi.model.ClientApiProduct;
 import org.openlumify.web.clientapi.model.ClientApiWorkspace;
 import org.openlumify.web.clientapi.model.ClientApiWorkspaces;
 import org.openlumify.web.parameterProviders.ActiveWorkspaceId;
-import org.openlumify.webster.ParameterizedHandler;
-import org.openlumify.webster.annotations.Handle;
-import org.openlumify.webster.annotations.Optional;
+import org.visallo.webster.ParameterizedHandler;
+import org.visallo.webster.annotations.Handle;
+import org.visallo.webster.annotations.Optional;
 
 import java.util.Collection;
 import java.util.List;

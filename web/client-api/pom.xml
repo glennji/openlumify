@@ -118,6 +118,8 @@
                     <footer>Generated ${maven.build.timestamp}</footer>
                     <quiet>true</quiet>
                     <show>package</show>
+                    <source>8</source>
+                    <additionalparam>-Xdoclint:none</additionalparam>
                 </configuration>
                 <executions>
                     <execution>

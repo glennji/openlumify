@@ -13,9 +13,9 @@ import org.openlumify.core.util.StreamUtil;
 import org.openlumify.core.util.OpenLumifyLogger;
 import org.openlumify.core.util.OpenLumifyLoggerFactory;
 import org.openlumify.web.clientapi.model.ClientApiWorkspace;
-import org.openlumify.webster.ParameterizedHandler;
-import org.openlumify.webster.annotations.Handle;
-import org.openlumify.webster.annotations.Optional;
+import org.visallo.webster.ParameterizedHandler;
+import org.visallo.webster.annotations.Handle;
+import org.visallo.webster.annotations.Optional;
 
 @Singleton
 public class WorkspaceCreate implements ParameterizedHandler {

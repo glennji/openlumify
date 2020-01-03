@@ -33,7 +33,7 @@ import org.openlumify.core.model.Description;
 import org.openlumify.core.model.Name;
 import org.openlumify.web.WebApp;
 import org.openlumify.web.WebAppPlugin;
-import org.openlumify.webster.Handler;
+import org.visallo.webster.Handler;
 
 import javax.servlet.ServletContext;
 

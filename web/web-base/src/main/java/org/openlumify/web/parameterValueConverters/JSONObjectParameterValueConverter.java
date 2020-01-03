@@ -1,6 +1,6 @@
 package org.openlumify.web.parameterValueConverters;
 
-import org.openlumify.webster.DefaultParameterValueConverter;
+import org.visallo.webster.DefaultParameterValueConverter;
 import org.json.JSONObject;
 import org.openlumify.core.exception.OpenLumifyException;
 

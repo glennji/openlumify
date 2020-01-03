@@ -1,6 +1,6 @@
 package org.openlumify.web.routes.vertex;
 
-import org.openlumify.webster.annotations.Handle;
+import org.visallo.webster.annotations.Handle;
 import org.vertexium.*;
 import org.vertexium.query.*;
 import org.openlumify.core.exception.OpenLumifyException;

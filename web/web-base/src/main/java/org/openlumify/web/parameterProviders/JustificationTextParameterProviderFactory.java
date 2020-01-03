@@ -6,9 +6,9 @@ import org.openlumify.core.config.Configuration;
 import org.openlumify.core.model.properties.OpenLumifyProperties;
 import org.openlumify.core.model.user.UserRepository;
 import org.openlumify.web.WebConfiguration;
-import org.openlumify.webster.HandlerChain;
-import org.openlumify.webster.parameterProviders.ParameterProvider;
-import org.openlumify.webster.parameterProviders.ParameterProviderFactory;
+import org.visallo.webster.HandlerChain;
+import org.visallo.webster.parameterProviders.ParameterProvider;
+import org.visallo.webster.parameterProviders.ParameterProviderFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
