@@ -386,7 +386,7 @@ public class EntityHighlighterTest {
                         "data-ref-id=\"" + termAndTermMetadata.get(1).getClassIdentifier() + "\">" +
                         "Joe" +
                     "</span> " +
-                    "Ferner" +`
+                    "Ferner" +
                 "</span>.";
 
         assertMatchStyleAndMeta(expectedText, highlightedText, 2);
