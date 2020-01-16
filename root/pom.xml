@@ -155,9 +155,9 @@
         <maven.plugin.gpg.version>1.6</maven.plugin.gpg.version>
 
         <!-- Node Properties -->
-        <node.version>v6.11.0</node.version>
-        <npm.version>5.4.1</npm.version>
-        <yarnjs.version>v1.2.1</yarnjs.version>
+        <node.version>v11.13.0</node.version>
+        <npm.version>6.7.0</npm.version>
+        <yarnjs.version>v1.19.2</yarnjs.version>
         <frontend.installDirectory>${settings.localRepository}/node/${node.version}</frontend.installDirectory>
     </properties>
 
