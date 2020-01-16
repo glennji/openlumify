@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>openlumify-dev</artifactId>
-        <groupId>co.hackstreet</groupId>
+        <groupId>org.openlumify</groupId>
         <version>4.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -24,7 +24,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-tomcat-server</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -42,89 +42,89 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-web-auth-username-only</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-web-plugins-admin-user-tools</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-web-plugins-admin-user-property-auth</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-web-plugins-admin-user-property-privileges</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-web-product-graph</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-web-product-map</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-web-table</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-ingest-cloud-s3</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-web-structured-ingest-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-web-structured-ingest-spreadsheet</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-web-structured-ingest-parquet</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <!-- Graph Property Workers -->
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-gpw-email-extractor</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-gpw-mime-type-ontology-mapper</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-gpw-phone-number-extractor</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-gpw-tika-mime-type</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-gpw-tika-text-extractor</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-gpw-zipcode-extractor</artifactId>
             <version>${project.version}</version>
         </dependency>

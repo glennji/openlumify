@@ -18,7 +18,7 @@
             <artifactId>${rootArtifactId}-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-core-test</artifactId>
             <scope>test</scope>
         </dependency>

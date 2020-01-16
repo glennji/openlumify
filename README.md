@@ -1,6 +1,6 @@
 f[![Build Status](https://travis-ci.org/openlumify/openlumify.svg?branch=master)](https://travis-ci.org/openlumify/openlumify)
 
-![OpenLumify Logo](http://docs.openlumify.org/img/openlumify-banner.png)
+![OpenLumify Logo](http://openlumify.org/images/logos/openlumify.png)
 
 As the volume of data we collect has continued to grow, so too has the challenge of figuring out how best to leverage it. The problem has shifted from not having enough data to having too much. A whole "big data" industry has sprung up in record time to help customers deal with this problem. Dozens to hundreds of libraries, tools, and products have sprung up to fulfill the promise of fixing your data problem. While some are very good, it's unlikely that any are built specifically for your business problems. That's why we built OpenLumify.
 

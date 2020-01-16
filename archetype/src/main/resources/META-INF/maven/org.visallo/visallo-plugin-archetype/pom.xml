@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>co.hackstreet</groupId>
+    <groupId>org.openlumify</groupId>
     <artifactId>openlumify-plugin-archetype</artifactId>
     <version>4.1-SNAPSHOT</version>
     <packaging>maven-archetype</packaging>

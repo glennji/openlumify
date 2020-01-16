@@ -18,7 +18,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-dev-tomcat-server</artifactId>
         </dependency>
         <!-- javax.servlet is included here for IDE classpaths, but is excluded in the 'copy-libs' execution, below. -->
@@ -61,7 +61,7 @@
                             <outputDirectory>${openlumify.dir}/war</outputDirectory>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>co.hackstreet</groupId>
+                                    <groupId>org.openlumify</groupId>
                                     <artifactId>openlumify-web-war</artifactId>
                                     <version>${openlumify.version}</version>
                                     <type>war</type>
@@ -82,7 +82,7 @@
                             <outputDirectory>${openlumify.dir}/config</outputDirectory>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>co.hackstreet</groupId>
+                                    <groupId>org.openlumify</groupId>
                                     <artifactId>openlumify-config-example</artifactId>
                                     <version>${openlumify.version}</version>
                                     <classifier>config</classifier>

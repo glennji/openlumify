@@ -7,7 +7,7 @@
 
     <parent>
         <artifactId>openlumify</artifactId>
-        <groupId>co.hackstreet</groupId>
+        <groupId>org.openlumify</groupId>
         <version>4.1-SNAPSHOT</version>
     </parent>
 

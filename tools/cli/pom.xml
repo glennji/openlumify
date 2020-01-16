@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>openlumify-tools-group</artifactId>
-        <groupId>co.hackstreet</groupId>
+        <groupId>org.openlumify</groupId>
         <version>4.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -16,44 +16,44 @@
 
     <dependencies>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-tools-import</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-tools-owl</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-tools-run-gpw</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-tools-graph-check</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-tools-reindex</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <!-- migrations -->
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-tools-migration-graph-version-bump</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-tools-migration-predefined-to-dynamic-ontology</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-tools-migration-workspace-to-workproduct</artifactId>
             <version>${project.version}</version>
         </dependency>

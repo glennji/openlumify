@@ -20,7 +20,7 @@ The `codegen` module is helpful for using your IDE to run the `ModelCodeGen` com
 
 ```xml
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-tools-ontology-ingest-codegen</artifactId>
             <version>${openlumify.version}</version>
         </dependency>
@@ -32,7 +32,7 @@ The `generated` module will only include the generated source files and will be 
 
 ```xml
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-tools-ontology-ingest-common</artifactId>
             <version>${openlumify.version}</version>
         </dependency>

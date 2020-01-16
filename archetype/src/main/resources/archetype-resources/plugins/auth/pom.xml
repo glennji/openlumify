@@ -14,7 +14,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-web</artifactId>
         </dependency>
         <dependency>

@@ -15,7 +15,7 @@
         If we inherit we get extra dependencies that we don't want.
     -->
     <artifactId>openlumify-client-api</artifactId>
-    <groupId>co.hackstreet</groupId>
+    <groupId>org.openlumify</groupId>
     <version>4.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>OpenLumify: Web: Client API</name>

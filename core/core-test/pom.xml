@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>co.hackstreet</groupId>
+        <groupId>org.openlumify</groupId>
         <artifactId>openlumify-core-group</artifactId>
         <version>4.1-SNAPSHOT</version>
     </parent>
@@ -14,7 +14,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-core</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -40,12 +40,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-model-queue-inmemory</artifactId>
             <version>${v5.openlumify.version}</version>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-model-vertexium-inmemory</artifactId>
             <version>${v5.openlumify.version}</version>
         </dependency>

@@ -9,7 +9,7 @@
         <relativePath></relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>co.hackstreet</groupId>
+    <groupId>org.openlumify</groupId>
     <artifactId>openlumify-root</artifactId>
     <packaging>pom</packaging>
     <name>OpenLumify: Root</name>
@@ -834,7 +834,7 @@
     <profiles>
         <profile>
             <id>openlumify-release</id>
-            <distributionManagement>
+<!--            <distributionManagement>
                 <repository>
                     <id>enterprise-plugins</id>
                     <name>enterprise-plugins</name>
@@ -845,7 +845,7 @@
                     <name>enterprise-plugins-snapshots</name>
                     <url>${openlumify.nexus.enterprise-plugins-snapshots}</url>
                 </snapshotRepository>
-            </distributionManagement>
+            </distributionManagement>-->
         </profile>
         <profile>
             <id>release-tasks</id>
@@ -992,6 +992,7 @@
                         <quiet>true</quiet>
                         <show>package</show>
                         <source>8</source>
+                        <detectOfflineLinks>true</detectOfflineLinks>
                         <additionalparam>-Xdoclint:none</additionalparam>
                     </configuration>
                     <executions>

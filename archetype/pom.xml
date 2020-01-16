@@ -11,7 +11,7 @@
         <relativePath></relativePath>
     </parent>
 
-    <groupId>co.hackstreet</groupId>
+    <groupId>org.openlumify</groupId>
     <artifactId>openlumify-plugin-archetype</artifactId>
     <version>4.1-SNAPSHOT</version>
     <packaging>maven-archetype</packaging>

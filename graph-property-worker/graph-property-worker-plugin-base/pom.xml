@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>co.hackstreet</groupId>
+        <groupId>org.openlumify</groupId>
         <artifactId>openlumify-graph-property-worker-group</artifactId>
         <version>4.1-SNAPSHOT</version>
     </parent>
@@ -15,13 +15,13 @@
 
     <dependencies>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-core</artifactId>
             <version>${project.parent.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>co.hackstreet</groupId>
+            <groupId>org.openlumify</groupId>
             <artifactId>openlumify-core-test</artifactId>
             <version>${project.parent.version}</version>
             <scope>test</scope>

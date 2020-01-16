@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>co.hackstreet</groupId>
+        <groupId>org.openlumify</groupId>
         <artifactId>openlumify-web-group</artifactId>
         <version>4.1-SNAPSHOT</version>
     </parent>
