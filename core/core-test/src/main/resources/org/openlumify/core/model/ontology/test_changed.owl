@@ -35,6 +35,14 @@
         <openlumify:color xml:lang="en">rgb(28, 137, 28)</openlumify:color>
     </owl:Class>
 
+        <!-- http://openlumify.org/test#person2 -->
+
+        <owl:Class rdf:about="http://openlumify.org/test#person2`">
+            <openlumify:titleFormula xml:lang="en">prop(&apos;http://openlumify.org/test#name&apos;) || &apos;&apos;</openlumify:titleFormula>
+            <openlumify:intent>test</openlumify:intent>
+            <openlumify:color xml:lang="en">rgb(28, 137, 28)</openlumify:color>
+        </owl:Class>
+
     <!-- http://openlumify.org/test#firstMet -->
 
     <owl:DatatypeProperty rdf:about="http://openlumify.org/test#firstMet">

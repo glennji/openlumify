@@ -134,10 +134,10 @@ public abstract class OntologyRepositoryTestBase extends OpenLumifyInMemoryTestB
 
     @Test
     public void testGenerateIri() throws Exception {
-        assertEquals("Should lowercase", "http://openlumify.org/xxx#545f80459971026861f7d0a767a058474788f5d8", getOntologyRepository().generateDynamicIri(Concept.class, "XxX", "w0"));
-        assertEquals("Extended data should change hash", "http://openlumify.org/xxx#a3ee0f2fcbb97cd46570913b304940dfd563d0dd", getOntologyRepository().generateDynamicIri(Concept.class, "XxX", "w0", "1"));
-        assertEquals("replace spaces", "http://openlumify.org/s_1_2_3#b326c1112fdf23093cc7b2b964294a9afd2530ec", getOntologyRepository().generateDynamicIri(Concept.class, " S 1 2 3 ", "w0"));
-        assertEquals("replace non-alpha-num", "http://openlumify.org/a_a1#4db31fddc58acba07547c744ee9f1edae49ad22d", getOntologyRepository().generateDynamicIri(Concept.class, "a !@#A$%1^&*()<>?\":{}=+),[]\\|`~", "w0"));
+        assertEquals("Should lowercase", "http://openlumify.org/xxx#e3e929bf5ddddbe6495926551824cae0dc04ca01", getOntologyRepository().generateDynamicIri(Concept.class, "XxX", "w0"));
+        assertEquals("Extended data should change hash", "http://openlumify.org/xxx#be624b532fcf0ecd8911f3be6d68513cdca435ce", getOntologyRepository().generateDynamicIri(Concept.class, "XxX", "w0", "1"));
+        assertEquals("replace spaces", "http://openlumify.org/s_1_2_3#de45c21834d764c7abd977157cc054569cf0db3b", getOntologyRepository().generateDynamicIri(Concept.class, " S 1 2 3 ", "w0"));
+        assertEquals("replace non-alpha-num", "http://openlumify.org/a_a1#9f7dd14399d98ce99590a2128df38306ff3b2de0", getOntologyRepository().generateDynamicIri(Concept.class, "a !@#A$%1^&*()<>?\":{}=+),[]\\|`~", "w0"));
 
 
         StringBuilder valid = new StringBuilder();
@@ -146,8 +146,8 @@ public abstract class OntologyRepositoryTestBase extends OpenLumifyInMemoryTestB
             if (i < OntologyRepositoryBase.MAX_DISPLAY_NAME) valid.append("a");
             invalid.append("a");
         }
-        assertEquals("length check valid", "http://openlumify.org/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa#2f36190a6f38c1c1d1bc7d8a5e1f00cd71e5dc74", getOntologyRepository().generateDynamicIri(Concept.class, valid.toString(), "w0"));
-        assertEquals("length/hash check invalid", "http://openlumify.org/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa#2f36190a6f38c1c1d1bc7d8a5e1f00cd71e5dc74", getOntologyRepository().generateDynamicIri(Concept.class, invalid.toString(), "w0"));
+        assertEquals("length check valid", "http://openlumify.org/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa#ad9b16f8a6aca7fe6dffd14fcda54e32e2404518", getOntologyRepository().generateDynamicIri(Concept.class, valid.toString(), "w0"));
+        assertEquals("length/hash check invalid", "http://openlumify.org/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa#ad9b16f8a6aca7fe6dffd14fcda54e32e2404518", getOntologyRepository().generateDynamicIri(Concept.class, invalid.toString(), "w0"));
 
     }
 
