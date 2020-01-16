@@ -31,7 +31,7 @@ public class EmailGraphPropertyWorkerTest extends TermMentionGraphPropertyWorker
     public void testEmailExtraction() throws Exception {
         doExtractionTest(EMAIL_TEXT, Arrays.asList(
                 new ExpectedTermMention("person.one@openlumify.com", 23L, 45L),
-                new ExpectedTermMention("person.two@vertexium.org", 93L, 117L)
+                new ExpectedTermMention("person.two@vertexium.org", 96L, 120L)
         ));
     }
 
@@ -39,7 +39,7 @@ public class EmailGraphPropertyWorkerTest extends TermMentionGraphPropertyWorker
     public void testEmailExtractionWithNewlines() throws Exception {
         doExtractionTest(EMAIL_NEW_LINES, Arrays.asList(
                 new ExpectedTermMention("person.one@openlumify.com", 24L, 46L),
-                new ExpectedTermMention("person.two@vertexium.org", 79L, 103L)
+                new ExpectedTermMention("person.two@vertexium.org", 82L, 106L)
         ));
     }
 
