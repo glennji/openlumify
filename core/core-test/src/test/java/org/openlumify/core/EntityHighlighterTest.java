@@ -122,7 +122,7 @@ public class EntityHighlighterTest {
                 if (!doneWithExpected) {
                     expected.append("<span class=\"resolvable res " + termAndTermMetadata.get(0).getClassIdentifier() + "\" " +
                             "title=\"joe ferner\" " +
-                            "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:" + start + ",&quot;end&quot;:" + end + ",&quot;id&quot;:&quot;TM_" + start + "-" + end + "-5e180bf84df5539ac1e6762812dcd29e2b5b4374&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;joe ferner&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
+                            "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:" + start + ",&quot;end&quot;:" + end + ",&quot;id&quot;:&quot;TM_" + start + "-" + end + "-2c5c172561ab5b5b3d822866b9a238ed162c5209&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;joe ferner&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
                             "data-ref-id=\"" + termAndTermMetadata.get(0).getClassIdentifier() + "\">" +
                             "joe ferner" +
                             "</span>" +
@@ -145,9 +145,9 @@ public class EntityHighlighterTest {
         terms.add(createTermMention(outVertex, "jeff kunkle", PERSON_IRI, 33, 44, "uniq1"));
         List<OffsetItem> termAndTermMetadata = new EntityHighlighter().convertTermMentionsToOffsetItems(terms, "", authorizations);
         String highlightedText = EntityHighlighter.getHighlightedText("Test highlight of Joe Ferner and Jeff Kunkle.", termAndTermMetadata);
-        String joeDataInfo = "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:18,&quot;end&quot;:28,&quot;id&quot;:&quot;TM_18-28-5e180bf84df5539ac1e6762812dcd29e2b5b4374&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;joe ferner&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
+        String joeDataInfo = "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:18,&quot;end&quot;:28,&quot;id&quot;:&quot;TM_18-28-2c5c172561ab5b5b3d822866b9a238ed162c5209&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;joe ferner&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
                 "data-ref-id=\"" + termAndTermMetadata.get(0).getClassIdentifier() + "\"";
-        String jeffDataInfo = "data-info=\"{&quot;process&quot;:&quot;uniq1&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:33,&quot;end&quot;:44,&quot;id&quot;:&quot;TM_33-44-ed6f44225a01778932642e3c8a1bc65ef5967432&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;jeff kunkle&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
+        String jeffDataInfo = "data-info=\"{&quot;process&quot;:&quot;uniq1&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:33,&quot;end&quot;:44,&quot;id&quot;:&quot;TM_33-44-fa565d20bd7f242826dd9361f36676146a8989c6&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;jeff kunkle&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
                 "data-ref-id=\"" + termAndTermMetadata.get(1).getClassIdentifier() + "\"";
         String expectedText = "Test highlight of " +
                 "<span class=\"resolvable res " + termAndTermMetadata.get(0).getClassIdentifier() + "\" title=\"joe ferner\" " + joeDataInfo + ">Joe Ferner</span>" +
@@ -172,7 +172,7 @@ public class EntityHighlighterTest {
         String highlightedText = EntityHighlighter.getHighlightedText("Test highlight of: Joe\nFerner\n\tand Jeff Kunkle.", termAndTermMetadata);
         String joe = "<span class=\"resolvable res " + termAndTermMetadata.get(0).getClassIdentifier() + "\" " +
                         "title=\"joe\" " +
-                        "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:23,&quot;end&quot;:29,&quot;id&quot;:&quot;TM_23-29-f804acaaa829703b2de338ef485d68577e2bade6&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;joe&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
+                        "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:23,&quot;end&quot;:29,&quot;id&quot;:&quot;TM_23-29-aa45762993c026e96d9e31821216090688d7ed1d&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;joe&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
                         "data-ref-id=\"" + termAndTermMetadata.get(0).getClassIdentifier() + "\">";
 
         String expectedText = "Test highlight of: Joe\n<br>" +
@@ -194,7 +194,7 @@ public class EntityHighlighterTest {
                 "Test highlight of: " +
                     "<span class=\"resolvable res " + termAndTermMetadata.get(0).getClassIdentifier() + "\" " +
                         "title=\"joe\" " +
-                        "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:19,&quot;end&quot;:30,&quot;id&quot;:&quot;TM_19-30-f804acaaa829703b2de338ef485d68577e2bade6&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;joe&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
+                        "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:19,&quot;end&quot;:30,&quot;id&quot;:&quot;TM_19-30-aa45762993c026e96d9e31821216090688d7ed1d&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;joe&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
                         "data-ref-id=\"" + termAndTermMetadata.get(0).getClassIdentifier() + "\">" +
                             "first\n<br>\n<br>last" +
                     "</span>";
@@ -215,12 +215,12 @@ public class EntityHighlighterTest {
         String expectedText =
                 "<span class=\"resolvable res " + termAndTermMetadata.get(0).getClassIdentifier() + "\" " +
                     "title=\"first\" " +
-                    "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:0,&quot;end&quot;:5,&quot;id&quot;:&quot;TM_0-5-e2cf06e792f9edf5f29a3737044ce1934bf0c08e&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;first&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
+                    "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:0,&quot;end&quot;:5,&quot;id&quot;:&quot;TM_0-5-a15f8bef2bc6c5743dd7160cad3fbafec1825295&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;first&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
                     "data-ref-id=\"" + termAndTermMetadata.get(0).getClassIdentifier() + "\">" +
                     "firs" +
                     "<span class=\"resolvable res " + termAndTermMetadata.get(1).getClassIdentifier() + "\" " +
                         "title=\"t se\" " +
-                        "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:4,&quot;end&quot;:8,&quot;id&quot;:&quot;TM_4-8-61ade973cf8381c3e77b307be4c7314703a03b27&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;t se&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
+                        "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:4,&quot;end&quot;:8,&quot;id&quot;:&quot;TM_4-8-0731cd7f8952380d5ef723ac1bfc1d450ad0184f&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;t se&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
                         "data-ref-id=\"" + termAndTermMetadata.get(1).getClassIdentifier() + "\">" +
                         "t" +
                     "</span>" +
@@ -233,7 +233,7 @@ public class EntityHighlighterTest {
                 "cond " +
                 "<span class=\"resolvable res " + termAndTermMetadata.get(2).getClassIdentifier() + "\" " +
                     "title=\"third\" " +
-                    "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:13,&quot;end&quot;:18,&quot;id&quot;:&quot;TM_13-18-864b9b57177a5dd86de4dc29e8925cf0836c03c7&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;third&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
+                    "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:13,&quot;end&quot;:18,&quot;id&quot;:&quot;TM_13-18-8d181583877846c8c89ba9b1af7bf2fc39d59930&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;third&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
                     "data-ref-id=\"" + termAndTermMetadata.get(2).getClassIdentifier() + "\">" +
                         "third" +
                 "</span>";
@@ -257,25 +257,25 @@ public class EntityHighlighterTest {
         String expectedText =
                 "<span class=\"resolvable res " + termAndTermMetadata.get(6).getClassIdentifier() + "\" " +
                     "title=\"first second third\" " +
-                    "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:0,&quot;end&quot;:18,&quot;id&quot;:&quot;TM_0-18-797c665056c681010dad6fb6a7f09f49a71605b2&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;first second third&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
+                    "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:0,&quot;end&quot;:18,&quot;id&quot;:&quot;TM_0-18-d7c5fa99a401f600fe536b4f81c2ff8bbf850005&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;first second third&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
                     "data-ref-id=\"" + termAndTermMetadata.get(6).getClassIdentifier() + "\">" +
                     "<span class=\"resolvable res " + termAndTermMetadata.get(0).getClassIdentifier() + "\" " +
                         "title=\"first\" " +
-                        "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:0,&quot;end&quot;:5,&quot;id&quot;:&quot;TM_0-5-e2cf06e792f9edf5f29a3737044ce1934bf0c08e&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;first&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
+                        "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:0,&quot;end&quot;:5,&quot;id&quot;:&quot;TM_0-5-a15f8bef2bc6c5743dd7160cad3fbafec1825295&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;first&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
                         "data-ref-id=\"" + termAndTermMetadata.get(0).getClassIdentifier() + "\">" +
                         "<span class=\"resolvable res " + termAndTermMetadata.get(1).getClassIdentifier() + "\" " +
                             "title=\"firs\" " +
-                            "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:0,&quot;end&quot;:4,&quot;id&quot;:&quot;TM_0-4-c4781cfb3f0ea21db9d28c44486e65439eedeb07&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;firs&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
+                            "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:0,&quot;end&quot;:4,&quot;id&quot;:&quot;TM_0-4-4323b902453e084df858815b72ff37b21c4d5aa5&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;firs&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
                             "data-ref-id=\"" + termAndTermMetadata.get(1).getClassIdentifier() + "\">" +
                             "f" +
                             "<span class=\"resolvable res " + termAndTermMetadata.get(4).getClassIdentifier() + "\" " +
                                 "title=\"irst sec\" " +
-                                "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:1,&quot;end&quot;:9,&quot;id&quot;:&quot;TM_1-9-e9c080fef2bcd729b0634c9d9e5bd562b3b1c1a4&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;irst sec&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
+                                "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:1,&quot;end&quot;:9,&quot;id&quot;:&quot;TM_1-9-ed695be363dd406128ccaf876909a81a2f76427c&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;irst sec&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
                                 "data-ref-id=\"" + termAndTermMetadata.get(4).getClassIdentifier() + "\">" +
                                 "irs" +
                                 "<span class=\"resolvable res " + termAndTermMetadata.get(3).getClassIdentifier() + "\" " +
                                     "title=\"t se\" " +
-                                    "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:4,&quot;end&quot;:8,&quot;id&quot;:&quot;TM_4-8-61ade973cf8381c3e77b307be4c7314703a03b27&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;t se&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
+                                    "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:4,&quot;end&quot;:8,&quot;id&quot;:&quot;TM_4-8-0731cd7f8952380d5ef723ac1bfc1d450ad0184f&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;t se&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
                                     "data-ref-id=\"" + termAndTermMetadata.get(3).getClassIdentifier() + "\">" +
                                 "</span>" +
                             "</span>" +
@@ -299,11 +299,11 @@ public class EntityHighlighterTest {
                         "o" +
                         "<span class=\"resolvable res " + termAndTermMetadata.get(2).getClassIdentifier() + "\" " +
                             "title=\"nd third\" " +
-                            "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:10,&quot;end&quot;:18,&quot;id&quot;:&quot;TM_10-18-24f7791aa39784662e0f22bd5b99c96aacba08bc&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;nd third&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
+                            "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:10,&quot;end&quot;:18,&quot;id&quot;:&quot;TM_10-18-8d989d01a4d70673b71e40e26f75f1cc9cf06894&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;nd third&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
                             "data-ref-id=\"" + termAndTermMetadata.get(2).getClassIdentifier() + "\">" +
                         "<span class=\"resolvable res " + termAndTermMetadata.get(5).getClassIdentifier() + "\" " +
                             "title=\"nd \" " +
-                            "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:10,&quot;end&quot;:13,&quot;id&quot;:&quot;TM_10-13-7e00646a2ce55eec5a5c69725980b4cdf8678558&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;nd &quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
+                            "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:10,&quot;end&quot;:13,&quot;id&quot;:&quot;TM_10-13-274ec2d0dcb70ef4b1da535c6cf39042c9ebc5e6&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;nd &quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
                             "data-ref-id=\"" + termAndTermMetadata.get(5).getClassIdentifier() + "\">" +
                             "nd " +
                         "</span>" +
@@ -378,15 +378,15 @@ public class EntityHighlighterTest {
             "Test highlight of " +
                 "<span class=\"resolvable res " + termAndTermMetadata.get(0).getClassIdentifier() + "\" " +
                     "title=\"joe ferner\" " +
-                    "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:18,&quot;end&quot;:28,&quot;id&quot;:&quot;TM_18-28-5e180bf84df5539ac1e6762812dcd29e2b5b4374&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;joe ferner&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
+                    "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:18,&quot;end&quot;:28,&quot;id&quot;:&quot;TM_18-28-2c5c172561ab5b5b3d822866b9a238ed162c5209&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;joe ferner&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
                     "data-ref-id=\"" + termAndTermMetadata.get(0).getClassIdentifier() + "\">" +
                     "<span class=\"resolvable res " + termAndTermMetadata.get(1).getClassIdentifier() + "\" " +
                         "title=\"jeff kunkle\" " +
-                        "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:18,&quot;end&quot;:21,&quot;id&quot;:&quot;TM_18-21-573648828a7888c138cbc1d580be8d09a1f2e782&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;jeff kunkle&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
+                        "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:18,&quot;end&quot;:21,&quot;id&quot;:&quot;TM_18-21-81adb4e514f547c1bde0f66824363f9b608e2e9c&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;jeff kunkle&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
                         "data-ref-id=\"" + termAndTermMetadata.get(1).getClassIdentifier() + "\">" +
                         "Joe" +
                     "</span> " +
-                    "Ferner" +
+                    "Ferner" +`
                 "</span>.";
 
         assertMatchStyleAndMeta(expectedText, highlightedText, 2);
@@ -412,7 +412,7 @@ public class EntityHighlighterTest {
         String expectedText =
                 "Test highlight of <span class=\"resolved res " + termAndTermMetadata.get(0).getClassIdentifier() + "\" " +
                         "title=\"joe ferner\" " +
-                        "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;resolvedToVertexId&quot;:&quot;jf&quot;,&quot;resolvedToEdgeId&quot;:&quot;e1&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:18,&quot;termMentionFor&quot;:&quot;VERTEX&quot;,&quot;termMentionForElementId&quot;:&quot;jf&quot;,&quot;end&quot;:28,&quot;id&quot;:&quot;TM_18-28-47b5d3c6dc289fae21f303034649da038a7db76d&quot;,&quot;outVertexId&quot;:&quot;v1&quot;,&quot;title&quot;:&quot;joe ferner&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
+                        "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;resolvedToVertexId&quot;:&quot;jf&quot;,&quot;resolvedToEdgeId&quot;:&quot;e1&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:18,&quot;termMentionFor&quot;:&quot;VERTEX&quot;,&quot;termMentionForElementId&quot;:&quot;jf&quot;,&quot;end&quot;:28,&quot;id&quot;:&quot;TM_18-28-7d8a77cf9cb5057c81f570ed0d05d9eacf974058&quot;,&quot;outVertexId&quot;:&quot;v1&quot;,&quot;title&quot;:&quot;joe ferner&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
                         "data-ref-id=\"" + termAndTermMetadata.get(0).getClassIdentifier() + "\">" +
                         "Joe Ferner</span>.";
         assertMatchStyleAndMeta(expectedText, highlightedText, 1);
@@ -423,7 +423,7 @@ public class EntityHighlighterTest {
         expectedText =
                 "Test highlight of <span class=\"resolved res " + termAndTermMetadata.get(0).getClassIdentifier() + "\" " +
                         "title=\"joe ferner\" " +
-                        "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;resolvedToVertexId&quot;:&quot;jf&quot;,&quot;resolvedToEdgeId&quot;:&quot;e2&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:18,&quot;termMentionFor&quot;:&quot;VERTEX&quot;,&quot;termMentionForElementId&quot;:&quot;jf&quot;,&quot;end&quot;:28,&quot;id&quot;:&quot;TM_18-28-eb6560a01113a23abf584241655b8a4c5af1bce0&quot;,&quot;outVertexId&quot;:&quot;v2&quot;,&quot;title&quot;:&quot;joe ferner&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
+                        "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;resolvedToVertexId&quot;:&quot;jf&quot;,&quot;resolvedToEdgeId&quot;:&quot;e2&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:18,&quot;termMentionFor&quot;:&quot;VERTEX&quot;,&quot;termMentionForElementId&quot;:&quot;jf&quot;,&quot;end&quot;:28,&quot;id&quot;:&quot;TM_18-28-8d0097f27c1db8255101a39f79ecfc8edd7886cf&quot;,&quot;outVertexId&quot;:&quot;v2&quot;,&quot;title&quot;:&quot;joe ferner&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
                         "data-ref-id=\"" + termAndTermMetadata.get(0).getClassIdentifier() + "\">" +
                         "Joe Ferner</span>.";
         assertMatchStyleAndMeta(expectedText, highlightedText, 1);
@@ -454,7 +454,7 @@ public class EntityHighlighterTest {
                 "<span " +
                     "class=\"resolved res " + termAndTermMetadata.get(1).getClassIdentifier() + "\" " +
                     "title=\"This\" " +
-                    "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;resolvedToEdgeId&quot;:&quot;e1&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:0,&quot;title&quot;:&quot;This&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;,&quot;resolvedToVertexId&quot;:&quot;v1&quot;,&quot;termMentionFor&quot;:&quot;VERTEX&quot;,&quot;termMentionForElementId&quot;:&quot;v1&quot;,&quot;end&quot;:4,&quot;id&quot;:&quot;TM_0-4-cc377e2478ec54c8e486a1a814b45e80b2d5db42&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;resolvedFromTermMentionId&quot;:&quot;TM_0-4-6e1990686375878517ed309bdc271b758164f939&quot;}\" " +
+                    "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;resolvedToEdgeId&quot;:&quot;e1&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/person&quot;,&quot;start&quot;:0,&quot;title&quot;:&quot;This&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;,&quot;resolvedToVertexId&quot;:&quot;v1&quot;,&quot;termMentionFor&quot;:&quot;VERTEX&quot;,&quot;termMentionForElementId&quot;:&quot;v1&quot;,&quot;end&quot;:4,&quot;id&quot;:&quot;TM_0-4-3b7d81410dfbf941c9a112cc78403ee46b2020eb&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;resolvedFromTermMentionId&quot;:&quot;TM_0-4-285df6dec9f0a1532d3b6b47cc4786f6a83d3488&quot;}\" " +
                     "data-ref-id=\"" + termAndTermMetadata.get(1).getClassIdentifier() + "\"" +
                 ">This</span> is a test sentence";
 
@@ -544,7 +544,7 @@ public class EntityHighlighterTest {
                 "Ejército de Liberación Nacional® partnered with " +
                     "<span class=\"resolvable res " + termAndTermMetadata.get(0).getClassIdentifier() + "\" " +
                         "title=\"US\" " +
-                        "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/location&quot;,&quot;start&quot;:48,&quot;end&quot;:50,&quot;id&quot;:&quot;TM_48-50-3921918b09b047c621b891f4f6ed60abb5d7f9e4&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;US&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
+                        "data-info=\"{&quot;process&quot;:&quot;EntityHighlighterTest&quot;,&quot;conceptType&quot;:&quot;http://openlumify.org/test/location&quot;,&quot;start&quot;:48,&quot;end&quot;:50,&quot;id&quot;:&quot;TM_48-50-b98bbf3f5c69f229af69e7c925656536dd875cbf&quot;,&quot;outVertexId&quot;:&quot;1&quot;,&quot;title&quot;:&quot;US&quot;,&quot;sandboxStatus&quot;:&quot;PRIVATE&quot;}\" " +
                         "data-ref-id=\"" + termAndTermMetadata.get(0).getClassIdentifier() + "\">" +
                         "US" +
                     "</span> on peace treaty";

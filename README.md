@@ -4,11 +4,9 @@ f[![Build Status](https://travis-ci.org/openlumify/openlumify.svg?branch=master)
 
 As the volume of data we collect has continued to grow, so too has the challenge of figuring out how best to leverage it. The problem has shifted from not having enough data to having too much. A whole "big data" industry has sprung up in record time to help customers deal with this problem. Dozens to hundreds of libraries, tools, and products have sprung up to fulfill the promise of fixing your data problem. While some are very good, it's unlikely that any are built specifically for your business problems. That's why we built OpenLumify.
 
-[Get started with OpenLumify](http://docs.openlumify.org/getting-started/index.html)
-
 ## How is OpenLumify different?
 
-OpenLumify is an **open source** big data **platform** for analytical tools and visualizations to help **people** solve **ambiguous problems**. The foundational motivations behind OpenLumify are
+OpenLumify is an **open source** big data **platform** for analytical tools and visualizations to help **people** solve **ambiguous problems**. The foundational motivations behind OpenLumify are: 
 
 * **Designed and Built as a Platform** - Companies don't build products to solve your exact problems. They build products to solve a certain class of problems that are hopefully similar enough to yours. OpenLumify is different. OpenLumify is built as a big data platform underpinning a suite of analytic and visualization plugins exposed through a clean, fast, web-based interface. Many plugins are available out of the box, but the real value is derived from the extensibility and customizability of the platform. It can truly be tailored to solve **your** problems.
 * **Built for People** - We recognize that the best analysis continues to be done by people. People are still better than computers at making analytical judgements in ambiguous situations, but can't handle the massive amounts of data we're accumulating. That's where OpenLumify comes in, helping people leverage huge quantities of data to analyze and solve problems.
