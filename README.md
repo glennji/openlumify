@@ -1,4 +1,4 @@
-f[![Build Status](https://travis-ci.org/openlumify/openlumify.svg?branch=master)](https://travis-ci.org/openlumify/openlumify)
+[![Actions Status](https://github.com/openlumify/openlumify/workflows/Java%20CI/badge.svg)](https://github.com/openlumify/openlumify/actions)
 
 ![OpenLumify Logo](http://openlumify.org/images/logos/openlumify.png)
 
